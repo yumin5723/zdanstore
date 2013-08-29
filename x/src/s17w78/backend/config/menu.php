@@ -21,7 +21,7 @@ return array(
         ),
         'manager'=>array(
             'name'=>'管理员',
-            'url'=>'/manager/admin',
+            'url'=>'/pp/manager/admin',
             'icon'=>'user',
         ),
     ),

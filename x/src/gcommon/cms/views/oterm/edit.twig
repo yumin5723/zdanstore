@@ -1,4 +1,4 @@
-{% extends "@cms/oterm/nav.twig" %}
+{% extends "@pp/oterm/nav.twig" %}
 {% set menu_name="新闻分类"%}
 {% set sidebar_name = "分类管理" %}
 {% block content %}
@@ -23,7 +23,6 @@
 {{ form.textFieldRow(model, "url", {'placeholder':'url'})|raw }}
   {{ form.textFieldRow(model, "short_name", {'placeholder':'short_name'})|raw }}
   {{ form.textFieldRow(model, "description", {'placeholder':'description'})|raw }}
-    {{ form.dropDownListRow(model, 'template_id', model.templates, {})|raw }}
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-large btn-primary">submit</button>

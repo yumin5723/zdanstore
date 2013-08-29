@@ -22,7 +22,7 @@ return array(
     ),
     'modules' => array(
         'cms' => array(
-            'class' => 'gcommon.cms.CmsModule',
+            'class' => 'gcommon.cms.PpModule',
             'domain' => 'www.17w78.com',
         ),
     ),

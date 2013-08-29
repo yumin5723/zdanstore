@@ -99,11 +99,6 @@ class Oterm extends CmsActiveRecord {
         $model->description = $this->description;
         $model->admin_id = $uid;
         if($model->appendTo($root)){
-            if($model->template_id != 0){
-                $model->template_id = OtermSubject::model()->getOtermPageId($model->id,$this->template_id);
-                $model->url = "/list/".$model->id."_1.html";
-                $model->saveAttributes(array("url"=>$model->url));
-            }
             return array(true, null);
         }
     }

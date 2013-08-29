@@ -43,9 +43,9 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
          *     ),
          * ),
          */
-        'cms' => array(
-            'class' => 'gcommon.cms.CmsModule',
-            'domain' => 'www.17w78.com',
+        'pp' => array(
+            'class' => 'gcommon.cms.PpModule',
+            // 'domain' => 'www.17w78.com',
         ),
         'srbac' => array(
             'class' => 'gcommon.extensions.srbac.SrbacModule',

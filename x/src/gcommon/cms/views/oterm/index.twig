@@ -1,4 +1,4 @@
-{% extends "@cms/oterm/nav.twig" %}
+{% extends "@pp/oterm/nav.twig" %}
 {% set menu_name="新闻分类"%}
 {% set sidebar_name = "分类管理" %}
 {% block content %}
@@ -15,13 +15,12 @@
                   'value':data.name
                 },
                 3:'short_name',
-                4:'url',
-                6:
+                4:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
                      'template':'{update} {delete}',
                      'buttons':{
-                    'update':{'url':'Yii::app()->createUrl("cms/oterm/show?root=$data->root")'},
+                    'update':{'url':'Yii::app()->createUrl("pp/oterm/show?root=$data->root")'},
                     }
                 }
             },})) 

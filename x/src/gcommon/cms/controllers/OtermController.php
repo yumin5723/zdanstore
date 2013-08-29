@@ -87,7 +87,7 @@ class OtermController extends GController {
             $model->setAttributes($_POST['Oterm']);
             $result = $model->setCategory($_POST['Oterm']['id'],Yii::app()->user->id);
             if($result[0] == true){
-                return $this->redirect('/cms/oterm/show/root/'.$root);
+                return $this->redirect('/pp/oterm/show/root/'.$root);
             }
             $model->setCategory($root);
         }
@@ -102,7 +102,7 @@ class OtermController extends GController {
             $model->name = $_POST['Oterm']['name'];
             $model->short_name = $_POST['Oterm']['short_name'];
             $model->saveNode();
-            $this->redirect("/cms/oterm/index");
+            $this->redirect("/pp/oterm/index");
         }
         $this->render("root",array('model'=>$model));
     }
@@ -117,10 +117,10 @@ class OtermController extends GController {
         if(isset($_POST['Oterm'])){
             if ($category->updateNode($parent,$_POST['Oterm']['parent_id'],Yii::app()->user->id)) {
                     $category->updateCategory($_POST['Oterm']);
-                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Successfully!'));
+                    Yii::app()->user->setFlash('success', Yii::t('pp', 'Successfully!'));
                     return $this->redirect(array('edit','id'=>$id));
                 } else {
-                    Yii::app()->user->setFlash('error', Yii::t('cms', 'Error!'));
+                    Yii::app()->user->setFlash('error', Yii::t('pp', 'Error!'));
                 }
             } 
         $this->render("edit",array("model"=>$category,'parent'=>$parent,'descendants'=>$descendants));
@@ -182,8 +182,8 @@ class OtermController extends GController {
         }
         $result = $category->doPublish();
         if($result !== false){
-            Yii::app()->user->setFlash( 'success', Yii::t( 'cms', '发布成功!' ) );
-            return $this->redirect("/cms/oterm/show?root=".$category->root);
+            Yii::app()->user->setFlash( 'success', Yii::t( 'pp', '发布成功!' ) );
+            return $this->redirect("/pp/oterm/show?root=".$category->root);
         }
     }
 }

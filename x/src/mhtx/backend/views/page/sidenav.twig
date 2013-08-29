@@ -1,4 +1,0 @@
-{% set navs = {'list':'页面列表', 'create':'新建页面'} %}
-{% for nav_l, nav_n in navs %}
-<li class="{% if nav_l == active_nav_name %}active{% endif %}"><a href="{{ this.createUrl(nav_l)}}"><i class="icon-chevron-right"></i> {{ nav_n }} </a></li>
-{% endfor %}
