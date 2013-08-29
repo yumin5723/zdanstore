@@ -1,5 +1,5 @@
 --
--- Table structure for table `user`
+-- Table structure for table `ustester`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
