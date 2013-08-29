@@ -1,0 +1,55 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "找回密码" %}
+{% block header %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block content %}
+
+<div class="login_main mbg">
+    <div class="reg_box clearfix">
+        <div class="reg_pic"><img src="{{ App.assets.Url }}/images/user/reg_pic.png"/></div>
+        <div class="reg_info">
+            <div class="succ">
+                <p>
+                    <span class="red">找回密码的邮件已经发到您邮箱,请查收!</span><br>
+                    点此进入邮箱<a href="#" target="_blank" class="ablue" id="getEmail">{{ user.email }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var hash={
+ 'qq.com': 'http://mail.qq.com',
+ 'gmail.com': 'http://mail.google.com',
+ 'sina.com': 'http://mail.sina.com.cn',
+ '163.com': 'http://mail.163.com',
+ '126.com': 'http://mail.126.com',
+ 'yeah.net': 'http://www.yeah.net/',
+ 'sohu.com': 'http://mail.sohu.com/',
+ 'tom.com': 'http://mail.tom.com/',
+ 'sogou.com': 'http://mail.sogou.com/',
+ '139.com': 'http://mail.10086.cn/',
+ 'hotmail.com': 'http://www.hotmail.com',
+ 'live.com': 'http://login.live.com/',
+ 'live.cn': 'http://login.live.cn/',
+ 'live.com.cn': 'http://login.live.com.cn',
+ '189.com': 'http://webmail16.189.cn/webmail/',
+ 'yahoo.com.cn': 'http://mail.cn.yahoo.com/',
+ 'yahoo.cn': 'http://mail.cn.yahoo.com/',
+ 'eyou.com': 'http://www.eyou.com/',
+ '21cn.com': 'http://mail.21cn.com/',
+ '188.com': 'http://www.188.com/',
+ 'foxmail.com': 'http://www.foxmail.com'
+};
+$(function(){
+ var getemail = $("#getEmail").text().split('@')[1];
+ var goEmail = hash[getemail];
+ if(typeof(goEmail) != "undefined"){
+  $("#getEmail").attr("href", goEmail);
+ }else{
+  $("#getEmail").attr("href","http://mail."+getemail);  
+ }
+}) 
+</script>
+{% endblock %}

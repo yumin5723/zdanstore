@@ -1,0 +1,29 @@
+{% extends "game/index.twig" %}
+{% set menu_name="联运管理"%}
+{% set sidebar_name = "管理CP" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+            {{ form.textFieldRow(model, "app_name", {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, "short_name", {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, "charge_key", {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, "gate_key", {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, "gate_id", {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, "gate_url", {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, "charge_url", {'placeholder':''})|raw }}
+            {{ form.dropDownListRow(model, 'gate_chn', model.gatechntypes, {})|raw }}
+            {{ form.dropDownListRow(model, 'charge_chn', model.chargechntypes, {})|raw }}
+            {{ form.dropDownListRow(model, 'type', model.getAppType(), {})|raw }}
+            {{ form.dropDownListRow(model, 'status', model.getStatus(), {})|raw }}
+            {{ form.textFieldRow(model, 'charge_amount', {'placeholder':''})|raw }}
+            {{ form.textFieldRow(model, 'tel', {'placeholder':''})|raw }}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-large btn-primary">提交</button>
+                </div>
+            </div>
+        {{ void(this.endWidget()) }}<!-- form -->
+    </div>
+</div>
+{% endblock %}

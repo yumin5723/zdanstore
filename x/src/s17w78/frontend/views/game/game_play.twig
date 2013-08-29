@@ -1,0 +1,147 @@
+{% extends "/layouts/base.twig" %}
+{% set page_title = p_title %}
+{% set keywords = p_k %}
+{% set description = p_d %}
+{% block header %}
+{% include "/layouts/game_header.twig" %}
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src="/game/js/swfobject.js" ></script>
+<script type="text/javascript">
+function playNotifySnd() {
+  swfobject.removeSWF("{{ game.url }}","myFlash");
+  swfobject.embedSWF("{{ game.url }}","myFlash","600","420", "6.0.0");
+}
+playNotifySnd();
+</script>
+<div class="container">
+	<div class="game_subnav">当前位置：<a href="{{ this.createUrl('/game/index')}}">棋牌游戏</a> > <a href="{{ this.createUrl('/game/list')}}">小游戏</a> > {{ game.name }}</div>
+    <div class="play_box">
+    	<div class="play_main clearfix">
+        	<div class="play_area">
+                <div class="title clearfix">
+                    <h3>{{ game.name }}</h3>
+                    <a href="javascript:void(0);" onclick="javascript:addFavorite();" class="fav"><img src="/game/images/game/play_fav.png" width="112" height="21" /></a>
+                </div>
+                <div class="content">
+                	  <div class="play_pic" id="myFlash">
+                        
+                    </div>
+                    <div class="play_operate clearfix">
+                    	<ul class="fl">  
+                            <li><a href="javascript:void(0);" onclick="javascript:addFavorite();" class="icon_favor">收藏</a></li>
+                            <!--
+                            <li><a href="javascript:void(0);" class="icon_invite">邀请Q友</a></li>
+                            <li><a href="javascript:void(0);" class="icon_feedback">反馈</a></li>
+                            <li><a href="javascript:void(0);" class="icon_comment">评论(<span class="red">0</span>)</a></li>
+                            -->
+                        </ul>
+                        <ul class="fr">  
+                            <li><a href="{{ game.url }}" target="_blank" class="icon_fullscr">全屏</a></li>
+                            <li><a href="javascript:void(0);" class="icon_replay" onclick="playNotifySnd();">重玩</a></li>
+                        </ul>
+                    </div>
+              	</div>
+                <div class="share clearfix">
+                	<div class="fl">
+                        <!-- Baidu Button BEGIN -->
+                        <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                        <span class="bds_more">分享到：</span>
+                        <a class="bds_tsina"></a>
+                        <a class="bds_qzone"></a>
+                        <a class="bds_tqq"></a>
+                        <a class="bds_renren"></a>
+                        <a class="bds_sqq"></a>
+                        <a class="bds_kaixin001"></a>
+                        <a class="shareCount"></a>
+                        </div>
+                        <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6666761" ></script>
+                        <script type="text/javascript" id="bdshell_js"></script>
+                        <script type="text/javascript">
+                        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                        </script>
+                        <!-- Baidu Button END -->
+                    </div>
+                    <div class="fr">更多棋牌游戏请点击：<a href="{{ this.createUrl('/game/index')}}" class="ablue">1378.com</a></div>
+                </div>
+            </div>
+            
+            <div class="play_hot">
+            	<div class="title">
+                	<ul class="clearfix">
+                    	<li class="cur">相关推荐</li>
+                        <!-- <li>安卓游戏</li>
+                        <li>苹果游戏</li> -->
+                    </ul>
+                </div>
+                <div class="content">
+                	<div class="game_list">
+                        <ul class="clearfix">
+                            {% for game in related_games %}
+                                <li>
+                                <a href="{{ this.createUrl('/game/detail',{'id': game.id })}}"><img src="{{ game.image }}" height="70" width="70" /></a>
+                                <span class="name"><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}">{{ game.name }}</a></span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="about_box mtop10">
+        <div class="title"><h3>游戏详情</h3></div>
+        <div class="content clearfix">
+            <div class="play_detail">
+            	<p>
+            	<strong>操作指南：</strong><br />
+                {{ game.operations_guide }}
+                </p>
+                <p>
+                <strong>如何开始：</strong><br />
+                {{ game.how_begin}}
+                </p>
+                <p>
+                <strong>游戏目标：</strong><br />
+                {{ game.target}}
+                </p>
+            </div>
+          <div class="play_baseinfo">
+           	<p>
+                <strong>小游戏简介：</strong><br />
+                {{ game.desc }}
+              </p>
+              <p>
+            <strong>类型：</strong>棋牌双人益智</p>
+          </div>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+function getFlashMovieObject(movieName)  
+ {  
+   if (window.document[movieName])  
+   {  
+       return window.document[movieName];  
+   }  
+   if (navigator.appName.indexOf("Microsoft Internet")==-1)  
+   {  
+     if (document.embeds && document.embeds[movieName])  
+       return document.embeds[movieName];  
+   }  
+   else // if (navigator.appName.indexOf("Microsoft Internet")!=-1)  
+   {  
+     return document.getElementById(movieName);  
+   }  
+ } 
+function RewindFlashMovie()
+{
+var flashMovie=getFlashMovieObject("Myflash");
+flashMovie.Rewind();
+}
+</script>
+{% endblock %}

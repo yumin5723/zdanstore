@@ -1,0 +1,10 @@
+<h2>产品库管理<span class="info">来创建和管理您的产品吧</span></h2>
+<script src="{{ App.assets.Url }}/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <ul class="filter nav nav-pills">
+      <li {% if nav_name == "create" %} class="active" {% endif %}>
+        <a href="{{ this.createUrl('admin',{type_id:44})}}" data-filter=".element">麻将类游戏管理</a>
+      </li>
+      <li {% if nav_name == "admin" %} class="active" {% endif %}><a href="{{ this.createUrl('admin',{type_id:45})}}" data-filter=".sampleFilterOnetrue">棋牌类游戏管理</a></li>
+    </ul>
+    <br />
+    <br />

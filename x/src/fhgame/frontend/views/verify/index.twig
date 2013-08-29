@@ -1,0 +1,71 @@
+ <form name="verify_form" id="verify_form" method="post" action="create">
+用户名：<input type="text" id="user_name" name="Verify[user_name]"/><br>
+密码：<input type="text" id="user_pwd" name="Verify[user_pwd]"/><br>
+真实姓名：<input type="text" id="real_name" name="Verify[real_name]"/><br>
+身份证号：<input type="text"  id="ID_num" name="Verify[ID_num]"/><br>
+联系方式：<input type="text"  id="tel" name="Verify[tel]"/><br>
+<input type="submit" value="进行验证" name="submit"/>
+</form>
+<script type="text/javascript">
+$("#verify_form").submit(
+	function()
+	{
+		var user_name = document.getElementById("user_name").value;
+		var id_num = document.getElementById("ID_num").value;
+		var tel = document.getElementById("tel").value;
+		var real_name = document.getElementById("real_name").value;
+		var user_pwd = document.getElementById("user_pwd").value;
+		if(user_cn != '')
+		{
+			
+		}
+		else
+		{
+			alert('用户名不能为空!');
+			$("#user_name").focus();
+			return false;
+		}
+		if(user_pwd  != '')
+		{
+			
+		}
+		else
+		{
+			alert('密码不能为空!');
+			$("#user_pwd").focus();
+			return false;
+		}
+
+		if(user_name != '')
+		{
+			
+		}
+		else
+		{
+			alert('真实姓名不能为空!');
+			$("#user_name").focus();
+			return false;
+		}
+		if(id_num  != '')
+		{
+			
+		}
+		else
+		{
+			alert('身份证不能为空!');
+			$("#ID_num").focus();
+			return false;
+		}
+		if(tel  != '')
+		{
+			
+		}
+		else
+		{
+			alert('联系方式不能为空!');
+			$("#tel").focus();
+			return false;
+		}
+	}
+)
+</script>

@@ -1,0 +1,321 @@
+{% extends "/webgame/base.twig" %}
+{% set title = "棋牌页游_在线棋牌网页游戏_在线棋牌网页游戏大全_1378棋牌网" %}
+{% set keywords = "在线棋牌游戏,在线棋牌游戏大全,棋牌游戏中心,棋牌游戏在线玩,1378棋牌网" %}
+{% set description = "1378棋牌网(www.1378.com)棋牌页游专题为大家提供在线棋牌网页游戏,在线棋牌网页游戏大全,无需下载,大家可以高高兴兴棋牌游戏在线玩。" %}
+{% block sidebar_header %}
+<p class="web_tool clearfix">
+    <a href="javascript:void(0);" onclick="addFavorite()" class="fav_ico">加入收藏</a><span>|</span><a href="/todesktop" class="url_ico">保存到桌面</a>
+</p>
+{% endblock %}
+{% block content %}
+{% set nav_name = "index" %}
+<script data-main="{{ App.assets.Url }}/js/main" src="{{ App.assets.Url }}/js/lib/require.js" type="text/javascript"></script>
+<div class="w_box1 clearfix">
+    <div class="w_focus">
+        <div class="focus_box">
+            <div class="bigimg">
+                <ul>
+                    <li class="hover">
+                        <a target="_blank" href="http://www.1378.com/webgame/dzpk.html"><img src="{{ App.assets.Url}}/images/webgame/pic/f1.jpg"></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.1378.com/webgame/ddz.html"><img src="{{ App.assets.Url}}/images/webgame/pic/f2.jpg"></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.1378.com/webgame/play/1030"><img src="{{ App.assets.Url}}/images/webgame/pic/f5.jpg"></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.1378.com/webgame/play/1032"><img src="{{ App.assets.Url}}/images/webgame/pic/f6.jpg"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="imginfo">
+                <span class="lbtn"></span>
+                <span class="rbtn"></span>
+                <div class="litimg">
+                    <ul id="litimgScroll">
+                        <li>
+                            <a target="_blank" href="http://www.1378.com/webgame/dzpk.html"><img src="{{ App.assets.Url}}/images/webgame/pic/f1_s.jpg"></a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.1378.com/webgame/ddz.html"><img src="{{ App.assets.Url}}/images/webgame/pic/f2_s.jpg"></a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.1378.com/webgame/play/1030"><img src="{{ App.assets.Url}}/images/webgame/pic/f5_s.jpg"></a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.1378.com/webgame/play/1032"><img src="{{ App.assets.Url}}/images/webgame/pic/f6_s.jpg"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- focus -->
+    
+    <div class="w_hd">
+        <div class="w_login">
+                {% if App.user.id is empty %}
+                    <div data-preload="true" data-view="login">
+                         <div class="error_tip" data-bind="error_show"></div>
+                         <ul>
+                            <li class="clearfix">
+                                <span class="f1">账号：</span>
+                                <span class="f2">
+                                    <input type="text" data-bind="username" id="username" class="w_input" />
+                                </span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="f1">密码：</span>
+                                <span class="f2">
+                                    <input data-bind="password" id="userpwd" type="password" class="w_input" />
+                                </span>
+                            </li>
+                            <li class="captcha_div clearfix" style="display:none">
+                                <span class="f1">验证码：</span>
+                                <span class="f2">
+                                    <input data-bind="captcha" id="captcha" type="text" class="w_input" style="width:60px;" />
+                                    <img class="captchaImg" height="30" align="absmiddle"/></td>
+                                </span>
+                            <li class="clearfix">
+                                <span class="f1">&nbsp;</span>
+                                <span class="f2"><input type="button" data-bind="login" value="登录" class="w_btn1" /> <a href="http://i.1378.com/user/recover">忘记密码？</a></span>
+                            </li>
+                        </ul>
+                        <p>还没有账号？<a href="http://i.1378.com/user/register" class="aw">立即注册</a></p>
+                    </div>
+            {% else %}
+            <div class="login_info clearfix">
+                <img src="{% if u.getAvatar is empty %}{{ App.assets.Url}}/images/user_none.jpg{% else %}{{ u.getAvatar }}{% endif %}" width="62" height="62" class="pic">
+                <div class="info">
+                    {{ u.nickname }}<br>
+                    <a href="http://i.1378.com" target="_blank">用户中心</a> 
+                    {% if u.userisreg %}
+                    | <a href="http://i.1378.com/user/logout">退出</a><br>
+                    点券：<span class="red">{{ u.gold }}</span> <a href="/pay" target="_blank">立即充值</a><br>
+                    {% else %}
+                    | <a href="http://i.1378.com/user/rereg">完成注册</a><br>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="played">
+                <h3>我最近玩过的游戏</h3>
+                <div class="content">
+                    <dl class="clearfix">
+                        {% for game in u.playedgames %}
+                        <dd><a href="{{this.createUrl('/webgame/play',{'id':game.app_id })}}" target="_blank"><img src="{{ App.assets.Url }}/images/game/game{{ game.app_id }}.jpg"></a></dd>
+                        {% endfor %}
+                    </dl>
+                </div>
+            </div>
+        {% endif %}
+        </div><!-- login -->
+
+        <div class="w_match">
+            <div class="title clearfix">
+                <h3>赛事中心</h3>
+                <a href="">查看更多赛事</a>
+            </div>
+            <div class="content">
+                <div class="match_box" id="scrollbar1">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                    <div class="viewport">
+                        <div class="overview">
+                            <ul class="match_list">
+                                <!--{% for active in gameactive %}
+                                    <li {% if loop.index == 1 %} class="m1" {% else %} class="m2" {% endif %}>
+                                        <img src="{{ active.image }}" class="pic" />
+                                        <div class="info">
+                                           <strong>{{ active.name }}</strong>
+                                           <h3>{{ active.gname }}</h3>
+                                           {{ active.time }}
+                                        </div>
+                                        <div class="bm">
+                                           <span class="star" style="width:80px;"></span> 
+                                           <a href="{{ active.url }}" class="btn">立即报名</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}-->
+                                <li class="m1">
+                                    <img src="{{ App.assets.Url}}/images/webgame/pic/m1.jpg" class="pic" />
+                                    <div class="info">
+                                       <strong>3个红宝石</strong>
+                                       <h3>新手争霸赛</h3>
+                                       每3分钟1场
+                                    </div>
+                                    <div class="bm">
+                                       <span class="star" style="width:80px;"></span> 
+                                       <a href="http://www.1378.com/webgame/play/1007" class="btn" target="_blank">立即报名</a>
+                                    </div>
+                                </li>
+                                <li class="m1">
+                                    <img src="{{ App.assets.Url}}/images/webgame/pic/m2.jpg" class="pic" />
+                                    <div class="info">
+                                       <strong>3个红宝石</strong>
+                                       <h3>红宝石新手赛</h3>
+                                       满12人即可开赛
+                                    </div>
+                                    <div class="bm">
+                                       <span class="star" style="width:80px;"></span> 
+                                       <a href="http://www.1378.com/webgame/play/1007" class="btn" target="_blank">立即报名</a>
+                                    </div>
+                                </li>
+                                <li class="m2">
+                                    <img src="{{ App.assets.Url}}/images/webgame/pic/m3.jpg" class="pic" />
+                                    <div class="info">
+                                       <strong>Lv2闯关门票1张</strong>
+                                       <h3>黄金联赛闯关赛Lv1</h3>
+                                       每10分钟1场
+                                    </div>
+                                    <div class="bm">
+                                       <span class="star" style="width:80px;"></span> 
+                                       <a href="http://www.1378.com/webgame/play/1007" class="btn" target="_blank">立即报名</a>
+                                    </div>
+                                </li>
+                                <li class="m2">
+                                    <img src="{{ App.assets.Url}}/images/webgame/pic/m4.jpg" class="pic" />
+                                    <div class="info">
+                                       <strong>Lv3闯关门票</strong>
+                                       <h3>黄金联赛闯关赛Lv2</h3>
+                                       满24人即可开赛
+                                    </div>
+                                    <div class="bm">
+                                       <span class="star" style="width:80px;"></span> 
+                                       <a href="http://www.1378.com/webgame/play/1007" class="btn" target="_blank">立即报名</a>
+                                    </div>
+                                </li>
+                                <li class="m2">
+                                    <img src="{{ App.assets.Url}}/images/webgame/pic/m5.jpg" class="pic" />
+                                    <div class="info">
+                                       <strong>黄金联赛半决赛门票</strong>
+                                       <h3>黄金联赛闯关赛Lv3</h3>
+                                       7月16日21点
+                                    </div>
+                                    <div class="bm">
+                                       <span class="star" style="width:80px;"></span> 
+                                       <a href="http://www.1378.com/webgame/play/1007" class="btn" target="_blank">立即报名</a>
+                                    </div>
+                                </li>
+                                <li class="m2">
+                                    <img src="{{ App.assets.Url}}/images/webgame/pic/m6.jpg" class="pic" />
+                                    <div class="info">
+                                       <strong>黄金联赛总决赛门票</strong>
+                                       <h3>黄金联赛闯关半决赛</h3>
+                                       7月31日21点
+                                    </div>
+                                    <div class="bm">
+                                       <span class="star" style="width:80px;"></span> 
+                                       <a href="http://www.1378.com/webgame/play/1007" class="btn" target="_blank">立即报名</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- match -->
+
+    </div><!-- hd -->
+</div><!-- w_box1 -->
+
+<div class="wgame_box">
+    <h3>热门棋牌页游</h3>
+    <div class="content">
+        <ul class="tabs clearfix">
+            <li class="cur" data-tab="con1">全部游戏</li>
+            <li data-tab="con2">德州扑克</li>
+            <li data-tab="con3">斗地主</li>
+            <li data-tab="con4">麻将</li>
+            <li data-tab="con5">其他游戏</li>
+        </ul>
+        <div id="con1" class="tabcon">
+            <ul class="list clearfix" id="itemContainer">
+                {% for all in allgames %}
+                <li>
+                    <a href="{{ this.createUrl('/webgame/play',{'id':all.id })}}" target="_blank"><img src="{{ App.assets.Url}}/images/game/game{{ all.id}}.jpg" width="119" height="64"></a>
+                    <p>
+                        <a href="{{ this.createUrl('/webgame/play',{'id':all.id })}}" target="_blank">{{ all.app_name }}</a><br>
+                        <!-- <span class="red">1120人</span>在玩 -->
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="page"><div class="holder"></div></div>
+        </div><!-- con1 -->
+        <div id="con2" class="tabcon" style="display:none;">
+            <ul class="list clearfix">
+                {% for dp in dzpkgames %}
+                <li>
+                    <a href="{{ this.createUrl('/webgame/play',{'id':dp.id })}}" target="_blank"><img src="{{ App.assets.Url}}/images/game/game{{ dp.id}}.jpg" width="119" height="64"></a>
+                    <p>
+                        <a href="{{ this.createUrl('/webgame/play',{'id':dp.id })}}" target="_blank">{{ dp.app_name }}</a><br>
+                        <!-- <span class="red">1120人</span>在玩 -->
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- con2 -->
+        <div id="con3" class="tabcon" style="display:none;">
+            <ul class="list clearfix">
+                {% for ddz in ddzgames %}
+                <li>
+                    <a href="{{ this.createUrl('/webgame/play',{'id':ddz.id })}}" target="_blank"><img src="{{ App.assets.Url}}/images/game/game{{ ddz.id}}.jpg" width="119" height="64"></a>
+                    <p>
+                        <a href="{{ this.createUrl('/webgame/play',{'id':ddz.id })}}" target="_blank">{{ ddz.app_name }}</a><br>
+                        <!-- <span class="red">1120人</span>在玩 -->
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- con3 -->
+        <div id="con4" class="tabcon" style="display:none;">
+            <ul class="list clearfix">
+                {% for mj in mjgames %}
+                <li>
+                    <a href="{{ this.createUrl('/webgame/play',{'id':mj.id })}}" target="_blank"><img src="{{ App.assets.Url}}/images/game/game{{ mj.id}}.jpg" width="119" height="64"></a>
+                    <p>
+                        <a href="{{ this.createUrl('/webgame/play',{'id':mj.id })}}" target="_blank">{{ mj.app_name }}</a><br>
+                        <!-- <span class="red">1120人</span>在玩 -->
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- con4 -->
+        <div id="con5" class="tabcon" style="display:none;">
+            <ul class="list clearfix">
+                {% for other in othergames %}
+                <li>
+                    <a href="{{ this.createUrl('/webgame/play',{'id':other.id })}}" target="_blank"><img src="{{ App.assets.Url}}/images/game/game{{ other.id}}.jpg" width="119" height="64"></a>
+                    <p>
+                        <a href="{{ this.createUrl('/webgame/play',{'id':other.id })}}" target="_blank">{{ other.app_name }}</a><br>
+                        <!-- <span class="red">1120人</span>在玩 -->
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- con5 -->
+    </div>
+</div><!-- w_box2 -->
+
+<div class="w_active">
+    <h3 class="title">热门活动</h3>
+    <div class="content">
+        <ul class="clearfix">
+<!--             {% for active in gameother %}
+                <li><a href="{{ active.url }}"><img src="{{ active.image }}" alt="" title="{{ active.name }}"/></a></li>
+            {% endfor %} -->
+            <li><a href="http://www.1378.com/webgame/play/1031" target="_blank"><img src="{{ App.assets.Url}}/images/webgame/pic/a7.jpg" alt="" title="德州扑克活动"/></a></li>
+            <li><a href="http://www.1378.com/webgame/play/1002" target="_blank"><img src="{{ App.assets.Url}}/images/webgame/pic/a2.jpg" alt="" title="德州扑克活动"/></a></li>
+            <li><a href="http://www.1378.com/webgame/play/1002" target="_blank"><img src="{{ App.assets.Url}}/images/webgame/pic/a3.jpg" alt="" title="德州扑克活动"/></a></li>
+            <li><a href="http://www.1378.com/webgame/play/1006" target="_blank"><img src="{{ App.assets.Url}}/images/webgame/pic/a4.jpg" alt="" title="德州扑克活动"/></a></li>
+            <li><a href="http://www.1378.com/webgame/play/1028" target="_blank"><img src="{{ App.assets.Url}}/images/webgame/pic/a6.jpg" alt="" title="德州扑克活动"/></a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("input").focus(function(){
+            $(".error_tip").hide();
+        });
+    });
+</script>
+{% endblock %}

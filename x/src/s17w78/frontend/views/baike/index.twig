@@ -1,0 +1,74 @@
+{% extends "/baike/base.twig" %}
+{% set page_title = "棋牌百科_棋牌玩法介绍_棋牌游戏怎么玩_棋牌游戏玩法大全_1378棋牌网" %}
+{% set keywords = "棋牌百科,棋牌产品,棋牌游戏,棋牌游戏推荐,棋牌游戏大全,1378棋牌网" %}
+{% set description = "1378棋牌网(www.1378.com)棋牌百科专题为大家提供更多棋牌产品,棋牌玩法,棋牌技巧,棋牌游戏玩法,棋牌游戏大全服务。" %}
+{% block header %}
+{% include "/baike/product_header.twig" %}
+{% endblock %}
+{% block content %}
+
+<!--MAIN-->
+
+    	<div class="baike_box fl">
+        	<div class="baike_search">
+            	<h3>棋牌百科搜索：</h3>
+                <form method="get" action="/baike/index" >
+                <div class="search"><input type="text" {% if pname is empty %}value ='搜索棋牌游戏'{% else %} value="{{ pname }}"{% endif %} onfocus="if(this.value == '搜索棋牌游戏') this.value = ''" onblur="if(this.value =='') this.value = '搜索棋牌游戏'" class="baike_input" name="pname"><button type="submit" class="baike_btn">搜索</button></div>
+                </form>
+                <div class="hot">热门：
+                    {% for k,v in hots %}
+                    <a href="/baike/detail/{{ v.id }}" target="_blank">{{ v.name }}</a> 
+                    {% endfor %}</div>
+            </div>
+            <div class="baike_abc clearfix">
+            	<h3>按游戏首字母搜索：</h3>
+
+                <div class="abc">
+                    <a href="/baike"{% if type == '' %} class="cur"{% endif %}>全部</a>
+                    {% for letter in range('A','Z') %}
+                    <a href="/baike/index/type/{{ letter }}{% if cid != '' %}/cid/{{ cid }}{% endif %}"{% if type == letter %} class="cur"{% endif %}>{{ letter }}</a>
+                    {% endfor %}
+                	
+                </div>
+            </div>
+            <ul class="baike_tab clearfix">
+            	<li {% if cid == '' %}class="cur"{% endif %}><a href="/baike/index">全部</a></li>
+                {% for c,term in term_small %}
+                <li {% if cid == c %}class="cur"{% endif %}><a href="/baike/index/cid/{{ c }}">{{ term }}</a></li>
+                {% endfor %}
+                <li class="other">1378共整理172种麻将玩法，如您有新玩法请邮件至webcs@mhgame.com</li>
+            </ul>
+            <div class="baike_list">
+            	<ul class="clearfix">
+                    {% if all_product is empty %}
+                        对不起，暂时没有相关游戏！
+                    {% else %}
+                        {% for c,term in all_product %}
+                    	<li>
+                        	<a href="/baike/detail/{{ term.id }}" target="_blank"><img src="{{ term.image }}" width="140" height="84" />
+                            <span class="name">{{ term.name }}</span></a>
+                            <span class="pt">平台：<a href="{{ term.g_related.url }}" target="_blank">{{ term.g_related.name }}</a></span>
+                            <span class="link"><a href="/baike/detail/{{ term.id }}" target="_blank">游戏规则</a> | <a href="/baike/detail/{{ term.id }}" target="_blank">玩法技巧</a></span>
+                        </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+                <div class="page"><div>{{ pages|raw }}</div></div>
+            </div>
+            <script language="javascript">
+            	$(".baike_list li").hover(function(){
+					$(".baike_list li").removeClass("hover");
+					$(this).addClass("hover");	
+				},function(){
+					$(this).removeClass("hover");
+				});
+            </script>
+        </div>
+        
+
+<!--MAIN-->
+
+{% endblock %}
+{% block right %}
+{% include "/baike/right.twig" %}
+{% endblock %}

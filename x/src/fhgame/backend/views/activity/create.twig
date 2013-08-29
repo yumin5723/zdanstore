@@ -1,0 +1,11 @@
+{% extends "activity/index.twig" %}
+{% set menu_name="活动"%}
+{% set sidebar_name = "新建页面" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+      {% include "activity/form.twig" %}
+    </div>
+</div>
+{% endblock %}
+

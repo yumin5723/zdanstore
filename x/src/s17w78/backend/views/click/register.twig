@@ -1,0 +1,46 @@
+{% extends "game/index.twig" %}
+{% set menu_name="广告统计"%}
+{% set sidebar_name = "当日注册用户" %}
+{% block content %}
+<section id="main1">
+  <div class="page-header">
+    <h2><a href="/click/register/1?type={{ type }}">当日注册用户 </a>| <a href="/click/register/2?type={{ type }}">昨日注册用户</a>|<a href="/click/register/3?type={{ type }}">所有注册用户</a>
+    </h2><a href="/click/register/{{ id }}?type=3 ">用户在线时间</a>|<a href="/click/register/{{ id }}?type=">zhuce</a>
+  </div>
+  <div class="row-fluid">
+  {{ void(this.widget('bootstrap.widgets.TbGridView',{
+	  'id':'order-grid',
+	  'type':'bordered condensed',
+	  'dataProvider':dataProvider,
+	  'columns':[
+	   {
+	      'name': 'id',
+	      'value':'$data->id'
+	   },
+	   {
+	      'name': '昵称',
+	      'value':'$data->nickname'
+	   },
+	   {
+	      'name': '用户名',
+	      'value':'$data->username'
+	   },
+	   {
+	      'name': '游戏时长',
+	      'value':'$data->userplaytime'
+	   },
+	   {
+	      'name': '邮箱',
+	      'value':'$data->email'
+	   },
+	   {
+	      'name': '注册时间',
+	      'value':'$data->created'
+	   },
+	  ]
+  })) }}
+  </div>
+</section>
+
+
+{% endblock %}

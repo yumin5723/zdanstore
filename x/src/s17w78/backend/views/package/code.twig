@@ -1,0 +1,42 @@
+{% extends "game/index.twig" %}
+{% set menu_name="礼包管理"%}
+{% set sidebar_name = "礼包管理" %}
+{% block content %}
+    {{ package.name }}
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':result, 
+            'columns':{
+                0:'id',
+                1:'batch_number',
+                2:
+                {
+                    'name':'当前状态',
+                    'value':'($data->status== 0) ? "未使用" : "已使用"',
+                    "type":"raw",
+                },
+                3:
+                {
+                    'name':'使用时间',
+                    'value':'($data->used_time == "0000-00-00 00:00:00") ? "" : "$data->used_time"',
+                    "type":"raw",
+                },
+                4:'code',
+                5:
+                {
+                    'name':'用户名',
+                    'value':'isset($data->user->username) ? $data->user->username : "" ',
+                    'type':"raw",
+                },
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("package/admincode",array("batch_number"=>$data->batch_number))'},
+                      },
+                      'htmlOptions':{'width':'50px'}
+                }
+            },})) 
+         }}
+{% endblock %}

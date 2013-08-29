@@ -1,0 +1,28 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+
+      <li class="hidden-phone"><a href="" role="button">Welcome</a></li>
+      <li id="fat-menu" class="dropdown">
+        <a href="index.html#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-user"></i> {{ App.user.name }}
+          <i class="icon-caret-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="/manager/changepass">Change pass</a></li>
+          <li><a tabindex="-1" href="/site/logout">Logout</a></li>
+          </ul>
+      </li>
+
+    </ul>
+    <a class="brand" href="index.html">zdanstore.com管理后台</a>
+  </div>
+</div>   
+<div id="main-menu">
+  <ul class="nav nav-tabs">
+    {% for menu in App.RoleMenu.Tops %}
+    <li class=" {% if menu_name == menu.name %}active{% endif %}"><a href="{{ this.createUrl(menu.url) }}"><i class="icon-{{ menu.icon }}"></i> <span>{{ menu.name }}</span></a></li>
+    {% endfor %}
+  </ul>
+</div>

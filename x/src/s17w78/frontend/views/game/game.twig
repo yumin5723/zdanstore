@@ -1,0 +1,248 @@
+{% extends "/layouts/base.twig" %}
+{% set page_title = "棋牌游戏_棋牌游戏中心_棋牌小游戏大全_1378棋牌网" %}
+{% set keywords = "棋牌游戏,棋牌游戏中心,棋牌小游戏,棋牌小游戏大全,1378棋牌网" %}
+{% set description = "1378棋牌网(www.1378.com)棋牌游戏中心为大家提供各种好玩的棋牌游戏,棋牌小游戏,棋牌小游戏大全。" %}
+{% block header %}
+{% include "/layouts/game_header.twig" %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- 推荐小游戏 -->
+    <div class="game_hotbox mtop10 clearfix">
+        <div class="title">热门小游戏推荐</div>
+        <div class="content">
+            <div class="g_left" id="mleft"></div>
+            <div class="hotgame_list" id="gamesdiv">
+            <!--横向滚动条1开始-->
+            <div class="g_li">
+            <ul>
+                {% for game in small_recommend %}
+                <li><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank"><img src="{{ game.recommend_image}}" alt="{{ game.name }}">{{ game.name }}</a></li>
+                {% endfor %}
+            </ul>
+            </div>
+            <!--横向滚动条2结束-->
+            </div>
+            <div class="g_right" id="mright"></div>
+        </div>
+        <script type="text/javascript">
+        var scrollPic_01 = new ScrollPic();
+        scrollPic_01.scrollContId   = "gamesdiv"; //内容容器ID
+        scrollPic_01.arrLeftId      = "mleft";//左箭头ID
+        scrollPic_01.arrRightId     = "mright"; //右箭头ID
+        
+        scrollPic_01.frameWidth     = 880;//显示框宽度
+        scrollPic_01.pageWidth      = 880; //翻页宽度
+        
+        scrollPic_01.speed          = 10; //移动速度(单位毫秒，越小越快)
+        scrollPic_01.space          = 80; //每次移动像素(单位px，越大越快)
+        scrollPic_01.autoPlay       = false; //自动播放
+        scrollPic_01.autoPlayTime   = 3; //自动播放间隔时间(秒)
+        
+        scrollPic_01.initialize(); //初始化
+        </script>
+    </div>
+    <!-- 推荐小游戏 -->
+
+    <!-- 小游戏 -->
+    <div class="game_box mtop10">
+        <div class="title clearfix">
+            <h3>小游戏</h3>
+            <span class="sort" id="sortList">
+                <a href="javascript:void(0);" onclick ="IndexGame('gamelist',{{ small_id }});" class="cur" >全部</a>
+                {% for c,term in term_small %}
+                <a href="javascript:void(0);" onclick ="IndexGame('gamelist',{{ c }});" >{{ term }}</a>
+                {% endfor %}
+            </span>
+            <span class="tip"><a href="{{ this.createUrl('/game/list')}}" target="_blank" >最新小游戏列表</a>&nbsp;&nbsp;&nbsp;&nbsp;今日更新了<font class="red">100</font>款小游戏</span>
+            <a href="{{ this.createUrl('/game/list')}}" target="_blank" class="more aw">点击查看更多</a>
+        </div>
+        <div class="content clearfix">
+            <div class="game_list" id="gamelist">
+                <ul class="clearfix">
+                    {% for game in all_small_game %}
+                    <li>
+                    <a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+                    <span class="name"><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{game.name}}</a></span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+          <div class="game_rank">
+                <div class="ctitle"><span class="green">小游戏</span>排行</div>
+                <div class="ccontent">
+                    <ul>
+                        {% for game in small_rank %}
+                            {% if loop.index < 4 %}
+                                <li class="top{{loop.index}} clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="pic">
+                                        <a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">
+                                            <img src="{{ game.recommend_image }}" width="52" height="40" /></span>
+                                        </a>
+                                    <div class="info">
+                                        <h4><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{ game.name|cut(5) }}</a></h4>
+                                        人气指数：{{ game.rank_value }}
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="name"><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{ game.name }}</a></span>
+                                    <span class="ren">{{ game.rank_value }}</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- 小游戏 -->
+    
+    <!-- 安卓游戏 -->
+    <div class="game_box mtop10" id="game_app1">
+        <div class="title clearfix">
+            <h3>安卓游戏</h3>
+            <span class="sort" id="sortAndriod">
+                <a href="javascript:void(0);" onclick ="IndexGame('androidlist',{{ android_id }});" class="cur" >全部</a>
+                {% for c,term in term_android %}
+                <a href="javascript:void(0);" onclick ="IndexGame('androidlist',{{ c }});">{{ term }}</a>
+                {% endfor %}
+            </span>
+            <span class="tip"><a href="{{ this.createUrl('/game/android')}}" target="_blank" >最新安卓游戏列表</a>&nbsp;&nbsp;&nbsp;&nbsp;今日更新了<font class="red">100</font>款安卓游戏</span>
+            <a href="{{ this.createUrl('/game/android')}}" target="_blank" class="more aw">点击查看更多</a>
+        </div>
+        <div class="content clearfix">
+            <div class="game_list" id="androidlist">
+                <ul class="clearfix">
+                    {% for game in all_android_game %}
+                    <li>
+                    <a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+                    <span class="name"><a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank">{{game.name}}</a></span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+          <div class="game_rank">
+                <div class="ctitle"><span class="green">安卓游戏</span>排行</div>
+                <div class="ccontent">
+                    <ul>
+                        {% for game in android_rank %}
+                            {% if loop.index < 4 %}
+                                <li class="top{{loop.index}} clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="pic">
+                                        <a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank">
+                                            <img src="{{ game.top_image }}" width="52" height="40" /></span>
+                                        </a>
+                                    <div class="info">
+                                        <h4><a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank">{{ game.name|cut(5) }}</a></h4>
+                                        人气指数：{{ game.rank_value }}
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="name"><a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank">{{ game.name|cut(10) }}</a></span>
+                                    <span class="ren">{{ game.rank_value }}</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- 安卓游戏 -->
+    
+    <!-- 苹果游戏 -->
+    <div class="game_box mtop10" id="game_app2">
+        <div class="title clearfix">
+            <h3>苹果游戏</h3>
+            <span class="sort" id="sortApple">
+                <a href="javascript:void(0);" onclick ="IndexGame('applelist',{{ apple_id }});" class="cur" >全部</a>
+                {% for c,term in term_apple %}
+                <a href="javascript:void(0);" onclick ="IndexGame('applelist',{{ c }});">{{ term }}</a>
+                {% endfor %}
+            </span>
+            <span class="tip"><a href="{{ this.createUrl('/game/apple')}}" target="_blank" >最新苹果游戏列表</a>&nbsp;&nbsp;&nbsp;&nbsp;今日更新了<font class="red">100</font>款苹果游戏</span>
+            <a href="{{ this.createUrl('/game/apple')}}" target="_blank" class="more aw">点击查看更多</a>
+        </div>
+        <div class="content clearfix">
+            <div class="game_list" id="applelist">
+                <ul class="clearfix">
+                    {% for game in all_apple_game %}
+                    <li>
+                    <a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+                    <span class="name"><a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank">{{game.name}}</a></span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+          <div class="game_rank">
+                <div class="ctitle"><span class="green">苹果游戏</span>排行</div>
+                <div class="ccontent">
+                    <ul>
+                        {% for game in apple_rank %}
+                            {% if loop.index < 4 %}
+                                <li class="top{{loop.index}} clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="pic">
+                                        <a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank">
+                                            <img src="{{ game.top_image }}" width="52" height="40" /></span>
+                                        </a>
+                                    <div class="info">
+                                        <h4><a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank">{{ game.name|cut(7) }}</a></h4>
+                                        人气指数：{{ game.rank_value }}
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="name"><a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank">{{ game.name|cut(10) }}</a></span>
+                                    <span class="ren">{{ game.rank_value }}</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- 苹果游戏 -->
+</div>
+<script type="text/javascript">
+
+        function IndexGame(type,id){
+            var url = "/game/indexgame";
+            $.ajax({
+               type: "POST",
+               dataType:"json",
+               url: url,
+               data:{'type':type,'id':id},
+               success: function(msg){
+                 $("#"+type).html("<ul>"+msg+"</ul>");
+               }
+            });
+        }
+        $("#sortList a").click(function(){
+            $("#sortList a").removeClass("cur");
+            $(this).addClass("cur");
+        });
+        $("#sortAndriod a").click(function(){
+            $("#sortAndriod a").removeClass("cur");
+            $(this).addClass("cur");
+        });
+        $("#sortApple a").click(function(){
+            $("#sortApple a").removeClass("cur");
+            $(this).addClass("cur");
+        });
+
+</script>
+{% endblock %}
+

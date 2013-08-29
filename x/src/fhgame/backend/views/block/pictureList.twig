@@ -1,0 +1,21 @@
+{% extends "layouts/base.twig" %}
+{% block mainbody %}
+<div id="sidebar-nav">
+  {% block sidebar %}
+        <ul id="dashboard-menu" class="nav nav-list">
+           {% for item in this.sidebars %}
+           <li class=" theme-mobile-hack {% if sidebar_name == item.name %}cur{% endif %}"><a href="{{ this.createUrl(item.url) }}"><i class="icon-{{ item.icon }}"></i> <span>{{ item.name }}</span></a></li>
+           {% endfor %}
+        </ul>
+    {% endblock %}
+</div>
+<div class="content">
+  {% block content %}
+    <div class="container-fluid">
+    <div class="row-fluid">
+      {% include "@cms/widget/pictureList/form.twig" %}
+    </div>
+</div>
+  {% endblock %}
+</div>
+{% endblock %}

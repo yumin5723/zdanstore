@@ -1,0 +1,10 @@
+index-test.php
+*www/index.php
+*www/assets/*
+*www/.htaccess
+src/G*
+*-local.php
+*runtime/*
+*tests/*
+test.php
+

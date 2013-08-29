@@ -1,0 +1,9 @@
+<div>
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+<input type='hidden' name='Question[question_type_id]' value='{{ qtype }}'/>
+
+<div style="display:none">{{ this.createAction('captcha').getVerifyCode(true)}} </div>
+{{ void(this.widget('CCaptcha',{'showRefreshButton':false,'clickableImage':true,'imageOptions':{'alt':'点击换图','title':'点击换图','style':'cursor:pointer'}})) }}{{ error }}
+<input type="submit" value="确定" name="submit"/>    <input type="reset" value="重置" name="reset"/>
+{{ void(this.endWidget()) }}<!-- form -->
+</div>

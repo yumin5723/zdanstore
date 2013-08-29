@@ -1,0 +1,50 @@
+{% extends "@cms/page/index.twig" %}
+{% set menu_name="页面"%}
+{% set sidebar_name = "页面列表" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+      {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'columns':{
+                0:{
+                  'name':'Id',
+                  'value':'$data->id'
+                },
+                1:{
+                  'name':"页面名",
+                  "value":'$data->name',
+                },
+                2:{
+                  'name':'域名',
+                  'value':'$data->domain'
+                },
+                3:{
+                  "name":"路径",
+                  "type":"raw",
+                  "value":'$data->path'
+                },
+                4:{
+                  "name":"状态",
+                  "value":'Page::convertPageStatus($data->status)',
+                },
+                5:{
+                	"type":'raw',
+                	'value':'CHtml::link("预览",Yii::app()->createUrl("cms/page/preview",array("id"=>$data->id)),
+					array( "target"=>"_blank"))',
+            	},
+            	6:{
+            		'type':'raw',
+            		'value':'CHtml::link($data->status == 0 ? "" : ($data->status == 1 ? "发布" : "重新发布"),Yii::app()->createUrl("cms/page/publish",array("id"=>$data->id)))',
+            	},
+                7:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}'
+                }
+            },})) 
+         }} 
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "game/index.twig" %}
+{% set menu_name="测试白名单"%}
+{% set sidebar_name = "添加用户" %}
+{% block content %}
+<script src="{{ App.GcommonAssets.Url}}/js/backend.js"></script>
+<script src="{{ App.GcommonAssets.Url}}/js/jquery.prettyPhoto.js"></script>
+<script src="{{ App.GcommonAssets.Url}}/js/jquery.ui.position.js"></script>
+<script src="{{ App.GcommonAssets.Url}}/js/jquery.contextMenu.js"></script>
+
+
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% set nav_name = "create"%}
+    {% include "testuser/game_form.twig" %}
+  </div>
+</div>
+{% endblock %}

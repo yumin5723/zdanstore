@@ -1,0 +1,33 @@
+{% extends "@cms/oterm/nav.twig" %}
+{% set menu_name="新闻分类"%}
+{% set sidebar_name = "分类管理" %}
+{% block content %}
+<div class="nav">
+    当前位置：<a href="{{ this.createUrl('/cms/oterm/show',{'root':parent.root}) }}">分类管理</a>>>编辑分类
+</div>
+{% include "layouts/notice.twig" %}
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false}) %}
+
+<div  class="control-group">
+    <label for="Category_name" class="control-label required">父类 <span class="required">*</span></label>
+    <div class="controls">
+        <select class="u_select" name="Oterm[parent_id]">
+        <option value="{{ model.root }}">|-顶级</option>
+            {% for desc in descendants %}
+                <option value="{{ desc.id }}" {% if desc.id == parent.id %} selected {% endif %}>{{ str_repeat(desc.level ) }}{{ desc.name }}({{ desc.level-1 }}级分类 )</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+{{ form.textFieldRow(model, "name", {'placeholder':'game'})|raw }}
+{{ form.textFieldRow(model, "url", {'placeholder':'url'})|raw }}
+  {{ form.textFieldRow(model, "short_name", {'placeholder':'short_name'})|raw }}
+  {{ form.textFieldRow(model, "description", {'placeholder':'description'})|raw }}
+    {{ form.dropDownListRow(model, 'template_id', model.templates, {})|raw }}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-large btn-primary">submit</button>
+    </div>
+  </div>
+{{ void(this.endWidget()) }}
+{% endblock %}

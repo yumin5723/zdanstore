@@ -1,0 +1,46 @@
+{% extends "/libao/base.twig" %}
+{% set page_title = [result.name,"_1378棋牌网发卡中心"]|join("") %}
+{% set navName = "index" %}
+{% block left %}
+<script data-main="{{ App.assets.Url }}/js/main" src="{{ App.assets.Url }}/js/lib/require.js" type="text/javascript"></script>
+    <div class="modleft">
+        <div class="modleftbox">
+        <div class="title"><h2>{{ result.name }}</h2></div>
+        <div class="content clearfix">
+            <div class="pages clearfix">
+                <div class="inside_page">
+                    <a href="{{ this.createUrl('/libao/detail',{id:result.id})}}" class="pic" target="_blank"><img class="imgborder" src="{{ result.image }}" height="150" width="200" /></a>
+                    <div class="bag">
+                        <span class="time">
+                        <font class="name">{{ result.name }}</font><br />
+                        <p class="operators"><span class="red">运 营 商 ：</span>
+                        {{ result.related }}</p><br />
+                        发卡日期：{{ result.publish_date|date("Y-m-d") }}</span>
+                        <div class="page_btn">
+                            <a href="{{ result.down_url }}" target="_blank" class="page_btn1 fl aw">下载游戏</a>
+                            <a href="{{ result.index_url }}" target="_blank" class="page_btn2 fr aw">官网首页</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ka_right">
+                    <span data-view="fetchcode"><a href="#" data-bind="fetchcode" data-id="{{ result.id }}" class="pagebtn_l aw">领 号</a></span>
+                    <span data-view="taocode"><a href="#" data-bind="taocode" data-id="{{ result.id }}" class="pagebtn_t aw">淘 号</a></span>
+                </div>
+            </div>
+            <div class="Introduction">
+                <p><font style="font-weight:bold;">游戏简介：</font>{{ result.desc|raw }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modleftbox">
+        <div class="title"><h2>{{ result.name }}详情介绍：</h2></div>
+        <div class="content clearfix">
+            <div class="gift_content">
+                <div class="nrbox">
+            	   {{ result.detail|raw }}
+                </div>
+            </div>
+        </div>
+    </div>	
+</div>
+{% endblock %}

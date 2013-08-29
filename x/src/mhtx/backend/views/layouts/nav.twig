@@ -1,0 +1,8 @@
+            <ul class="nav">
+              <li class="{{ nav_name == "home" ? "active":"" }}">
+                <a href="/">Home</a>
+              </li>
+              <li class="{{ nav_name == "logout" ? "active":"" }}">
+                <a href="{{ this.createUrl('/site/logout')}}">退出</a>
+              </li>
+            </ul>

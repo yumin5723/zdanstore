@@ -1,0 +1,85 @@
+<script type="text/javascript" src="{{ App.GcommonAssets.url}}/js/ckeditor/ckeditor.js"></script>
+<div id="main-content-zone">
+  <div class="page-content"> 
+    <div id="inner" style="width:100%;float:left;">
+      <h2>创建新游戏</h2>
+      <div class="form">
+        {% include "layouts/notice.twig" %}
+        {% set form = this.beginWidget('bootstrap.widgets.TbActiveForm', {
+        'id':'object-form',
+        'enableAjaxValidation':false,
+        }) %}
+        {{ form.errorSummary(game) }}
+        <div class="form-wrapper">
+          {*
+            <div id="form-sidebar">
+                <?php $this->renderPartial('/news/object_publish_sidebar_form',array("isNew"=>$isNew,'form'=>$form,'model'=>$model,'type'=>$type,'templetes'=>$templetes,'templete'=>$templete,"roots"=>$roots)); ?>
+            </div>
+            *}
+            <div id="form-body" >
+                <div id="form-body-content">
+                  <div id="titlewrap">
+                    {{ form.textFieldRow(game, 'object_name', {
+                    'tabindex':'1',
+                    'id':'txt_object_name',
+                    })|raw }}
+                  </div>
+                  <div id="titlewrap">
+                    {{ form.textFieldRow(game, 'object_title', {
+                    'tabindex':'2',
+                    'id':'txt_object_title',
+                    })|raw }}
+                  </div>
+                  <div id="titlewrap">
+                    {{ form.textFieldRow(game, 'object_keywords', {
+                    'tabindex':'3',
+                    'id':'txt_object_name',
+                    })|raw }}
+                  </div>
+                  <div id="titlewrap">
+                    {{ form.textAreaRow(game, 'object_description', {
+                    'tabindex':'4',
+                    'id':'txt_object_name',
+                    })|raw }}
+                  </div>
+                  <div id="downurlwrap">
+                    {{ form.textFieldRow(game, 'downurl', {
+                    })|raw }}
+                  </div>
+                  <div id="termwrap">
+                    {{ form.dropDownListRow(game, 'term', game.Terms, {
+                    })|raw }}
+                  </div>
+                  <div id="small_buttons_insert" align="right">
+                    <span>插入</span>      
+                    <img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image');" src="{{ App.GcommonAssets.url }}/images/insert_image.png" />
+                    
+                  </div>
+                  <div id="bodywrap">     
+                    {{ form.textArea(game, 'object_content', {
+                    'tabindex':'2','class':'specialContent','id':'ckeditor_content'})|raw }}
+                  </div>
+
+                </div>
+            </div>
+                        
+        </div>
+        
+    <div class="control-group">
+      <div class="controls">
+        {{ void(this.widget('bootstrap.widgets.TbButton', {
+            'buttonType':'submit',
+            'type':'primary',
+            'label':game.isNewRecord ? '创建' : '更新',
+            'htmlOptions': {'class':'btn-large'},
+        })) }}
+      </div>
+    </div>
+        <br class="clear" />
+        {{ void(this.endWidget()) }}
+      </div><!-- form -->
+      <!-- //Render Partial for Javascript Stuff -->
+      {% include "game/form_javascript.twig" %}
+    </div>
+  </div>
+</div>

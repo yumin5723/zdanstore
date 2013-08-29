@@ -1,0 +1,29 @@
+{% extends "game/index.twig" %}
+{% set menu_name="管理员"%}
+{% set sidebar_name = "管理管理员" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+		<h2>用户管理<span class="info">来创建和管理您的管理员吧</span></h2>
+
+		<br />
+		<br />
+		{{ void(this.widget('bootstrap.widgets.TbGridView',{
+		    'id':'app-grid', 
+		    'dataProvider':model.search(), 
+		    'filter':model, 
+		    'columns':{
+		        0:'id',
+		        1:'email',
+		        2:'username',
+		        3:{'name':'created','filter':false},
+		        4:
+		        {
+		             'class':'bootstrap.widgets.TbButtonColumn',
+		             'template':'{update}'
+		        }
+		    },})) 
+		 }} 
+	</div>
+</div>
+{% endblock %}

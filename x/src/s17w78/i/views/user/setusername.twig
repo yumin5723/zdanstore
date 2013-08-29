@@ -1,0 +1,8 @@
+{% include "layouts/top.twig" %}{{ user.username }}
+{% include "layouts/notify.twig" %}
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+{{ form.textFieldRow(user, "username", {'placeholder':''})|raw }}
+
+<button type="submit" class="btn btn-large btn-primary">提交</button>
+<button type="reset" class="btn btn-large btn-primary">reset</button>
+{{ void(this.endWidget()) }}<!-- form -->

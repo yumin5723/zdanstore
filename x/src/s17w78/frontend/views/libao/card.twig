@@ -1,0 +1,40 @@
+{% extends "/libao/base.twig" %}
+{% set page_title = "游戏礼包_1378棋牌网发卡中心_1378棋牌游戏大礼包_1378棋牌游戏礼包中心_1378棋牌网" %}
+{% set meta_keywords = "游戏礼包,1378棋牌网发卡中心,1378棋牌游戏大礼包,1378棋牌游戏礼包中心,1378棋牌网" %}
+{% set meta_description = "1378棋牌游戏礼包中心频道为用户提供1378棋牌游戏大礼包,1378棋牌网发卡中心服务。" %}
+{% set navName = "index" %}
+{% block left %}
+    <div class="modleft">
+        <div class="modleftbox">
+            <div class="title clearfix">
+                <h2>
+                    <img src="{{ App.assets.Url }}/images/card/title_biao.png" align="left">全部礼包
+                </h2><span class="issue"><font class="red">{{nums}}</font>个礼包正在发放</span>
+            </div>
+            <div class="content clearfix">
+                <div class="ka_list">
+                    <ul class="clearfix">
+                        {% for ret in result %}
+                        <li>
+                            <div class="kabox clearfix">
+                                <a class="pic imgborder3" href="{{ this.createUrl('/libao/detail',{id:ret.id})}}" target="_blank" ><img src="{{ ret.tag_image }}" height="107" width="142"></a>
+                                <div class="info">
+                                    <h4 class="name"><a href="{{ this.createUrl('/libao/detail',{id:ret.id})}}"  target="_blank">{{ ret.name }}</a></h4>
+                                    <p class="time">
+                                        发卡日期：{{ ret.publish_date|date("Y-m-d") }}<br>
+                                        <a href="{{ ret.down_url }}"  target="_blank">游戏下载</a>|<a href="{{ ret.activate_url }}" target="_blank">卡号激活</a> | <a href="{{ ret.index_url }}"  target="_blank">官方网站</a>
+                                    </p>
+                                    <div class="ka_btn clearfix">
+                                        <a href="{{ this.createUrl('/libao/detail',{id:ret.id})}}" class="ka_btn2 aw"  target="_blank">领号</a> <a href="{{ this.createUrl('/libao/detail',{id:ret.id})}}" class="ka_btn1 aw"  target="_blank">淘号</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {{ pager|raw }}
+        </div>
+    </div>
+{% endblock %}

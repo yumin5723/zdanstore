@@ -1,0 +1,86 @@
+{% extends "/layouts/base.twig" %}
+{% set page_title = "1378棋牌小游戏_棋牌游戏中心_棋牌游戏大全_1378棋牌网" %}
+{% set keywords = "1378棋牌小游戏,棋牌游戏中心,棋牌游戏大全,棋牌游戏推荐,1378棋牌网" %}
+{% set description = "1378棋牌网(www.1378.com)为大家提供各种棋牌小游戏,棋牌游戏大全,是一个很不错的棋牌游戏中心。" %}
+{% block header %}
+{% include "/layouts/game_header.twig" %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="game_subnav">当前位置：<a href="{{ this.createUrl('/game/index')}}">棋牌游戏</a> > <a href="{{ this.createUrl('/game/list')}}">小游戏</a> > 共<span class="red">{{ nums }}</span>个小游戏</div>
+    <div class="allgame_box clearfix">
+    	<div class="allgame_list">
+            <div class="title clearfix">
+                <h3>小游戏</h3>
+                <ul class="tab">
+                        <li {% if id == term_id %} class="cur" {% endif %}><a href="{{ this.createUrl('/game/list')}}">全部</a></li>
+                    {% for c,term in term_small %}
+                        {% if id == c %}
+                            <li class="cur"><a href="{{ this.createUrl('/game/list',{'id':c})}}">{{ term }}</a></li>
+                        {% else %}
+                            <li><a href="{{ this.createUrl('/game/list',{'id':c})}}">{{ term }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="content clearfix">
+                <div class="game_list">
+                    <ul class="clearfix">
+                        {% for game in all_small_game %}
+                        <li>
+                        <a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+                        <span class="name"><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{ game.name }}</a></span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="page">
+                        <div class="clearfix">
+                            {{ pager|raw }}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+    	</div>
+    
+    	<div class="game_rank">
+            	<div class="ctitle"><span class="green">小游戏</span>排行榜</div>
+                <div class="ccontent">
+                	<ul>
+                        {% for game in small_rank %}
+                            {% if loop.index < 4 %}
+                            	<li class="top{{ loop.index }} clearfix">
+                                	<span class="num">{{ loop.index }}</span>
+                                    <span class="pic">
+                                        <a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">
+                                            <img src="{{ game.top_image }}" width="52" height="40" />
+                                        </a>
+                                    </span>
+                                    <div class="info">
+                                    	<h4><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{ game.name|cut(5) }}</a></h4>
+                                        <a href="{{ this.createUrl('/game/list')}}">小游戏</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="clearfix">
+                                    <span class="num">{{ loop.index }}</span>
+                                    <span class="pic">
+                                        <a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">
+                                            <img src="{{ game.top_image }}" width="52" height="40" />
+                                        </a>
+                                    </span>
+                                    <div class="info">
+                                        <h4><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{ game.name|cut(5) }}</a></h4>
+                                        <a href="{{ this.createUrl('/game/list')}}">小游戏</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+              </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "manager/index.twig" %}
+{% set menu_name="管理员"%}
+{% set sidebar_name = "管理员列表" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+		{{ void(this.widget('bootstrap.widgets.TbGridView',{
+		    'id':'app-grid', 
+		    'dataProvider':model.search(), 
+		    'filter':model, 
+		    'columns':{
+		        0:'id',
+		        1:'email',
+		        2:'username',
+		        3:{'name':'created','filter':false},
+		        4:
+		        {
+		             'class':'bootstrap.widgets.TbButtonColumn',
+		             'template':'{update} {delete}'
+		        }
+		    },})) 
+		 }} 
+	</div>
+</div>
+{% endblock %}

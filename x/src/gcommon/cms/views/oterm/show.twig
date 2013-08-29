@@ -1,0 +1,40 @@
+{% extends "@cms/oterm/nav.twig" %}
+{% set menu_name="新闻分类"%}
+{% set sidebar_name = "分类管理" %}
+{% block content %}
+<div class="nav">
+    当前位置：<a href="{{ this.createUrl('oterm/index') }}">root管理</a>>>分类管理
+</div>
+  <h2>{{ root.name }}</h2>
+    <input type="button" class="add_btn" value="新建分类" onclick="javascript:window.location.href='{{ this.createUrl('oterm/create',{'root':root.id})}}'" />
+    {% include "layouts/notice.twig" %}
+
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':descendants, 
+            'columns':{
+                0:'id',
+                2:{'name':'name','value':'Oterm::str_tree($data->level,$data->name)'},
+                3:'url',
+                4:'short_name',
+                5:'description',
+                6:{
+                  'type':'raw',
+                  'value':'CHtml::link("预览",$data->template_id == 0? $data->url :Yii::app()->createUrl("/cms/oterm/preview",array("id"=>$data->id)),
+                      array( "target"=>"_blank"))'},
+                7:{
+                  'type':'raw',
+                  'value':'CHtml::link("发布",Yii::app()->createUrl("/cms/oterm/publish",array("id"=>$data->id)))'
+                },
+                8:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("cms/oterm/edit",array("id"=>$data->id))'},
+                      },
+                      'htmlOptions':{'width':'50px'}
+                }
+            },})) 
+         }}
+{% endblock %}

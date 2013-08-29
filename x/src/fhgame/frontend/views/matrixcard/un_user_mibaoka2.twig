@@ -1,0 +1,59 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "解除密保卡 - 凤凰山庄" %}
+{% block header %}
+{% set menu_name = "userverify" %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block left %}
+{% include "layouts/left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <div class="mod_right ">
+  		<div class="send mfoot10">当前位置：<a href="/" class="ablack">首页</a> > 解除密保卡</div>
+        {% block usernav %}
+        {% set nav_name = "matrixcard" %}
+        {% include "layouts/user.twig" %}
+        {% endblock %}
+        <div class="usermod">
+            <div class="mibaoka">
+                <h3>解除绑定密保卡</h3>
+                <p class="tip">
+                    申请必读：<br>
+                    1.密保卡将会与您的账号绑定，绑定之后，每次登陆都需要提供密保卡上的验证信息，没有密保卡您将无法登陆。<br>
+                    2.每张密保卡只允许领取一次，如果您遗忘了密保卡，只能重新申请绑定，无法找回。<br>
+                    3.如果您重新申请密保卡，您当前的密保卡将自动作废。
+                </p>
+                <dl class="mibaoka_form">
+                    <dt>请输入您的密码提示问题答案：</dt>
+
+
+                    {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'action':'/matrixcard/verifyunbind','type':'horizontal','id':'create-   form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+                        {{ form.errorSummary(model)|raw }}
+                        <input type="hidden" name="Retakepwd[username]" value="{{ username }}">
+                        <input type="hidden" name="Retakepwd[id_num]" value="{{ id_num }}">
+                        <input type="hidden" name="Retakepwd[type]" value="{{ type }}">
+                        <dd class="clearfix">
+                            <span class="item1"><span class="red">*</span> 用户名：</span>
+                            <span class="item2">{{ username }}</span>
+                        </dd>
+                        <dd class="clearfix">
+                            <span class="item1"><span class="red">*</span> 密码提示问题：</span>
+                            <span class="item2">{{ userQues }}？</span>
+                        </dd>
+                        <!-- {{ form.textFieldRow(model, "answer", {'placeholder':'xxxx@mhgame.com'})|raw }} -->
+                        <dd class="clearfix">
+                            <span class="item1"><span class="red">*</span> 密码提示答案：</span>
+                            <span class="item2"><input type="text" name="Retakepwd[answer]" class="sugg_ipt" style="width:180px;"></span>
+                        </dd>
+                        <dd class="clearfix">
+                            <span class="item1">&nbsp;</span>
+                            <span class="item2"><input type="submit" name="" class="sugg_btn" value="确认提交"> <input type="submit" name="" class="cancel_btn" value="取消"></span>
+                        </dd>
+                {{ void(this.endWidget()) }}
+                </dl>
+                <p class="foot">如果您忘记注册资料，请<a href="{{ this.createUrl('/appeal/create')}}" class="ablue">点击这里</a>填写申诉表。</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

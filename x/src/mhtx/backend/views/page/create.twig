@@ -1,0 +1,32 @@
+{% extends "/layouts/base.twig" %}
+{% block sidenav %}
+{% set active_nav_name = "create"%}
+{% include "/page/sidenav.twig" %}
+{% endblock %}
+{% block content %}
+<section id="main1">
+  <div class="page-header">
+    <h1>新建页面</h1>
+  </div>
+  <div class="row-fluid">
+    {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false,'htmlOptions':{'enctype':'multipart/form-data'} }) %}
+    {{ form.textFieldRow(model, "page_name", {'placeholder':'页面名'})|raw }}
+    <div class="control-group ">
+        <label for="page_domain" class="control-label">路径</label>
+        <div class="controls">
+            <select name="Page[domain]">
+                <option value="123.mhgame.com">http://123.mhgame.com</option>
+            </select>
+            <input type="text" value="" name="Page[path]">
+        </div>
+    </div>
+    {{ form.FileFieldRow(model, "file")|raw }}
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-large btn-primary">Upload</button>
+      </div>
+    </div>
+    {{ void(this.endWidget()) }}
+  </div>
+</section>
+{% endblock %}

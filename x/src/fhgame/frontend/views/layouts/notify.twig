@@ -1,0 +1,29 @@
+{{ void(App.bootstrap.registerAffix('.bs-docs-sidenav')) }}
+  {% if App.user.hasFlash('error') %}
+  <div class="alert alert-error message">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Error! {{ App.user.getFlash('error')|raw }}</strong>
+  </div>
+  {% endif %}
+  {% if App.user.hasFlash('success') %}
+  <div class="alert alert-success message">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong> {{ App.user.getFlash('success')|raw }}</strong>
+  </div>
+  {% endif %}
+  {% if App.user.hasFlash('warning') %}
+  <div class="alert message">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>警告！ {{ App.user.getFlash('warning')|raw }}</strong>
+  </div>
+  {% endif %}
+  {% if App.user.hasFlash('info') %}
+  <div class="alert alert-info message">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Heads up! {{ App.user.getFlash('info')|raw }}</strong>
+  </div>
+  {% endif %}
+  {% block content %}
+ 
+
+  {% endblock %}

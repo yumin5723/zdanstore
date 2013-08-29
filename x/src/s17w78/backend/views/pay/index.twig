@@ -1,0 +1,45 @@
+{% extends "game/index.twig" %}
+{% set menu_name="支付订单管理"%}
+{% set sidebar_name = "订单列表" %}
+{% block content %}
+<style type="text/css">.red{color:red;} .green{color: green;} .orange{color: orange;}</style>
+<a href="/pay/index?type=1&dtype={{ dtype }}" class='btn btn-info{% if type == 1 %} red{% endif %}'>今天</a>
+<a href="/pay/index?type=2&dtype={{ dtype }}" class='btn btn-info {% if type == 2 %}red{% endif %}'>昨天</a>
+<a href="/pay/index?type=3&dtype={{ dtype }}" class='btn btn-info {% if type == 3 %}red{% endif %}'>本周记录</a>
+<a href="/pay/index?type=4&dtype={{ dtype }}" class='btn btn-info {% if type == 4 %}red{% endif %}'>上周记录</a>
+<a href="/pay/index?type=5&dtype={{ dtype }}" class='btn btn-info {% if type == 5 %}red{% endif %}'>本月数据</a>
+<a href="/pay/index?type=6&dtype={{ dtype }}" class='btn btn-info {% if type == 6 %}red{% endif %}'>上月数据</a>
+<a href="/pay/index?type=7&dtype={{ dtype }}" class='btn btn-info {% if type == 7 %}red{% endif %}'>本季度数据</a>
+<a href="/pay/index?type=8&dtype={{ dtype }}" class='btn btn-info {% if type == 8 %}red{% endif %}'>上季度数据</a>
+<a href="/pay/index?type=9&dtype={{ dtype }}" class='btn btn-info {% if type == 9 %}red{% endif %}'>本年数据</a>
+<a href="/pay/index?type=10&dtype={{ dtype }}" class='btn btn-info {% if type == 10 %}red{% endif %}'>上年数据</a>
+<a href="/pay/index"><input type="radio" {% if dtype != 2 %}checked="checked"{% endif %}>全部数据</a>
+<a href="/pay/index?type={{ type }}&dtype=2"><input type="radio" {% if dtype == 2 %}checked="checked"{% endif %}>充值成功</a><br>
+<table class="items table">
+<thead>
+<tr>
+<th id="app-grid_c0">订单号</th><th id="app-grid_c1">用户ID</th><th id="app-grid_c2">订单类型</th><th id="app-grid_c3">订单来源</th><th id="app-grid_c4">订单金额</th><th id="app-grid_c5">支付金额</th><th id="app-grid_c6">真实金额</th><th id="app-grid_c7">充值金额</th><th id="app-grid_c8">支付状态</th><th id="app-grid_c9">游戏名称</th><th id="app-grid_c10">充值状态</th><th id="app-grid_c12">创建</th><th id="app-grid_c14" class="button-column">&nbsp;</th></tr>
+</thead>
+<tbody>
+{% if model is empty %}
+<tr>
+	<td colspan="14">对不起，没有搜索到相关的订单数据！</td></tr>
+	 
+{% else %}
+	{% for k,v in model %}
+	<tr class="odd">
+	<td>{{ v.id }}</td><td>{{ v.uid }}</td><td>{{ v.order_type }}</td><td>{{ v.order_from }}</td><td>{{ v.order_amt }}</td><td>{{ v.pay_amt }}</td><td>{{ v.real_amt }}</td><td>{{ v.charge_amt }}</td><td>
+	{% if v.pay_status == 1 or v.pay_status == 3 %}
+	  <span class="green">支付成功</span>
+	{% elseif v.pay_status == 2 %}
+	  <span class="red">支付失败</span>
+	{% else %}
+	  <span class="orange">支付未完成</span>
+	{% endif %}
+</td><td>{{ v.app_id }}</td><td>{% if v.charge_status == 1 %}<span class="green">充值成功</span>{% else %}<span class="red">充值失败</span>{% endif %}</td><td>{{ v.created }}</td><td class="button-column"> <a href="/pay/detail/{{ v.id }}" rel="tooltip" class="view" data-original-title="查看"><i class="icon-eye-open"></i></a></td></tr>
+	{% endfor %}
+{% endif %}
+</tbody>
+</table>共有{{ nums }}条结果
+{{ pages|raw }} &nbsp;&nbsp;支付状态:[1 or 3] 支付成功 ,[2] 支付失败,[0] 支付未完成 ; 充值状态:[0] 充值失败, [1] 充值成功
+{% endblock %}

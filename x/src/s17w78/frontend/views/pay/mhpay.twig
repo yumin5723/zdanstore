@@ -1,0 +1,262 @@
+{% extends "/pay/base.twig" %}
+{% set page_title = "充值首页" %}
+{% set nav_name = "index" %}
+{% block content %}
+      <div class="paymain clearfix">
+        {% include "/pay/left.twig"%}
+        <div class="pay_right">
+        <!-- pay code begin --> 
+        {% include "pay/notify.twig" %}
+        {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data','autocomplete':'off','autocompletetype':'disabled'} }) %}
+        <!-- {{ form.errorSummary(model)|raw }} -->
+        <ul class="payform">
+          <li class="clearfix"> <span class="l">兑换的游戏：</span> 
+              <span class="r">
+                  <img src="{{ App.assets.Url}}/images/game/game{{ app.id }}.jpg" align="absmiddle" height="50" /> {{ app.app_name }}
+              </span> 
+              <input type="hidden" value="{{ app.cp_id }}" name="cp_id"/>
+              <input type="hidden" value="{{ app.id }}" id="app_name" name="Order[app_id]" />
+              <input type="hidden" value="{{ app.app_name }}" id="d_game" />
+          </li>
+          <li class="clearfix"> <span class="l">兑换的账号：</span> 
+            {% if u.userisreg %}
+              <span class="r red" style="font-size:14px;">{{ u.username }}
+                <input class="payinput" value="{{ u.username }}" id="to_account" name="user_id" type="hidden"/> <em class="red" id="tip_acount"></em></span> 
+            {% else %}
+                <span class="r red" style="font-size:14px;">游客</span>
+            {% endif %}
+          </li>
+          <li class="clearfix"> <span class="l">兑换的金额：</span>
+            <div class="r amount_box">
+               <div id='list'></div>
+                <!-- <input id="to_amount" class="payinput" name="Order[order_amt]" type="text" style="width:80px;" value="dddd"/>  -->
+                {% if app.charge_amount is not empty %}
+                  {% for k,v in getcharge %}
+                    <input type="radio" id="lab_{{ k }}" value="{{ v }}" name="Order[order_amt]" >{{ v }}元&nbsp;&nbsp;
+                  {% endfor %}
+                {% else %}
+                {{ form.textField(model, "order_amt", {'placeholder':'','style':"width:80px;",'class':'payinput'})|raw }}
+                <!-- <font>请输入≥5的整数</font> -->
+                {% endif %}
+                {{ form.error(model, 'order_amt', {'placeholder':''})|raw }}
+                <em class="red" id="tip_amount"></em>
+                <span id="rate" class="none"></span><span id="rateCoin" class="none"></span>
+                <span id="rateX"></span><span id="rateTotal"></span>
+            </div> 
+          </li>
+          <li class="clearfix"> <span class="l">登录密码：</span>
+              <span class="r"><input class="payinput" value="" style="width:150px" id="to_user_password" name="user_password" type="password" /><em id="tip_user_password" class="help-inline error" ></em></span> 
+          </li>
+        </ul>
+        
+
+        <ul class="payform">
+          <li class="paysub" data-view="pay">
+            <input type="checkbox" name="" checked="checked" id="agreement" />
+            我已认真阅读并同意<a href="#" target="_blank">《用户充值协议》</a> <em class="red" id="tip_agreement"></em><br>
+            <input name="Order[pay_method]" value="mhpay" type="hidden">
+            <input type="button"  value="确认兑换" name="" class="paybtn" onclick="submitPay();" />
+          </li>
+        </ul>
+  		{{ void(this.endWidget()) }}<!-- form -->
+        
+      </div>
+      <!-- pay code end -->
+    </div>
+     <script type="text/javascript">
+     $(document).ready(function(){
+          $(".amount_box input[type=radio]").click(function() {// 这里需要更新
+            var tt = $(this).val();
+            var hx = $("#app_name").val();
+            $("#damount").html(tt);
+            $("#tip_amount").html('');
+            $.ajax({
+               type: "POST",
+               dataType:"json",
+               url: "/pay/chargeRate",
+               data:{'app_id':hx},
+               success: function(msg){
+                
+                   $("#rate").html(msg[0]);
+                   $("#rateCoin").html(msg[1]);
+                   if(tt !="" && hx!= ''){
+                      var rate = msg[0];
+                      var rateCoin = msg[1];
+                      $("#rateX").html("可获得");
+                      total = tt*rate;
+                      $("#rateTotal").html(total+rateCoin);
+                   }
+               }
+            });
+          });
+        // }
+        // check user
+        $("#Order_order_amt").focus();
+        $("#to_account").blur(function(){
+            var user = $("#to_account").val();
+            var _self = this;
+            if(user==''){
+              $(this).parent().find("em").html('用户名不能为空！');return false;
+            }
+            $.get("/pay/checkuser",{username:user}, function(msg){
+                if(msg==0){ 
+                  $(_self).parent().find("em").html('用户名不存在！'); return false;
+                }else{ 
+                  $(_self).parent().find("em").html(''); 
+                }
+            });
+        });
+        // check user confirm
+        $("#to_account_confirm").blur(function(){
+            var account = $('#to_account').val();
+            var reaccount = $('#to_account_confirm').val();
+            if(account != reaccount){
+              $(this).parent().find("em").html('请重复您的帐号！');
+            }else{
+              $(this).parent().find("em").html('');
+            }
+        });
+        // check agreement
+        $("#agreement").click(function(){
+            if(!$(this).attr("checked")){
+              $(this).parent().find("em").html('必须同意用户充值协议'); 
+            }else{
+              $(this).parent().find("em").html('');
+            }
+        });
+
+        // bank tab
+        $(".bank_tab li").click(function(){
+          var cur = $(this).attr("data-method");
+          $(".bank_tab li").removeClass("cur");
+          $(this).addClass("cur");
+          $(".bank_content").hide();
+          $("#"+cur).show();
+        });
+
+        // select amount
+        // $(".amount_box input[type=radio]").click(function(){
+        //   $(".amount_box input[type=radio]").removeAttr("checked");
+        //   $(this).attr("checked","checked");
+        // });
+        
+        $("#Order_order_amt").blur(function(){
+          var tt = $('#Order_order_amt').val();
+           if (isNaN(tt) || tt == '' || parseInt(tt)!=tt)
+            {
+              $("#tip_amount").html('请输入正确的金额！');
+              $("#rateX").html('');
+              $("#rateTotal").html('');
+            }else{
+              $("#tip_amount").html('');
+                var account = $('#app_name').val();
+                if(account == ''){
+                  $(this).parent().find("em").html('请选择游戏！');
+                }else{
+    	            var cp_id = $("#app_name").find("option:selected").attr('data-app');
+    	            $("#cp_id").val(cp_id);
+                  $(this).parent().find("em").html('');
+                  $.ajax({
+                     type: "POST",
+                     dataType:"json",
+                     url: "/pay/chargeRate",
+                     data:{'app_id':account},
+                     success: function(msg){
+                      var tt = '';
+                         $("#rate").html(msg[0]);
+                         $("#rateCoin").html(msg[1]);
+                         tt = $('#Order_order_amt').val();
+                         if(tt !="" && account!= ''){
+                            var rate = msg[0];
+                            var rateCoin = msg[1];
+                            $("#rateX").html("可获得");
+                            total = tt*rate;
+                            $("#rateTotal").html(total+rateCoin);
+                         }
+                     }
+                  });
+                }
+            }
+        });
+
+
+     });
+      
+     function submitPay(){
+        var password = $("#to_user_password").val();
+        var uname = $("#to_account").val();
+        var error = $("#tip_amount").html();
+        if(error !='' && error != null){
+          $("#tip_amount").html('请输入正确的金额！');return false;
+        }else{
+          if(password=='' || password==null){
+            $("#tip_user_password").html('登录密码不能为空！');return false;
+          }else{
+            $.get("/pay/pwd",{pwd:password,username:uname}, function(msg){
+                if(msg==0){ 
+                  $("#tip_user_password").html('登录密码不正确！');return false;
+                }else{ 
+                    var money = $("#Order_order_amt").val();
+                    if(money){
+                      $("#damount").html($("#Order_order_amt").val());
+                    }
+                    var damount = $("#damount").html();
+                    if(damount ==''){
+                      $("#tip_amount").html('请输入正确的金额！');return false;
+                    }
+                    $("#tip_user_password").html(''); 
+                    $(".modal-backdrop").show();
+                    $(".modal").show();
+                    $("#dgame").html($("#d_game").val());
+                    $("#daccount").html($("#to_account").val());
+                  
+                }
+            });
+          }
+        }
+     }
+
+     function closeDialog(){
+        $(".modal-backdrop").hide();
+        $(".modal").hide();
+     }
+     </script>
+     <!-- pay code end -->     
+
+     <!-- dialog html -->
+     <div class="modal-backdrop  in" style="height: 930px;display:none"></div>
+     <div class="modal in" style="display:none">          
+      <div class="modal-header">                  
+        <a class="close" onclick="closeDialog();">×</a>                
+        <h3>兑换</h3>      
+      </div>        
+      <div class="modal-body">
+        <table cellspacing="0" cellpadding="0" border="0" class="order_table">
+          <tbody><tr>
+              <th colspan="2">请确认订单：</th>
+          </tr>
+          <tr>
+              <td align="right" width="50%">兑换游戏：</td>
+              <td align="left"><span id="dgame"></span></td>
+          </tr>
+          <tr>
+              <td align="right">兑换账号：</td>
+              <td align="left"><span id="daccount"></span></td>
+          </tr>
+          <tr>
+              <td align="right">兑换金额：</td>
+              <td align="left" class="red"><span id="damount"></span></td>
+          </tr>
+          <tr>
+              <td align="right">支付方式：</td>
+              <td align="left">点券</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>    
+      <div class="modal-footer">                        
+        <a class="btn cancel" href="javascript:void(0);closeDialog();">取消</a>                    
+        <a class="btn ok btn-primary" href="javascript:void(0);" onclick="$('#create-form').submit();closeDialog();">确认兑换</a>    
+      </div>  
+    </div>
+    {% endblock %}

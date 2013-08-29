@@ -1,0 +1,32 @@
+{% extends "template/index.twig" %}
+{% set menu_name="模板"%}
+{% set sidebar_name = "模板列表" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+      {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'columns':{
+                0:{
+                  'name':'Id',
+                  'value':'$data->id'
+                },
+                1:{
+                  'name':"模板名",
+                  "value":'$data->name',
+                },
+                3:{
+                  "name":"状态",
+                  "value":'Templete::convertTempleteStatus($data->status)',
+                },
+                4:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}'
+                }
+            },})) 
+         }} 
+    </div>
+</div>
+{% endblock %}

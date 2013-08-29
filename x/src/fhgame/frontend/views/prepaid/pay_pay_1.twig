@@ -1,0 +1,119 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "账号充值 - 凤凰山庄" %}
+{% block header %}
+{% set menu_name = "pay" %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block left %}
+{% set nav_name = type %}
+{% include "prepaid/left.twig" %}
+{% endblock %}
+
+{% block content %}
+    <div class="mod_right ">
+  		<div class="send mfoot10">
+        	当前位置：<a href="/" class="ablack">首页</a> >帐号充值
+        </div>
+        <div class="article">
+        	<div class="activitys">
+                {% if type == "kuaiqian" %}
+                    <div class="pay_content">
+                    <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/pay_p1.jpg" width="175" height="70" /></div>
+                    <p class="pay_info">为了能让您更方便的使用手边的银行卡进行在线支付交易，本站开通了包括工商银行、建设银行、中国银行等数十种网上银行支付通道。您只要点击这里按提示操作即可在线购买靖州凤凰山庄游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号购卡！</p>
+                    <div class="pay_form">
+                    <span class="title">请选择您要购卡的金额：</span>
+                    <div class="item">
+                    <form action="{{ this.createUrl('/prepaid/pay/type/kuaiqian')}}" method="post">
+                    <label><input name="amount" type="radio" value="10" checked="checked" /> 10元</label>
+                    <label><input name="amount" type="radio" value="20" /> 20元</label>
+                    <label><input name="amount" type="radio" value="30" /> 30元</label>
+                    <label><input name="amount" type="radio" value="50" /> 50元</label>
+                    <label><input name="amount" type="radio" value="100" /> 100元</label>
+                    <label><input name="amount" type="radio" value="300" /> 300元</label>
+                    <label><input name="amount" type="radio" value="500" /> 500元(送80元)</label>
+                    <label><input name="amount" type="radio" value="1000" /> 1000元(送200元)</label>
+                    <label><input name="amount" type="radio" value="5000" /> 5000元(送1000元)</label>
+                    <label><input name="amount" type="radio" value="10000" /> 10000元(送2000元)</label>
+                    <span class="pay_submit"><input name="" type="submit" class="pay_btn1" value="下一步" /> <input name="" type="reset" value="取消" class="pay_btn2" /></span>
+                    </form>
+                    </div>
+                    <p class="pay_tip">1元人民币可购买1元梦幻币，1梦幻币可以兑换积分（游戏币）或者10000两银子，但积分（游戏币）和银子不可兑换成梦幻币，并且积分（游戏币）和银子也不可互换</p>
+                    </div>
+                    </div>
+                {% elseif type == "alipay" %}
+                    <div class="pay_content">
+                        <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/alipay.gif" /></div>
+                        <p class="pay_info">为了能让您更方便的进行在线支付交易，本站开通了支付宝支付通道。您只要点击这里按提示操作即可在线购买凤凰游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号充值！</p>
+                        <div class="pay_form">
+                        <span class="title">请选择您要购卡的金额：</span>
+                        <div class="item">
+                        <form action="{{ this.createUrl('/prepaid/pay/type/alipay')}}" method="post">
+                        <label><input name="amount" type="radio" value="10" checked="checked" /> 10元</label>
+                        <label><input name="amount" type="radio" value="20" /> 20元</label>
+                        <label><input name="amount" type="radio" value="30" /> 30元</label>
+                        <label><input name="amount" type="radio" value="50" /> 50元</label>
+                        <label><input name="amount" type="radio" value="100" /> 100元</label>
+                        <label><input name="amount" type="radio" value="300" /> 300元</label>
+                        <label><input name="amount" type="radio" value="500" /> 500元(送80元)</label>
+                        <label><input name="amount" type="radio" value="1000" /> 1000元(送200元)</label>
+                        <label><input name="amount" type="radio" value="5000" /> 5000元(送1000元)</label>
+                        <label><input name="amount" type="radio" value="10000" /> 10000元(送2000元)</label>
+                        <span class="pay_submit"><input name="" type="submit" class="pay_btn1" value="下一步" /> <input name="" type="reset" value="取消" class="pay_btn2" /></span>
+                        </form>
+                        </div>
+                        <p class="pay_tip">1元人民币可购买1元梦幻币，1梦幻币可以兑换积分（游戏币）或者10000两银子，但积分（游戏币）和银子不可兑换成梦幻币，并且积分（游戏币）和银子也不可互换</p>
+                        </div>
+                        </div>
+                {% elseif type == "dianxin" %}
+                    <div class="pay_content">
+                        <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/dx.jpg" width="175" height="70" /></div>
+                        <p class="pay_info">为了能让您更方便的使用电信卡在线支付，本站开通了电信卡支付通道。您只要按网页提示操作即可在线购买凤凰游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号充值！</p>
+                        <div class="pay_form">
+                        <span class="title">特别提醒： 请按联通卡面值正确选择充值金额。选择错误，可能导致联通卡的金额丢失或支付失败，请仔细核对！ 请选择您要充值的金额：</span>
+                        <div class="item">
+                        <form action="{{ this.createUrl('/prepaid/pay/type/dianxin')}}" method="post">
+                        <label><input name="amount" type="radio" value="50" checked="checked" /> 50元</label>
+                        <label><input name="amount" type="radio" value="100" /> 100元</label>
+                        <span class="pay_submit"><input name="" type="submit" class="pay_btn1" value="下一步" /> <input name="" type="reset" value="取消" class="pay_btn2" /></span>
+                        </form>
+                        </div>
+                        <p class="pay_tip">1元人民币可购买1元梦幻币，1梦幻币可以兑换积分（游戏币）或者10000两银子，但积分（游戏币）和银子不可兑换成梦幻币，并且积分（游戏币）和银子也不可互换</p>
+                        </div>
+                      </div>
+                {% elseif type == "liantong" %}
+                    <div class="pay_content">
+                        <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/lt.jpg" width="175" height="70" /></div>
+                        <p class="pay_info">为了能让您更方便的使用联通卡在线支付，本站开通了联通卡支付通道。您只要按网页提示操作即可在线购买凤凰游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号充值！</p>
+                        <div class="pay_form">
+                        <span class="title">特别提醒： 请按联通卡面值正确选择充值金额。选择错误，可能导致联通卡的金额丢失或支付失败，请仔细核对！ 请选择您要充值的金额：</span>
+                        <div class="item">
+                        <form action="{{ this.createUrl('/prepaid/pay/type/liantong')}}" method="post">
+                        <label><input name="amount" type="radio" value="50" checked="checked" /> 50元</label>
+                        <label><input name="amount" type="radio" value="100" /> 100元</label>
+                        <span class="pay_submit"><input name="" type="submit" class="pay_btn1" value="下一步" /> <input name="" type="reset" value="取消" class="pay_btn2" /></span>
+                        </form>
+                        </div>
+                        <p class="pay_tip">1元人民币可购买1元梦幻币，1梦幻币可以兑换积分（游戏币）或者10000两银子，但积分（游戏币）和银子不可兑换成梦幻币，并且积分（游戏币）和银子也不可互换</p>
+                        </div>
+                      </div>
+                {% else %}
+                    <div class="pay_content">
+                        <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/szx.jpg" /></div>
+                        <p class="pay_info">为了能让您更方便的使用神州行卡在线支付，本站开通了神州行卡支付通道。您只要按网页提示操作即可在线购买凤凰游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号充值！</p>
+                        <div class="pay_form">
+                        <span class="title">特别提醒： 请按神州行卡面值正确选择充值金额。选择错误，可能导致神州行卡的金额丢失或支付失败，请仔细核对！ 请选择您要充值的金额：</span>
+                        <div class="item">
+                        <form action="{{ this.createUrl('/prepaid/pay/type/shenzhouxing')}}" method="post">
+                        <label><input name="amount" type="radio" value="50" checked="checked" /> 50元</label>
+                        <label><input name="amount" type="radio" value="100" /> 100元</label>
+                        <span class="pay_submit"><input name="" type="submit" class="pay_btn1" value="下一步" /> <input name="" type="reset" value="取消" class="pay_btn2" /></span>
+                        </form>
+                        </div>
+                        <p class="pay_tip">1元人民币可购买1元梦幻币，1梦幻币可以兑换积分（游戏币）或者10000两银子，但积分（游戏币）和银子不可兑换成梦幻币，并且积分（游戏币）和银子也不可互换</p>
+                        </div>
+                        </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

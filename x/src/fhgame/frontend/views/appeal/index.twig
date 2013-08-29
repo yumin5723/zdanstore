@@ -1,0 +1,99 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "注册资料找回申诉表 - 凤凰山庄" %}
+{% block header %}
+{% set menu_name = "userverify" %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block left %}
+{% include "layouts/left.twig" %}
+{% endblock %}
+
+{% block content %}
+<div class="mod_right ">
+          		<div class="send mfoot10">当前位置：<a href="#" class="ablack">首页</a> > <a href="#" class="agray">注册资料找回申诉表</a></div>
+                {% block usernav %}
+                {% set nav_name = "appeal" %}
+                {% include "layouts/user.twig" %}
+                {% endblock %}
+                <div class="usermod">
+                    <div class="mibaoka">
+                        <h3>注册资料找回申诉表</h3>
+                        <p class="tip">
+                            以下内容全部需要填写，如果遗忘请填写“忘记”二字或填写粗略的资料信息，该资料将作为您成功找回密码的重要依据，请认真填写，提交成功后客服人员将会在二十四小时内回复给您结果:<br>
+                            注意：申诉内容必须要提供<br>
+                            1.游戏帐号；<br>
+                            2.联系电话；<br>
+                            如果缺少以上任意内容则不予受理，同时我们也不会进行电话回复。
+                        </p>
+                        {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+                        <dl class="mibaoka_form">
+                            <dd class="clearfix">
+                                <span class="item1">游戏账号：</span>
+                                <span class="item2"><input type="text" id="username" name="Appeal[user_name]" class="sugg_ipt" style="width:180px;"></span>
+                                <span class="item1 username"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">注册时的身份证号：</span>
+                                <span class="item2"><input type="text" name="Appeal[ID_NUM]" class="sugg_ipt" style="width:180px;"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">密码提示问题答案：</span>
+                                <span class="item2"><input type="text" name="Appeal[pwd_answer]" class="sugg_ipt" style="width:180px;"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">注册时间：</span>
+                                <span class="item2"><input type="text" name="Appeal[reg_date]" class="sugg_ipt" style="width:180px;"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">注册地点：</span>
+                                <span class="item2"><input type="text" name="Appeal[reg_area]" class="sugg_ipt" style="width:180px;"><br>（注册城市，可具体到某网吧或者上网宽带类型“电信”或“网通”）</span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">最后一次登录时间：</span>
+                                <span class="item2"><input type="text" name="Appeal[last_login]" class="sugg_ipt" style="width:180px;"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">账号上银子数量：</span>
+                                <span class="item2"><input type="text" name="Appeal[yinzi_count]" class="sugg_ipt" style="width:180px;"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">其他证明资料</span>
+                                <span class="item2"><textarea rows="5" name="Appeal[other_proof]" class="sugg_ipt" style="width:300px;"></textarea><br>
+                                （其他任何可以证明该账号为您所使用的账号的资料信息都可填写）</span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">联系电话：</span>
+                                <span class="item2"><input type="text" id="usertel" name="Appeal[user_tel]" class="sugg_ipt" style="width:180px;"></span>
+                                <span class="item1 usertel"></span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">验证码：</span>
+                                <span class="item2"><input type="text" name="Appeal[appeal_verify]" class="sugg_ipt" style="width:180px;">{{ error }}</span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">&nbsp;</span>
+                                <span class="item2"><div style="display:none">{{ this.createAction('captcha').getVerifyCode(true)}} </div>
+{{ void(this.widget('CCaptcha',{'showRefreshButton':false,'clickableImage':true,'imageOptions':{'alt':'点击换图','title':'点击换图','style':'cursor:pointer'}})) }}</span>
+                            </dd>
+                            <dd class="clearfix">
+                                <span class="item1">&nbsp;</span>
+                                <span class="item2"><input type="submit" name="" class="sugg_btn" onclick="return submitA();" value="确认提交"> <input type="reset" name="" class="cancel_btn" value="取消"></span>
+                            </dd>
+                        </dl>
+                        {{ void(this.endWidget()) }}<!-- form -->
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+function submitA(){
+	var username = $("#username").val();
+	var usertel =$("#usertel").val();
+	if(username==""){
+		$(".username").html("游戏账号不允许为空！");return false;
+	}else{ $(".username").html(""); }
+	if(usertel==""){
+		$(".usertel").html("联系电话不允许为空！");return false;
+	}else{ $(".usertel").html(""); }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{ title_name }}</title>
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url }}/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url }}/css/fhgame.css"/>
+<script src="{{ App.assets.Url }}/js/fhgame.js" type="text/javascript"></script>   
+<!--[if IE 6]>
+<script src="{{ App.assets.Url }}/js/DD_belatedPNG_0.0.8a-min.js"></script>
+<script>
+    DD_belatedPNG.fix('.menu,.collection,.top_logo h1 a,.top_logo,.gift_list li a span.mark,.qq_t,.qq_m,.qq_f');
+    jQuery(function () {$(".qqbox").ie6fixedbug(); });
+</script>
+<![endif]-->
+</head>
+
+<body>
+{% block header %}
+
+{% endblock %}
+    <!-- MAIN -->
+    
+            {% block content %}
+            {% endblock %}
+
+    <!-- MAIN -->
+    <div class="clear"></div>
+    
+<!-- footer -->
+<div class="footer">
+    <div class="inner">
+            <p><a href="http://www.1378.com/about.html" class="ayellow">关于我们</a>  |  <a href="/help.html" class="ayellow">客服中心</a>  | <a href="http://www.1378.com/business.html" target="_blank" class="ayellow">商务合作</a></p>
+            <p>[健康游戏忠告] 抵制不良游戏 拒绝盗版游戏 注意自我保护 谨防受骗上当 适度游戏益脑 沉迷游戏伤身 合理安排时间 享受健康生活 <br>
+            Copyright &copy; 2012 北京梦幻天下科技有限公司 版权所有 <br>
+            文网文[2009]265号&nbsp;&nbsp;京ICP证080625&nbsp;&nbsp;京ICP备10015385号-4&nbsp;&nbsp;京公网安备110105017928<br />
+            24小时客户服务热线：400-777-1367(纠纷处理) </p>
+    </div>
+</div>
+<!-- footer -->
+
+
+<!-- QQ -->
+<div class="qqbox">
+        <div class="qq_t"></div>
+        <div class="qq_m clearfix">
+            <div class="channel">7*24小时客服通道</div>
+            <div class="service">在线QQ:<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=4007771367&amp;site=qq&amp;menu=yes"><img src="{{ App.assets.Url }}/images/qq.png" width="90" height="25" align="absmiddle" /></a></div>
+            <div class="service">客服电话: <font class="phone">400-808-1367</font></div>
+            <div class="service nobg">邮箱:  fhgame@vip.163.com</div>
+            <div class="qq_help"><a href="/question/create"><img width="141" height="43" src="{{ App.assets.Url }}/images/qq_btn.png" align="absmiddle" /></a></div>
+        </div>
+        <div class="qq_f"></div>
+    <div class="qq_shut"><a href="javascript:void(0);"><img width="17" height="17" src="{{ App.assets.Url }}/images/qq_close.png" /></a></div>
+</div>
+<!-- QQ -->
+
+
+   
+
+</div>
+</body>
+</html>

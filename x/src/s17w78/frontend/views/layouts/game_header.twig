@@ -1,0 +1,32 @@
+<!-- TOP -->
+<div class="common_top">
+    <div class="top_content clearfix">
+        <div class="top_login clearfix">
+            {% if App.user.id %}
+            <p class="userinfo">欢迎您!{{ u.nickname }}  <a class="ablue" href="http://i.1378.com">用户中心</a> | <a href="http://i.1378.com/user/logout" class="ablue">退出</a></p>
+            {% else %}
+            <a class="tlogin ablue" target="_blank" href="http://i.1378.com/user/login">登录</a> <a class="treg ablue" target="_blank" href="http://i.1378.com/user/register">注册1378梦幻通行证</a>
+            {% endif %}
+        </div>
+        <div class="top_p" >
+            <span><a href="http://www.1378.com">首页</a> |</span>
+            <span><a href="http://www.1378.com/news/index.html" target="_blank">新闻中心</a> |</span>
+            <span><a href="http://www.1378.com/libao" target="_blank">礼包大全</a> |</span>
+            <span><a href="http://www.1378.com/baike" target="_blank">棋牌百科</a> |</span>
+            <span><a href="http://www.1378.com/game" target="_blank">棋牌游戏</a> |</span>
+            <span><a href="http://www.1378.com/webgame" target="_blank">棋牌页游</a> |</span>
+            <span><a href="javascript:void(0)" onclick="addFavorite()">加入收藏</a> </span>
+        </div>
+    </div>
+</div>
+<!-- TOP -->
+<div class="game_header">
+    <div class="inner clearfix">
+        <h1 class="logo"><a href="/">一起玩棋牌网</a></h1>
+        <h2 class="game_h2">棋牌游戏</h2>
+        <div class="game_search"><input type="text" value="搜索棋牌游戏" class="game_search_input" ><button type="submit" class="game_search_btn"> </button></div>
+        <div class="game_nav">
+            <a href="{{ this.createUrl('/game/index')}}" class="aw" target="_blank">棋牌游戏</a>|<a href="{{ this.createUrl('/game/list')}}" class="aw" target="_blank">小游戏</a>|<a href="{{ this.createUrl('/game/android')}}" class="aw" target="_blank">安卓游戏</a>|<a href="{{ this.createUrl('/game/apple')}}" class="aw" target="_blank">苹果游戏</a>|<a href="http://www.1378.com" class="aw" target="_blank">1378首页</a>
+        </div>
+    </div>
+</div>

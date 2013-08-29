@@ -1,0 +1,31 @@
+{% extends "oterm/nav.twig" %}
+{% set menu_name="分类"%}
+{% set sidebar_name = "管理分类" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':roots, 
+            'columns':{
+                0:'id',
+                1:'root',
+                2:{
+                  'name':'name',
+                  'value':data.name
+                },
+                3:'short_name',
+                4:'url',
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update} {delete}',
+                     'buttons':{
+                    'update':{'url':'Yii::app()->createUrl("oterm/show?root=$data->root")'},
+                    }
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

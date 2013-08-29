@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1378棋牌网</title>
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url}}/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url}}/css/search.css"/>
+<style type="text/css">
+ul.yiiPager .first,  
+ul.yiiPager .last  
+{  
+    display:block;  
+}  
+</style>
+</head>
+
+<body>
+
+<!--MAIN-->
+<div class="container">
+	<!--导航-->
+ 	<div class="search_header clearfix">
+    	<h1 class="logo"><a href="/">一起玩棋牌网</a></h1>
+        <div class="search_tab">
+            <ul>
+<!--                 <li class="cur"><span>新闻</span><em></em></li>
+                <li><span>小游戏</span><em></em></li>
+                <li><span>手机游戏</span><em></em></li>
+                <li><span>视频</span><em></em></li> -->
+            </ul>
+            <div class="search_form">
+                <form action="/search/index" method="get">
+                <input type="text" class="search_input1" name="q" value="{{ q }}" /><input type="submit" value="搜索" class="search_btn1" />
+            </form>
+            </div>
+        </div>
+    </div>
+	<!--导航-->
+
+    <div class="search_count">为您找到相关结果约<span class="red">{{sum}}</span>个</div>
+
+    <div class="search_main clearfix">
+        <div class="search_result">
+
+            <!-- <div class="search_app">
+                <div class="title clearfix">
+                    <h3>推荐应用</h3>
+                    <a href="" class="more">更多应用 »</a>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li class="clearfix">
+                            <a href="" class="pic"><img src="images/test/game_pic8.jpg" width="70" height="70"></a>
+                            <div class="info">
+                                <h4><a href="" class="ablue">欢乐斗地主</a></h4>
+                                <p>
+                                    <strong>平台推荐：</strong><a href="">联众游戏</a>   <a href="">JJgame</a>  <a href="">中国游戏中心</a><br>
+                                    <strong>游戏简介：</strong>益智动作射击游戏动画版,为了报复偷走鸟蛋的肥猪们,鸟儿以自己的身体器,仿益智动作
+射击游戏动画版,为了报复偷走鸟蛋的肥猪们,鸟儿以自己的身...<a href="" class="ared">更多»<a>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <a href="" class="pic"><img src="images/test/game_pic9.jpg" width="70" height="70"></a>
+                            <div class="info">
+                                <h4><a href="" class="ablue">欢乐斗地主</a></h4>
+                                <p>
+                                    <strong>平台推荐：</strong><a href="">联众游戏</a>   <a href="">JJgame</a>  <a href="">中国游戏中心</a><br>
+                                    <strong>游戏简介：</strong>益智动作射击游戏动画版,为了报复偷走鸟蛋的肥猪们,鸟儿以自己的身体器,仿益智动作
+射击游戏动画版,为了报复偷走鸟蛋的肥猪们,鸟儿以自己的身...<a href="" class="ared">更多»<a>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <a href="" class="pic"><img src="images/test/game_pic10.jpg" width="70" height="70"></a>
+                            <div class="info">
+                                <h4><a href="" class="ablue">欢乐斗地主</a></h4>
+                                <p>
+                                    <strong>平台推荐：</strong><a href="">联众游戏</a>   <a href="">JJgame</a>  <a href="">中国游戏中心</a><br>
+                                    <strong>游戏简介：</strong>益智动作射击游戏动画版,为了报复偷走鸟蛋的肥猪们,鸟儿以自己的身体器,仿益智动作
+射击游戏动画版,为了报复偷走鸟蛋的肥猪们,鸟儿以自己的身...<a href="" class="ared">更多»<a>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- app end -->
+
+            <ul class="result_list">
+                {% for object in results %}
+                <li>
+                    <h3><a target="_blank" href="http://www.1378.com{{ object.url }}">{{ object.object_name|raw }}</a></h3>
+                    <p>{{ object.object_description|raw }}<br />
+                    <a target="_blank" href="http://www.1378.com{{ object.url }}" class="agreen">http://www.1378.com{{ object.url }}</a>
+                    </p>
+                </li>
+                {% endfor %}
+            </ul><!-- list end -->
+            {% if pages is not empty %}
+            <div class="page">
+                <div style="width:550px;">
+                {{ void(this.widget('CLinkPager',{'pages':pages,'header':false})) }}
+                </div>
+            </div>
+            {% endif %}
+            <!-- <div class="search_about">
+                <h3 class="title">相关搜索</h3>
+                <p class="clearfix">
+                    <a href="">棋牌游戏赚钱</a>
+                    <a href=""> 516棋牌游戏 </a>
+                    <a href=""> 单机棋牌游戏下载</a>
+                    <a href=""> 棋牌类单机游戏 </a>
+                    <a href=""> 516棋牌游戏 </a>
+                    <a href=""> 516棋牌游戏 </a>
+                </p>
+            </div> -->
+            
+        </div>
+        <!-- <div class="search_side">
+            <div class="search_ad"><img src="images/search/ad1.jpg"></div>
+            <div class="search_ad"><img src="images/search/ad2.jpg"></div>
+        </div> -->
+    </div>
+    
+</div>
+<!--MAIN-->
+<div class="clear"></div>
+<!--FOOTER-->
+<div class="footer">
+    <div class="inner clearfix">
+        <div class="flogo"><img src="http://s2.17w78.com/images/logo_b--ea34a--.png" /></div>
+        <div class="copyright">
+            <div class="fnav"><a href="http://www.1378.com/about.html" target="_blank">关于我们</a> | <a href="http://www.1378.com/contactus.html" target="_blank">联系我们</a> | <a href="http://www.1378.com/business.html" target="_blank">商务合作</a> |<a target="_blank" href="http://i.1378.com/user/feedback">投诉建议</a> |<a href="http://www.1378.com/hr.html" target="_blank"> 招聘信息 </a> </div>
+            <p>Copyright (c) 2012-2014 1378.com, All Rights Reserved. 1378棋牌网 版权所有<br>
+            抵制不良游戏 拒绝盗版 注意自我保护 谨防受骗上当 适度游戏益脑 沉迷游戏伤身 合理安排时间 享受健康生活<br>
+            京ICP备10015385号-9<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!--FOOTER-->
+
+
+</body>
+</html>

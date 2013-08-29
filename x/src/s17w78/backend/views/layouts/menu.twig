@@ -1,0 +1,15 @@
+{% extends "layouts/base.twig" %}
+{% block mainbody %}
+<div id="sidebar-nav">
+        <ul id="dashboard-menu" class="nav nav-list">
+            <li class=" theme-mobile-hack {% if sidebar_name == "user" %}cur{% endif %}"><a href="{{ this.createUrl('manager/index') }}"><i class="icon-user"></i> <span>用户管理</span></a></li>
+            <li class=" theme-mobile-hack {% if sidebar_name == "game" %}cur{% endif %} " ><a href="{{ this.createUrl('game/admin') }}"><i class="icon-plane"></i> <span>小游戏管理</span></a></li>
+             <li class=" theme-mobile-hack {% if sidebar_name == "mobilegame" %}cur{% endif %} " ><a href="{{ this.createUrl('mobilegame/admin') }}"><i class=" icon-road"></i> <span>手机游戏管理</span></a></li>
+            <li class=" theme-mobile-hack {% if sidebar_name == "category" %}cur{% endif %}" ><a href="{{ this.createUrl('category/index') }}"><i class="icon-align-center"></i> <span>分类管理</span></a></li>
+            <li class=" theme-mobile-hack {% if sidebar_name == "product" %}cur{% endif %}" ><a href="{{ this.createUrl('product/index') }}"><i class="icon-folder-open"></i> <span>产品库管理</span></a></li>
+        </ul>
+</div>
+<div class="content">
+{% block content %}
+	{% endblock %}
+{% endblock %}

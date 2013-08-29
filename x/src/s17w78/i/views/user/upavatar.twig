@@ -1,0 +1,305 @@
+{% extends "layouts/bbase.twig" %}
+{% set title_name = "头像设置" %}
+{% block content %}
+<script src="{{ App.assets.Url }}/js/ui.jquery.js" type="text/javascript"></script>
+<script src="{{ App.assets.Url }}/js/ui.core.js" type="text/javascript"></script>
+<script src="{{ App.assets.Url }}/js/ui.draggable.js" type="text/javascript"></script>
+<script src="{{ App.assets.Url }}/js/ui.upload.js" type="text/javascript"></script>
+    <div class="user_main_r">
+        <div class="title">
+            <h3>我的资料</h3>
+            <ul class="sub_menu">
+                <a href="/user/profile"><li>基本信息</li></a>
+                <a href="{% if u.getAvatar is empty %} /user/upavatar {% else %} /user/avatar {% endif %}"> <li class="cur">头像设置</li></a>
+                <a href="/user/changepw"><li>密码修改</li></a>
+            </ul>
+        </div>
+        <div class="content">
+        	{% include "layouts/notify.twig" %}
+            <div class="ucconfig_content clearfix">
+                <div id="upload_left">
+                    <div class="utitle"><b>裁切头像</b></div>
+                    <div class="uploadtooltip">您可以拖动照片以裁剪满意的头像</div>                              
+                    <div class="uploaddiv" id="Canvas" style="width: 250px; height: 250px;">
+                    	<div id="ImageDragContainer">                               
+								<img id='ImageDrag' src="{{ profile.avatar }}">                                        
+							</div>
+							<div id="IconContainer">                               
+								<img id='ImageIcon' src="{{ profile.avatar }}">
+							</div>    
+                    </div>
+                    <div class="uploaddiv">
+							<table width="250" align="left">
+							<tr>
+							<td width="23" id="Min">
+							<img alt="缩小" src="{{ App.assets.Url }}/images/user/_c.gif" id="moresmall" class="smallbig" />                                </td>
+							<td width="215">
+							<div id="bar">
+							<div class="child"></div>
+		
+							</div>
+							</td>
+							<td id="Max">
+							<img alt="放大" src="{{ App.assets.Url }}/images/user/c.gif" id="morebig" class="smallbig" />                                </td>
+							</tr>
+							</table>
+						</div>
+                    
+                    <div class="clear"></div> 
+                    <div style="padding:20px; text-align:center;clear:both;">
+                        <form method="POST" action="/user/resize">
+<div style="display:none"><input type="hidden" name="MF_CSRF_TOKEN" value="7b9c5e4ed66436b862d9cbcca16be18126159c2a"></div>
+                        
+                        <input type="submit" value="完成裁切保存头像" name="btn_Image">
+                        <div style="display:none">
+                        <input type="hidden" value="{{ profile.avatar }}" id="bigImage" name="bigImage">
+                        left: <input type="text" value="" id="left" name="left"><br>
+                        top: <input type="text" value="" id="top" name="top"><br>
+                        img_x: <input type="text" value="" id="img_x" name="img_x"><br>
+    
+                        img_y: <input type="text" value="" id="img_y" name="img_y"><br>
+                        img_w: <input type="text" value="" id="img_w" name="img_w"><br>
+                        img_h: <input type="text" value="" id="img_h" name="img_h"><br>
+                        dst_x: <input type="text" value="" id="dst_x" name="dst_x"><br>
+                        dst_y: <input type="text" value="" id="dst_y" name="dst_y"><br>
+                        dst_w: <input type="text" value="" id="dst_w" name="dst_w"><br>
+    
+                        dst_h: <input type="text" value="" id="dst_h" name="dst_h"><br>
+                        倍数: <input type="text" value="" id="f" name="f"><br>
+                        宽度: <input type="text" value="" id="width" name="width"><br>
+                        高度: <input type="text" value="" id="height" name="height"><br>
+                        </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div id="upload_right">
+                    <div class="utitle"><b>上传头像</b></div>
+                    <p>请选择新的照片文件，文件需小于5MB</p>
+                    
+                        <div id="profile_avatar_form">
+                           <!--  <form method="POST" action="/user/upload" id="form_profile_avtar_upload" enctype="multipart/form-data"> -->
+                            	{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'form_profile_avtar_upload','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+<div style="display:none"><input type="hidden" name="MF_CSRF_TOKEN" value="7b9c5e4ed66436b862d9cbcca16be18126159c2a"></div>
+                                <input type="file" size="20" class="p_input" onchange="submitToIframe()" name="Profile[avatar]" id="profile_picture_post_file">
+                                {{ form.error(profile, 'avatar', {'placeholder':'','class':"login_span"})|raw }}
+                                {{ void(this.endWidget()) }}<!-- form -->
+                            
+                        </div>
+                    <p></p>
+                </div>
+             </div>
+        </div>
+    
+    </div>
+</div>
+<!--MAIN-->
+
+<script type="text/javascript">
+function submitToIframe(){
+	$("#form_profile_avtar_upload").submit();	
+}
+function avatar_upload_success(pic_url){
+	alert(pic_url);
+	if (pic_url) {
+		var f1="<img src='"+ pic_url +"' id='ImageDrag'>";
+		var f2="<img src='"+ pic_url +"' id='ImageIcon'>";
+		$("#ImageDragContainer").html(f1);
+		$("#IconContainer").html(f2);
+		$("#bigImage").val(pic_url);
+		//run(330,250);
+		//parent.location.href = "/user/avatar2";
+    } else{
+    	alert("picture upload fail!");
+    }
+}
+function run(i_width,i_height){
+	$("#Canvas").css({width:CANVAS_WIDTH+ "px",height:CANVAS_HEIGHT+ "px"});
+	$("#ImageDragContainer").css({width:ICON_WIDTH+ "px",height:ICON_HEIGHT+ "px",top:TOP_EDGE+1+ "px",left:LEFT_EDGE-1+ "px"});
+	$("#IconContainer").css({top:"-"+ICON_HEIGHT+"px"});
+	$iconElement = $("#ImageIcon");
+	$imagedrag = $("#ImageDrag");
+	var image = new Image();
+	image.src = $iconElement.attr("src");
+	if(image.width==0 && image.height==0){
+		var realWidth = i_width;
+		var realHeight = i_height;
+	}else{
+		 var realWidth = image.width;
+		var realHeight = image.height; 
+	}
+	image=null;
+	
+	minFactor = Math.min(ICON_WIDTH / realWidth,ICON_HEIGHT/realHeight);
+	if (ICON_WIDTH > realWidth && ICON_HEIGHT > realHeight) {
+		minFactor = 1;
+	}
+	factor = minFactor > 0.25 ? 8.0 : 4.0 / Math.sqrt(minFactor);
+
+	scaleFactor = 1;
+	if (realWidth > CANVAS_WIDTH && realHeight > CANVAS_HEIGHT) {
+		if (realWidth / CANVAS_WIDTH > realHeight / CANVAS_HEIGHT) {
+			scaleFactor = CANVAS_HEIGHT / realHeight;
+		}
+		else {
+			scaleFactor = CANVAS_WIDTH / realWidth;
+		}
+	}
+   $(".child").css("left", 100 * (Math.log(scaleFactor * factor) / Math.log(factor)) + "px");
+
+	//alert(realWidth+"|"+scaleFactor+"|"+i_width);
+
+	var currentWidth = Math.round(scaleFactor * realWidth);
+	var currentHeight = Math.round(scaleFactor * realHeight);
+	var originLeft = Math.round((CANVAS_WIDTH - currentWidth) / 2) ;
+	var originTop = Math.round((CANVAS_HEIGHT - currentHeight) / 2);
+  
+	//计算截取框中的图片的位置
+	var dragleft = originLeft - LEFT_EDGE;
+	var dragtop = originTop - TOP_EDGE;
+	//设置图片当前尺寸和位置
+	$iconElement.css({ width: currentWidth + "px", height: currentHeight + "px", left: originLeft + "px", top: originTop + "px" });
+	$imagedrag.css({ width: currentWidth + "px", height: currentHeight + "px", left: dragleft + "px", top: dragtop + "px" });
+	
+	oldWidth = currentWidth;
+	oldHeight = currentHeight;
+	valuewrite(dragleft,dragtop,oldWidth,oldHeight);
+
+	
+  $("#ImageDrag").draggable(
+	{
+		cursor: 'move',
+		drag: function(e, ui) {
+			var self = $(this).data("draggable");
+			var drop_img = $("#ImageIcon");
+			var top = drop_img.css("top").replace(/px/, ""); //取出截取框到顶部的距离
+		   var left = drop_img.css("left").replace(/px/, ""); //取出截取框到左边的距离
+			drop_img.css({ left: (parseInt(self.position.left) + LEFT_EDGE) + "px", top: (parseInt(self.position.top) + TOP_EDGE) + "px" }); //同时移动
+		   
+			valuewrite(parseInt(self.position.left),parseInt(self.position.top),oldWidth,oldHeight);
+		}
+	}
+	);
+	//设置图片可拖拽，并且拖拽一张图片时，同时移动另外一张图片
+	$("#ImageIcon").draggable(
+	{
+		cursor: 'move',
+		drag: function(e, ui) {
+			var self = $(this).data("draggable");
+			var drop_img = $("#ImageDrag");
+			var top = drop_img.css("top").replace(/px/, ""); //取出截取框到顶部的距离
+			var left = drop_img.css("left").replace(/px/, ""); //取出截取框到左边的距离
+			drop_img.css({ left: (parseInt(self.position.left) - LEFT_EDGE) + "px", top: (parseInt(self.position.top) - TOP_EDGE) + "px" }); //同时移动
+			valuewrite(parseInt(self.position.left) - LEFT_EDGE,parseInt(self.position.top) - TOP_EDGE,oldWidth,oldHeight);
+		}
+
+	}
+	);
+}
+function valuewrite(left,top,currentWidth,currentHeight){
+
+		var img_x=left>0 && left<ICON_WIDTH?0:0-left;
+		var dst_x=left<=0 || left>=ICON_WIDTH?0:left;
+
+		var img_y=top>0 && top<ICON_HEIGHT?0:0-top;
+		var dst_y=top<=0 || top>=ICON_HEIGHT?0:top;
+
+		var img_w='';
+		var dst_w='';
+
+
+		if(ICON_WIDTH>currentWidth){
+			if(left>0 && left<ICON_WIDTH-currentWidth){
+				img_w=currentWidth;
+				dst_w=currentWidth;
+			}else if(left>ICON_WIDTH || left<-currentWidth){
+				//alert("d");
+				img_w=0;
+				dst_w=ICON_WIDTH;
+			}else if(left>0 && left<ICON_WIDTH){
+				img_w=ICON_WIDTH-left;
+				
+
+				dst_w=ICON_WIDTH-left;
+			}else{
+				img_w=currentWidth+left;
+				
+				dst_w=currentWidth+left;
+			}
+		}else{
+			if(left<=0 && left>=0-(currentWidth-ICON_WIDTH)){
+				img_w=ICON_WIDTH;
+				dst_w=ICON_WIDTH;
+			}else if(left>ICON_WIDTH || left<0-currentWidth){
+				img_w=0;
+				dst_w=ICON_WIDTH;
+			}else if(left>0 && left<ICON_WIDTH){
+				img_w=ICON_WIDTH-left;
+				
+				dst_w=ICON_WIDTH-left;
+			}else{
+				img_w=currentWidth+left;
+				
+				dst_w=currentWidth+left;
+			}
+		}
+
+		var img_h='';
+		var dst_h='';
+
+		if(ICON_HEIGHT>currentHeight){
+			if(top>0 && top<ICON_HEIGHT-currentHeight){
+				img_h=currentHeight;
+				dst_h=currentHeight;
+			}else if(top>ICON_WIDTH || top<0-currentHeight){
+				img_h=0;
+				dst_h=ICON_HEIGHT;
+			}else if(top>0 && top<ICON_HEIGHT){
+				img_h=ICON_HEIGHT-top;
+				
+				dst_h=ICON_HEIGHT-top;
+			}else{
+				img_h=currentHeight+top;
+				
+				dst_h=currentHeight+top;
+			}
+		}else{
+			if(top<=0 && top>=0-(currentHeight-ICON_HEIGHT)){
+				img_h=ICON_HEIGHT;
+				dst_h=ICON_HEIGHT;
+			}else if(top>ICON_WIDTH || top<0-currentHeight){
+				img_h=0;
+				dst_h=ICON_HEIGHT;
+			}else if(top>0 && top<ICON_HEIGHT){
+				img_h=ICON_HEIGHT-top;
+				
+				dst_h=ICON_HEIGHT-top;
+			}else{
+				img_h=currentHeight+top;
+				
+				dst_h=currentHeight+top;
+			}
+		}
+		$("#left").val(left);
+		$("#top").val(top);
+		$("#f").val(scaleFactor);
+		$("#width").val(currentWidth);
+		$("#height").val(currentHeight);
+		$("#img_x").val(img_x/scaleFactor);
+		$("#img_y").val(img_y/scaleFactor);
+		$("#img_w").val(img_w/scaleFactor);
+		$("#img_h").val(img_h/scaleFactor);
+		$("#dst_x").val(dst_x);
+		$("#dst_y").val(dst_y);
+		$("#dst_w").val(dst_w);
+		$("#dst_h").val(dst_h);
+	}
+	{* function checkThumb()
+	{
+		if($("#ImageDrag").attr("src") == '{{ img('images/u/user_pic.png')}}' ){
+			alert("没有选取任何图像！");
+			return false;
+		}
+	} *}
+  </script>
+{% endblock %}

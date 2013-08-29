@@ -1,0 +1,10 @@
+<h2>用户管理<span class="info">来创建和管理您的游戏吧</span></h2>
+
+    <ul class="filter nav nav-pills">
+      <li {% if nav_name == "create" %} class="active" {% endif %}>
+        <a href="{{ this.createUrl('root')}}" data-filter=".element">创建分类</a>
+      </li>
+      <li {% if nav_name == "admin" %} class="active" {% endif %}><a href="{{ this.createUrl('index')}}" data-filter=".sampleFilterOnetrue">管理分类</a></li>
+    </ul>
+    <br />
+    <br />

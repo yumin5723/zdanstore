@@ -1,0 +1,29 @@
+{% extends "game/index.twig" %}
+{% set menu_name="联运管理"%}
+{% set sidebar_name = "管理CP_USER" %}
+{% block content %}
+<div class="nav">
+    当前位置：<a href="{{ this.createUrl('package/admin') }}">联运管理</a>>>联运游戏管理
+</div>
+    <input type="button" class="add_btn" value="新建游戏" onclick="javascript:window.location.href='{{ this.createUrl('cpuser/add',{'id':model.id})}}'" /><b>{{ model.cpname }}</b>
+    {% include "layouts/notice.twig" %}
+
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':results, 
+            'columns':{
+                0:'id',
+                1:'app_name',
+                2:'short_name',
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("cpuser/updateapp",array("id"=>$data->id))'},
+                      },
+                      'htmlOptions':{'width':'50px'}
+                }
+            },})) 
+         }}
+{% endblock %}

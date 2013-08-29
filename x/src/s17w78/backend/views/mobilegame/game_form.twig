@@ -1,0 +1,201 @@
+<div class="form">
+{% include "layouts/notice.twig" %}
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+{{ form.textFieldRow(model, "name", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "version", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "apply", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "size", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "lang", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "developers", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "resolution", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "advertising", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "times", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "price", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "recommend_value", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "rank_value", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "url_to_pc", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "url_to_mobile", {'placeholder':''})|raw }}
+
+<div class="control-group ">
+    <label for="MobileGame_publish_date" class="control-label required">游戏介绍  <span class="required">*</span></label>
+    <div id="small_buttons_insert" align="center">
+        <span>插入</span>      
+        <img valign="top" alt="Image" title="Image" onClick="insertFileToContentDesc('image');" src="{{ App.assets.Url}}/images/insert_image.png" />
+                
+    </div>
+    <div class="controls">
+        {{form.textArea(model,'desc',{'tabindex':'2','class':'specialContent','id':'ckeditor_desc'})|raw }}
+        {{form.error(model,'desc')}} 
+    </div>
+</div>
+
+{{ form.textFieldRow(model, "publish_date", {'placeholder':''})|raw }}
+{{ category|raw }}
+{% if isNew  == "false" %}
+<div  class="control-group">
+    <label for="Category_name" class="control-label required">父类 <span class="required">*</span></label>
+    <div class="controls">
+        <select class="u_select" name="MobileGame[category_id]">
+          {% for desc in descendants %}
+        <option value="{{ desc.id }}">{{ str_repeat(desc.level ) }}{{ desc.name }}({{ desc.level-1 }}级分类 )</option>
+          {% endfor %}
+        </select>
+    </div>
+</div>
+{% else %}
+    <div  class="control-group">
+    <label for="Category_name" class="control-label required">父类 <span class="required">*</span></label>
+    <div class="controls">
+        <select class="u_select" name="MobileGame[category_id]">
+          {% for desc in descendants %}
+        <option value="{{ desc.id }}" {% if model.category_id == desc.id %} selected {% endif %}>{{ str_repeat(desc.level ) }}{{ desc.name }}({{ desc.level-1 }}级分类 )</option>
+          {% endfor %}
+        </select>
+    </div>
+</div>
+{% endif %}
+<div class="control-group ">
+    <label for="Game_upload" class="control-label">游戏图片</label>
+        <div class="controls">
+            <span>插入</span>      
+                <img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image','game_image');" src="{{ App.assets.Url}}/images/insert_image.png" />
+        </div>
+</div>
+{% if isNew  == "false" %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="game_image" src="" />
+        </div>
+</div>
+
+{% else %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="game_image" src="{{ model.image }}" />
+        </div>
+</div>
+{% endif %}
+
+<input type="hidden" id="game_image" name="MobileGame[image]">
+
+<div class="control-group ">
+    <label for="Game_upload" class="control-label">游戏标签图片</label>
+        <div class="controls">
+            <span>插入</span>      
+                <img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image','tag_image');" src="{{ App.assets.Url}}/images/insert_image.png" />
+        </div>
+</div>
+{% if isNew  == "false" %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="tag_image" src="" />
+        </div>
+</div>
+
+{% else %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="tag_image" src="{{ model.tag_image }}" />
+        </div>
+</div>
+{% endif %}
+
+<input type="hidden" id="tag_image" name="MobileGame[tag_image]">
+
+<div class="control-group ">
+    <label for="Game_upload" class="control-label">相关推荐图片</label>
+        <div class="controls">
+            <span>插入</span>      
+                <img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image','recommend_image');" src="{{ App.assets.Url}}/images/insert_image.png" />
+        </div>
+</div>
+{% if isNew  == "false" %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="recommend_image" src="" />
+        </div>
+</div>
+
+{% else %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="recommend_image" src={{ model.recommend_image }}/>
+        </div>
+</div>
+{% endif %}
+
+<input type="hidden" id="recommend_image" name="MobileGame[recommend_image]">
+
+<div class="control-group ">
+    <label for="Game_upload" class="control-label">排行榜图片</label>
+        <div class="controls">
+            <span>插入</span>      
+                <img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image','top_image');" src="{{ App.assets.Url}}/images/insert_image.png" />
+        </div>
+</div>
+{% if isNew  == "false" %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="top_image" src="" />
+        </div>
+</div>
+
+{% else %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="top_image" src={{ model.top_image }} />
+        </div>
+</div>
+{% endif %}
+
+<input type="hidden" id="top_image" name="MobileGame[top_image]">
+<div class="control-group">
+  <div class="controls">
+    <button type="submit" class="btn btn-large btn-primary">submit</button>
+  </div>
+</div>
+{{ void(this.endWidget()) }}<!-- form -->
+<script type="text/javascript">
+    $(document).ready(function(){
+           $("a[rel^='prettyPhoto']").prettyPhoto({show_title: true,social_tools: '',deeplinking: false});
+      });
+    function insertFileToContent(file_type,id){    
+        $.prettyPhoto.open('/cms/resource/createframe?&image_id='+ id +'&parent_call=true&ckeditor='+file_type+'&iframe=true&height=400','upload','');        
+    }
+    function afterUploadResourceWithGame(resource_path,image_id){
+        $("#"+image_id).val(resource_path);
+        $("."+image_id).attr("src",resource_path);
+        $.prettyPhoto.close();
+    }
+</script>
+<script type="text/javascript">
+
+    CKEDITOR.replace( 'ckeditor_desc', {
+        toolbar: 'Full',
+        width:'820'
+    });
+
+    function insertFileToContentDesc(file_type){   
+        $.prettyPhoto.open('/cms/resource/createframe?parent_call=true&ckeditor='+file_type+'&iframe=true&height=400','上传资源','');        
+    }
+    
+    function afterUploadResourceWithEditor(resource_id,resource_path,file_type,insert_type,width,height,alt){
+        var add_width='';
+        var add_height='';
+        var add_alt='';
+        if(width!='0') add_width='width="'+width+'"';
+        if(height!='0') add_height='height="'+height+'"';
+        if(alt!='') add_alt='alt="'+alt+'"';   
+        if(file_type=='image'){
+            CKEDITOR.instances['ckeditor_desc'].insertHtml('<img '+add_width+' '+add_height+' '+ add_alt+' src="'+resource_path+'"/>');  
+        }
+        if(file_type=='video'){
+        }
+            
+        
+        $.prettyPhoto.close();
+    }
+            
+    
+
+</script>  

@@ -1,0 +1,41 @@
+{% extends "game/index.twig" %}
+{% set menu_name="礼包管理"%}
+{% set sidebar_name = "礼包管理" %}
+{% block content %}
+<div class="nav">
+    当前位置：<a href="{{ this.createUrl('package/admin') }}">礼包管理</a>>>卡批次管理
+</div>
+  <h2>{{ root.name }}</h2>
+    <input type="button" class="add_btn" value="新建批次" onclick="javascript:window.location.href='{{ this.createUrl('package/add',{'id':model.id})}}'" /><b>{{ model.name }}</b>
+    
+
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':results, 
+            'columns':{
+                0:'id',
+                1:'batch_number',
+                2:
+                {
+                    'name':'当前状态',
+                    'value':'($data->status== 0) ? "关闭" : "开启"',
+                    "type":"raw",
+                },
+                3:
+                {
+                    'name':'操作',
+                    'value':'($data->status== 0) ? (CHtml::link("开启",Yii::app()->createUrl("package/updatestatus",array("batch_id"=>$data->id)))) : (CHtml::link("关闭",Yii::app()->createUrl("package/updatestatus",array("batch_id"=>$data->id))))',
+                    "type":"raw",
+                },
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("package/admincode",array("batch_number"=>$data->batch_number))'},
+                      },
+                      'htmlOptions':{'width':'50px'}
+                }
+            },})) 
+         }}
+{% endblock %}

@@ -1,0 +1,185 @@
+	body{background:#EDEDED;}
+	a:hover,a:active{color:#4DA400;}
+	
+	.game_header{background:url(../images/game/header_bg.png) repeat-x;}
+	.game_header .inner{width:980px;margin:0 auto;padding-top:20px;height:74px; position:relative;}
+	.game_header .logo{ float:left; width:231px; height:47px;display:inline; background:url(../images/logo_b.png) no-repeat;}
+	.game_header .logo a{display:block;height:47px; text-indent:-9999px; overflow:hidden;}
+	.game_header .game_h2{float:left;border-left:1px solid #D1D1D1;margin-left:10px;padding-left:10px;font-size:32px;font-family:"微软雅黑";color:#949494;font-weight:normal;}
+	.game_header .game_search{float:right;}
+	.game_header .game_nav{background:url(../images/game/nav_bg.png) no-repeat top;width:429px;height:34px; line-height:34px;position:absolute;right:0;bottom:5px;color:#B9E86F;}
+	.game_header .game_nav a{font-size:15px;font-family:"微软雅黑";margin:0 15px;}
+	
+	.game_search_input{border:1px solid #CBCBCB;padding:2px;height:20px; line-height:20px;color:#C3C3C3;width:202px;}
+	.game_search_btn{background:url(../images/game/search_btn.png) no-repeat;width:62px;height:26px;border:none;cursor:pointer;}
+	
+	.game_hotbox{border:1px solid #ccc; background:#fff;}
+	.game_hotbox .title{border:1px solid #fff; background:#E8E8E8;padding:10px 10px;width:15px;font-size:15px;font-family:"微软雅黑";color:#4DA400;float:left; display:inline; line-height:18px;height:134px;}
+	.game_hotbox .content{float:left;width:940px; overflow:hidden;}
+	.game_hotbox .g_left{float:left; background:url(../images/game/main_bg.png) no-repeat left -111px;width:20px;height:40px;margin-top:56px; display:inline;cursor:pointer;}
+	.game_hotbox .g_right{float:right; background:url(../images/game/main_bg.png) no-repeat -21px -111px;width:20px;height:40px;margin-top:56px; display:inline;cursor:pointer;}
+	.game_hotbox .hotgame_list{float:left;width:880px; overflow:hidden; position:relative;height:135px;margin:10px; display:inline;}
+	.game_hotbox ul li{float: left;height: 68px;line-height: 20px;overflow: hidden;padding-top: 2px;position: relative;text-align: center;width: 80px;}
+	.game_hotbox ul li img{width:66px;height:45px;margin:0 auto; display:block;}
+	.ulleft {display: block;float: left;height: 144px;width: 1760px;}
+	
+	.game_box .title{background-image:url(../images/game/main_bg.png);height:33px;padding-top:3px; line-height:33px;}
+	#game_app1 .title{background-position: left -37px;}
+	#game_app2 .title{background-position: left -74px;}
+	.game_box .title h3{float:left;width:192px;font-size:16px;font-family:"微软雅黑";color:#fff; text-align:center;font-weight:normal;}
+	.game_box .title .sort{float:left;width:422px; text-align:left;color:#888;font-size:14px;font-family:"微软雅黑";}
+	/*.game_box .title .sort a{margin:0 10px;}*/
+	
+	.game_box .title .sort a{float:left; width:62px; height:27px; line-height:27px; text-align:center; margin-top:6px; font-weight:bold; display:inline;}
+	.game_box .title .sort a.cur{background:url(../images/game_nav_cur.png) no-repeat;}
+	
+	.game_box .title .tip{color:#888;float:left;}
+	.game_box .title .more{float:right;width:77px;height:20px; line-height:20px; background:url(../images/game/main_bg.png) no-repeat -43px -111px;padding-left:16px;margin-top:6px; display:inline;margin-right:10px;}
+	.game_box .content{border:1px solid #ccc;border-top:none; background:#fff;}
+	.game_list{float:left;width:685px;border-right:1px solid #D5D5D5;}
+	.game_list ul{padding:6px 10px;}
+	.game_list ul li{float:left; width:86px; margin:6px 4px; display:inline;height:93px; overflow:hidden;}
+	.game_list ul li .name{font-size:12px;font-family:'微软雅黑'; color:#333333; text-align:center; height:20px; display:block; line-height:20px;}
+	.game_rank{float:right;width:290px;margin-right:1px;}
+	.game_rank .ctitle{font-size:15px;font-family:'微软雅黑';color:#000; line-height:35px; background:#fff;}
+	.game_rank .ccontent{background:url(../images/game/rank_bg.png) no-repeat center top #F3F3F3;}
+	.game_rank ul{padding:5px 8px 0;}
+	.game_rank ul li{padding:7px 5px;_padding:6px 5px;background:url(../images/sline.png) repeat-x bottom;}
+	.game_rank ul li .num{background:url(../images/game/main_bg.png) no-repeat -190px -111px;width:18px;height:18px;text-align:center;font-size:11px;color:#B1B1B1; line-height:18px;float:left;}
+	.game_rank ul li .pic{float:left;margin-left:10px; display:inline;}
+	.game_rank ul li .info{float:left;margin-left:10px; display:inline; line-height:20px; text-align:left;color:#888;}
+	.game_rank ul li .info h4{font-weight:bold;font-size:14px;}
+	.game_rank ul li.top1 .num,.game_rank ul li.top2 .num,.game_rank ul li.top3 .num{background-image:url(../images/game/main_bg.png);width:16px;height:28px; line-height:20px;color:#fff;font-weight:bold;margin-top:5px; display:inline; background-repeat:no-repeat;}
+	.game_rank ul li.top1 .num{background-position:-139px -111px;}
+	.game_rank ul li.top2 .num{background-position:-156px -111px;}
+	.game_rank ul li.top3 .num{background-position:-173px -111px;}
+	.game_rank ul li .name{float:left;margin-left:10px; display:inline;font-size:14px;}
+	.game_rank ul li .ren{float:right;color:#888;}
+	
+	/* list style */
+	.game_subnav{text-align:left;padding:10px 0;color:#888;}
+	.allgame_list{border:1px solid #ccc;width:768px;float:left;}
+	.allgame_list .title{background:url(../images/game/allgame_title.png) repeat-x;height:32px; line-height:32px;}
+	.allgame_list .title h3{font-size:16px;font-family:'微软雅黑';color:#000;float:left;padding:0 30px;border-right:1px solid #DADADA; display:inline;font-weight:normal;}
+	.allgame_list .title .tab{float:left;}
+	.allgame_list .title .tab li{float:left;padding:0 20px;font-size:14px;font-family:'微软雅黑'; display:inline;border-right:1px solid #DADADA;cursor:pointer;}
+	.allgame_list .title .tab li.cur{background:url(../images/game/tab_bg.png) repeat-x top;color:#4DA400;}
+	.allgame_list .title .update{float:right;padding-right:10px; display:inline;}
+	.allgame_list .content{background:#fff;}
+	.allgame_list .game_list{width:768px;float:none;}
+	.allgame_list .game_list ul{padding:6px 8px;}
+	.allgame_box .game_rank{width:195px;float:right;border:1px solid #ccc;}
+	.allgame_box .game_rank ul li{padding:7px 0px;_padding:6px 0px;}
+	.allgame_box .game_rank ul li .info h4{font-size:12px;}
+	.allgame_box .game_rank ul li .num{margin-top:8px;}
+	
+	/* info style */
+	.game_left{float:left;width:770px;}
+	.info_box{border:1px solid #ccc;background:#fff;padding:20px;}
+	.info_box .pic{float:left;width:308px;text-align:center;}
+	.info_box .pic div{position:relative;height:242px;}
+	.info_box .pic img{margin-top:4px;}
+	.info_box .mark{position:absolute;left:0;right:0; z-index:100;background:url(../images/game/pic_mark.png) no-repeat;width:308px;height:242px;}
+	.info_box .play{display:block; background:url(../images/game/main_bg.png) no-repeat left -156px;width:159px;height:43px;margin:0 auto;margin-top:12px;}
+	.info_box .info{float:left;width:394px;margin-left:15px; display:inline; text-align:left; line-height:20px;}
+	.info_box .info h3{font-size:15px;font-family:'微软雅黑';color:#4DA400;font-weight:400;padding-top:4px;}
+	.info_box .info p{padding:5px 0;}
+	.info_box .info p strong{color:#000;}
+	.info_box .info .doing{padding:14px 0;background:url(../images/sline.png) repeat-x top;}
+	.info_box .info .doing a{float:left;margin-right:14px; display:inline;background:url(../images/game/main_bg.png) no-repeat;padding-left:16px;}
+	.info_box .info .doing .d1{background-position:-176px -162px;}
+	.info_box .info .doing .d2{background-position:-294px -162px;}
+	.info_box .info .doing .d3{background-position:-423px -162px;}
+	.info_box .info .doing .d4{background-position:-553px -162px;}
+	.info_box .info .favorite{padding:14px 0;background:url(../images/sline.png) repeat-x top;}
+	.info_box .howtoplay{margin-top:10px;background:url(../images/sline.png) repeat-x top;}
+	.info_box .howtoplay p{padding:10px 0; line-height:22px;font-size:14px; text-align:left;}
+	.info_box .howtoplay strong{color:#4DA400;}
+	.about_box{border:1px solid #ccc;}
+	.about_box .title{background:url(../images/game/allgame_title.png) repeat-x;height:33px; line-height:33px;text-align:left;}
+	.about_box .title h3{font-size:16px;font-family:'微软雅黑';color:#000;padding-left:12px;font-weight:normal;}
+	.about_box .content{background:#fff;}
+	.about_box .game_list{float:none;width:auto;border:none;}
+	.about_box .game_list ul{padding:6px 8px;}
+	
+	/* play style */
+	.play_box{border:1px solid #ccc;background:#fff;}
+	.play_box .play_main{border:3px solid #EAEAEA;}
+	.play_box .play_area{float:left;width:675px;border-right:1px solid #DADADA;}
+	.play_box .play_area .title{border-bottom:1px solid #dadada;padding:6px 10px; line-height:21px;}
+	.play_box .play_area h3{float:left;font-size:16px;font-family:'微软雅黑';color:#000;}
+	.play_box .play_area .copy{float:left;margin-left:16px; display:inline;}
+	.play_box .play_area .fav{float:right;}
+	.play_box .play_area .content{padding:26px 36px 0;}
+	.play_box .play_area .play_pic{margin:0 auto;width:600px;height:420px; background:url(../images/game/play_border.png) no-repeat;padding:5px;}
+	.play_box .play_operate{padding:14px;}
+	.play_box .play_operate ul li{float:left;margin:0 6px; display:inline;}
+	.play_box .play_operate ul li a{display:block;heigth:23px; line-height:23px;padding-left:30px; background:url(../images/game/play_icons.png) no-repeat;}
+	.play_box .play_operate ul li a.icon_favor{background-position:left -2px;}
+	.play_box .play_operate ul li a.icon_invite{background-position:left -32px;}
+	.play_box .play_operate ul li a.icon_feedback{background-position:left -62px;}
+	.play_box .play_operate ul li a.icon_comment{background-position:left -93px;}
+	.play_box .play_operate ul li a.icon_fullscr{background-position:left -122px;}
+	.play_box .play_operate ul li a.icon_replay{background-position:left -152px;}
+	.play_box .share{padding:8px 20px;background:#EFF8E7;border-top:1px dotted #ACDC60;}
+	.play_box .share .item{float:left;background:url(../images/game/play_icons.png) no-repeat left -396px;height:16px; line-height:16px;padding-left:18px; display:inline;}
+	/* .play_box .share .fl a{float:left;width:16px;height:16px;margin-right:5px;background:url(../images/game/play_icons.png) no-repeat; display:inline;} */
+	.play_box .share .fr{padding:6px 0 3px;}
+	.play_box .share a.qzone{background-position:-1px -216px;}
+	.play_box .share a.qweibo{background-position:-1px -246px;}
+	.play_box .share a.weibo{background-position:-1px -276px;}
+	.play_box .share a.renren{background-position:-1px -306px;}
+	.play_box .share a.kaixin{background-position:-1px -336px;}
+	.play_box .share a.qq{background-position:-1px -366px;}
+	.play_box .play_hot{float:right;width:295px;}
+	.play_box .play_hot .title{background:url(../images/game/allgame_title.png) repeat-x;height:32px; line-height:32px;}
+	.play_box .play_hot .title ul li{float:left;padding:0 20px;font-size:14px;font-family:'微软雅黑'; display:inline;border-right:1px solid #DADADA;cursor:pointer;}
+	.play_box .play_hot .title ul li.cur{background:url(../images/game/tab_bg.png) repeat-x top;color:#4DA400;}
+	.play_box .play_hot .game_list{float:none;width:auto;border:none;}
+	.play_box .play_hot .game_list ul{padding:6px;}
+	.play_detail{padding:12px 24px; text-align:left;font-size:14px; line-height:22px;}
+	.play_detail p strong{color:#4DA400;}
+	.play_baseinfo{padding:12px 24px; text-align:left;font-size:14px; line-height:22px;background:url(../images/sline.png) repeat-x top;}
+	.play_baseinfo p span{margin-right:100px;}
+	.game_platform{padding:10px 15px;}
+	.game_platform li{float:left;margin:2px 9px;}
+	.game_platform li span{display:block; line-height:20px;}
+	
+	/* game app info style */
+	.app_box{border:1px solid #ccc;background:#fff;padding:30px;}
+	.app_box .base{background:url(../images/sline.png) repeat-x bottom;padding-bottom:20px;}
+	.app_box .pic{float:left;}
+	.app_box .info{float:left;margin-left:20px; display:inline;width:362px; text-align:left;}
+	.app_box .info h3{font-size:15px;font-family:'微软雅黑';color:#4DA400;font-weight:400;}
+	.app_box .info .app123{padding:10px 0;}
+	.app_box .info .app123 li{float:left;width:50%; line-height:22px;}
+	.app_box .info .download{padding-top:10px;}
+	.app_box .info .download a{float:left; background:url(../images/game/main_bg.png) no-repeat;width:114px;height:31px;margin-right:20px; display:inline;}
+	.app_box .info .download a.link1{background-position:left -240px;}
+	.app_box .info .download a.link2{background-position:-117px -240px;}
+	.app_box .code{float:right;width:200px;}
+	.app_box .code .ma{margin:16px 0;}
+	.app_box .code .ma img{border:1px solid #ddd; display:block;margin:0 auto;}
+	.app_box .code .ma span{display:block;height:20px; line-height:20px;}
+	.app_box .code .rating{padding-left:18px;}
+	.app_box .code .rating li{float:left;margin:0 20px; display:inline;}
+	.app_box .code .rating li a{width:44px;height:42px; display:block;}
+	.app_box .code .rating li a.good{background:url(../images/game/main_bg.png) no-repeat -247px -235px;}
+	.app_box .code .rating li a.bad{background:url(../images/game/main_bg.png) no-repeat -324px -235px;}
+	.app_box .code .rating li span{display:block;height:24px; line-height:24px;color:#888;}
+	.app_box .app_tab{background:url(../images/sdian.png) repeat-x bottom;margin-top:10px;}
+	.app_box .app_tab li{float:left;padding:5px 20px;font-size:14px;font-weight:700;cursor:pointer;}
+	.app_box .app_tab li.cur{border-bottom:2px solid #87C820;color:#4DA400}
+	.app_box .app_content{padding:10px; line-height:1.6em; text-align:left;font-size:14px;}
+	
+	/* page style */
+	.page{text-align:center;height:22px;padding:20px 0;}
+	.page div{display:inline-block;*display:inline;zoom:1;font-family:Tahoma;}
+	.c_page{height:20px;display:block;background:#fff;color:#000;text-decoration:none;float:left;line-height:20px;text-align:center;border:1px solid #91958c;padding:0 7px;}
+	.page div span{float:left;height:20px;line-height:20px;background:#63B12E;color:#fff;text-decoration:none;text-align:center;margin:0 2px;border:1px solid #45861e;padding:0 7px;}
+	.nextpage{float:left;width:50px;height:20px;line-height:20px;background:#f6feec;color:#000;text-align:center;border:1px solid #84a160;}
+	.page a{margin:0 2px;height:20px;display:block;background:#fff;color:#000;text-decoration:none;float:left;line-height:20px;text-align:center;border:1px solid #91958c;padding:0 7px;}
+	.page a:hover{border:1px solid #F60;color:#F60;}
+	.page div em{float:left;line-height:20px;margin:0 2px;}
+	
+	.footer{border-top:1px solid #ccc;}

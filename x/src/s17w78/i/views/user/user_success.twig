@@ -1,0 +1,22 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "用户注册" %}
+{% block header %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block content %}
+
+<div class="login_main mbg">
+    <div class="reg_box clearfix">
+        <div class="reg_pic"><img src="{{ App.assets.Url }}/images/user/reg_pic.png"/></div>
+        <div class="reg_info">
+            <div class="succ">
+                <p>
+                    <span class="red">恭喜您注册1378棋牌网账号成功！祝您使用愉快！</span><br>
+                    您的用户名为：<span class="red">{{ username }}</span> 请务必牢记登陆密码，如忘记密码请用安全邮箱找回密码。<br>
+                    <a href="http://www.1378.com" class="ablue">进入首页</a> | <a href="/user/profile" class="ablue">个人中心</a> | <a href="http://www.1378.com/webgame/" class="ablue">去玩游戏</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

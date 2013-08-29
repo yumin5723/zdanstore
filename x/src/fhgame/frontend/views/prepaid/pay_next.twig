@@ -1,0 +1,176 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "账号充值 - 凤凰山庄" %}
+{% block header %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block left %}
+{% set nav_name = type %}
+{% include "prepaid/left.twig" %}
+{% endblock %}
+
+{% block content %}
+<div class="mod_right ">
+		<div class="send mfoot10">
+    	当前位置：<a href="#" class="ablack">首页</a> > <a href="#" class="agray">活动专区</a> 
+    </div>
+    <div class="article">
+    	<div class="activitys">
+            {% if type == "kuaiqian" %}
+            <div class="pay_content">
+            <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/pay_p1.jpg" width="175" height="70" /></div>
+            <p class="pay_info">为了能让您更方便的使用手边的银行卡进行在线支付交易，本站开通了包括工商银行、建设银行、中国银行等数十种网上银行支付通道。您只要点击这里按提示操作即可在线购买浙中游戏中心游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号购卡！</p>
+            <div class="pay_form">
+            	<span class="title">请确认订单是否正确：</span>
+                <div class="item">
+        	<label>支付订单号：{{ result['orderId'] }}</label>
+            <label>订单总金额： <span class="red">{{ result['theAmount'] }}</span></label>
+            <label>订单生成日期： {{ result['orderTime'] }} </label>
+            <span class="pay_submit">
+            <form target="_blank" action="https://www.99bill.com/gateway/recvMerchantInfoAction.htm" method="post" id="kqPay">
+                <input type="hidden" name="inputCharset" value="{{ result['inputCharset'] }}"/>
+                <input type="hidden" name="bgUrl" value="{{ result['bgUrl'] }}"/>
+                <input type="hidden" name="version" value="{{ result['version'] }}"/>
+                <input type="hidden" name="language" value="{{ result['language'] }}"/>
+                <input type="hidden" name="signType" value="{{ result['signType'] }}"/>
+                <input type="hidden" name="signMsg" value="{{ result['signMsg'] }}"/>
+                <input type="hidden" name="merchantAcctId" value="{{ result['merchantAcctId'] }}"/>
+
+                <input type="hidden" name="orderId" value="{{ result['orderId'] }}"/>
+                <input type="hidden" name="orderAmount" value="{{ result['orderAmount'] }}"/>
+                <input type="hidden" name="orderTime" value="{{ result['orderTime'] }}"/>
+
+
+                <input type="hidden" name="payType" value="{{ result['payType'] }}"/>
+
+            <input type="submit" name="submit" class="pay_btn1" value="快钱在线支付" style="width:120px;font-size:12px;"/>
+        </form>
+            </span>
+        </div>
+            
+            </div>
+            </div>
+            {% elseif type == "alipay" %}
+                <div class="pay_content">
+                    <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/pay_p1.jpg" width="175" height="70" /></div>
+                    <p class="pay_info">为了能让您更方便的使用手边的银行卡进行在线支付交易，本站开通了包括工商银行、建设银行、中国银行等数十种网上银行支付通道。您只要点击这里按提示操作即可在线购买浙中游戏中心游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号购卡！</p>
+                    <div class="pay_form">
+                        <span class="title">请确认订单是否正确：</span>
+                        <div class="item">
+                    <label>支付订单号：{{ result['orderId'] }}</label>
+                    <label>订单总金额： <span class="red">{{ result['orderAmount'] }}</span></label>
+                    <label>订单生成日期： {{ result['orderTime'] }} </label>
+                    <span class="pay_submit">
+                    {{ result['form_text']|raw }}
+                    </span>
+                </div>
+                    
+                    </div>
+                    </div>
+
+            {% elseif type == "liantong" %}
+                <div class="pay_content">
+                    <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/pay_p1.jpg" width="175" height="70" /></div>
+                    <p class="pay_info">为了能让您更方便的使用手边的银行卡进行在线支付交易，本站开通了包括工商银行、建设银行、中国银行等数十种网上银行支付通道。您只要点击这里按提示操作即可在线购买浙中游戏中心游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号购卡！</p>
+                    <div class="pay_form">
+                        <span class="title">请确认订单是否正确：</span>
+                        <div class="item">
+                    <label>支付订单号：{{ result['orderId'] }}</label>
+                    <label>订单总金额： <span class="red">{{ result['theAmount'] }}</span></label>
+                    <label>订单生成日期： {{ result['orderTime'] }} </label>
+                    <span class="pay_submit">
+                    <form target="_blank" action="https://www.99bill.com/szxgateway/recvMerchantInfoAction.htm" method="post" id="kqPay">
+                        <input type="hidden" value="{{ result['inputCharset'] }}" name="inputCharset" id="inputCharset"/>
+                        <input type="hidden" value="{{ result['bgUrl'] }}" name="bgUrl" id="bgUrl"/>
+                        <input type="hidden" value="{{ result['version'] }}" name="version" id="version"/>
+                        <input type="hidden" value="{{ result['language'] }}" name="language" id="language"/>
+                        <input type="hidden" value="{{ result['signType'] }}" name="signType" id="signType"/>
+                        <input type="hidden" value="{{ result['merchantAcctId'] }}" name="merchantAcctId" id="merchantAcctId"/>
+
+                        <input type="hidden" value="{{ result['orderId'] }}" name="orderId" id="orderId"/>
+                        <input type="hidden" value="{{ result['orderAmount'] }}" name="orderAmount" id="orderAmount"/>
+                        <input type="hidden" value="{{ result['payType'] }}" name="payType" id="payType"/>
+ 
+                        <input type="hidden" value="{{ result['fullAmountFlag'] }}" name="fullAmountFlag" id="fullAmountFlag"/>
+                        <input type="hidden" value="{{ result['orderTime'] }}" name="orderTime" id="orderTime"/>
+                        <input type="hidden" value="{{ result['signMsg'] }}" name="signMsg" id="signMsg"/>
+                        <input type="hidden" value="{{ result['bossType'] }}" name="bossType" id="bossType"/>
+                    <input type="submit" name="submit" class="pay_btn1" value="快钱在线支付" style="width:120px;font-size:12px;"/>
+                </form>
+                    </span>
+                </div>
+                    
+                    </div>
+                    </div>
+            {% elseif type == "dianxin" %}
+                <div class="pay_content">
+                    <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/pay_p1.jpg" width="175" height="70" /></div>
+                    <p class="pay_info">为了能让您更方便的使用手边的银行卡进行在线支付交易，本站开通了包括工商银行、建设银行、中国银行等数十种网上银行支付通道。您只要点击这里按提示操作即可在线购买浙中游戏中心游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号购卡！</p>
+                    <div class="pay_form">
+                        <span class="title">请确认订单是否正确：</span>
+                        <div class="item">
+                    <label>支付订单号：{{ result['orderId'] }}</label>
+                    <label>订单总金额： <span class="red">{{ result['theAmount'] }}</span></label>
+                    <label>订单生成日期： {{ result['orderTime'] }} </label>
+                    <span class="pay_submit">
+                    <form target="_blank" action="https://www.99bill.com/szxgateway/recvMerchantInfoAction.htm" method="post" id="kqPay">
+                        <input type="hidden" value="{{ result['inputCharset'] }}" name="inputCharset" id="inputCharset"/>
+                        <input type="hidden" value="{{ result['bgUrl'] }}" name="bgUrl" id="bgUrl"/>
+                        <input type="hidden" value="{{ result['version'] }}" name="version" id="version"/>
+                        <input type="hidden" value="{{ result['language'] }}" name="language" id="language"/>
+                        <input type="hidden" value="{{ result['signType'] }}" name="signType" id="signType"/>
+                        <input type="hidden" value="{{ result['merchantAcctId'] }}" name="merchantAcctId" id="merchantAcctId"/>
+
+                        <input type="hidden" value="{{ result['orderId'] }}" name="orderId" id="orderId"/>
+                        <input type="hidden" value="{{ result['orderAmount'] }}" name="orderAmount" id="orderAmount"/>
+                        <input type="hidden" value="{{ result['payType'] }}" name="payType" id="payType"/>
+ 
+                        <input type="hidden" value="{{ result['fullAmountFlag'] }}" name="fullAmountFlag" id="fullAmountFlag"/>
+                        <input type="hidden" value="{{ result['orderTime'] }}" name="orderTime" id="orderTime"/>
+                        <input type="hidden" value="{{ result['signMsg'] }}" name="signMsg" id="signMsg"/>
+                        <input type="hidden" value="{{ result['bossType'] }}" name="bossType" id="bossType"/>
+                    <input type="submit" name="submit" class="pay_btn1" value="快钱在线支付" style="width:120px;font-size:12px;"/>
+                </form>
+                    </span>
+                </div>
+                    
+                    </div>
+                    </div>
+            {% else %}
+                <div class="pay_content">
+                    <div class="pay_pic"><img src="{{ App.assets.Url }}/images/pay/pay_p1.jpg" width="175" height="70" /></div>
+                    <p class="pay_info">为了能让您更方便的使用手边的银行卡进行在线支付交易，本站开通了包括工商银行、建设银行、中国银行等数十种网上银行支付通道。您只要点击这里按提示操作即可在线购买浙中游戏中心游戏卡号和密码。购得卡号和密码后请按网页左侧示意图操作进行帐号购卡！</p>
+                    <div class="pay_form">
+                        <span class="title">请确认订单是否正确：</span>
+                        <div class="item">
+                    <label>支付订单号：{{ result['orderId'] }}</label>
+                    <label>订单总金额： <span class="red">{{ result['theAmount'] }}</span></label>
+                    <label>订单生成日期： {{ result['orderTime'] }} </label>
+                    <span class="pay_submit">
+                    <form target="_blank" action="https://www.99bill.com/szxgateway/recvMerchantInfoAction.htm" method="post" id="kqPay">
+                        <input type="hidden" value="{{ result['inputCharset'] }}" name="inputCharset" id="inputCharset"/>
+                        <input type="hidden" value="{{ result['bgUrl'] }}" name="bgUrl" id="bgUrl"/>
+                        <input type="hidden" value="{{ result['version'] }}" name="version" id="version"/>
+                        <input type="hidden" value="{{ result['language'] }}" name="language" id="language"/>
+                        <input type="hidden" value="{{ result['signType'] }}" name="signType" id="signType"/>
+                        <input type="hidden" value="{{ result['merchantAcctId'] }}" name="merchantAcctId" id="merchantAcctId"/>
+
+                        <input type="hidden" value="{{ result['orderId'] }}" name="orderId" id="orderId"/>
+                        <input type="hidden" value="{{ result['orderAmount'] }}" name="orderAmount" id="orderAmount"/>
+                        <input type="hidden" value="{{ result['payType'] }}" name="payType" id="payType"/>
+ 
+                        <input type="hidden" value="{{ result['fullAmountFlag'] }}" name="fullAmountFlag" id="fullAmountFlag"/>
+                        <input type="hidden" value="{{ result['orderTime'] }}" name="orderTime" id="orderTime"/>
+                        <input type="hidden" value="{{ result['signMsg'] }}" name="signMsg" id="signMsg"/>
+                        <input type="hidden" value="{{ result['bossType'] }}" name="bossType" id="bossType"/>
+                    <input type="submit" name="submit" class="pay_btn1" value="快钱在线支付" style="width:120px;font-size:12px;"/>
+                </form>
+                    </span>
+                </div>
+                    
+                    </div>
+                    </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

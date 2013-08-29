@@ -1,0 +1,24 @@
+<script type="text/javascript" src="{{ App.GcommonAssets.url }}/js/backend.js"></script>
+<script type="text/javascript" src="{{ App.GcommonAssets.url }}/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="{{ App.GcommonAssets.url }}/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="{{ App.GcommonAssets.url }}/js/jquery.ui.position.js"></script>
+<script type="text/javascript" src="{{ App.GcommonAssets.url }}/js/jquery.contextMenu.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ App.GcommonAssets.url }}/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="{{ App.GcommonAssets.url }}/css/prettyPhoto.css" />
+<link rel="stylesheet" type="text/css" href="{{ App.GcommonAssets.url }}/css/jquery.contextMenu.css" />
+<script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+             $("a[rel^='prettyPhoto']").prettyPhoto({show_title: true,social_tools: '',deeplinking: false});
+        });
+</script>
+<script type="text/javascript">
+        $(document).ready(function(){
+                var cms_help = $("#cms-help");
+                if (cms_help.length > 0) {
+                    cms_help.hide();
+                    var html_pre = '<button type="button" class="btn" data-toggle="collapse" data-target="#cms-help-collapse"><i class="icon-question-sign"></i></button><div id="cms-help-collapse" class="collapse ">';
+                    var html_post = "</div>";
+                    $("#main-content-zone").prepend(html_pre+cms_help.html()+html_post);
+                }
+            });
+</script>

@@ -1,0 +1,9 @@
+<div class="news_tab mtop7">
+	<ul>
+    	<!-- <li {% if nav_name == "userreg" %} class="cur" {% endif %}><a href="#">用户注册</a></li> -->
+        <li {% if nav_name == "retakepwd" %} class="cur" {% endif %}><a href="{{ this.createUrl('/retakepwd/index')}}">找回密码</a></li>
+        <li {% if nav_name == "appeal" %} class="cur" {% endif %}><a href="{{ this.createUrl('/appeal/create')}}">注册资料找回申诉表</a></li>
+        <li {% if nav_name == "userverify" %} class="cur" {% endif %}><a href="{{ this.createUrl('/userverify/index')}}">实名认证</a></li>
+        <li {% if nav_name == "matrixcard" %} class="cur" {% endif %}><a href="{{ this.createUrl('/matrixcard/index')}}">密保卡</a></li>
+    </ul>
+</div>

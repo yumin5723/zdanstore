@@ -1,0 +1,20 @@
+{% extends "game/index.twig" %}
+{% set menu_name="联运游戏活动"%}
+{% set sidebar_name = "创建活动" %}
+{% block content %}
+<script src="{{ App.GcommonAssets.Url}}/js/backend.js"></script>
+<script src="{{ App.GcommonAssets.Url}}/js/jquery.prettyPhoto.js"></script>
+<script src="{{ App.GcommonAssets.Url}}/js/jquery.ui.position.js"></script>
+<script src="{{ App.GcommonAssets.Url}}/js/jquery.contextMenu.js"></script>
+<script src="{{ App.GcommonAssets.Url }}/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="{{ App.GcommonAssets.Url }}/css/prettyPhoto.css" />
+<link rel="stylesheet" type="text/css" href="{{ App.GcommonAssets.Url }}/css/jquery.contextMenu.css" />
+
+
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% set nav_name = "create"%}
+    {% include "gameactive/game_form.twig" %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "game/index.twig" %}
+{% block content %}
+<h3>反馈问题详细情况</h3>
+<div style="width:800px">
+	<table class="items table" width="600px" border="0">
+
+		<tr><td width="100">问题ID:</td><td>{{ model.id }}</td></tr>
+		<tr><td>问题详情:</td><td>{{ model.content }}</td></tr>
+		<tr><td>联系方式:</td><td>{{ model.contact }}</td></tr>
+		<tr><td>反馈时间:</td><td>{{ model.created }}</td></tr>
+	</table>
+</div>
+
+{% endblock %}

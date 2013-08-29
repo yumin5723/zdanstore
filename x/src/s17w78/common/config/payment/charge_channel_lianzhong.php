@@ -1,0 +1,30 @@
+<?php
+return array(
+	'ChannelID'=>'297',
+	'appsecret'=>'BC41FAAA-259F-4447-B987-0CF9529C99D4',
+	'gameID'=>array(
+		'1006'=>array(
+			'id'=>'23081',
+		),
+		'1007'=>array(
+			'id'=>'25010',
+		),
+		'1008'=>array(
+			'id'=>'25011',
+		),
+		'1009'=>array(
+			'id'=>'10002',
+		),
+		'1010'=>array(
+			'id'=>'22001',
+		),
+		'1011'=>array(
+			'id'=>'10011',
+		),
+	),
+	'game'=>array(
+			'chargeUrl'=>'http://wgh.lianzhong.com/Services/ReceiveOrder.ashx',
+	),
+	'rate'=>'10',
+    'game_money_name'=>'联众币'
+);

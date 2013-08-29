@@ -1,0 +1,14 @@
+GPATH
+GRTAGS
+GTAGS
+.htaccess
+*.pyc
+temp/
+src/public/assets/
+src/*/*/www/index.php
+src/*/*/www/index-test.php
+src/*/*/runtime/*
+src/*/*/www/assets/*
+nbproject/
+*-local.php
+src/s17w78/common/tests/report/

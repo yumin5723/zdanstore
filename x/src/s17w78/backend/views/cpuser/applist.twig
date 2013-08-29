@@ -1,0 +1,29 @@
+{% extends "game/index.twig" %}
+{% set menu_name="联运管理"%}
+{% set sidebar_name = "应用列表" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'app_name',
+                2:'short_name',
+                3:'created',
+                4:'modified',
+                5:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("cpuser/updateapp",array("id"=>$data->id))'},
+                    }
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

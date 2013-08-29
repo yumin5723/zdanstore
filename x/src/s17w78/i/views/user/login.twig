@@ -1,0 +1,59 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "用户登录" %}
+{% block header %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block content %}
+<div class="login_main">
+    <div class="login_box clearfix">
+        {% include "layouts/notify.twig" %}
+        <div class="login_pic"><img src="{{ App.assets.Url }}/images/user/login_pic.jpg"/></div>
+        <div class="login_form">
+        	
+            {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+             {{ form.errorSummary(model)|raw }}
+            <ul>
+                <li>
+                    <span>登录名：</span>
+                    <input type="text" name="User[username]" class="login_input" />
+                </li>
+                <li>
+                    <span>登录密码：</span>
+                    <input type="password" name="User[password]" class="login_input" />
+                </li>
+                {% if valid is empty %}
+                <li>
+                    <span>验证码：</span>
+                    <input type="text" name="User[verifyCode]" class="login_input" style="width:60px;"/>
+                    {{ void(this.widget('CCaptcha',{'showRefreshButton':false,'clickableImage':true,'imageOptions':{'alt':'点击换图','title':'点击换图','align':'absmiddle','style':'height:31px;cursor:pointer'}})) }}<div style="display:none">{{ this.createAction('captcha').getVerifyCode(true)}} </div>
+                </li>
+                {% endif %}
+                <li>
+                    <input type="submit" value="登录" class="login_btn"/>
+                </li>
+            </ul>
+            {{ void(this.endWidget()) }}<!-- form -->
+            <p class="login_link"><a href="/user/register">立即注册</a> | <a href="/user/recover">忘记密码？</a></p>
+            <div class="other_login">
+                <h4>使用其他合作网站账号登录：</h4>
+                <a href="http://i.1378.com/user/connect?plat=weibo" target="_blank">
+                                <img src="{{ App.assets.Url }}/images/user/api/weibo_login_24x24.png" alt="微博帐号登录" title="微博帐号登录">
+                            </a>
+<!--                  <a href="http://i.1378.com/user/connect?plat=qq" target="_blank">
+                                <img src="{{ App.assets.Url }}/images/user/api/qq_24x24.png" alt="QQ帐号登录" title="QQ帐号登录">
+                            </a> -->
+                  <a href="http://i.1378.com/user/connect?plat=douban" target="_blank">
+                                <img src="{{ App.assets.Url }}/images/user/api/login_douban_24x24.png" alt="豆瓣帐号登录" title="豆瓣帐号登录">
+                            </a>
+                <a href="http://i.1378.com/user/connect?plat=kaixin" target="_blank">
+                                <img src="{{ App.assets.Url }}/images/user/api/KaiXin_24x24.png" alt="开心帐号登录" title="开心帐号登录">
+                            </a>
+                <a href="http://i.1378.com/user/connect?plat=renren" target="_blank">
+                                <img src="{{ App.assets.Url }}/images/user/api/rr_login_24x24.jpg" alt="人人帐号登录" title="人人帐号登录">
+                            </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layouts/base.twig" %}
+{% set title_name = "找回密码" %}
+{% block header %}
+{% include "layouts/header.twig" %}
+{% endblock %}
+{% block content %}
+<div class="login_main mbg">
+    <div class="reg_box clearfix">
+        <div class="reg_pic"><img src="{{ App.assets.Url }}/images/user/reg_pic.png"/></div>
+        <div class="reg_txt">
+            已有1378玩家账号？<br/><a href="/user/login"><img src="{{ App.assets.Url }}/images/user/reg_link.png"/></a>
+        </div>
+        <div class="reg_form">
+            <h3>找回密码</h3>
+            {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+            {{ form.errorSummary(user)|raw }}
+            <ul>
+                <li class="clearfix">
+                    <span>填写安全邮箱：</span>
+                    <input type="text" name="User[email]" class="login_input" />
+                </li>
+                <li class="clearfix">
+                    <span>验证码：</span>
+                    <input type="text" name="User[verifyCode]" class="login_input" style="width:60px;"/>
+                    {{ void(this.widget('CCaptcha',{'showRefreshButton':false,'clickableImage':true,'imageOptions':{'alt':'点击换图','title':'点击换图','align':'absmiddle','style':'height:31px;cursor:pointer'}})) }}<div style="display:none">{{ this.createAction('captcha').getVerifyCode(true)}} </div>
+                </li>
+                <li>
+                    <input type="submit" value="确认" class="reg_btn"/>
+                </li>
+            </ul>
+            {{ void(this.endWidget()) }}<!-- form -->
+        </div>
+    </div>
+</div>
+{% endblock %}

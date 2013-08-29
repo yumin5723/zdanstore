@@ -1,0 +1,45 @@
+
+<form action="/user/login" id="login-form">
+<div class="login" data-preload="true" data-view="login">
+    <div class="dlogin_div"  data-logintype="fh">
+        <div class="error_tip" data-bind="error_show"></div>
+          <table cellpadding="0" cellspacing="0">
+          <tr><td width="120" align="right">账号:</td>
+            <td align=left><input type="text" data-bind="username" id="username" style="width:150px; padding:4px; border:1px solid #cdcdcd;" /></td></tr>
+          <tr>
+            <td width="120" align="right">密码:</td>
+            <td align=left><input type="password" data-bind="password" id="userpwd" style="width:150px; padding:4px; border:1px solid #cdcdcd;" /></td></tr>
+          <tr>
+          <tr class="captcha_div" style="display:none">
+            <td width="120" align="right">验证码:</td>
+            <td align=left><input type="text" data-bind="captcha" id="captcha" style="width:60px; padding:2px 3px; border:1px solid #cdcdcd;" /> <img class="captchaImg" width="70"/></td>
+            </tr>
+          <tr>
+            <td colspan="2" align="center"><a href="http://i.1378.com/user/connect?plat=weibo" target="_blank">
+                            <img src="app/weibo_login_24x24.png" alt="微博帐号登录" title="微博帐号登录">
+                        </a>
+             <a href="http://i.1378.com/user/connect?plat=qq" target="_blank">
+                            <img src="app/qq_24x24.png" alt="QQ帐号登录" title="QQ帐号登录">
+                        </a>
+              <a href="http://i.1378.com/user/connect?plat=douban" target="_blank">
+                            <img src="app/login_douban_24x24.png" alt="豆瓣帐号登录" title="豆瓣帐号登录">
+                        </a>
+            <a href="http://i.1378.com/user/connect?plat=kaixin" target="_blank">
+                            <img src="app/KaiXin_24x24.png" alt="开心帐号登录" title="开心帐号登录">
+                        </a>
+            <a href="http://i.1378.com/user/connect?plat=renren" target="_blank">
+                            <img src="app/rr_login_24x24.png" alt="人人帐号登录" title="人人帐号登录">
+                        </a></td>
+          </tr>
+          <tr>
+            <td width="120">&nbsp;</td>
+            <td align=left><input type="button" data-bind="login"  name="" value="登录" class="glogin_btn" /> 
+              <span><a href="http://i.1378.com/user/register" target="_blank">立即注册</a> | <a href="http://i.1378.com/user/recover" target="_blank">忘记密码？</a></span>
+            </td>
+            
+            </tr>
+          </table>
+    </div>
+</div>
+           
+</form>

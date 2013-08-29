@@ -1,0 +1,19 @@
+{% extends "game/index.twig" %}
+{% set menu_name="礼包管理"%}
+{% set sidebar_name = "礼包管理" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{ model.package.name }}
+        {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+            {{ form.textFieldRow(model, "probability")|raw }}
+            {{ form.textFieldRow(model, "limit")|raw }}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-large btn-primary">提交</button>
+                </div>
+            </div>
+        {{ void(this.endWidget()) }}<!-- form -->
+    </div>
+</div>
+{% endblock %}

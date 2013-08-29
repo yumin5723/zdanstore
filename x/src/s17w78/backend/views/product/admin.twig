@@ -1,0 +1,37 @@
+{% extends "game/index.twig" %}
+{% set menu_name="产品管理"%}
+{% if  type_id  == "44" %}
+{% set sidebar_name = "麻将游戏" %}
+{% else %}
+{% set sidebar_name = "棋类游戏" %}
+{% endif %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% set nav_name = "admin" %}
+    {% include "product/menu.twig" %}
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(type_id), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'name',
+                2:'name_pinyin',
+                3:'category_id',
+                4:'created',
+                5:'modified',
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update} {delete}',
+                     'afterDelete':'function(link,success,data){if(success&&data!="") alert(data);}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("product/update",array("id"=>$data->id))'},
+                    }
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

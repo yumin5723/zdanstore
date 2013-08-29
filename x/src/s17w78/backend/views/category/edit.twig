@@ -1,0 +1,30 @@
+{% extends "game/index.twig" %}
+{% set menu_name="游戏管理"%}
+{% if model.root == "1" %}
+{% set menu_name="游戏管理"%}
+{% else %}
+{% set menu_name="产品管理"%}
+{% endif %}
+{% set sidebar_name = "管理分类" %}
+{% block content %}
+<div class="nav">
+    当前位置：<a href="{{ this.createUrl('category/show',{'root':parent.root}) }}">分类管理</a>>>编辑分类
+</div>
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false}) %}
+
+<div  class="control-group">
+      <label for="Category_name" class="control-label required">父类 <span class="required">*</span></label>
+      <div class="controls">
+          {{ parent.name }}
+      </div>
+</div>
+{{ form.textFieldRow(model, "name", {'placeholder':'game'})|raw }}
+  {{ form.textFieldRow(model, "short_name", {'placeholder':'short_name'})|raw }}
+  {{ form.textFieldRow(model, "description", {'placeholder':'description'})|raw }}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-large btn-primary">submit</button>
+    </div>
+  </div>
+{{ void(this.endWidget()) }}
+{% endblock %}

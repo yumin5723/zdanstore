@@ -1,0 +1,47 @@
+{% extends "game/nav.twig" %}
+{% set menu_name="游戏下载"%}
+{% set sidebar_name = "游戏列表" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+      {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.dosearch("game"), 
+            'columns':{
+                0:{
+                  'name':'游戏Id',
+                  'value':'$data->object_id'
+                },
+                1:{
+                  'name':"游戏名",
+                  "value":'$data->object_name',
+                },
+                2:{
+                  'name':'url',
+                  'value':'Object::convertObjectUrl($data->url)'
+                },
+                3:{
+                  "name":"",
+                  "type":"raw",
+                  "value":'CHtml::link("预览",Yii::app()->createUrl("/news/preview",array("id"=>$data->object_id)),
+                    array( "target"=>"_blank"))'
+                },
+                4:{
+                  "name":"",
+                  "value":'CHtml::link($data->object_status == 0 ? "" : ($data->object_status == 1 ? "发布" : "重新发布"),Yii::app()->createUrl("/game/publish",array("id"=>$data->object_id)))',
+                  "type":"raw",
+                },
+                5:{
+                    "name":"状态",
+                    "value":'Object::convertObjectStatus($data->object_status)',
+                },
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}'
+                }
+            },})) 
+         }} 
+    </div>
+</div>
+{% endblock %}

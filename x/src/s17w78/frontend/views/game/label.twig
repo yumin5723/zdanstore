@@ -1,0 +1,22 @@
+{% if type == "gamelist" %}
+	{% for game in all_small_game %}
+		<li>
+			<a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+			<span class="name"><a href="{{ this.createUrl('/game/detail',{'id': game.id })}}" target="_blank">{{game.name}}</a></span>
+		</li>
+	{% endfor %}
+{% elseif type == "androidlist" %}
+	{% for game in all_small_game %}
+		<li>
+			<a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+			<span class="name"><a href="{{ this.createUrl('/game/androiddetail',{'id': game.id })}}" target="_blank">{{game.name}}</a></span>
+		</li>
+	{% endfor %}
+{% else %}
+	{% for game in all_small_game %}
+		<li>
+			<a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank"><img src="{{ game.image }}" height="70" width="70" /></a>
+			<span class="name"><a href="{{ this.createUrl('/game/appledetail',{'id': game.id })}}" target="_blank">{{game.name}}</a></span>
+		</li>
+	{% endfor %}
+{% endif %}

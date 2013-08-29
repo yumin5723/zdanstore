@@ -1,0 +1,27 @@
+{% extends "mobilegame/index.twig" %}
+{% set menu_name="游戏管理"%}
+{% set sidebar_name = "手机游戏管理" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% set nav_name = "admin" %}
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'name',
+                3:'category_id',
+                4:'created',
+                5:'modified',
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{view} {update} {delete}'
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

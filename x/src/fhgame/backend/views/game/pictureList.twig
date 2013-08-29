@@ -1,0 +1,12 @@
+{% extends "game/nav.twig" %}
+{% set menu_name="游戏下载"%}
+{% set sidebar_name = "游戏下载页热门游戏" %}
+  {% block content %}
+  	<div class="container-fluid">
+    <div class="row-fluid">
+      {% include "layouts/notice.twig" %}
+      {% include "@cms/widget/pictureList/form.twig" %}
+    </div>
+</div>
+</div>
+{% endblock %}

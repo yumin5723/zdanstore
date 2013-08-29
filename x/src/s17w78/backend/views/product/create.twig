@@ -1,0 +1,25 @@
+{% extends "game/index.twig" %}
+{% set menu_name="产品管理"%}
+{% if  type_id  == "44" %}
+{% set sidebar_name = "麻将游戏" %}
+{% else %}
+{% set sidebar_name = "棋牌游戏" %}
+{% endif %}
+{% block content %}
+<script src="{{ App.assets.Url}}/js/backend.js"></script>
+<script src="{{ App.assets.Url}}/js/jquery.prettyPhoto.js"></script>
+<script src="{{ App.assets.Url}}/js/jquery.ui.position.js"></script>
+<script src="{{ App.assets.Url}}/js/jquery.contextMenu.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url }}/css/prettyPhoto.css" />
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url }}/css/jquery.contextMenu.css" />
+
+
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% set nav_name = "create"%}
+    {% include "product/menu.twig" %}
+    {% include "product/product_form.twig" %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{{#goods}}
+<table cellspacing="0" cellpadding="0" border="0" class="order_table">
+	<tbody><tr>
+	    <th colspan="2">请确认订单：</th>
+	</tr>
+	<tr>
+	    <td align="right" width="50%">充值对象：</td>
+	    <td align="left">{{ app_name }}</td>
+	</tr>
+	<tr>
+	    <td align="right">充值账号：</td>
+	    <td align="left">{{ account }}</td>
+	</tr>
+	<tr>
+	    <td align="right">充值金额：</td>
+	    <td align="left" class="red">{{ amount }}</td>
+	</tr>
+	<tr>
+	    <td align="right">支付方式：</td>
+	    <td align="left"><img align="absmiddle" src="{{ paymethod }}"></td>
+	</tr>
+	</tbody>
+</table>
+{{/goods}}
