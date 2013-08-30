@@ -1,40 +1,23 @@
 <?php
-Yii::import("gcommon.cms.components.ConstantDefine");
-Yii::import("gcommon.cms.components.GxcHelpers");
 /**
- * Backend Game Controller.
+ * Backend Brand Controller.
  *
  * @version 1.0
  * @package backend.controllers
  *
  */
 
-class GameController extends GController {
+class BrandController extends GController {
     public $sidebars = array(
         array(
-            'name' => '小游戏管理',
+            'name' => '品牌列表',
             'icon' => 'tasks',
             'url' => 'admin',
         ),
         array(
-            'name' => '创建小游戏',
+            'name' => '创建品牌',
             'icon' => 'tasks',
             'url' => 'create',
-        ),
-        array(
-            'name' => '手机游戏管理',
-            'icon' => 'tasks',
-            'url' => '/mobilegame/admin',
-        ),
-        array(
-            'name' => '创建手机游戏',
-            'icon' => 'tasks',
-            'url' => '/mobilegame/create',
-        ),
-        array(
-            'name' => '分类管理',
-            'icon' => 'tasks',
-            'url' => '/category/show?root=1',
         ),
     );
     /**
@@ -60,9 +43,6 @@ class GameController extends GController {
                 'actions' => array(
                     'create',
                     'admin',
-                    'view',
-                    'update',
-                    'delete',
                 ) ,
                 'users' => array(
                     '@'
@@ -91,7 +71,7 @@ class GameController extends GController {
      * @param integer the ID of the model to be loaded
      */
     public function loadModel($id) {
-        $model = Game::model()->findByPk((int)$id);
+        $model = Brand::model()->findByPk((int)$id);
         if ($model === null) throw new CHttpException(404, 'The requested page does not exist.');
         
         return $model;
@@ -109,27 +89,24 @@ class GameController extends GController {
      *
      */
     public function actionCreate() {
-        $model = new Game;
+        $model = new Brand;
         // if it is ajax validation request
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'usercreate-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-        $model->publish_date = date('Y-m-d H:i:s');
         // collect user input data
-        if (isset($_POST['Game'])) {
-            $model->setAttributes($_POST['Game']);
+        if (isset($_POST['Brand'])) {
+            $model->setAttributes($_POST['Brand']);
             // validate user input password
             if ($model->validate()) {
-                $model->created_uid = Yii::app()->user->id;
-                $model->modified_uid = $model->created_uid;
                 if ($model->save()) {
-                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Game Successfully!'));
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Brand Successfully!'));
                 }
             }
         }
         $this->render('create', array(
-            "model" => $model
+            "model" => $model,'isNew'=>true,
         ));
     }
     /**
@@ -137,10 +114,10 @@ class GameController extends GController {
      *
      */
     public function actionAdmin() {
-        $model = new Game('search');
+        $model = new Brand('search');
         $model->unsetAttributes(); // clear any default values
-        if(isset($_GET["Game"]))
-                    $model->attributes=$_GET["Game"];  
+        if(isset($_GET["Brand"]))
+                    $model->attributes=$_GET["Brand"];  
         $this->render('admin', array(
             "model" => $model
         ));

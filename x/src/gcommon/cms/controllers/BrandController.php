@@ -1,6 +1,6 @@
 <?php
 /**
- * Backend brand Controller.
+ * Backend Brand Controller.
  *
  * @version 1.0
  * @package backend.controllers
@@ -12,7 +12,7 @@ class BrandController extends GController {
         array(
             'name' => '品牌列表',
             'icon' => 'tasks',
-            'url' => 'list',
+            'url' => 'admin',
         ),
         array(
             'name' => '创建品牌',
@@ -42,7 +42,9 @@ class BrandController extends GController {
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
                     'create',
-                    'list',
+                    'admin',
+                    'update',
+                    'delete',
                 ) ,
                 'users' => array(
                     '@'
@@ -77,6 +79,14 @@ class BrandController extends GController {
         return $model;
     }
     /**
+     * The function that do Update Settings
+     *
+     */
+    public function actionUpdateSettings() {
+        $this->menu = array();
+        $this->render('user_update_settings');
+    }
+    /**
      * The function that do Create new User
      *
      */
@@ -98,7 +108,7 @@ class BrandController extends GController {
             }
         }
         $this->render('create', array(
-            "model" => $model
+            "model" => $model,'isNew'=>true,
         ));
     }
     /**
@@ -106,10 +116,10 @@ class BrandController extends GController {
      *
      */
     public function actionAdmin() {
-        $model = new Game('search');
+        $model = new Brand('search');
         $model->unsetAttributes(); // clear any default values
-        if(isset($_GET["Game"]))
-                    $model->attributes=$_GET["Game"];  
+        if(isset($_GET["Brand"]))
+                    $model->attributes=$_GET["Brand"];  
         $this->render('admin', array(
             "model" => $model
         ));
@@ -132,20 +142,11 @@ class BrandController extends GController {
      */
     public function actionUpdate() {
         $id = isset( $_GET['id'] ) ? (int)( $_GET['id'] ) : 0;
-        $weights = ConstantDefine::getGameWeights();
-        $roots = Category::model()->findByAttributes(array("root"=>1,"name"=>"小游戏"));
-        $descendants = $roots->descendants()->findAll();
         if ($id !== 0) {
             $model = $this->loadModel($id);
-            // if it is ajax validation request
-            if (isset($_POST['ajax']) && $_POST['ajax'] === 'userupdate-form') {
-                echo CActiveForm::validate($model);
-                Yii::app()->end();
-            }
             // collect user input data
-            if (isset($_POST['Game'])) {
-                $model->modified_uid = Yii::app()->user->id;
-                if ($model->updateAttrs($_POST['Game'])) {
+            if (isset($_POST['Brand'])) {
+                if ($model->updateAttrs($_POST['Brand'])) {
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
                 }
             }
@@ -153,9 +154,7 @@ class BrandController extends GController {
             throw new CHttpException(404, Yii::t('cms', 'The requested page does not exist.'));
         }
         $this->render('update', array(
-            "model" => $model,"weights"=>$weights,"isNew"=>false,
-            // 'category'=>$html,
-            "descendants" => $descendants
+            "model" => $model,"isNew"=>false,
         ));
     }
     /**
@@ -163,6 +162,6 @@ class BrandController extends GController {
      *
      */
     public function actionDelete($id) {
-        GxcHelpers::deleteModel('Game', $id);
+        GxcHelpers::deleteModel('Brand', $id);
     }
 }

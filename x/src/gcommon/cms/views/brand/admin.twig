@@ -1,4 +1,4 @@
-{% extends "game/index.twig" %}
+{% extends "@pp/brand/index.twig" %}
 {% set menu_name="品牌管理"%}
 {% set sidebar_name = "品牌列表" %}
 {% block content %}
@@ -11,11 +11,10 @@
             'columns':{
                 0:'id',
                 1:'name',
-                2:'source',
-                3:'category_id',
-                4:'created',
-                5:'modified',
-                6:
+                2:'desc',
+                3:'created',
+                4:'modified',
+                5:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
                      'template':' {update} {delete}'

@@ -22,6 +22,7 @@
 class Brand extends CmsActiveRecord
 {
     public $upload;
+    public $upload1;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -47,8 +48,9 @@ class Brand extends CmsActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name,desc','required'),
-            array('upload', 'file','allowEmpty'=>true),
+            array('name,image','required'),
+            array('upload,upload1', 'file','allowEmpty'=>true),
+            array('desc','safe'),
         );
     }
     public function behaviors()
@@ -74,7 +76,6 @@ class Brand extends CmsActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            // 'gameterm' => array(self::BELONGS_TO, 'Category', 'category_id'),
         );
     }
 
@@ -91,6 +92,8 @@ class Brand extends CmsActiveRecord
         $criteria->order = "id DESC";
         $criteria->compare('id',$this->id,true);
         $criteria->compare('name',$this->name,true);
+        $criteria->compare('created',$this->created,true);
+        $criteria->compare('modified',$this->modified,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
@@ -112,69 +115,14 @@ class Brand extends CmsActiveRecord
             $attrs[] = 'name';
             $this->name = $attributes['name'];
         }
-        if (!empty($attributes['source']) && $attributes['source'] != $this->source) {
-            $attrs[] = 'source';
-            $this->source = $attributes['source'];
-        }
-        if (!empty($attributes['tags']) && $attributes['tags'] != $this->tags) {
-            $attrs[] = 'tags';
-            $this->tags= $attributes['tags'];
-        }
-        if (!empty($attributes['category_id']) && $attributes['category_id'] != $this->category_id) {
-            $attrs[] = 'category_id';
-            $this->category_id = $attributes['category_id'];
-        }
-        if (!empty($attributes['operations_guide']) && $attributes['operations_guide'] != $this->operations_guide) {
-            $attrs[] = 'operations_guide';
-            $this->operations_guide = $attributes['operations_guide'];
-        }
-        if (!empty($attributes['how_begin']) && $attributes['how_begin'] != $this->how_begin) {
-            $attrs[] = 'how_begin';
-            $this->how_begin = $attributes['how_begin'];
-        }
-        if (!empty($attributes['target']) && $attributes['target'] != $this->target) {
-            $attrs[] = 'target';
-            $this->target = $attributes['target'];
-        }
-        if (!empty($attributes['desc'])) {
+        if (!empty($attributes['desc']) && $attributes['desc'] != $this->desc) {
             $attrs[] = 'desc';
             $this->desc = $attributes['desc'];
         }
-        if (!empty($attributes['url'])) {
-            $attrs[] = 'url';
-            $this->url = $attributes['url'];
-        }
+        
         if (!empty($attributes['image'])) {
             $attrs[] = 'image';
             $this->image = $attributes['image'];
-        }
-        if (!empty($attributes['tag_image'])) {
-            $attrs[] = 'tag_image';
-            $this->tag_image = $attributes['tag_image'];
-        }
-        if (!empty($attributes['recommend_image'])) {
-            $attrs[] = 'recommend_image';
-            $this->recommend_image = $attributes['recommend_image'];
-        }
-        if (!empty($attributes['top_image'])) {
-            $attrs[] = 'top_image';
-            $this->top_image = $attributes['top_image'];
-        }
-        if (!empty($attributes['publish_date'])) {
-            $attrs[] = 'publish_date';
-            $this->publish_date = $attributes['publish_date'];
-        }
-        if (!empty($attributes['recommend_value'])) {
-            $attrs[] = 'recommend_value';
-            $this->recommend_value = $attributes['recommend_value'];
-        }
-        if (!empty($attributes['rank_value'])) {
-            $attrs[] = 'rank_value';
-            $this->rank_value = $attributes['rank_value'];
-        }
-        if (!empty($attributes['weights'])) {
-            $attrs[] = 'weights';
-            $this->weights = $attributes['weights'];
         }
         if ($this->validate($attrs)) {
             return $this->save(false);
