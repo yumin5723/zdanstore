@@ -71,10 +71,6 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
         'assets' => array(
             'class' => 'gcommon.components.AppAssetManager',
         ),
-        'GcommonAssets' => array(
-            'class' => 'gcommon.components.AppAssetManager',
-            'asset_dir' => Yii::getPathOfAlias("gcommon.assets"),
-        ),
         'user'=>array(
             // enable cookie-based authentication
             'allowAutoLogin'=>true,

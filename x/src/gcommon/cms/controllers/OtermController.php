@@ -165,25 +165,4 @@ class OtermController extends GController {
         }
         echo "[".$str."]";
     }
-    /**
-     * preview object
-     */
-    public function actionPreview($id){
-        $category = Oterm::model()->findByPk($id);
-        echo $category->display(1);
-    }
-    /**
-     * publish content as html
-     */
-    public function actionPublish($id){
-        $category = Oterm::model()->findByPk($id);
-        if(empty($category) || $category->template_id == 0){
-            throw new CHttpException(404, 'The requested page does not exist.');
-        }
-        $result = $category->doPublish();
-        if($result !== false){
-            Yii::app()->user->setFlash( 'success', Yii::t( 'pp', '发布成功!' ) );
-            return $this->redirect("/pp/oterm/show?root=".$category->root);
-        }
-    }
 }

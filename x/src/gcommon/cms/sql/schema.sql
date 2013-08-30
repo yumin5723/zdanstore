@@ -345,3 +345,14 @@ alter table templete add `type` tinyint(4) NOT NULL DEFAULT '0';
 alter table oterm add `status` tinyint(4) NOT NULL DEFAULT '0';
 alter table object add `object_list_name` varchar(255) NOT NULL DEFAULT "" after `object_name`;
 alter table object add `term_cache` varchar(255) NOT NULL;
+
+
+CREATE TABLE `brand` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `desc` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -24,5 +24,15 @@ return array(
             'url'=>'/pp/manager/admin',
             'icon'=>'user',
         ),
+        'brand'=>array(
+            'name'=>'品牌管理',
+            'url'=>'/pp/brand/admin',
+            'icon'=>'th-large',
+        ),
+        'oterm'=>array(
+            'name'=>'商品分类',
+            'url'=>'/pp/oterm/index',
+            'icon'=>'indent-left',
+        ),
     ),
 );
