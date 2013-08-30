@@ -69,11 +69,12 @@ class PpModule extends CWebModule {
                 'user' => array(
                         'class' => 'CWebUser',
                         'loginUrl' => Yii::app()->createUrl('/pp/site/login'),
+                        'identityCookie'=>array('domain'=>'www.zdanstore-test.com'),
                 )
                 )
         );
 
-        Yii::app()->user->setStateKeyPrefix('_pp_zdanstore_admin');
+        // Yii::app()->user->setStateKeyPrefix('_pp_zdanstore_admin');
 
         // import the module-level models and components
         $this->setImport(array(
