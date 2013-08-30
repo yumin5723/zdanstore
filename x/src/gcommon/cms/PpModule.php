@@ -70,6 +70,7 @@ class PpModule extends CWebModule {
                         'class' => 'CWebUser',
                         'loginUrl' => Yii::app()->createUrl('/pp/site/login'),
                         'identityCookie'=>array('domain'=>'www.zdanstore-test.com'),
+                        'returnUrl'=> array('/pp/site/index'),
                 )
                 )
         );
@@ -101,6 +102,7 @@ class PpModule extends CWebModule {
             if (Yii::app()->user->name !== 'admin' && !in_array($route, 
                               $publicPages)) {
                 Yii::app()->getModule('pp')->user->loginRequired();
+
             } else {
                 return true;
             }

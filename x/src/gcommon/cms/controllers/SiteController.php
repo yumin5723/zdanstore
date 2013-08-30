@@ -35,7 +35,7 @@ class SiteController extends BackendController {
                     'login'
                 ) ,
                 'users' => array(
-                    '?'
+                    '*'
                 ) ,
             ) ,
             array(
@@ -62,6 +62,9 @@ class SiteController extends BackendController {
      * Displays the login page
      */
     public function actionLogin() {
+        if(!Yii::app()->user->isGuest){
+            return $this->redirect(Yii::app()->getModule('pp')->user->returnUrl);
+        }
         $model = new UserLoginForm;
         // if it is ajax validation request
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
@@ -73,7 +76,7 @@ class SiteController extends BackendController {
             $model->attributes = $_POST['UserLoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login()) {
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect(Yii::app()->getModule('pp')->user->returnUrl);
             }
         }
         // display the login form
@@ -86,7 +89,7 @@ class SiteController extends BackendController {
      */
     public function actionLogout() {
         Yii::app()->user->logout();
-        $this->redirect("/pp/site/login");
+        $this->redirect(Yii::app()->getModule('pp')->user->loginUrl);
     }
     public function actionError(){
         if (YII_DEBUG) {
