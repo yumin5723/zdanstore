@@ -17,7 +17,6 @@ class SiteController extends BackendController {
      * @return array access control rules
      */
     public function accessRules() {
-        
         return array(
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -74,7 +73,7 @@ class SiteController extends BackendController {
         // collect user input data
         if (isset($_POST['UserLoginForm'])) {
             $model->attributes = $_POST['UserLoginForm'];
-            // validate user input and redirect to the previous page if valid
+            // validate user input and redirect to the previous page if val
             if ($model->validate() && $model->login()) {
                 $this->redirect(Yii::app()->getModule('pp')->user->returnUrl);
             }
