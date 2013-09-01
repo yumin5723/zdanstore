@@ -39,5 +39,10 @@ return array(
             'url'=>'/pp/product/admin',
             'icon'=>'gift',
         ),
+        'order'=>array(
+            'name'=>'订单管理',
+            'url'=>'/pp/order/index',
+            'icon'=>'gift',
+        ),
     ),
 );

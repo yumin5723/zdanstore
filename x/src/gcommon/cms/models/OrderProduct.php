@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * This is the model class for table "{{order_product}}".
+ *
+ * The followings are the available columns in table '{{order_product}}':
+ * @property string $object_id
+ * @property string $term_id
+ * @property integer $term_order
+ */
+class OrderProduct extends CActiveRecord
+{
+    /**
+     * Returns the static model of the specified AR class.
+     * @return ObjectTerm the static model class
+     */
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'order_product';
+    }
+
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+
+            // array('product_id, term_id', 'length', 'max'=>20),
+            // // The following rule is used by search().
+            // // Please remove those attributes that should not be searched.
+            // array('product_id, term_id, data', 'safe', 'on'=>'search'),
+        );
+    }
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'product'=>array(self::BELONGS_TO, 'Product',
+                    'product_id'),
+        );
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('product_id',$this->product_id,true);
+        $criteria->compare('term_id',$this->term_id,true);
+        $criteria->compare('data',$this->data,true);
+
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+    /**
+     * get order detail by order id 
+     * @param  [type] $order_id [description]
+     * @return [type]           [description]
+     */
+    public function getOrderDetail($order_id){
+        return self::model()->findAllByAttributes(array('order_id'=>$order_id));
+    }   
+
+}

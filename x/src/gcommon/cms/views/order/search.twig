@@ -1,0 +1,55 @@
+{% extends "@pp/order/main.twig" %}
+{% set menu_name="订单管理"%}
+{% set sidebar_name = "订单搜索" %}
+{% block content %}
+<style type="text/css">.red{color:red;} .green{color: green;} .orange{color: orange;}</style>
+<br><span>按照订单ID进行搜索(*可以同时搜索多个订单id，以半角逗号隔开)</span><br>
+<form action="/pp/order/search" method="get" class="form-search">
+	<input type='text' name='id' value='{{ id }}' class="input-xlarge" >
+	<input type='submit' value='搜索' class="btn btn-info">
+</form>
+{% if model is not empty %}
+<table class="items table">
+<thead>
+	<tr>
+		<th id="app-grid_c0">订单号</th>
+		<th id="app-grid_c1">用户ID</th>
+		<th id="app-grid_c4">订单金额</th>
+		<th id="app-grid_c4">订单状态</th>
+		<th id="app-grid_c12">创建时间</th>
+		<th id="app-grid_c14" class="button-column">&nbsp;</th>
+	</tr>
+</thead>
+<tbody>
+{% for k,v in model %}
+<tr class="odd">
+		<td>{{ v.id }}</td>
+		<td>{{ v.uid }}</td>
+		<td>{{ v.total_price }}</td>
+		<td>
+			{% if v.status == constant('Order::ORDER_STATUS_CREATED')%}
+			订单创建成功
+			{% elseif v.status == constant('Order::ORDER_STATUS_CONFIRM') %}
+			订单确认等待付款
+			{% elseif v.status == constant('Order::ORDER_STATUS_PAY') %}
+			付款成功等待发货
+			{% elseif v.status == constant('Order::ORDER_STATUS_SHIPING') %}
+			订单已发货
+			{% elseif v.status == constant('Order::ORDER_STATUS_COMPLETE') %}
+			交易完成
+			{% else %}
+			订单关闭
+			{% endif %}
+		</td>
+		<td>{{ v.created }}</td>
+		<td class="button-column"> 
+			<a href="/pp/order/view/id/{{ v.id }}" rel="tooltip" class="view" data-original-title="查看"><i class="icon-eye-open"></i></a>
+		</td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+{% elseif id is not empty %}
+<span class="red">对不起，没有搜索到相关的订单数据！</span>
+{% endif %}
+{% endblock %}

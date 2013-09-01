@@ -91,6 +91,7 @@ CREATE TABLE `product` (
   `modified` datetime NOT NULL, 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table product add `logo` varchar(255) NOT NULL;
 
 --
 -- Table structure for table `product_term`
@@ -137,3 +138,41 @@ CREATE TABLE `product_meta` (
   KEY `product_id` (`meta_product_id`),
   KEY `meta_key` (`meta_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `order`
+--
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `uid` bigint(20) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `ip` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `total_price` Decimal(32, 2) NOT NULL,
+  `modified_uid` bigint(20) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) AUTO_INCREMENT = 1000000000
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `order_product`
+--
+CREATE TABLE IF NOT EXISTS `order_product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
+  `product_id` bigint(20),
+  `product_quantity` int(11) NOT NULL,
+  `product_price` Decimal(32, 2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`)
+) AUTO_INCREMENT = 1000000000
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into `order`(`uid`,`status`,`ip`,`address`,`total_price`,`modified_uid`,`created`,`modified`) values('19090','0','192.168.1.1','us sf','90.00','1','2013-07-18 10:22:54','2013-07-18 10:22:54');
+insert into `order_product` (`order_id`,`product_id`,`product_quantity`,`product_price`) values('1000000000','1','2','25.00');
+insert into `order_product` (`order_id`,`product_id`,`product_quantity`,`product_price`) values('1000000000','2','1','22.00');
+
+
