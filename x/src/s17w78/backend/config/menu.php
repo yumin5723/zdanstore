@@ -34,5 +34,10 @@ return array(
             'url'=>'/pp/oterm/index',
             'icon'=>'indent-left',
         ),
+        'product'=>array(
+            'name'=>'商品管理',
+            'url'=>'/pp/product/index',
+            'icon'=>'gift',
+        ),
     ),
 );

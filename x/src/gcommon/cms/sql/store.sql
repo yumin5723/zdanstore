@@ -81,11 +81,14 @@ CREATE TABLE `product` (
   `name` varchar(255) NOT NULL,
   `brand_id` int(11) NOT NULL,
   `rank` tinyint(4) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
   `batch_number` varchar(64) NOT NULL, --pi hao --
   `quantity` int(11) NOT NULL,
   `total_price` Decimal(32, 2) NOT NULL, --yuan jia--
   `shop_price` Decimal(32,2) NOT NULL, --now price--
-  `desc` text NOT NULL, 
+  `desc` text NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL, 
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -97,6 +100,8 @@ CREATE TABLE `product_term` (
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `data` tinyint(2) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`product_id`,`term_id`),
   KEY `term_id` (`term_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,6 +114,8 @@ CREATE TABLE `product_image` (
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `image` varchar(255) NOT NULL,
   `image_type` tinyint(4) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `image_type` (`image_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -122,6 +129,8 @@ CREATE TABLE `product_meta` (
   `meta_product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `meta_key` varchar(255) DEFAULT NULL,
   `meta_value` longtext,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`meta_id`),
   KEY `product_id` (`meta_product_id`),
   KEY `meta_key` (`meta_key`)

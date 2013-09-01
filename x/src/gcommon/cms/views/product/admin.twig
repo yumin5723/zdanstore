@@ -1,8 +1,7 @@
 {% extends "@pp/brand/index.twig" %}
-{% set menu_name="品牌管理"%}
-{% set sidebar_name = "品牌列表" %}
+{% set menu_name="商品管理"%}
+{% set sidebar_name = "商品列表" %}
 {% block content %}
-{% include "layouts/notice.twig" %}
 <div class="container-fluid">
     <div class="row-fluid">
     {{ void(this.widget('bootstrap.widgets.TbGridView',{
@@ -12,13 +11,18 @@
             'columns':{
                 0:'id',
                 1:'name',
-                2:'desc',
-                3:'created',
-                4:'modified',
-                5:
+                2:'rank',
+                3:'batch_number',
+                4:'quantity',
+                5:'total_price',
+                6:'shop_price',
+                7:'status',
+                8:'created',
+                9:'modified',
+                10:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
-                     'template':' {update} {delete}'
+                     'template':' {update}'
                 }
             },})) 
          }} 
