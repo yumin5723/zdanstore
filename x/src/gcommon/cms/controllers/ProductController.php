@@ -71,7 +71,10 @@ class ProductController extends GController {
             $model->attributes=$_POST["Product"];
             if($model->validate()){
                 if ( $model->save() ) {
+                    //save product term
                     ProductTerm::model()->saveProductTerm($model->id,$_POST['Oterm']);
+                    //save product meta
+                    ProductMeta::model()->saveProductMeta($model->id,$_POST['Meta']);
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
                     $this->redirect("/pp/product/admin");
                 }
@@ -95,20 +98,25 @@ class ProductController extends GController {
         $product = Product::model()->findByPk($_GET['id']);
         $node = Oterm::model()->roots()->findByPk(7);
         $descendants = $node->descendants()->findAll();
+        //product terms 
         $select_terms = ProductTerm::model()->getAllTermsRefObject($_GET['id']);
+        //product metas
+        $metas = ProductMeta::model()->getAllMetasByProductId($_GET['id']);
         if ( isset( $_POST["Product"] ) ) {
             $product->attributes=$_POST["Product"];
             if($product->validate()){
                 if ( $product->save() ) {
                     ProductTerm::model()->updateProductTerm($product->id,$_POST['Oterm']);
-                    //save resource
+                    //update product meta
+                    ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
+
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
-                    // $this->redirect("/pp/product/admin");
+                    $this->redirect("/pp/product/update/id/".$_GET['id']);
                 }
             }
         }
         $this->render( 'update',array("model"=>$product,"isNew"=>false,"descendants" => $descendants,
-            "node" => $node,'select_terms'=>$select_terms,
+            "node" => $node,'select_terms'=>$select_terms,'metas'=>$metas,
             ) );
     }
      /**
