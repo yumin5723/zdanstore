@@ -101,6 +101,17 @@ CREATE TABLE `product_term` (
   KEY `term_id` (`term_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `product_image`
+--
+
+CREATE TABLE `product_image` (
+  `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `image` varchar(255) NOT NULL,
+  `image_type` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_id`),
+  KEY `image_type` (`image_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `product_meta`
