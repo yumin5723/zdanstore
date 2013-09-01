@@ -108,7 +108,10 @@ class ProductController extends GController {
                 if ( $product->save() ) {
                     ProductTerm::model()->updateProductTerm($product->id,$_POST['Oterm']);
                     //update product meta
-                    ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
+                    //
+                    if(isset($_POST['Meta'])){
+                        ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
+                    }
 
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
                     $this->redirect("/pp/product/update/id/".$_GET['id']);

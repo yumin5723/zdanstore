@@ -34,7 +34,7 @@ class Product extends CmsActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name,brand_id,status,quantity,shop_price,total_price,desc','required'),
+            array('name,brand_id,status,logo,quantity,shop_price,total_price,desc','required'),
             array('rank,batch_number','safe'),
         );
     }
@@ -132,6 +132,10 @@ class Product extends CmsActiveRecord
         if (!empty($attributes['shop_price']) && $attributes['shop_price'] != $this->shop_price) {
             $attrs[] = 'shop_price';
             $this->shop_price = $attributes['shop_price'];
+        }
+        if (!empty($attributes['logo']) && $attributes['logo'] != $this->logo) {
+            $attrs[] = 'logo';
+            $this->logo = $attributes['logo'];
         }
         if (!empty($attributes['desc']) && $attributes['desc'] != $this->desc) {
             $attrs[] = 'desc';

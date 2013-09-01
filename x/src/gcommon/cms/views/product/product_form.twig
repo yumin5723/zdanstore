@@ -7,6 +7,25 @@
         <img valign="top" alt="Image" title="Image" onClick="insertFileToContent('image');" src="{{ App.assets.Url}}/images/insert_image.png" />
 </div>
 {{ form.textAreaRow(model, "desc", {'placeholder':'','id':'ckeditor_content','class':'specialContent'})|raw }}
+
+<div class="control-group ">
+    <label for="Game_upload" class="control-label">商品图片</label>
+        <div class="controls">
+            <span>插入</span>      
+                <img valign="top" alt="Image" title="Image" onClick="insertImageToProduct('image','product_logo');" src="{{ App.assets.Url}}/images/insert_image.png" />
+        </div>
+</div>
+<div class="control-group ">
+        <div class="controls">
+            {% if isNew == true %}
+              <img class="product_logo" src="" />
+            {% else %}
+              <img class="product_logo" src="{{ model.logo }}" />
+            {% endif %}
+        </div>
+</div>
+<input type="hidden" id="product_logo" name="Product[logo]">
+
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
 {{ form.dropDownListRow(model, 'brand_id', model.Brands, {})|raw }}
 {{ form.textFieldRow(model, "rank", {'placeholder':''})|raw }}
@@ -86,6 +105,9 @@
       });
     function insertFileToContent(file_type){                        
         $.prettyPhoto.open('/pp/resource/createframe?parent_call=true&ckeditor='+file_type+'&iframe=true&height=400','','');        
+    }
+    function insertImageToProduct(file_type,id){    
+        $.prettyPhoto.open('/pp/resource/createframe?&image_id='+ id +'&parent_call=true&ckeditor='+file_type+'&iframe=true&height=400','upload','');        
     }
     function afterUploadResourceWithGame(resource_path,image_id){
         $("#"+image_id).val(resource_path);
