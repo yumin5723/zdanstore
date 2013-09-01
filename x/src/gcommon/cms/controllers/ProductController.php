@@ -45,7 +45,7 @@ class ProductController extends GController {
             array(
                 'allow',
                 'actions' => array(
-                    'create', 'admin','update'
+                    'create', 'admin','update','addphoto'
                 ) ,
                 'users' => array(
                     '@'
@@ -133,134 +133,34 @@ class ProductController extends GController {
         ));
     }
     /**
-     * The function that list object update history
-     *
+     * action for add product photo
+     * @return [type] [description]
      */
-    public function actionHistory() {
-        $model = new ObjectBak('search');
-        $model->unsetAttributes(); // clear any default values
-        if(isset($_GET["ObjectBak"]))
-                    $model->attributes=$_GET["ObjectBak"];  
-        $this->render('history', array(
-            "model" => $model
-        ));
-    }
-     /**
-     * The function that do View content bak
-     *
-     */
-    public function actionBakview() {
-        $model_name = "ObjectBak";
-        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-        $model = GxcHelpers::loadDetailModel($model_name, $id);
-        $this->menu = array(
-            array(
-                'label' => Yii::t( 'cms', '重新应用' ) ,
-                'url' => array(
-                    Yii::app()->createUrl("/cms/object/update", array("id"=>$model->object_id,"history_id"=>$id)),
-                ) ,
-                'linkOptions' => array(
-                    'class' => 'button'
-                )
-            ) ,
-            array(
-            ) ,
-        );
-        
-        $this->render('bakview', array(
-            "model" => $model
-        ));
-    }
-    /**
-     * This function change content status as pending
-     *
-     */
-    public function actionChange($id){
-        $content = Object::model()->findByPk($id);
-        if(!empty($content)){
-            $content->object_status = ConstantDefine::OBJECT_STATUS_PENDING;
-            $content->save();
-            $this->redirect('/object/admin',array("type"=>0));
+    public function actionAddphoto(){
+        $id = $_GET['id'];
+        $product = Product::model()->findByPk($id);
+        if(empty($product)){
+            throw new Exception("the request page is not find", 404);
         }
-    }
-    /**
-     * This function sugget Person that the current user can send content to
-     *
-     */
-    public function actionSuggestPeople() {
-        $this->widget( 'cmswidgets.object.ObjectExtraWorkWidget', array(
-                'type' => 'suggest_people'
-            ) );
-    }
-    /**
-     * This function sugget Person that the current user can send content to
-     *
-     */
-    public function actionCheckTransferRights() {
-        $this->widget( 'cmswidgets.object.ObjectExtraWorkWidget', array(
-                'type' => 'check_transfer_rights'
-            ) );
-    }
-    /**
-     * This function sugget Tags for Object
-     *
-     */
-    public function actionSuggestTags() {
-        $this->widget( 'cmswidgets.object.ObjectExtraWorkWidget', array(
-                'type' => 'suggest_tags'
-            ) );
-    }
-    /**
-     * The function is to Delete a Content
-     *
-     */
-    public function actionDelete( $id ) {
-       $model = new Object;
-        $result = $model->updateByPk((int)$id,array('object_status'=>ConstantDefine::OBJECT_STATUS_DELETE));
-        if($result !== false){
-            $object = $model->findByPk($id);
-            $updateTemplate = $object->doDelete();
-            $this->redirect("/cms/object/admin/type/0");
+        $images = ProductImage::model()->getAllImagesByProductId($id);
+        if(Yii::app()->request->isPostRequest){
+        // if(isset($_POST)){
+            if(empty($_POST['Product'])){
+                //delete all images
+                ProductImage::model()->removeAllImages($id);
+            }else{
+                //save data into table product_image
+                if(empty($images)){
+                    ProductImage::model()->saveProductImages($id,$_POST['Product']);
+                }else{
+                    ProductImage::model()->updateProductImages($id,$_POST['Product']);
+                }
+            }
+            Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new ProductPhoto Successfully!' ) );
+                    $this->redirect("/pp/product/addphoto/id/".$_GET['id']);
         }
+        // }
+        $this->render('addphoto',array('images'=>$images));
+
     }
-    /**
-     * The function is to Delete a Content backup
-     *
-     */
-    public function actionBakdelete( $id ) {
-        GxcHelpers::deleteModel( 'ObjectBak', $id );
-    }
-    /**
-     * preview object
-     */
-    public function actionPreview($id){
-        $object = Object::model()->findByPk($id);
-        echo $object->display();
-    }
-    /**
-     * publish content as html
-     */
-    public function actionPublish($id){
-        $object = Object::model()->findByPk($id);
-        $result = $object->doPublish();
-        if($result !== false){
-            Yii::app()->user->setFlash( 'success', Yii::t( 'cms', '发布成功!' ) );
-            $this->redirect("/cms/object/admin/type/0");
-        }
-    }
-    /**
-     * the action is get object by category id
-     */
-    public function actionFind($id){
-        $model = new Object;
-        $model->unsetAttributes(); 
-        $result = ObjectTerm::model()->fetchObjectsByTermid($id);
-        $term = Term::model()->findByPk($id);
-        $this->render( 'find', array(
-            'model'=>$model,
-            'result'=>$result,
-            'term'=>$term,
-            ) );
-    }
-     
 }

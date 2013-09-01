@@ -19,7 +19,11 @@
                 7:'status',
                 8:'created',
                 9:'modified',
-                10:
+                10:{
+                  'type':'raw',
+                  'value':'CHtml::link("添加图片",Yii::app()->createUrl("/pp/product/addphoto",array("id"=>$data->id)))'
+                },
+                11:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
                      'template':' {update}'

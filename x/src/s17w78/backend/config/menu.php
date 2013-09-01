@@ -36,7 +36,7 @@ return array(
         ),
         'product'=>array(
             'name'=>'商品管理',
-            'url'=>'/pp/product/index',
+            'url'=>'/pp/product/admin',
             'icon'=>'gift',
         ),
     ),

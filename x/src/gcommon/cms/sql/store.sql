@@ -111,12 +111,14 @@ CREATE TABLE `product_term` (
 --
 
 CREATE TABLE `product_image` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `image` varchar(255) NOT NULL,
   `image_type` tinyint(4) NOT NULL DEFAULT '0',
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
-  PRIMARY KEY (`product_id`),
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
   KEY `image_type` (`image_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
