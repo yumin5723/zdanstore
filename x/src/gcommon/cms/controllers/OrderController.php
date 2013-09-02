@@ -45,6 +45,7 @@ class OrderController extends GController {
                     'list',
                     'search',
                     'view',
+                    'changestatus'
                 ) ,
                 'users' => array(
                     '@'
@@ -119,6 +120,26 @@ class OrderController extends GController {
             throw new Exception("this page is not find", 404);
         }
         $order_detail = OrderProduct::model()->getOrderDetail($id);
-        $this->render('detail',array('detail'=>$order_detail));
+        $status = Order::model()->getAllStatus();
+        $this->render('detail',array('detail'=>$order_detail,'order'=>$order,'status'=>$status));
+    }
+    /**
+     * action for change status
+     * @return [type] [description]
+     */
+    public function actionChangestatus(){
+        if(Yii::app()->request->isPostRequest){
+            if(isset($_POST['order_id'])){
+                $order =  Order::model()->findByPk($_POST['order_id']);
+                if(empty($order)){
+                    throw new Exception("the request is not valid", 404);
+                }
+                $status = $_POST['status'];
+                $order->status = $_POST['status'];
+                $order->save(false);
+
+                $this->redirect("/pp/order/view/id/".$_POST['order_id']);
+            }
+        }
     }
 }

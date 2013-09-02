@@ -1,10 +1,20 @@
 {% extends "@pp/order/main.twig" %}
 {% set menu_name="订单管理"%}
 {% block content %}
+订单ID:<h3>{{ order.id }}</h3>
+修改订单状态为:
+<form action="/pp/order/changestatus" method="POST">
+	<input type="hidden" name="order_id" value="{{ order.id }}">
+	<select name="status">
+		{% for k,v in status %}
+		<option {% if order.status == k %} selected {% endif %} value="{{ k }}">{{ v }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="提交">
+</form>
 <table class="items table">
 <thead>
 	<tr>
-		<th id="app-grid_c0">订单ID</th>
 		<th id="app-grid_c1">商品ID</th>
 		<th id="app-grid_c4">商品名称</th>
 		<th id="app-grid_c4">商品图片</th>
@@ -15,7 +25,6 @@
 <tbody>
 {% for d in detail %}
 <tr class="odd">
-	<td>{{ d.order_id }}</td>
 	<td>{{ d.product_id }}</td>
 	<td>{{ d.product.name }}</td>
 	<td><img width="200px" height="114px" src="{{ d.product.logo }}" /></td>
