@@ -77,7 +77,7 @@ class OrderController extends GController {
         $count = 15;
         $sub_pages = 6;
         $type = isset($_GET['type']) ? $_GET["type"] : 0;
-        $dtype = isset($_GET['dtype']) ? $_GET["dtype"] : 1;
+        $dtype = isset($_GET['dtype']) ? $_GET["dtype"] : -1;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
         $nums = $model->getCounts($type,$dtype);
         $all_product = $model->getAllproducts($count,$pageCurrent,$type,$dtype);

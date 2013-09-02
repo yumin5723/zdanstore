@@ -42,7 +42,7 @@ return array(
         'order'=>array(
             'name'=>'订单管理',
             'url'=>'/pp/order/index',
-            'icon'=>'gift',
+            'icon'=>'briefcase',
         ),
     ),
 );

@@ -12,7 +12,15 @@
 <a href="/pp/order/index?type=7&dtype={{ dtype }}" class='btn btn-info {% if type == 7 %}red{% endif %}'>本季度数据</a>
 <a href="/pp/order/index?type=8&dtype={{ dtype }}" class='btn btn-info {% if type == 8 %}red{% endif %}'>上季度数据</a>
 <a href="/pp/order/index?type=9&dtype={{ dtype }}" class='btn btn-info {% if type == 9 %}red{% endif %}'>本年数据</a>
-<a href="/pp/order/index?type=10&dtype={{ dtype }}" class='btn btn-info {% if type == 10 %}red{% endif %}'>上年数据</a><br>
+<a href="/pp/order/index?type=10&dtype={{ dtype }}" class='btn btn-info {% if type == 10 %}red{% endif %}'>上年数据</a>
+<a href="/pp/order/index"><input type="radio" {% if dtype not in [0,1,2,3,4,5] %}checked="checked"{% endif %}>全部数据</a>
+<a href="/pp/order/index?type={{ type }}&dtype=0"><input type="radio" {% if dtype == 0 %}checked="checked"{% endif %}>订单创建成功</a>
+<a href="/pp/order/index?type={{ type }}&dtype=1"><input type="radio" {% if dtype == 1 %}checked="checked"{% endif %}>订单确认等待付款</a>
+<a href="/pp/order/index?type={{ type }}&dtype=2"><input type="radio" {% if dtype == 2 %}checked="checked"{% endif %}>付款成功等待发货</a>
+<a href="/pp/order/index?type={{ type }}&dtype=3"><input type="radio" {% if dtype == 3 %}checked="checked"{% endif %}>订单已发货</a>
+<a href="/pp/order/index?type={{ type }}&dtype=4"><input type="radio" {% if dtype == 4 %}checked="checked"{% endif %}>交易完成</a>
+<a href="/pp/order/index?type={{ type }}&dtype=5"><input type="radio" {% if dtype == 5 %}checked="checked"{% endif %}>订单关闭</a>
+<br>
 <table class="items table">
 <thead>
 	<tr>

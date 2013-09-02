@@ -158,8 +158,23 @@ class Order extends CmsActiveRecord
             $condition = $this->getCondition($type,$dtype);
             $criteria->addCondition($condition);
         }
+        if($dtype==0){
+            $criteria->addCondition("status=0");
+        }
+        if($dtype==1){
+            $criteria->addCondition("status=1");
+        }
         if($dtype==2){
-            $criteria->addCondition("charge_status=1");
+            $criteria->addCondition("status=2");
+        }
+        if($dtype==3){
+            $criteria->addCondition("status=3");
+        }
+        if($dtype==4){
+            $criteria->addCondition("status=4");
+        }
+        if($dtype==5){
+            $criteria->addCondition("status=5");
         }
         return  self::model()->count($criteria);
          
@@ -204,8 +219,23 @@ and year(created)=year(now())";
             $condition = $this->getCondition($type);
             $criteria->addCondition($condition);
         }
+        if($dtype==0){
+            $criteria->addCondition("status=0");
+        }
+        if($dtype==1){
+            $criteria->addCondition("status=1");
+        }
         if($dtype==2){
-            $criteria->addCondition("charge_status=1");
+            $criteria->addCondition("status=2");
+        }
+        if($dtype==3){
+            $criteria->addCondition("status=3");
+        }
+        if($dtype==4){
+            $criteria->addCondition("status=4");
+        }
+        if($dtype==5){
+            $criteria->addCondition("status=5");
         }
         $criteria->order = "t.id DESC";
         $criteria->limit = $count;
