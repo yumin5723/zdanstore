@@ -74,11 +74,14 @@ class ShoppingController extends GController {
      * @return [type] [description]
      */
     public function actionIndex(){
-        $cookie = Yii::app()->request->getCookies();
-        if(isset($cookie['cart_info'])){
-            $aaa = unserialize($cookie['cart_info']->value);
-            print_r($aaa);exit;
-        }
+        // Yii::app()->shoppingcart->shareShoppintCartAfterLogin(Yii::app()->user->id);
+        // // print_r(Yii::app()->user->id);exit;
+        // echo "success";exit;
+        // $cookie = Yii::app()->request->getCookies();
+        // if(isset($cookie['cart_info'])){
+        //     $aaa = unserialize($cookie['cart_info']->value);
+        //     print_r($aaa);exit;
+        // }
 
         $products = Product::model()->getAllProductsCanBuy();
         $this->render('index',array('products'=>$products));

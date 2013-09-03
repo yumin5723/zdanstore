@@ -98,7 +98,6 @@ class ShoppingCart extends CApplicationComponent{
     public function shareShoppintCartAfterLogin($uid){
         $user_cart = Cart::model()->getCartProductIdsByUid($uid);
         $cookie_cart = array_keys($this->product_list);
-
         $to_update = array_intersect($user_cart,$cookie_cart);
         if(!empty($to_update)){
             foreach($to_update as $v){
