@@ -71,6 +71,9 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
         'assets' => array(
             'class' => 'gcommon.components.AppAssetManager',
         ),
+        'shoppingcart' => array(
+            'class' => 'common.components.ShoppingCart',
+        ),
         'user'=>array(
             // enable cookie-based authentication
             'allowAutoLogin'=>true,

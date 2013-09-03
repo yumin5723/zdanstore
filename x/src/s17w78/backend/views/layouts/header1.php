@@ -26,7 +26,6 @@
 <link rel="stylesheet" type="text/css" href="/css/ie.css" media="screen, projection" />
 <![endif]-->
 
-<link rel="stylesheet" type="text/css" href="<?php echo $this->module->assetsUrl; ?>/css/main.css" />
 <link rel="stylesheet" type="text/css" href="/css/form.css" />
 <link rel="stylesheet" type="text/css" href="/css/prettyPhoto.css" />
 <link rel="stylesheet" type="text/css" href="/css/jquery.contextMenu.css" />

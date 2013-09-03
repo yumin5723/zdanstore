@@ -175,4 +175,20 @@ insert into `order`(`uid`,`status`,`ip`,`address`,`total_price`,`modified_uid`,`
 insert into `order_product` (`order_id`,`product_id`,`product_quantity`,`product_price`) values('1000000000','1','2','25.00');
 insert into `order_product` (`order_id`,`product_id`,`product_quantity`,`product_price`) values('1000000000','2','1','22.00');
 
+  --
+-- Table structure for table `cart`
+--
+CREATE TABLE IF NOT EXISTS `cart` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `uid` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  kEY `uid` (`uid`)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
