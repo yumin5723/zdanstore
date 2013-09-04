@@ -76,4 +76,41 @@ class Cart extends CActiveRecord
         return array_map(function($product){return $product->product_id;},
             $this->findAllByAttributes(array('uid'=>intval($uid))));
     }
+    /**
+     * get all carts info by uid
+     * @param  [type] $uid [description]
+     * @return [type]      [description]
+     */
+    public function getAllCartsInfoFromUid($uid){
+        if(empty($uid) || $uid <= 0){
+            return array();
+        }
+        $carts = self::model()->findAllByAttributes(array('uid'=>$uid));
+        $ret = array();
+        foreach($carts as $key=>$cart){
+            $product = Product::model()->findByPk($cart->product_id);
+            $ret[$cart->id]['id'] = $cart->product_id;
+            $ret[$cart->id]['quantity'] = $cart->quantity;
+            $ret[$cart->id]['meta'] = unserialize($cart->meta);
+            $ret[$cart->id]['productName'] = $product->name;
+            $ret[$cart->id]['logo'] = $product->logo;
+            $ret[$cart->id]['shop_price'] = $product->shop_price;
+        }
+        return $ret;
+    }
+    /**
+     * delete a product from user's cart
+     * @param  [type] $uid [description]
+     * @return [type]      [description]
+     */
+    public function deleteProductById($id,$uid){
+        $cart = self::model()->findAllByAttributes(array('id'=>$id,'uid'=>$uid));
+        if(empty($cart)){
+            return false;
+        }
+        if(self::model()->deleteByPk($id)){
+            return true;
+        }
+        return false;
+    }
 }

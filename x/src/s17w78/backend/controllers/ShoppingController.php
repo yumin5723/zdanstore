@@ -38,6 +38,7 @@ class ShoppingController extends GController {
                 'allow', // all all users
                 'actions' => array(
                     'cartinit',
+                    'cart',
                     'index',
                 ) ,
                 'users' => array(
@@ -68,6 +69,8 @@ class ShoppingController extends GController {
             $quantity = $_POST['quantity'];
             $meta = isset($_POST['Meta']) ? $_POST['Meta'] : "";
             Yii::app()->shoppingcart->addToCart($uid,$product_id,$quantity,$meta);
+        }else{
+            throw new Exception("this Request is not valid", 404);
         }
     }
     /**
@@ -86,5 +89,44 @@ class ShoppingController extends GController {
 
         $products = Product::model()->getAllProductsCanBuy();
         $this->render('index',array('products'=>$products));
+    }
+    /**
+     * action for cart list 
+     * @return [type] [description]
+     */
+    public function actionCart(){
+        $result = array();
+        if(Yii::app()->user->isGuest){
+            //read from cookie
+            $results = Yii::app()->shoppingcart->getCartInfoFromCookie();
+        }else{
+            //read from database my uid
+            $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
+        }
+        $this->render('cart',array('carts'=>$results));
+    }
+    /**
+     * action for delete a cart product
+     * @return [type] [description]
+     */
+    public function actionDelete(){
+        if(Yii::app()->request->isPostRequest){
+            $id = $_POST['id'];
+            if(Yii::app()->user->isGuest){
+                if(Yii::app()->shoppingcart->deleteProductFromCart($id)){
+                    echo "success";
+                }else{
+                    echo "fail";
+                }
+            }else{
+                if(Cart::model()->deleteProductById($id,Yii::app()->user->id)){
+                    echo "success";
+                }else{
+                    echo "fail";
+                }
+            }
+        }else{
+            throw new Exception("Error Processing Request", 404);
+        }
     }
 }

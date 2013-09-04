@@ -144,4 +144,39 @@ class ShoppingCart extends CApplicationComponent{
         Yii::app()->request->cookies['cart_info'] = new CHttpCookie('cart_info', '');
         return true;
     }
+    /**
+     * get cart info from cookie 
+     * if user is not login list the cart info from cookie
+     * @return [type] [description]
+     */
+    public function getCartInfoFromCookie(){
+        if(empty($this->product_list)){
+            return array();
+        }
+        foreach($this->product_list as $key=>$value){
+            $product = Product::model()->findByPk($value['id']);
+            if(!empty($product)){
+                $this->product_list[$key]['productName'] = $product->name;
+                $this->product_list[$key]['logo'] = $product->logo;
+                $this->product_list[$key]['shop_price'] = $product->shop_price;
+            }
+        }
+        return $this->product_list;
+    }
+    /**
+     * delete a product from cart cookie
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function deleteProductFromCart($id){
+        if(empty($this->product_list)){
+            return false;
+        }
+
+        unset($this->product_list[$id]);
+        $cookie = new CHttpCookie('cart_info',serialize($this->product_list));
+        $cookie->expire = time()+60*60*24*30;  //30 days
+        Yii::app()->request->cookies['cart_info']=$cookie; 
+        return true;
+    }
 }
