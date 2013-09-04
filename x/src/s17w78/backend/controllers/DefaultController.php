@@ -1,12 +1,12 @@
 <?php
 /**
- * Shoppint Controller.
+ * Default Controller.
  *
  * @version 1.0
  *
  */
 
-class ShoppingController extends GController {
+class DefaultController extends GController {
     /**
      * @return array action filters
      */
@@ -58,7 +58,6 @@ class ShoppingController extends GController {
      */
     public function actionCartinit(){
         if(Yii::app()->request->isPostRequest){
-            // print_r($_POST);exit;
             if(Yii::app()->user->isGuest){
                 $uid = "";
             }else{
@@ -66,8 +65,8 @@ class ShoppingController extends GController {
             }
             $product_id = $_POST['product'];
             $quantity = $_POST['quantity'];
-            $meta = isset($_POST['Meta']) ? $_POST['Meta'] : "";
-            Yii::app()->shoppingcart->addToCart($uid,$product_id,$quantity,$meta);
+
+            Yii::app()->shoppingcart->addToCart($uid,$product_id,$quantity);
         }
     }
     /**

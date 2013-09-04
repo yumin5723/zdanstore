@@ -26,10 +26,12 @@ class ProductController extends GController {
             array(
                 'allow',
                 'actions' => array(
-                    'index'
+                    'index',
+                    'list',
+                    'view',
                 ) ,
                 'users' => array(
-                    '@'
+                    '*'
                 ) ,
             ) ,
             array(
@@ -46,7 +48,7 @@ class ProductController extends GController {
      *
      * @return
      */
-    public function actionIndex() {
+    public function actionList() {
         $term_id = isset($_GET['cid']) ? $_GET['cid'] : "0";
         // $count = 20;
         $count = 20;
@@ -62,5 +64,27 @@ class ProductController extends GController {
 
         $p = $subPages->show_SubPages(2);
         $this->render("index",array('pager'=>$p,'products'=>$products));
+    }
+    /**
+     * action for default home page
+     * @return [type] [description]
+     */
+    public function actionIndex(){
+        Yii::app()->shoppingcart->shareShoppintCartAfterLogin(Yii::app()->user->id);
+    }
+    /**
+     * a detail page for product
+     * @return [type] [description]
+     */
+    public function actionView(){
+        $id = intval($_GET['id']);
+        $product = Product::model()->findByPk($id);
+        if(empty($product)){
+            throw new Exception("this page is not find", 404);
+        }
+        $product_metas = ProductMeta::model()->findAllByAttributes(array('meta_product_id'=>$id));
+        $product_images = ProductImage::model()->findAllByAttributes(array('product_id'=>$id));
+        $product_metas = ProductMeta::model()->getMetaInfoByProductId($id);
+        $this->render('view',array('product'=>$product,'product_images'=>$product_images,'metas'=>$product_metas));
     }
 }

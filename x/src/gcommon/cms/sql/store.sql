@@ -183,6 +183,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `uid` bigint(20) NOT NULL,
   `product_id` bigint(20) NOT NULL,
   `quantity` int(11) NOT NULL,
+  `meta` text NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),

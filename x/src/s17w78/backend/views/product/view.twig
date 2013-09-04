@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url }}/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="{{ App.assets.Url }}/css/baike.css"/>
+<script src="{{ App.assets.Url }}/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="{{ App.assets.Url }}/js/1378.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+
+
+name : {{ product.name }}<br />
+logo : <img width="200px" height="114px" src="{{ product.logo }}" /><br />
+image :
+{% for pic in product_images %}
+	<img width="200px" height="114px" src="{{ pic.image }}" /><br />
+{% endfor %}
+<form action="/shopping/cartinit" method="POST">
+{% for meta in metas %}
+{{ meta.name }}
+<select name="Meta[{{ meta.name }}]">
+	{% for v in meta.value %}
+	<option value="{{v}}">{{ v }}</option>
+	{% endfor %}
+</select>
+<br />
+{% endfor %}
+<input type="hidden" name="product" value="{{ product.id }}" />
+<input type="hidden" name="quantity" value="2" />
+<input type="submit" value="addToCart">
+</form>
+</body>
+</html>

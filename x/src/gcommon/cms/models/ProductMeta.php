@@ -246,38 +246,21 @@ class ProductMeta extends CActiveRecord
         return $cmd->execute();
     }
     /**
-     * get ancestors ids by object id
-     * @param  [type] $term_id [description]
-     * @return array ids
+     * get meta info by product id
+     * @param  intval $product_id [description]
+     * @return [type]             [description]
      */
-    public function getAncestorsIdsByObject($product_id){
-        $criteria = new CDbCriteria;
-        $criteria->condition = "object_id = :object_id";
-        $criteria->params = array(":object_id"=>$object_id);
-        $criteria->order = "term_id DESC";
-        // $criteria->limit = 1;
-        $results = ObjectTerm::model()->findAllByAttributes(array(),$criteria);
-        if(empty($results)){
+    public function getMetaInfoByProductId($product_id){
+        $metas = self::model()->findAllByAttributes(array('meta_product_id'=>$product_id));
+        if(empty($metas)){
             return array();
         }
-        $newArray = array();
-        foreach($results as $result){
-            $category= Oterm::model()->findByPk($result->term_id);
-            $descendants=$category->ancestors()->findAll();
-            $ret =  array_map(function ($a){return $a->id;}, $descendants);
-            array_push($ret,$result->term_id);
-            $newArray = array_merge($newArray,$ret);
-
+        $ret = array();
+        foreach($metas as $key=>$meta){
+            $ret[$key]['name'] = $meta->meta_key;
+            $ret[$key]['value'] = explode(",", $meta->meta_value);
         }
-        $newArray = array_unique($newArray);
-        // $category= Oterm::model()->findByPk($result->term_id);
-        // if(empty($category)){
-        //     return array();
-        // }
-        // $descendants=$category->ancestors()->findAll();
-        // $ret =  array_map(function ($a){return $a->id;}, $descendants);
-        // array_push($ret,$result->term_id);
-        return $newArray;
+        return $ret;
     }
 
 }

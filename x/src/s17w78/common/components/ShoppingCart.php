@@ -33,18 +33,18 @@ class ShoppingCart extends CApplicationComponent{
      * @param intval $product_id product id
      * @param intval $quantity   product number
      */
-    public function addToCart($uid,$product_id,$quantity){
+    public function addToCart($uid,$product_id,$quantity,$meta){
         if(empty($uid)){
             if(empty($this->product_list)){
-                $this->product_list[$product_id] = array('quantity'=>$quantity);
+                $this->product_list[] = array('id'=>$product_id,'quantity'=>$quantity,'meta'=>$meta);
                 $cookie = new CHttpCookie('cart_info',serialize($this->product_list));
                 $cookie->expire = time()+60*60*24*30;  //30 days
                 Yii::app()->request->cookies['cart_info']=$cookie; 
             }else{
-                $this->updateCart($product_id,$quantity);
+                $this->updateCart($product_id,$quantity,$meta);
             }
         }else{
-            $this->updateCartForUser($uid,$product_id,$quantity);
+            $this->updateCartForUser($uid,$product_id,$quantity,$meta);
         }
     }
     /**
@@ -55,12 +55,19 @@ class ShoppingCart extends CApplicationComponent{
      * @param  intval $quantity   [description]
      * @return [type]             [description]
      */
-    protected function updateCart($product_id,$quantity){
+    protected function updateCart($product_id,$quantity,$meta){
         $product_id = intval($product_id);
-        if(array_key_exists($product_id, $this->product_list)){
-            $this->product_list[$product_id]['quantity'] += $quantity;
-        }else{
-            $this->product_list[$product_id]['quantity'] = $quantity;
+        $flag = 0;
+        foreach($this->product_list as $key=>$value){
+            if($value['id'] == $product_id && $value['meta'] == $meta){
+                $this->product_list[$key]['quantity'] += $quantity;
+                $flag = 1;
+            }else{
+                $ret = array('id'=>$product_id,'quantity'=>$quantity,'meta'=>$meta);
+            }
+        }
+        if($flag == 0){
+            $this->product_list[] = $ret;
         }
         $cookie = new CHttpCookie('cart_info',serialize($this->product_list));
         $cookie->expire = time()+60*60*24*30;  //30 days
@@ -74,18 +81,28 @@ class ShoppingCart extends CApplicationComponent{
      * @param  [type] $quantity   [description]
      * @return [type]             [description]
      */
-    protected function updateCartForUser($uid,$product_id,$quantity){
+    protected function updateCartForUser($uid,$product_id,$quantity,$meta){
         $user_cart = Cart::model()->getCartProductIdsByUid($uid);
 
         if(in_array($product_id, $user_cart)){
             $cart = Cart::model()->findByAttributes(array('uid'=>$uid,'product_id'=>$product_id));
-            $cart->quantity += $quantity;
-            $cart->save(false);
+            if($cart->meta == serialize($meta)){
+                $cart->quantity += $quantity;
+                $cart->save(false);
+            }else{
+                $cart = new Cart;
+                $cart->uid = $uid;
+                $cart->product_id = $product_id;
+                $cart->quantity = $quantity;
+                $cart->meta = serialize($meta);
+                $cart->save(false);
+            }
         }else{
             $cart = new Cart;
             $cart->uid = $uid;
             $cart->product_id = $product_id;
             $cart->quantity = $quantity;
+            $cart->meta = serialize($meta);
             $cart->save(false);
         }
     }
@@ -97,26 +114,32 @@ class ShoppingCart extends CApplicationComponent{
      */
     public function shareShoppintCartAfterLogin($uid){
         $user_cart = Cart::model()->getCartProductIdsByUid($uid);
-        $cookie_cart = array_keys($this->product_list);
-        $to_update = array_intersect($user_cart,$cookie_cart);
-        if(!empty($to_update)){
-            foreach($to_update as $v){
-                $cart = Cart::model()->findByAttributes(array('uid'=>$uid,'product_id'=>$v));
-                $cart->quantity += $this->product_list[$v]['quantity'];
-                $cart->save(false);
-            }
-        }
-        $to_add = array_diff($cookie_cart,$user_cart);
-        if(!empty($to_add)){
-            foreach($to_add as $v){
+
+        // $flag = 0;
+        foreach($this->product_list as $key=>$value){
+            if(in_array($value['id'], $user_cart)){
+                $cart = Cart::model()->findByAttributes(array('uid'=>$uid,'product_id'=>$value['id']));
+                if($cart->meta == serialize($this->product_list[$key]['meta'])){
+                    $cart->quantity += $this->product_list[$key]['quantity'];
+                    $cart->save(false);
+                }else{
+                    $cart = new Cart;
+                    $cart->uid = $uid;
+                    $cart->product_id = $value['id'];
+                    $cart->quantity = $this->product_list[$key]['quantity'];
+                    $cart->meta = serialize($this->product_list[$key]['meta']);
+                    $cart->save(false);
+                }
+            }else{
                 $cart = new Cart;
                 $cart->uid = $uid;
-                $cart->product_id = $v;
-                $cart->quantity = $this->product_list[$v]['quantity'];
+                $cart->product_id = $value['id'];
+                $cart->quantity = $this->product_list[$key]['quantity'];
+                $cart->meta = serialize($this->product_list[$key]['meta']);
                 $cart->save(false);
             }
-        }
 
+        }
         //clear cart info cookie
         Yii::app()->request->cookies['cart_info'] = new CHttpCookie('cart_info', '');
         return true;
