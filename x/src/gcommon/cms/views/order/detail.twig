@@ -18,6 +18,7 @@
 		<th id="app-grid_c1">商品ID</th>
 		<th id="app-grid_c4">商品名称</th>
 		<th id="app-grid_c4">商品图片</th>
+		<th id="app-grid_c4">商品属性</th>
 		<th id="app-grid_c4">商品数量</th>
 		<th id="app-grid_c4">商品单价</th>
 	</tr>
@@ -28,6 +29,7 @@
 	<td>{{ d.product_id }}</td>
 	<td>{{ d.product.name }}</td>
 	<td><img width="200px" height="114px" src="{{ d.product.logo }}" /></td>
+	<td>{{ d.product.meta }}</td>
 	<td>{{ d.product_quantity }}</td>
 	<td>{{ d.product_price }}</td>
 </tr>
