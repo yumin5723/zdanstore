@@ -107,7 +107,7 @@ class ShoppingCart extends CApplicationComponent{
             }
         }
         $to_add = array_diff($cookie_cart,$user_cart);
-        if(empty($to_add)){
+        if(!empty($to_add)){
             foreach($to_add as $v){
                 $cart = new Cart;
                 $cart->uid = $uid;
