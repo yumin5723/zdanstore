@@ -74,7 +74,9 @@ class ProductController extends GController {
                     //save product term
                     ProductTerm::model()->saveProductTerm($model->id,$_POST['Oterm']);
                     //save product meta
-                    ProductMeta::model()->saveProductMeta($model->id,$_POST['Meta']);
+                    if(isset($_POST['Meta'])){
+                        ProductMeta::model()->saveProductMeta($model->id,$_POST['Meta']);
+                    }
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
                     $this->redirect("/pp/product/admin");
                 }
@@ -108,7 +110,6 @@ class ProductController extends GController {
                 if ( $product->save() ) {
                     ProductTerm::model()->updateProductTerm($product->id,$_POST['Oterm']);
                     //update product meta
-                    //
                     if(isset($_POST['Meta'])){
                         ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
                     }

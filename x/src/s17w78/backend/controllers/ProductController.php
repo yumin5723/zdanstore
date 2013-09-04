@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends CmsController {
+class ProductController extends GController {
 
 	/**
      * function_description
@@ -47,7 +47,20 @@ class DefaultController extends CmsController {
      * @return
      */
     public function actionIndex() {
-        $this->render("index");
-    }
+        $term_id = isset($_GET['cid']) ? $_GET['cid'] : "0";
+        // $count = 20;
+        $count = 20;
+        $sub_pages = 6;
+        $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
 
+
+        $sum = Product::model()->getProductsCountByTermId($term_id);
+        $products = Product::model()->fetchProductsByTermId($term_id,$count,$pageCurrent);
+        $url = "/product/index/cid/".$term_id."/p/";
+
+        $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
+
+        $p = $subPages->show_SubPages(2);
+        $this->render("index",array('pager'=>$p,'products'=>$products));
+    }
 }
