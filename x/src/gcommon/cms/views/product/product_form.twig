@@ -35,8 +35,45 @@
 {{ form.textFieldRow(model, "total_price", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "shop_price", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "special_price", {'placeholder':''})|raw }}
-{{ form.textFieldRow(model, "special_begin", {'placeholder':''})|raw }}
-{{ form.textFieldRow(model, "special_end", {'placeholder':''})|raw }}
+<div class="control-group ">
+  <label for="DeliveryNote_delivery_time" class="control-label required">促销开始时间<span class="required">*</span></label>
+  <div class="controls">
+    {{ void(this.widget('zii.widgets.jui.CJuiDatePicker', { 
+          'attribute' : 'special_begin', 
+          'model':model, 
+          'language':'zh_cn',
+          'name':'special_begin', 
+          'options': { 
+                  'showAnim' : 'fold', 
+                  'dateFormat' : 'yy-mm-dd', 
+                  'changeMonth':true,  
+                  'changeYear':true, 
+                  'yearRange':'-70:+5'      
+         },
+  })) 
+}}
+  </div>
+</div>
+<div class="control-group ">
+  <label for="DeliveryNote_delivery_time" class="control-label required">促销结束时间<span class="required">*</span></label>
+  <div class="controls">
+    {{ void(this.widget('zii.widgets.jui.CJuiDatePicker', { 
+          'attribute' : 'special_end', 
+          'model':model, 
+          'language':'zh_cn',
+          'name':'special_end', 
+          'options': { 
+                  'showAnim' : 'fold', 
+                  'dateFormat' : 'yy-mm-dd', 
+                  'changeMonth':true,  
+                  'changeYear':true, 
+                  'yearRange':'-70:+5'      
+         },
+  })) 
+}}
+  </div>
+</div>
+
 {{ form.textFieldRow(model, "order", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "weight", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "give_points", {'placeholder':''})|raw }}
