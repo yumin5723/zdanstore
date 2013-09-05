@@ -45,6 +45,7 @@ class BrandController extends GController {
                     'admin',
                     'update',
                     'delete',
+                    'product',
                 ) ,
                 'users' => array(
                     '@'
@@ -163,5 +164,18 @@ class BrandController extends GController {
      */
     public function actionDelete($id) {
         GxcHelpers::deleteModel('Brand', $id);
+    }
+    /**
+     * action for view product belong to brand
+     * @return [type] [description]
+     */
+    public function actionProduct(){
+        $id = $_GET['id'];
+        $brand = Brand::model()->findByPk($id);
+        if(empty($brand)){
+            throw new Exception("Error Processing Request", 404);
+        }
+        $products = Product::model()->getAllProductsByBrand($id);
+        $this->render('product',array('model'=> new Product,'id'=>$id));
     }
 }

@@ -45,7 +45,7 @@ class ProductController extends GController {
             array(
                 'allow',
                 'actions' => array(
-                    'create', 'admin','update','addphoto'
+                    'create', 'admin','update','addphoto','changenew'
                 ) ,
                 'users' => array(
                     '@'
@@ -113,10 +113,11 @@ class ProductController extends GController {
                     if(isset($_POST['Meta'])){
                         ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
                     }
-
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
                     $this->redirect("/pp/product/update/id/".$_GET['id']);
                 }
+            }else{
+                print_r($product->getErrors());exit;
             }
         }
         $this->render( 'update',array("model"=>$product,"isNew"=>false,"descendants" => $descendants,
@@ -166,5 +167,23 @@ class ProductController extends GController {
         // }
         $this->render('addphoto',array('images'=>$images));
 
+    }
+    /**
+     * action for change product new 
+     * @return [type] [description]
+     */
+    public function actionChangenew(){
+        $id = $_GET['id'];
+        $product = Product::model()->findByPk($id);
+        if(empty($product)){
+            throw new Exception("Error Processing Request", 404);
+        }
+        if($product->is_new == Product::PRODUCT_IS_NEW){
+            $product->is_new = Product::PRODUCT_IS_NOT_NEW;
+        }else{
+            $product->is_new = Product::PRODUCT_IS_NEW;
+        }
+        $product->save(false);
+        $this->redirect(Yii::app()->request->urlReferrer);
     }
 }

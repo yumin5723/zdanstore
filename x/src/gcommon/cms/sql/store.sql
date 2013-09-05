@@ -192,4 +192,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+alter table product add `is_new` tinyint(4) NOT NULL DEFAULT '0';
+alter table product add `order` int(11) NOT NULL DEFAULT '0';
+alter table product add `weight` int(11) NOT NULL DEFAULT '0';
+alter table product add `give_points` int(11) NOT NULL DEFAULT '0';
+alter table product add `points_buy` int(11) NOT NULL DEFAULT '0';
+alter table product add `special_price` Decimal(32, 2) NOT NULL;
+alter table product add `special_begin` datetime DEFAULT NULL;
+alter table product add `special_end` datetime DEFAULT NULL; 
+alter table product add `need_postage` tinyint(4) NOT NULL DEFAULT '0';
+
 

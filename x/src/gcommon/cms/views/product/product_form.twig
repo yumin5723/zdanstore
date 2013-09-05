@@ -19,20 +19,29 @@
         <div class="controls">
             {% if isNew == true %}
               <img class="product_logo" src="" />
+              <input type="hidden" id="product_logo" name="Product[logo]">
             {% else %}
               <img class="product_logo" src="{{ model.logo }}" />
+              <input type="hidden" id="product_logo" value="{{ model.logo }}" name="Product[logo]">
             {% endif %}
         </div>
 </div>
-<input type="hidden" id="product_logo" name="Product[logo]">
 
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
+{{ form.dropDownListRow(model, 'is_new', model.getIsNew(), {})|raw }}
 {{ form.dropDownListRow(model, 'brand_id', model.Brands, {})|raw }}
-{{ form.textFieldRow(model, "rank", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "batch_number", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "quantity", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "total_price", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "shop_price", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "special_price", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "special_begin", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "special_end", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "order", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "weight", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "give_points", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "points_buy", {'placeholder':''})|raw }}
+{{ form.dropDownListRow(model, 'need_postage', model.needPostage, {})|raw }}
 {% if isNew == true %}
   <div  class="control-group">
       <label for="Category_name" class="control-label required">父类 <span class="required">*</span></label>

@@ -1,13 +1,13 @@
 {% extends "@pp/brand/index.twig" %}
-{% set menu_name="商品管理"%}
-{% set sidebar_name = "商品列表" %}
+{% set menu_name="品牌管理"%}
+{% set sidebar_name = "品牌列表" %}
 {% block content %}
+{% include "layouts/notice.twig" %}
 <div class="container-fluid">
     <div class="row-fluid">
-    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+       {{ void(this.widget('bootstrap.widgets.TbGridView',{
             'id':'app-grid', 
-            'dataProvider':model.search(), 
-            'filter':model, 
+            'dataProvider':model.getAllProductsByBrand(id), 
             'columns':{
                 1:'name',
                 2:'batch_number',

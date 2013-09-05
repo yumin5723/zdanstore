@@ -9,6 +9,11 @@ class Product extends CmsActiveRecord
 
     const PRODUCT_STATUS_SELL = 0;
     const PRODUCT_STATUS_SOLDOUT = 1;
+    const PRODUCT_IS_NEW = 1;
+    const PRODUCT_IS_NOT_NEW = 0;
+
+    const PRODUCT_NOT_NEED_POSTAGE = 0;
+    const PRODUCT_NEED_POSTAGE = 1;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -35,7 +40,7 @@ class Product extends CmsActiveRecord
         // will receive user inputs.
         return array(
             array('name,brand_id,status,logo,quantity,shop_price,total_price,desc','required'),
-            array('rank,batch_number','safe'),
+            array('rank,batch_number,weight,give_points,points_buy,is_new,need_postage,special_price,special_begin,special_end,order','safe'),
         );
     }
     public function behaviors()
@@ -77,6 +82,7 @@ class Product extends CmsActiveRecord
         $criteria->order = "id DESC";
         $criteria->compare('id',$this->id,true);
         $criteria->compare('name',$this->name,true);
+        $criteria->compare('status',$this->status,true);
         $criteria->compare('brand_id',$this->brand_id,true);
         $criteria->compare('created',$this->created,true);
         $criteria->compare('modified',$this->modified,true);
@@ -141,11 +147,73 @@ class Product extends CmsActiveRecord
             $attrs[] = 'desc';
             $this->desc = $attributes['desc'];
         }
+        if (!empty($attributes['is_new']) && $attributes['is_new'] != $this->is_new) {
+            $attrs[] = 'is_new';
+            $this->is_new = $attributes['is_new'];
+        }
+        if (!empty($attributes['need_postage']) && $attributes['need_postage'] != $this->need_postage) {
+            $attrs[] = 'need_postage';
+            $this->need_postage = $attributes['need_postage'];
+        }
+        if (!empty($attributes['weight']) && $attributes['weight'] != $this->weight) {
+            $attrs[] = 'weight';
+            $this->weight = $attributes['weight'];
+        }
+        if (!empty($attributes['order']) && $attributes['order'] != $this->order) {
+            $attrs[] = 'order';
+            $this->order = $attributes['order'];
+        }
+        if (!empty($attributes['give_points']) && $attributes['give_points'] != $this->give_points) {
+            $attrs[] = 'give_points';
+            $this->give_points = $attributes['give_points'];
+        }
+        if (!empty($attributes['points_buy']) && $attributes['points_buy'] != $this->points_buy) {
+            $attrs[] = 'points_buy';
+            $this->points_buy = $attributes['points_buy'];
+        }
+        if (!empty($attributes['special_price']) && $attributes['special_price'] != $this->special_price) {
+            $attrs[] = 'special_price';
+            $this->special_price = $attributes['special_price'];
+        }
+        if (!empty($attributes['special_begin']) && $attributes['special_begin'] != $this->special_begin) {
+            $attrs[] = 'special_begin';
+            $this->special_begin = $attributes['special_begin'];
+        }
+        if (!empty($attributes['special_end']) && $attributes['special_end'] != $this->special_end) {
+            $attrs[] = 'special_end';
+            $this->special_end = $attributes['special_end'];
+        }
         if ($this->validate($attrs)) {
             return $this->save(false);
         } else {
             return false;
         }
+    }
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'name' => '商品名称',
+            'desc' => '商品详情',
+            'logo' => '商品首页图片',
+            'status' => '商品状态',
+            'is_new' => '是否新品',
+            'brand_id' => '所属品牌',
+            'batch_number' => '商品批次',
+            'quantity' => '商品库存',
+            'total_price' => '市场价格',
+            'shop_price' => '本站价格',
+            'special_price' => '促销价',
+            'special_begin' => '促销开始时间',
+            'special_end' => '促销结束时间',
+            'order' => '排序',
+            'weight' => "商品重量",
+            'give_points' => '赠送积分',
+            'points_buy' => '允许积分购买',
+            'need_postage' => '是否包邮',
+        );
     }
     /**
      * get all product status
@@ -248,5 +316,49 @@ class Product extends CmsActiveRecord
         $criteria->limit = $count;
         $criteria->offset = ($page - 1) * $count;
         return self::model()->findAll($criteria);
+    }
+    /**
+     * [convertProductIsNew description]
+     * @param  [type] $isNew [description]
+     * @return [type]        [description]
+     */
+    public function convertProductIsNew($isNew){
+        if($isNew == 1){
+            return "新品";
+        }
+        return "非新品";
+    }
+    /**
+     * get all product is new
+     * @return [type] [description]
+     */
+    public function getIsNew(){
+        return array(self::PRODUCT_IS_NOT_NEW => "非新品",self::PRODUCT_IS_NEW => "新品");
+    }
+     /**
+     * get all product need postage
+     * @return [type] [description]
+     */
+    public function getNeedPostage(){
+        return array(self::PRODUCT_NOT_NEED_POSTAGE => "包邮",self::PRODUCT_IS_NEW => "非包邮");
+    }
+    /**
+     * get products by brand
+     */
+    public function getAllProductsByBrand($brand_id)
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+        $criteria=new CDbCriteria;
+        $criteria->order = "id DESC";
+        $criteria->compare('brand_id',$brand_id);
+
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria'=>$criteria,
+            'pagination' => array(
+                    'pageSize' => 20,
+                )
+        ));
+        // return self::model()->findAllByAttributes(array('brand_id'=>$brand_id));
     }
 }
