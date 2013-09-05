@@ -202,4 +202,25 @@ alter table product add `special_begin` datetime DEFAULT NULL;
 alter table product add `special_end` datetime DEFAULT NULL; 
 alter table product add `need_postage` tinyint(4) NOT NULL DEFAULT '0';
 
+alter table `order` add `address` varchar(255) NOT NULL;
+
+--
+-- Table structure for table `deliverynote`
+--
+CREATE TABLE IF NOT EXISTS `deliverynote` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
+  `express_number` varchar(64) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `delivery_time` datetime DEFAULT NULL,
+  `admin_uid` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  kEY `uid` (`uid`)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 

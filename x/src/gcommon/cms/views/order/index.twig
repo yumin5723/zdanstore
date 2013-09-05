@@ -25,9 +25,10 @@
 <thead>
 	<tr>
 		<th id="app-grid_c0">订单号</th>
-		<th id="app-grid_c1">用户ID</th>
+		<th id="app-grid_c1">用户</th>
 		<th id="app-grid_c4">订单金额</th>
 		<th id="app-grid_c4">订单状态</th>
+		<th id="app-grid_c4">邮寄地址</th>
 		<th id="app-grid_c12">创建时间</th>
 		<th id="app-grid_c14" class="button-column">&nbsp;</th>
 	</tr>
@@ -41,7 +42,7 @@
 	{% for k,v in model %}
 	<tr class="odd">
 		<td>{{ v.id }}</td>
-		<td>{{ v.uid }}</td>
+		<td>{{ v.user.username }}</td>
 		<td>{{ v.total_price }}</td>
 		<td>
 			{% if v.status == constant('Order::ORDER_STATUS_CREATED')%}
@@ -58,6 +59,7 @@
 			订单关闭
 			{% endif %}
 		</td>
+		<td>{{ v.address }}</td>
 		<td>{{ v.created }}</td>
 		<td class="button-column"> 
 			<a href="/pp/order/view/id/{{ v.id }}" rel="tooltip" class="view" data-original-title="查看"><i class="icon-eye-open"></i></a>

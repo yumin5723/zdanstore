@@ -1,0 +1,12 @@
+{% extends "@pp/order/main.twig" %}
+{% set menu_name="订单管理"%}
+{% set sidebar_name = "新建发货单" %}
+{% block content %}
+<br />
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% set nav_name = "create"%}
+    {% include "@pp/order/delivery_form.twig" %}
+  </div>
+</div>
+{% endblock %}

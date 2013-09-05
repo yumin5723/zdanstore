@@ -19,6 +19,16 @@ class OrderController extends GController {
             'icon' => 'tasks',
             'url' => 'search',
         ),
+        array(
+            'name' => '添加发货单',
+            'icon' => 'tasks',
+            'url' => 'adddelivery',
+        ),
+        array(
+            'name' => '发货单列表',
+            'icon' => 'tasks',
+            'url' => 'deliverylist',
+        ),
     );
     /**
      * @return array action filters
@@ -45,7 +55,11 @@ class OrderController extends GController {
                     'list',
                     'search',
                     'view',
-                    'changestatus'
+                    'changestatus',
+                    'adddelivery',
+                    'deliverylist',
+                    'updatedelivery',
+                    'deletedelivery'
                 ) ,
                 'users' => array(
                     '@'
@@ -141,5 +155,50 @@ class OrderController extends GController {
                 $this->redirect("/pp/order/view/id/".$_POST['order_id']);
             }
         }
+    }
+    /**
+     * action for add delivery 
+     * @return [type] [description]
+     */
+    public function actionAdddelivery(){
+        $model = new DeliveryNote;
+        // collect user input data
+        if (isset($_POST['DeliveryNote'])) {
+            $model->setAttributes($_POST['DeliveryNote']);
+            // validate user input password
+            if ($model->validate()) {
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new DeliveryNote Successfully!'));
+                    $this->redirect('/pp/order/deliverylist');
+                }
+            }
+        }
+        $this->render('adddelivey', array(
+            "model" => $model,'isNew'=>true,
+        ));
+    }
+    /**
+     * action for update delivery
+     */
+    public function actionUpdatedelivery(){
+
+    }
+    /**
+     * action for delivery list
+     */
+    public function actionDeliverylist(){
+        $model = new DeliveryNote('search');
+        $model->unsetAttributes(); // clear any default values
+        if(isset($_GET["DeliveryNote"]))
+                    $model->attributes=$_GET["DeliveryNote"];  
+        $this->render('deliverylist', array(
+            "model" => $model
+        ));
+    }
+    /**
+     * action for delete delivery
+     */
+    public function actionDeletedelivery(){
+
     }
 }
