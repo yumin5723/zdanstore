@@ -1,0 +1,31 @@
+{% extends "@pp/brand/index.twig" %}
+{% set menu_name="广告管理"%}
+{% set sidebar_name = "广告列表" %}
+{% block content %}
+{% include "layouts/notice.twig" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'name',
+                2:'url',
+                3:'created',
+                4:{
+                  'name' :'type',
+                  'type' :'raw',
+                  'value' :'Click::convertAdTypes($data->type)',
+                },
+                5:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}'
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

@@ -47,7 +47,7 @@ return array(
         'click'=>array(
             'name'=>'广告管理',
             'url'=>'/pp/click/index',
-            'icon'=>'briefcase',
+            'icon'=>'qrcode',
         ),
     ),
 );

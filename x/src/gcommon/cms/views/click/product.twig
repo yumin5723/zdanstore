@@ -1,0 +1,41 @@
+{% extends "@pp/brand/index.twig" %}
+{% set menu_name="品牌管理"%}
+{% set sidebar_name = "品牌列表" %}
+{% block content %}
+{% include "layouts/notice.twig" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+       {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.getAllProductsByBrand(id), 
+            'columns':{
+                1:'name',
+                2:'batch_number',
+                3:'total_price',
+                4:'shop_price',
+                5:'status',
+                6:'quantity',
+                7:'order',
+                8:{
+                  'name' :'is_new',
+                  'type' :'raw',
+                  'value' :'Product::convertProductIsNew($data->is_new)',
+                },
+                9:{
+                  'type':'raw',
+                  'value':'CHtml::link($data->is_new == 0 ? "标记为新品" : "取消新品",Yii::app()->createUrl("/pp/product/changenew",array("id"=>$data->id)))',
+                },
+                10:{
+                  'type':'raw',
+                  'value':'CHtml::link("添加图片",Yii::app()->createUrl("/pp/product/addphoto",array("id"=>$data->id)))'
+                },
+                11:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update}'
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

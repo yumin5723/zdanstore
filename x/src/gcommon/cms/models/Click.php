@@ -1,28 +1,14 @@
 <?php
 /**
- * This is the model class for table "game".
+ * This is the model class for table "click".
  *
  * The followings are the available columns in table 'game':
- * @property integer $id
- * @property string $name
- * @property string $tags
- * @property string $from
- * @property string $desc
- * @property string $operations_guide
- * @property string $how_begin
- * @property string $target
- * @property string $image
- * @property string $tag_image
- * @property string $url
- * @property string $created_uid
- * @property string $modified_uid
- * @property string $created
- * @property string $modified
  */
-class Brand extends CmsActiveRecord
+class Click extends CmsActiveRecord
 {
     public $upload;
-    public $upload1;
+    const AD_POSITION_INDEX = 1;
+    const AD_POSITION_LIST = 2;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -37,7 +23,7 @@ class Brand extends CmsActiveRecord
      */
     public function tableName()
     {
-        return 'brand';
+        return 'click';
     }
 
     /**
@@ -48,9 +34,8 @@ class Brand extends CmsActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name,image','required'),
-            array('upload,upload1', 'file','allowEmpty'=>true),
-            array('desc','safe'),
+            array('name,image,url,type','required'),
+            array('upload', 'file','allowEmpty'=>true),
         );
     }
     public function behaviors()
@@ -92,8 +77,8 @@ class Brand extends CmsActiveRecord
         $criteria->order = "id DESC";
         $criteria->compare('id',$this->id,true);
         $criteria->compare('name',$this->name,true);
+        $criteria->compare('url',$this->created,true);
         $criteria->compare('created',$this->created,true);
-        $criteria->compare('modified',$this->modified,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
@@ -115,11 +100,14 @@ class Brand extends CmsActiveRecord
             $attrs[] = 'name';
             $this->name = $attributes['name'];
         }
-        if (!empty($attributes['desc']) && $attributes['desc'] != $this->desc) {
-            $attrs[] = 'desc';
-            $this->desc = $attributes['desc'];
+        if (!empty($attributes['url']) && $attributes['url'] != $this->url) {
+            $attrs[] = 'url';
+            $this->url = $attributes['url'];
         }
-        
+        if (!empty($attributes['type']) && $attributes['type'] != $this->type) {
+            $attrs[] = 'type';
+            $this->type = $attributes['type'];
+        }
         if (!empty($attributes['image'])) {
             $attrs[] = 'image';
             $this->image = $attributes['image'];
@@ -129,5 +117,24 @@ class Brand extends CmsActiveRecord
         } else {
             return false;
         }
+    }
+    /**
+     * get all ad types 
+     * status is self::PRODUCT_STATUS_SELL
+     * @return [type] [description]
+     */
+    public function getTypes(){
+        return array(self::AD_POSITION_INDEX => "首页广告",self::AD_POSITION_LIST => "列表页广告");
+    }
+    /**
+     * [convertProductIsNew description]
+     * @param  [type] $isNew [description]
+     * @return [type]        [description]
+     */
+    public function convertAdTypes($type){
+        if($type == self::AD_POSITION_LIST){
+            return "列表页广告";
+        }
+        return "首页广告";
     }
 }
