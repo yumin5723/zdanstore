@@ -44,5 +44,10 @@ return array(
             'url'=>'/pp/order/index',
             'icon'=>'briefcase',
         ),
+        'click'=>array(
+            'name'=>'广告管理',
+            'url'=>'/pp/click/index',
+            'icon'=>'briefcase',
+        ),
     ),
 );
