@@ -1,0 +1,37 @@
+{% extends "@pp/order/main.twig" %}
+{% set menu_name="订单管理"%}
+{% set sidebar_name = "发货单列表" %}
+{% block content %}
+{% include "layouts/notice.twig" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'order_id',
+                2:'express_number',
+                3:'uid',
+                4:'delivery_time',
+                5:{
+                  'type':'raw',
+                  'name':'admin_uid',
+                  'value':'$data->admin->username',
+                },
+                6:'status',
+                7:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("pp/order/updatedelivery/id/$data->order_id")'},
+                        'delete':{'url':'Yii::app()->createUrl("pp/order/deletedelivery/id/$data->id")'},
+                     }
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

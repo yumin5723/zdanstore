@@ -60,6 +60,8 @@ class DeliveryNote extends CmsActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'admin'=>array(self::BELONGS_TO, 'Manager',
+                    'admin_uid'),
         );
     }
 
@@ -118,6 +120,7 @@ class DeliveryNote extends CmsActiveRecord
             $attrs[] = 'status';
             $this->status = $attributes['status'];
         }
+        $this->admin_uid = Yii::app()->user->id;
         if ($this->validate($attrs)) {
             return $this->save(false);
         } else {

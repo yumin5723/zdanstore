@@ -59,7 +59,8 @@ class OrderController extends GController {
                     'adddelivery',
                     'deliverylist',
                     'updatedelivery',
-                    'deletedelivery'
+                    'deletedelivery',
+                    'getuid',
                 ) ,
                 'users' => array(
                     '@'
@@ -162,26 +163,46 @@ class OrderController extends GController {
      */
     public function actionAdddelivery(){
         $model = new DeliveryNote;
+        $orderid->order_id = "";
+        if(isset($_GET['orderid'])){
+           $model->order_id = $_GET['orderid'];
+        }
         // collect user input data
         if (isset($_POST['DeliveryNote'])) {
             $model->setAttributes($_POST['DeliveryNote']);
             // validate user input password
             if ($model->validate()) {
+                $model->admin_uid = Yii::app()->user->id;
                 if ($model->save()) {
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new DeliveryNote Successfully!'));
                     $this->redirect('/pp/order/deliverylist');
                 }
             }
         }
-        $this->render('adddelivey', array(
-            "model" => $model,'isNew'=>true,
+        $this->render('adddelivery', array(
+            "model" => $model,
         ));
     }
     /**
      * action for update delivery
      */
     public function actionUpdatedelivery(){
-
+        $id = isset( $_GET['id'] ) ? (int)( $_GET['id'] ) : 0;
+        if ($id !== 0) {
+            $model = DeliveryNote::model()->findByPk($id);
+            // collect user input data
+            if (isset($_POST['DeliveryNote'])) {
+                $model->admin_uid = Yii::app()->user->id;
+                if ($model->updateAttrs($_POST['DeliveryNote'])) {
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
+                }
+            }
+        } else {
+            throw new CHttpException(404, Yii::t('cms', 'The requested page does not exist.'));
+        }
+        $this->render('updatedelivery', array(
+            "model" => $model,"isNew"=>false,
+        ));
     }
     /**
      * action for delivery list
@@ -198,7 +219,16 @@ class OrderController extends GController {
     /**
      * action for delete delivery
      */
-    public function actionDeletedelivery(){
-
+    public function actionDeletedelivery($id){
+        GxcHelpers::deleteModel('DeliveryNote', $id);
+    }
+    public function actionGetuid(){
+        $order_id = $_GET['orderid'];
+        $result = Order::model()->findByPk($order_id);
+        if(empty($result)){
+            echo "";
+        }else{
+            echo $result->uid;
+        }
     }
 }
