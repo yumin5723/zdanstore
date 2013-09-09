@@ -7,8 +7,9 @@
 class Click extends CmsActiveRecord
 {
     public $upload;
-    const AD_POSITION_INDEX = 1;
-    const AD_POSITION_LIST = 2;
+    const AD_POSITION_INDEX_FOCUS = 1;
+    const AD_POSITION_INDEX_RIGHT = 2;
+    const AD_POSITION_INDEX_DOWN = 3;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -124,7 +125,9 @@ class Click extends CmsActiveRecord
      * @return [type] [description]
      */
     public function getTypes(){
-        return array(self::AD_POSITION_INDEX => "首页广告",self::AD_POSITION_LIST => "列表页广告");
+        return array(self::AD_POSITION_INDEX_FOCUS => "首页焦点图广告",self::AD_POSITION_INDEX_RIGHT => "首页焦点图右侧",self::AD_POSITION_INDEX_DOWN=>
+            "首页尾部广告"
+            );
     }
     /**
      * [convertProductIsNew description]
@@ -132,9 +135,27 @@ class Click extends CmsActiveRecord
      * @return [type]        [description]
      */
     public function convertAdTypes($type){
-        if($type == self::AD_POSITION_LIST){
-            return "列表页广告";
+        if($type == self::AD_POSITION_INDEX_FOCUS){
+            return "首页焦点图广告";
+        }elseif($type == self::AD_POSITION_INDEX_RIGHT){
+            return "首页焦点图右侧";
+        }else{
+            return "首页尾部广告";
         }
-        return "首页广告";
+    }
+    /**
+     * [getAdsByType description]
+     * @param  [type] $type  [description]
+     * @param  [type] $limit [description]
+     * @return [type]        [description]
+     */
+    public function getAdsByType($type,$limit = 2){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "type = :type";
+        $criteria->params = array(":type"=>$type);
+        return self::model()->findAll($criteria);
     }
 }

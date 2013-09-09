@@ -29,6 +29,7 @@
 
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
 {{ form.dropDownListRow(model, 'is_new', model.getIsNew(), {})|raw }}
+{{ form.dropDownListRow(model, 'is_recommond', model.getIsRecommond(), {})|raw }}
 {{ form.dropDownListRow(model, 'brand_id', model.Brands, {})|raw }}
 {{ form.textFieldRow(model, "batch_number", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "quantity", {'placeholder':''})|raw }}

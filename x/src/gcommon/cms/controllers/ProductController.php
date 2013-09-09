@@ -45,7 +45,7 @@ class ProductController extends GController {
             array(
                 'allow',
                 'actions' => array(
-                    'create', 'admin','update','addphoto','changenew'
+                    'create', 'admin','update','addphoto','changenew','changerecommond'
                 ) ,
                 'users' => array(
                     '@'
@@ -182,6 +182,24 @@ class ProductController extends GController {
             $product->is_new = Product::PRODUCT_IS_NOT_NEW;
         }else{
             $product->is_new = Product::PRODUCT_IS_NEW;
+        }
+        $product->save(false);
+        $this->redirect(Yii::app()->request->urlReferrer);
+    }
+    /**
+     * action for change product recommond 
+     * @return [type] [description]
+     */
+    public function actionChangerecommond(){
+        $id = $_GET['id'];
+        $product = Product::model()->findByPk($id);
+        if(empty($product)){
+            throw new Exception("Error Processing Request", 404);
+        }
+        if($product->is_recommond == Product::PRODUCT_IS_NOT_RECOMMOND){
+            $product->is_recommond = Product::PRODUCT_IS_RECOMMOND;
+        }else{
+            $product->is_recommond = Product::PRODUCT_IS_NOT_RECOMMOND;
         }
         $product->save(false);
         $this->redirect(Yii::app()->request->urlReferrer);

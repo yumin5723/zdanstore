@@ -74,16 +74,14 @@ class DefaultController extends GController {
      * @return [type] [description]
      */
     public function actionIndex(){
-        // Yii::app()->shoppingcart->shareShoppintCartAfterLogin(Yii::app()->user->id);
-        // // print_r(Yii::app()->user->id);exit;
-        // echo "success";exit;
-        // $cookie = Yii::app()->request->getCookies();
-        // if(isset($cookie['cart_info'])){
-        //     $aaa = unserialize($cookie['cart_info']->value);
-        //     print_r($aaa);exit;
-        // }
-
-        $products = Product::model()->getAllProductsCanBuy();
-        $this->render('index',array('products'=>$products));
+        //foucus index
+        $focus = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_FOCUS,1);
+        //index right ad 
+        $rightAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_RIGHT);
+        //index down ad
+        $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
+        //recommond products
+        $products = Product::model()->getAllRecommondProducts();
+        $this->render('index',array('products'=>$products,'focus'=>$focus,'rightads'=>$rightads,"downAds"=>$downAd));
     }
 }

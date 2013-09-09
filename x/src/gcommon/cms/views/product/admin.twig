@@ -26,10 +26,19 @@
                   'value':'CHtml::link($data->is_new == 0 ? "标记为新品" : "取消新品",Yii::app()->createUrl("/pp/product/changenew",array("id"=>$data->id)))',
                 },
                 10:{
+                  'name' :'is_recommond',
+                  'type' :'raw',
+                  'value' :'Product::convertProductIsRecommond($data->is_recommond)',
+                },
+                11:{
+                  'type':'raw',
+                  'value':'CHtml::link($data->is_recommond == 0 ? "推荐到首页" : "取消推荐",Yii::app()->createUrl("/pp/product/changerecommond",array("id"=>$data->id)))',
+                },
+                12:{
                   'type':'raw',
                   'value':'CHtml::link("添加图片",Yii::app()->createUrl("/pp/product/addphoto",array("id"=>$data->id)))'
                 },
-                11:
+                13:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
                      'template':' {update}'

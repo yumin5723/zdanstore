@@ -12,6 +12,11 @@ class Product extends CmsActiveRecord
     const PRODUCT_IS_NEW = 1;
     const PRODUCT_IS_NOT_NEW = 0;
 
+    const PRODUCT_IS_RECOMMOND = 1;
+    const PRODUCT_IS_NOT_RECOMMOND = 0;
+
+
+
     const PRODUCT_NOT_NEED_POSTAGE = 0;
     const PRODUCT_NEED_POSTAGE = 1;
     /**
@@ -151,6 +156,10 @@ class Product extends CmsActiveRecord
             $attrs[] = 'is_new';
             $this->is_new = $attributes['is_new'];
         }
+        if (!empty($attributes['is_recommond']) && $attributes['is_recommond'] != $this->is_recommond) {
+            $attrs[] = 'is_recommond';
+            $this->is_recommond = $attributes['is_recommond'];
+        }
         if (!empty($attributes['need_postage']) && $attributes['need_postage'] != $this->need_postage) {
             $attrs[] = 'need_postage';
             $this->need_postage = $attributes['need_postage'];
@@ -200,6 +209,7 @@ class Product extends CmsActiveRecord
             'logo' => '商品首页图片',
             'status' => '商品状态',
             'is_new' => '是否新品',
+            'is_recommond' => '是否推荐首页',
             'brand_id' => '所属品牌',
             'batch_number' => '商品批次',
             'quantity' => '商品库存',
@@ -329,11 +339,29 @@ class Product extends CmsActiveRecord
         return "非新品";
     }
     /**
+     * [convertProductIsNew description]
+     * @param  [type] $isNew [description]
+     * @return [type]        [description]
+     */
+    public function convertProductIsRecommond($isRecommond){
+        if($isRecommond == 1){
+            return "已推荐首页";
+        }
+        return "未推荐";
+    }
+    /**
      * get all product is new
      * @return [type] [description]
      */
     public function getIsNew(){
         return array(self::PRODUCT_IS_NOT_NEW => "非新品",self::PRODUCT_IS_NEW => "新品");
+    }
+    /**
+     * get all product is recommond
+     * @return [type] [description]
+     */
+    public function getIsRecommond(){
+        return array(self::PRODUCT_IS_NOT_RECOMMOND => "未推荐",self::PRODUCT_NEED_POSTAGE => "推荐");
     }
      /**
      * get all product need postage
@@ -360,5 +388,19 @@ class Product extends CmsActiveRecord
                 )
         ));
         // return self::model()->findAllByAttributes(array('brand_id'=>$brand_id));
+    }
+    /**
+     * get index recommond products
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond = :is_recommond";
+        $criteria->params = array(":type"=>self::PRODUCT_IS_RECOMMOND);
+        return self::model()->findAll($criteria);
     }
 }
