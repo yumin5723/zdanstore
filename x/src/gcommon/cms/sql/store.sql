@@ -235,4 +235,19 @@ CREATE TABLE `click` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `subject`
+--
+CREATE TABLE `subject` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(4) NOT NULL,
+  `begin` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `params` text NOT NULL DEFAULT '',
+  `product` varchar(255) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 

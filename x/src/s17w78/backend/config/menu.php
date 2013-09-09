@@ -46,8 +46,13 @@ return array(
         ),
         'click'=>array(
             'name'=>'广告管理',
-            'url'=>'/pp/click/index',
+            'url'=>'/pp/click/admin',
             'icon'=>'qrcode',
+        ),
+        'subject'=>array(
+            'name'=>'活动管理',
+            'url'=>'/pp/subject/admin',
+            'icon'=>'fire',
         ),
     ),
 );

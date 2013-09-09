@@ -1,0 +1,99 @@
+<div class="form">
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+<div class="control-group ">
+  <label for="DeliveryNote_delivery_time" class="control-label required">活动开始时间<span class="required">*</span></label>
+  <div class="controls">
+    {{ void(this.widget('zii.widgets.jui.CJuiDatePicker', { 
+          'attribute' : 'begin', 
+          'model':subject, 
+          'language':'zh_cn',
+          'name':'begin', 
+          'options': { 
+                  'showAnim' : 'fold', 
+                  'dateFormat' : 'yy-mm-dd', 
+                  'changeMonth':true,  
+                  'changeYear':true, 
+                  'yearRange':'-70:+5'      
+         },
+  })) 
+}}
+  </div>
+</div>
+
+<div class="control-group ">
+  <label for="DeliveryNote_delivery_time" class="control-label required">活动结束时间<span class="required">*</span></label>
+  <div class="controls">
+    {{ void(this.widget('zii.widgets.jui.CJuiDatePicker', { 
+          'attribute' : 'end', 
+          'model':subject, 
+          'language':'zh_cn',
+          'name':'end', 
+          'options': { 
+                  'showAnim' : 'fold', 
+                  'dateFormat' : 'yy-mm-dd', 
+                  'changeMonth':true,  
+                  'changeYear':true, 
+                  'yearRange':'-70:+5'      
+         },
+  })) 
+}}
+  </div>
+</div>
+
+<div class="control-group ">
+    <label for="Game_url" class="control-label required">活动条件 <span class="required">*</span></label>
+    <div class="controls">
+        每笔订单金额满
+        <input type="text" name="Subject[params][order_amt]" value="{{ value.order_amt }}" />US$ (不包括运费)
+        立减:<input type="text" name="Subject[params][cut_amt]" value="{{ value.cut_amt }}" /><br/>
+    </div>
+</div>
+<input type="hidden" name="Subject[type]" value="1">
+<div class="control-group ">
+    <label for="Game_url" class="control-label required">参加活动的商品 <span class="required">*</span></label>
+    <div class="controls">
+         <input type="radio" name="product_type" checked="checked" class="radioItem" data-method="productAll" value = "1" /> 全部商品
+         <input type="radio" name="product_type" class="radioItem" data-method="productBrand" value = "2" /> 特定品牌
+         <input type="radio" name="product_type" class="radioItem" data-method="productTerm" value = "3" /> 特定分类
+         <br />
+         <div id="productAll" style="display:none">
+            <input type="hidden" name="Subject[product]" value="all">
+         </div>
+         <div id="productBrand" style="display:none">
+              {% for brand in brands %}
+                <input type="checkbox" name="brand[]" value="{{ brand.id }}">{{ brand.name }}
+              {% endfor %}
+         </div>
+         <div id="productTerm" style="display:none">
+             {% for desc in descendants %}
+                  <input type="checkbox" name="oterm[]" value="{{ desc .id }}">{{ str_repeat(desc.level ) }}{{ desc.name }}({{ desc.level-1 }}级分类 )<br />  
+             {% endfor %}
+         </div>
+    </div>
+</div>
+<div class="control-group">
+  <div class="controls">
+    <button type="submit" class="btn btn-large btn-primary">提交</button>
+  </div>
+</div>
+{{ void(this.endWidget()) }}<!-- form -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      $(".radioItem").change(
+      function() {
+        var selectedvalue = $("input[name='product_type']:checked").val();
+        if(selectedvalue == "1"){
+           $("#productAll").show();
+           $("#productBrand").hide();
+           $("#productTerm").hide();
+        }else if(selectedvalue == "2"){
+           $("#productBrand").show();
+           $("#productAll").hide();
+           $("#productTerm").hide();
+        }else{
+           $("#productTerm").show();
+           $("#productBrand").hide();
+           $("#productAll").hide();
+        }
+    });});
+</script>

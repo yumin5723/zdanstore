@@ -69,14 +69,10 @@ class ConstantDefine{
      * 
      */
     
-    const BLOCK_TYPE_CUSTOM = 1;
-    const BLOCK_TYPE_NEWSLIST = 2;
-    const BLOCK_TYPE_PICTRUELIST = 4;
-    public static function getBlockType(){
+    const SUBJECT_TYPE_FULLCUT = 1;
+    public static function getSubjectType(){
         return array(
-                 self::BLOCK_TYPE_CUSTOM=>Yii::t("cms","customBlock"),
-                 self::BLOCK_TYPE_NEWSLIST=>Yii::t("cms","objectList"),
-                 self::BLOCK_TYPE_PICTRUELIST=>Yii::t("cms","pictureList"),
+                 self::SUBJECT_TYPE_FULLCUT=>Yii::t("cms","fullcut"),
                 );
     }
 

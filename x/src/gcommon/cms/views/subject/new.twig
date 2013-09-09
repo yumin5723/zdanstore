@@ -1,0 +1,43 @@
+{% extends "@pp/subject/index.twig" %}
+{% set menu_name="活动管理"%}
+{% set sidebar_name = "创建活动" %}
+{% block content %}
+{% include "layouts/notice.twig" %}
+  	<div class="container-fluid">
+    <div class="row-fluid">
+      <div class="form">
+        {% set form = this.beginWidget('bootstrap.widgets.TbActiveForm', {
+        'id':'object-form',
+        'enableAjaxValidation':false,
+        }) %}
+        <div class="form-wrapper">
+            <div id="form-body" >
+                <div id="form-body-content">
+                  <div id="termwrap">
+                    {{ form.dropDownListRow(subject, 'type', types, {
+                    })|raw }}
+                  </div>
+
+                </div>
+            </div>
+                        
+        </div>
+        
+    <div class="control-group">
+      <div class="controls">
+        {{ void(this.widget('bootstrap.widgets.TbButton', {
+            'buttonType':'submit',
+            'type':'primary',
+            'label':'Next',
+            'htmlOptions': {'class':'btn-large'},
+        })) }}
+      </div>
+      <input type="hidden" value="1" name="choosetype" />
+    </div>
+        <br class="clear" />
+        {{ void(this.endWidget()) }}
+      </div><!-- form -->
+    </div>
+</div>
+</div>
+{% endblock %}
