@@ -1,0 +1,6 @@
+{% for term in terms %}
+{{ term.name }}
+{% for child in term.child %}
+{{ child.name }}
+{% endfor %}
+{% endfor %}

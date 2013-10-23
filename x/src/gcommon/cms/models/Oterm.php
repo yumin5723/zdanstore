@@ -199,8 +199,10 @@ class Oterm extends CmsActiveRecord {
         $category=self::model()->findByPk($term_id);
         $descendants=$category->descendants()->findAll();
         $allterms = array();
-        foreach ($descendants as $value) {
-            $allterms[] = $value->id;
+        foreach ($descendants as $key=>$value) {
+            $allterms[$key]['id'] = $value->id;
+            $allterms[$key]['name'] = $value->name;
+            $allterms[$key]['level'] = $value->level;
         }
         return $allterms;
     }
