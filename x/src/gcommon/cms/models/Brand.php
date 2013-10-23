@@ -50,7 +50,7 @@ class Brand extends CmsActiveRecord
         return array(
             array('name,image','required'),
             array('upload,upload1', 'file','allowEmpty'=>true),
-            array('desc','safe'),
+            array('desc,ad_image','safe'),
         );
     }
     public function behaviors()
@@ -123,6 +123,11 @@ class Brand extends CmsActiveRecord
         if (!empty($attributes['image'])) {
             $attrs[] = 'image';
             $this->image = $attributes['image'];
+        }
+
+        if (!empty($attributes['ad_image'])) {
+            $attrs[] = 'ad_image';
+            $this->ad_image = $attributes['ad_image'];
         }
         if ($this->validate($attrs)) {
             return $this->save(false);

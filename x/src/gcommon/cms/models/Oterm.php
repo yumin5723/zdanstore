@@ -334,4 +334,12 @@ class Oterm extends CmsActiveRecord {
     public function getDescription(){
         return "1378棋牌网(www.1378.com)".$this->name."新闻中心栏目为您提供最新的".$this->name."信息,最新的".$this->name."棋牌新闻报道,让您可以及时了解".$this->name."最新棋牌资讯。";
     }
+    /**
+     * get level two term for brand chose
+     * @return [type] [description]
+     */
+    public function getOtermLevelTwo(){
+        $terms = self::model()->findAllByAttributes(array("level"=>"2"));
+        return $terms;
+    }
 }

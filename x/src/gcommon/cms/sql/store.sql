@@ -12,6 +12,8 @@ CREATE TABLE `brand` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+alter table brand add `ad_image` varchar(255) NOT NULL;
+
 
 --
 -- Table structure for table `manager`
@@ -249,6 +251,15 @@ CREATE TABLE `subject` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `brand_term` (
+  `brand_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`brand_id`,`term_id`),
+  KEY `term_id` (`term_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

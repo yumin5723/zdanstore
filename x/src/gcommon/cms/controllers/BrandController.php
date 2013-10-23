@@ -98,18 +98,21 @@ class BrandController extends GController {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+        //get term for brand chose
+        $terms = Oterm::model()->getOtermLevelTwo();
         // collect user input data
         if (isset($_POST['Brand'])) {
             $model->setAttributes($_POST['Brand']);
             // validate user input password
             if ($model->validate()) {
                 if ($model->save()) {
+                    BrandTerm::model()->saveBrandTerm($model->id,$_POST['Oterm']);
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Brand Successfully!'));
                 }
             }
         }
         $this->render('create', array(
-            "model" => $model,'isNew'=>true,
+            "model" => $model,'isNew'=>true,"terms"=>$terms
         ));
     }
     /**
@@ -148,14 +151,18 @@ class BrandController extends GController {
             // collect user input data
             if (isset($_POST['Brand'])) {
                 if ($model->updateAttrs($_POST['Brand'])) {
+                    BrandTerm::model()->updateBrandTerm($model->id,$_POST['Oterm']);
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
                 }
             }
         } else {
             throw new CHttpException(404, Yii::t('cms', 'The requested page does not exist.'));
         }
+        //get term for brand chose
+        $terms = Oterm::model()->getOtermLevelTwo();
+        $select_terms = BrandTerm::model()->getAllTermsRefObject($_GET['id']);
         $this->render('update', array(
-            "model" => $model,"isNew"=>false,
+            "model" => $model,"isNew"=>false,'select_terms'=>$select_terms,'terms'=>$terms
         ));
     }
     /**
