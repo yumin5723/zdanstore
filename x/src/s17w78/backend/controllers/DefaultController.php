@@ -81,7 +81,7 @@ class DefaultController extends GController {
         // //index down ad
         $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
         // //recommond products
-        // $products = Product::model()->getAllRecommondProducts();
+        $products = Product::model()->getAllRecommondProducts();
 
         //brands in index
         $brands = Brand::model()->getBrandsForIndex();

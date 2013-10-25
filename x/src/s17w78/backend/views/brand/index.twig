@@ -14,65 +14,25 @@
             <dl>
                 <dt>Brands</dt>
                 {% for b in brands %}
-                <dd><a href="#" title="DC Shoes">DC Shoes</a></dd>
+                <dd><a href="/brand/view/id/{{ b.id }}" title="{{ b.name }}">{{ b.name }}</a></dd>
                 {% endfor %}
-                <dd><a href="#" title="Volcom">Volcom</a></dd>
-                <dd><a href="#" title="Vans">Vans</a></dd>
             </dl>
         </div>
     </div>
     <div class="mright">
         <!-- ad -->
-        <div class="mans_ad3"><a href="#" title=""><img src="images/test/mans7.jpg" width="780" height="200" /></a></div>
+        <div class="mans_ad3">
+        	{% for ban in banner %}
+        	<a href="{{ ban.url }}" title=""><img src="{{ ban.image }}" width="780" height="200" /></a>
+        	{% endfor %}
+        </div>
 
         <!-- brands list -->
         <div class="brands_list clearfix">
             <ul>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="80" height="80" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="80" height="80" /></a></li>
+            	{% for b in brands %}
+                <li><a href="/brand/view/id/{{ b.id }}" title=""><img src="{{ b.image }}" width="80" height="80" /></a></li>
+                {% endfor %}
             </ul>
         </div>
 

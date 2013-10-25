@@ -338,6 +338,7 @@ class BrandTerm extends CActiveRecord
         $terms = self::model()->findAllByAttributes(array("brand_id"=>$brand_id));
         $result = array();
         foreach($terms as $key=>$term){
+
             $result[$key]['child'] = Oterm::model()->getChildTerm($term->term_id);
             $result[$key]['name'] = Oterm::model()->findByPk($term->term_id)->name;
         }

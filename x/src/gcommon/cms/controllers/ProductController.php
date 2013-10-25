@@ -65,7 +65,7 @@ class ProductController extends GController {
      */
     public function actionCreate() {
         $model = new Product;
-        $node = Oterm::model()->roots()->findByPk(7);
+        $node = Oterm::model()->roots()->findByPk(14);
         $descendants = $node->descendants()->findAll();
         if ( isset( $_POST["Product"] ) ) {
             $model->attributes=$_POST["Product"];
@@ -98,7 +98,7 @@ class ProductController extends GController {
             
         }
         $product = Product::model()->findByPk($_GET['id']);
-        $node = Oterm::model()->roots()->findByPk(7);
+        $node = Oterm::model()->roots()->findByPk(14);
         $descendants = $node->descendants()->findAll();
         //product terms 
         $select_terms = ProductTerm::model()->getAllTermsRefObject($_GET['id']);

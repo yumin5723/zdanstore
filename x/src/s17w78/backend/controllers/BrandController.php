@@ -28,7 +28,7 @@ class BrandController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'index'
+                    'index','view'
                 ) ,
                 'users' => array(
                     '*'
@@ -59,4 +59,30 @@ class BrandController extends GController {
         $brands = Brand::model()->getBrandsForIndex(100);
         $this->render("index",array('banner'=>$banner,'brands'=>$brands));
     }
+    /**
+     * action for brand view
+     * @return [type] [description]
+     */
+    public function actionView(){
+        $id = $_GET['id'];
+        $brand = Brand::model()->findByPk($id);
+        if(empty($brand)){
+            throw new Exception("this page is not found", 404);
+            
+        }
+        $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
+        // $this->render('view',array('brand'=>$brand,'terms'=>$terms));
+
+        $count = 24;
+        $sub_pages = 6;
+        $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
+
+        $nums = Product::model()->getCountProductsByBrand($id);
+        $results = Product::model()->getProductsByBrand($id,$count,$pageCurrent);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/brand/view/id/".$id."?p=",2);
+        $p = $subPages->show_SubPages(2);
+
+        $this->render('view',array('brand'=>$brand,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p));
+    }
+
 }

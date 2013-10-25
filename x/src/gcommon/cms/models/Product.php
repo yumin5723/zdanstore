@@ -45,7 +45,7 @@ class Product extends CmsActiveRecord
         // will receive user inputs.
         return array(
             array('name,brand_id,status,logo,quantity,shop_price,total_price,desc','required'),
-            array('rank,batch_number,weight,give_points,points_buy,is_new,need_postage,special_price,special_begin,special_end,order','safe'),
+            array('rank,batch_number,weight,give_points,points_buy,is_new,is_recommond,need_postage,special_price,special_begin,special_end,order','safe'),
         );
     }
     public function behaviors()
@@ -400,7 +400,37 @@ class Product extends CmsActiveRecord
         $criteria->order = "t.id DESC";
         $criteria->limit = $limit;
         $criteria->condition = "is_recommond = :is_recommond";
-        $criteria->params = array(":type"=>self::PRODUCT_IS_RECOMMOND);
+        $criteria->params = array(":is_recommond"=>self::PRODUCT_IS_RECOMMOND);
+        return self::model()->findAll($criteria);
+    }
+    /**
+     * get product sum by brand id 
+     * @param  [type] $brand_id [description]
+     * @return [type]           [description]
+     */
+    public function getCountProductsByBrand($brand_id){
+        $brand_id = intval($brand_id);
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->condition = "t.brand_id = :brand_id";
+        $criteria->params = array(":brand_id"=>$brand_id);
+        return self::model()->count($criteria);
+    }
+    /**
+     * function_description
+     *
+     * @param $term_all_id:
+     *
+     * @return
+     */
+    public function getProductsByBrand($brand_id,$count,$page){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->condition = "t.brand_id = :brand_id";
+        $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
         return self::model()->findAll($criteria);
     }
 }

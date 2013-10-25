@@ -196,8 +196,8 @@ class Oterm extends CmsActiveRecord {
      * @return int(id)
      */
     public function getChildTerm($term_id){
-        $category=self::model()->findByPk($term_id);
-        $descendants=$category->descendants()->findAll();
+        $category=Oterm::model()->findByPk($term_id);
+        $descendants=$category->children()->findAll();
         $allterms = array();
         foreach ($descendants as $key=>$value) {
             $allterms[$key]['id'] = $value->id;
@@ -341,7 +341,7 @@ class Oterm extends CmsActiveRecord {
      * @return [type] [description]
      */
     public function getOtermLevelTwo(){
-        $terms = self::model()->findAllByAttributes(array("level"=>"2"));
+        $terms = self::model()->findAllByAttributes(array("level"=>"3"));
         return $terms;
     }
 }
