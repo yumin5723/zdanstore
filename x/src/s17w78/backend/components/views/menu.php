@@ -30,31 +30,21 @@
                         <dd><a href="#" title="">Diamond Supply Co. T-Shirts</a></dd>
                         <dd><a href="#" title="">Supreme New Tees</a></dd>
                     </dl>
-                    <dl class="mans2">
-                        <dt>MENS CLOTHING</dt>
-                        <dd><a href="#" title="">T-Shirts</a></dd>
-                        <dd><a href="#" title="">Sweaters</a></dd>
-                        <dd><a href="#" title="">Polos</a></dd>
-                        <dd><a href="#" title="">Hoodies</a></dd>
-                        <dd><a href="#" title="">Shirts</a></dd>
-                        <dd><a href="#" title="">Jackets</a></dd>
-                        <dd><a href="#" title="">Tank Tops</a></dd>
-                        <dd><a href="#" title="">Sweatshirts</a></dd>
-                        <dd><a href="#" title="">Shorts</a></dd>
-                        <dd><a href="#" title="">Sweatpants</a></dd>
-                        <dd><a href="#" title="">Board Shorts</a></dd>
-                        <dd><a href="#" title="">Jeans</a></dd>
+                    <?php foreach($mensterms as $key=>$mens):?>
+                    <?php 
+                        if($key==0){
+                            echo "<dl class='mans2'>";
+                        }else{
+                            echo "<dl class='mans3'>";
+                        }
+                    ?>
+                    <!-- <dl class="mans2"> -->
+                        <dt><?php echo $mens['name'] ?></dt>
+                        <?php foreach ($mens['child'] as $child):?>
+                        <dd><a href="#" title=""><?php echo $child['name'] ?></a></dd>
+                        <?php endforeach ?>
                     </dl>
-                    <dl class="mans3">
-                        <dt>MENS ACCESSORIES</dt>
-                        <dd><a href="#" title="">Hats</a></dd>
-                        <dd><a href="#" title="">Shoes</a></dd>
-                        <dd><a href="#" title="">Underwears</a></dd>
-                        <dd><a href="#" title="">Socks</a></dd>
-                        <dd><a href="#" title="">Necklaces</a></dd>
-                        <dd><a href="#" title="">Towel</a></dd>
-                        <dd><a href="#" title="">Headphones</a></dd>
-                    </dl>
+                    <?php endforeach ?>
                     <div class="mans_ad">
                         <a href="#" title=""><img src="images/test/m1.jpg" width="220" height="140" /></a>
                         <i><a href="#" title="">I LOVE Haters ! Collections</a></i>

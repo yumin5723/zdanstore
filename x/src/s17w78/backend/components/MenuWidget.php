@@ -2,7 +2,8 @@
 class MenuWidget extends CWidget{
 	public function run(){
 		$brands = Brand::model()->getBrandsForIndex();
-		$this->render("menu",array('brands'=>$brands));
+		$mensTerms = Oterm::model()->getMensTreeMenu();
+		$this->render("menu",array('brands'=>$brands,'mensterms'=>$mensTerms));
 		// $this->render("menu");
 	}
 }

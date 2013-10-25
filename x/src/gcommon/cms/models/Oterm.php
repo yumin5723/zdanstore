@@ -344,4 +344,20 @@ class Oterm extends CmsActiveRecord {
         $terms = self::model()->findAllByAttributes(array("level"=>"3"));
         return $terms;
     }
+    /**
+     * [getMensTreeMenu description]
+     * @return [type] [description]
+     */
+    public function getMensTreeMenu(){
+        $category = self::model()->findByPk(15);
+        $descendants = $category->children()->findAll();
+        $result = array();
+        foreach($descendants as $key=>$descendant){
+
+            $result[$key]['child'] = Oterm::model()->getChildTerm($descendant->id);
+            $result[$key]['name'] = Oterm::model()->findByPk($descendant->id)->name;
+        }
+        // print_r($result);exit;
+        return $result;
+    }
 }
