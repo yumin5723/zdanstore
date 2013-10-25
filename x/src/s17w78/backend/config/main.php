@@ -15,11 +15,12 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name'=>'梦幻天下',
     'language'=>'zh_cn',
+    'defaultController'=>'default',
 
     // preloading 'log' component
     'preload'=>array(
         'log',
-        'bootstrap'
+        // 'bootstrap'
     ),
 
     // autoloading model and component classes
@@ -45,6 +46,12 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
          */
         'pp' => array(
             'class' => 'gcommon.cms.PpModule',
+            'preload'=>array('bootstrap'),
+            'components'=>array(
+                'bootstrap'=>array(
+                    'class'=>'gcommon.extensions.bootstrap.components.Bootstrap'
+                ),
+            ),
             // 'domain' => 'www.17w78.com',
         ),
         'srbac' => array(

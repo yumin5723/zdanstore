@@ -135,4 +135,15 @@ class Brand extends CmsActiveRecord
             return false;
         }
     }
+    /**
+     * get brands list for index limit 15
+     * @return [type] [description]
+     */
+    public function getBrandsForIndex($limit = 15){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        return self::model()->findAll($criteria);
+    }
 }

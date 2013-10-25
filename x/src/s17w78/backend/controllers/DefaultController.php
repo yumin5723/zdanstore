@@ -75,13 +75,17 @@ class DefaultController extends GController {
      */
     public function actionIndex(){
         //foucus index
-        $focus = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_FOCUS,1);
-        //index right ad 
+        $focus = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_FOCUS);
+        // //index right ad 
         $rightAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_RIGHT);
-        //index down ad
+        // //index down ad
         $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
-        //recommond products
+        // //recommond products
         $products = Product::model()->getAllRecommondProducts();
-        $this->render('index',array('products'=>$products,'focus'=>$focus,'rightads'=>$rightads,"downAds"=>$downAd));
+
+        //brands in index
+        $brands = Brand::model()->getBrandsForIndex();
+        // $this->render('index',array('products'=>$products,'focus'=>$focus,'rightads'=>$rightads,"downAds"=>$downAd));
+        $this->render("index",array('focus'=>$focus,'rights'=>$rightAd,"downAds"=>$downAd,'brands'=>$brands,'products'=>$products));
     }
 }
