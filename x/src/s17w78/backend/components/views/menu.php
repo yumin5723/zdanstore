@@ -7,8 +7,8 @@
                 <dl class="nav_brands clearfix">
                     <?php foreach ($brands as $brand):?>
                         <dd>
-                            <a href="/brand/id/<?php echo $brand->id ?>" title=""><img src="<?php echo $brand->image ?>" width="40" height="40" /></a>
-                            <span><a href="/brand/id/<?php echo $brand->id ?>" title=""><?php echo $brand->name ?></a></span>
+                            <a href="/brand/view/id/<?php echo $brand->id ?>" title=""><img src="<?php echo $brand->image ?>" width="40" height="40" /></a>
+                            <span><a href="/brand/view/id/<?php echo $brand->id ?>" title=""><?php echo $brand->name ?></a></span>
                         </dd>
                     <?php endforeach ?>
                 </dl>
