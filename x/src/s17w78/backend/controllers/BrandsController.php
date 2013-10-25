@@ -6,7 +6,7 @@
  *
  */
 
-class BrandController extends GController {
+class BrandsController extends GController {
     /**
      * @return array action filters
      */
