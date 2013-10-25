@@ -47,11 +47,16 @@ class BrandController extends GController {
      * @return [type] [description]
      */
     public function actionIndex(){
-        $brand = Brand::model()->findByPk($_GET['id']);
-        if(empty($brand)){
-            throw new Exception("this page is not found", 404);
-        }
-        $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
-        $this->render("index",array("terms"=>$terms));
+        // $brand = Brand::model()->findByPk($_GET['id']);
+        // if(empty($brand)){
+        //     throw new Exception("this page is not found", 404);
+        // }
+        // $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
+        // $this->render("index",array("terms"=>$terms));
+        // 
+        //brand page banner ad
+        $banner = Click::model()->getAdsByType(Click::AD_POSITION_BRAND_BANNER,1);
+        $brands = Brand::model()->getBrandsForIndex(100);
+        $this->render("index",array('banner'=>$banner,'brands'=>$brands));
     }
 }

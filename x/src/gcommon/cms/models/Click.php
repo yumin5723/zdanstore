@@ -10,6 +10,7 @@ class Click extends CmsActiveRecord
     const AD_POSITION_INDEX_FOCUS = 1;
     const AD_POSITION_INDEX_RIGHT = 2;
     const AD_POSITION_INDEX_DOWN = 3;
+    const AD_POSITION_BRAND_BANNER = 4;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -125,8 +126,8 @@ class Click extends CmsActiveRecord
      * @return [type] [description]
      */
     public function getTypes(){
-        return array(self::AD_POSITION_INDEX_FOCUS => "首页焦点图广告",self::AD_POSITION_INDEX_RIGHT => "首页焦点图右侧",self::AD_POSITION_INDEX_DOWN=>
-            "首页尾部广告"
+        return array(self::AD_POSITION_INDEX_FOCUS => "首页焦点图广告",self::AD_POSITION_INDEX_RIGHT => "首页焦点图右侧"
+            ,self::AD_POSITION_INDEX_DOWN=>"首页尾部广告",self::AD_POSITION_BRAND_BANNER=>"品牌页banner",
             );
     }
     /**
@@ -139,8 +140,10 @@ class Click extends CmsActiveRecord
             return "首页焦点图广告";
         }elseif($type == self::AD_POSITION_INDEX_RIGHT){
             return "首页焦点图右侧";
-        }else{
+        }elseif($type == self::AD_POSITION_INDEX_DOWN){
             return "首页尾部广告";
+        }else{
+            return "品牌页banner";
         }
     }
     /**

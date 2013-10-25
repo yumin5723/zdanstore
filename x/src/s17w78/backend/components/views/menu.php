@@ -12,7 +12,7 @@
                         </dd>
                     <?php endforeach ?>
                 </dl>
-                <div class="more"><a href="#" title="">MORE&gt;</a></div>
+                <div class="more"><a href="/brand" title="">MORE&gt;</a></div>
             </div>
         </li>
         <li><a href="#">MANS</a>
