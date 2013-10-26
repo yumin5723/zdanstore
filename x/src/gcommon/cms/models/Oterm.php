@@ -407,11 +407,31 @@ class Oterm extends CmsActiveRecord {
      */
     public function getTermProfile($term_id){
         $profiles = TermProfile::model()->findAllByAttributes(array('term_id'=>$term_id));
+        if(empty($profiles)){
+            $parentsIds = Oterm::model()->getAncestorsIdsByTerm($term_id);
+            $profiles = $this->getProfileByTermId($parentsIds);
+        }
         $ret = array();
         foreach($profiles as $key=>$profile){
             $ret[$key]['name'] = $profile->name;
             $ret[$key]['value'] = explode(',', $profile->value);
         }
         return $ret;
+    }
+    /**
+     * 
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getProfileByTermId($parentsIds){
+        rsort($parentsIds);
+        foreach($parentsIds as $parent){
+            $profile = TermProfile::model()->findAllByAttributes(array('term_id'=>$parent));
+            if(empty($profile)){
+                continue;
+            }else{
+                return $profile;
+            }
+        }
     }
 }
