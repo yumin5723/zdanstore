@@ -146,4 +146,13 @@ class Brand extends CmsActiveRecord
         $criteria->limit = $limit;
         return self::model()->findAll($criteria);
     }
+    /**
+     * get hats brands
+     * @return [type] [description]
+     */
+    public function getHatsBrands(){
+        $hats_term_id = 28;
+        $brands = BrandTerm::model()->getBrandsByTermId($hats_term_id);
+        return $brands;
+    }
 }

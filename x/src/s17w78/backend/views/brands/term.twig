@@ -1,0 +1,111 @@
+{% extends "base/main.twig" %}
+{% block content %}
+
+<div class="main">
+    <div class="position"><a href="#">Home</a>&gt;<a href="/brands" title="">Brands</a>  &gt;<a href="/brands/view/id/{{ brand.id }}" title="">{{ brand.name }}</a> &gt;<a href="#" title="">T-Shirts</a></div>
+    <div class="mleft">
+        <div class="list_nav">
+            <dl>
+                <dt>Shop By Category</dt>
+                {% for de in leftCategory %}
+                <dd><a href="#" title="{{ de.name }}">{{ de.name }}</a></dd>
+                {% endfor %}
+            </dl>
+            <dl>
+                <dt>Shop By Brands</dt>
+                <dd><a href="#" title="Obye">Obye</a></dd>
+                <dd><a href="#" title="Daimond Supply Co.">Daimond Supply Co.</a></dd>
+                <dd><a href="#" title="Volcom">Volcom</a></dd>
+            </dl>
+            <dl>
+                <dt>Shop By Size</dt>
+                <dd><a href="#" title="S(111)">S(111)</a></dd>
+                <dd><a href="#" title="M(111)">M(111)</a></dd>
+                <dd><a href="#" title="L(222)">L(222)</a></dd>
+            </dl>
+            <dl>
+                <dt>Shop By Color</dt>
+                <dd><a href="#" title="White(222)">White(222)</a></dd>
+                <dd><a href="#" title="Black(111)">Black(111)</a></dd>
+                <dd><a href="#" title="Blue(123)">Blue(123)</a></dd>
+            </dl>
+            <dl>
+                <dt>Shop By Price</dt>
+                <dd><a href="#" title="0-$10(111)">0-$10(111)</a></dd>
+                <dd><a href="#" title="$10-$20(111)">$10-$20(111)</a></dd>
+                <dd><a href="#" title="$20-$30(111)">$20-$30(111)</a></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="mright">
+        <!-- ad -->
+        <div class="mans_ad3"><a href="#" title=""><img src="images/test/mans7.jpg" width="780" height="100" /></a></div>
+
+        <!-- brands list -->
+        <div class="brands_box clearfix">
+            <ul>
+                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
+                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
+            </ul>
+            <a href="#" class="more"><i>MORE BRANDS &gt;</i></a>
+        </div>
+
+        <!-- mans product list -->
+        <div class="index_product">
+            <div class="total clearfix">
+                <div class="fl">
+                    <select><option>New Arrivals</option></select>
+                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                </div>
+                <div class="fr">
+                    <div class="page">
+                        <span>Total <b>{{ nums }}</b> records</span>
+                        {{ pager|raw }}
+                    </div>
+                </div>
+            </div>
+            <ul class="mans_dlist clearfix">
+                {% for result in results %}
+                <li>
+                    <div class="pic">
+                        <a href="#" title=""><img src="{{ result.logo }}" width="178" height="208" /></a>
+                    </div>
+                    <div class="txt">
+                        <span class="name"><a href="#" title="">{{ result.brand.name }}</a></span><br/>
+                        <a href="#" title="">{{ result.name }}</a><br/>
+                        <span class="price">{{ result.shop_price}}</span><br/>
+                        <span class="new">{% if result.is_new == 1 %}New Arrivals{% endif %}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="total clearfix">
+                <div class="fl">
+                    <select><option>New Arrivals</option></select>
+                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                </div>
+                <div class="fr">
+                    <div class="page">
+                        <span>Total <b>{{ nums }}</b> records</span>
+                        {{ pager|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
+</div>
+{% endblock %}

@@ -28,7 +28,7 @@ class BrandsController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'index','view'
+                    'index','view','term'
                 ) ,
                 'users' => array(
                     '*'
@@ -83,6 +83,33 @@ class BrandsController extends GController {
         $p = $subPages->show_SubPages(2);
 
         $this->render('view',array('brand'=>$brand,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p));
+    }
+    /**
+     * action for brand term
+     * @return [type] [description]
+     */
+    public function actionTerm(){
+        $brand_id = intval($_GET['id']);
+        $brand = Brand::model()->findByPk($brand_id);
+        if(empty($brand)){
+            throw new Exception("this page is not found", 404);
+            
+        }
+        $term_id = intval($_GET['cid']);
+
+        //left menu category
+        $leftCategory = Oterm::model()->getTreeByTermId($term_id);
+        $count = 24;
+        $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
+        $objects = Product::model()->fetchProductsByTermIdAndBrand($term_id,$brand_id,$count,$pageCurrent);
+        $sum = Product::model()->getProductsCountByTermIdAndBrand($term_id,$brand_id);
+        $sub_pages = 6;
+        $url = "/brand/term/id/".$brand_id."/cid/".$term_id."?p=";
+        $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
+        $p = $subPages->show_SubPages(2);
+
+        $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory));
+        // $this->render('term');
     }
 
 }

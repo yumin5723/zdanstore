@@ -8,7 +8,7 @@
                  <dl>
                     <dt>{{ term.name }}</dt>
                     {% for child in term.child %}
-                        <dd><a href="#" title="Long Sleeve T-Shirts">{{ child.name }}</a></dd>
+                        <dd><a href="/brands/term/id/{{ brand.id}}/cid/{{ child.id }}" title="Long Sleeve T-Shirts">{{ child.name }}</a></dd>
                     {% endfor %}
                 </dl>
 
@@ -47,8 +47,8 @@
                         <a href="#" title=""><img src="{{ result.logo }}" width="178" height="208" /></a>
                     </div>
                     <div class="txt">
-                        <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                        <a href="#" title="">Casual T-Shirt</a><br/>
+                        <span class="name"><a href="#" title="">{{ result.brand.name }}</a></span><br/>
+                        <a href="#" title="">{{ result.name }}</a><br/>
                         <span class="price">{{ result.shop_price }}</span><br/>
                         <span class="new">{% if result.is_new == 1 %}New Arrivals{% endif %}</span>
                     </div>

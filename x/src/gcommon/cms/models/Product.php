@@ -71,6 +71,7 @@ class Product extends CmsActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'brand' => array(self::BELONGS_TO, 'Brand','','on'=>'t.brand_id = brand.id'),
         );
     }
 
@@ -252,31 +253,6 @@ class Product extends CmsActiveRecord
     public function getAllProductsCanBuy(){
         return self::model()->findAllByAttributes(array('status'=>self::PRODUCT_STATUS_SELL));
     }
-
-    /**
-     * get product count by term_id
-     * @return [type] [description]
-     */
-    public function getProductsCountByTermId($term_id){
-        // $termIds = $this->getAllChindrenIdByTermId($term_id);
-        // $criteria = new CDbCriteria;
-        // $criteria->alias = "t";
-        // $criteria->addInCondition("term_id",$termIds);
-        // return ObjectTerm::model()->count($criteria);
-        // 
-        $termIds = $this->getAllChindrenIdByTermId($term_id);
-
-        $criteria = new CDbCriteria;
-        $criteria->addInCondition("term_id",$termIds);
-        $criteria->order = "t.product_id DESC";
-        $results = ProductTerm::model()->findAll($criteria);
-        $ids = array();
-        foreach($results as $result){
-            $ids[] = $result->product_id;
-        }
-        $ids = array_unique($ids);
-        return count($ids);
-    }
     /**
      * get category id all descendants node id include self id
      * 
@@ -401,7 +377,7 @@ class Product extends CmsActiveRecord
         $criteria->limit = $limit;
         $criteria->condition = "is_recommond = :is_recommond";
         $criteria->params = array(":is_recommond"=>self::PRODUCT_IS_RECOMMOND);
-        return self::model()->findAll($criteria);
+        return self::model()->with('brand')->findAll($criteria);
     }
     /**
      * get product sum by brand id 
@@ -431,6 +407,58 @@ class Product extends CmsActiveRecord
         $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->limit = $count;
         $criteria->offset = ($page - 1) * $count;
-        return self::model()->findAll($criteria);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * fetch all objects by term id 
+     * the data include term's children id 
+     * @return [type] [description]
+     */
+    public function fetchProductsByTermIdAndBrand($term_id,$brand_id,$count,$page){
+        $termIds = $this->getAllChindrenIdByTermId($term_id);
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition("term_id",$termIds);
+        $criteria->order = "t.product_id DESC";
+        $results = ProductTerm::model()->findAll($criteria);
+        $ids = array();
+        foreach($results as $result){
+            $ids[] = $result->product_id;
+        }
+        $ids = array_unique($ids);
+
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->condition = "t.brand_id = :brand_id";
+        $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("t.id",$ids);
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get objects count by term_id
+     * @return [type] [description]
+     */
+    public function getProductsCountByTermIdAndBrand($term_id,$brand_id){
+        $termIds = $this->getAllChindrenIdByTermId($term_id);
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition("term_id",$termIds);
+        $results = ProductTerm::model()->findAll($criteria);
+        $ids = array();
+        foreach($results as $result){
+            $ids[] = $result->product_id;
+        }
+        $ids = array_unique($ids);
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->condition = "t.brand_id = :brand_id";
+        $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("id",$ids);
+        return self::model()->count($criteria);
     }
 }

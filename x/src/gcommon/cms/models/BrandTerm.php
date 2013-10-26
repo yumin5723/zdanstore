@@ -66,7 +66,7 @@ class BrandTerm extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-           
+           'brand' => array(self::BELONGS_TO, 'Brand','','on'=>'t.brand_id = brand.id'),
         );
     }
 
@@ -344,6 +344,16 @@ class BrandTerm extends CActiveRecord
         }
         // print_r($result);exit;
         return $result;
+    }
+    /**
+     * get brands by term id
+     * @param  [type] $termid [description]
+     * @return [type]         [description]
+     */
+    public function getBrandsByTermId($termid){
+        $termid = intval($termid);
+        $brands = self::model()->with('brand')->findAllByAttributes(array("term_id"=>$termid));
+        return $brands;
     }
 
 }

@@ -57,21 +57,15 @@
             <div class="navbox">
                 <div class="subnav">WOMENS</div>
                 <div class="nav_mans clearfix">
-                    <dl class="womens1">
-                        <dt>WOMENS CLOTHING</dt>
-                        <dd><a href="#" title="">T-Shirts</a></dd>
-                        <dd><a href="#" title="">Sweaters</a></dd>
-                        <dd><a href="#" title="">Polos</a></dd>
-                        <dd><a href="#" title="">Hoodies</a></dd>
-                        <dd><a href="#" title="">Shirts</a></dd>
-                        <dd><a href="#" title="">Jackets</a></dd>
-                        <dd><a href="#" title="">Tank Tops</a></dd>
-                        <dd><a href="#" title="">Sweatshirts</a></dd>
-                        <dd><a href="#" title="">Shorts</a></dd>
-                        <dd><a href="#" title="">Sweatpants</a></dd>
-                        <dd><a href="#" title="">Board Shorts</a></dd>
-                        <dd><a href="#" title="">Jeans</a></dd>
-                    </dl>
+                     <?php foreach($womensterms as $key=>$womens):?>
+                        <dl class="womens1">
+                        <!-- <dl class="mans2"> -->
+                            <dt><?php echo $womens['name'] ?></dt>
+                            <?php foreach ($womens['child'] as $child):?>
+                            <dd><a href="#" title=""><?php echo $child['name'] ?></a></dd>
+                            <?php endforeach ?>
+                        </dl>
+                    <?php endforeach ?>
                     <dl class="womens2">
                         <dt>SHOP BY</dt>
                         <dd><a href="#" title="">New Arrivals</a></dd>
@@ -95,50 +89,20 @@
                 <div class="nav_mans clearfix">
                     <dl class="hats1">
                         <dt>CATEGORIES</dt>
-                        <dd><a href="#" title="">Snapbacks</a></dd>
-                        <dd><a href="#" title="">59Fifty Fitted</a></dd>
-                        <dd><a href="#" title="">Beanies</a></dd>
-                        <dd><a href="#" title="">Trucker Hats</a></dd>
-                        <dd><a href="#" title="">Flexfit Hats</a></dd>
+                        <?php foreach($hatsterms as $key=>$hats):?>
+                            <?php foreach ($hats['child'] as $child):?>
+                                <dd><a href="#" title=""><?php echo $child['name']; ?></a></dd>
+                            <?php endforeach ?>
+                        <?php endforeach ?>
                     </dl>
                     <dl class="hats2">
                         <dt>BRADNS</dt>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Diamond Supply Co.</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Diamond Supply Co.</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
-                        <dd>
-                            <a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a>
-                            <span><a href="#" title="">Crooks & Castles</a></span>
-                        </dd>
+                        <?php foreach($hatsbrands as $key=>$hats):?>
+                            <dd>
+                                <a href="#" title=""><img src="<?php echo $hats->brand->image; ?>" width="40" height="40" /></a>
+                                <span><a href="#" title=""><?php echo $hats->brand->name; ?></a></span>
+                            </dd>
+                        <?php endforeach ?>
                         <dt class="more"><a href="#" title="">MORE&gt;</a></dt>
                     </dl>
                     <div class="mans_ad">

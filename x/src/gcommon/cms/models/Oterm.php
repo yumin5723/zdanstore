@@ -360,4 +360,44 @@ class Oterm extends CmsActiveRecord {
         // print_r($result);exit;
         return $result;
     }
+        /**
+     * [getMensTreeMenu description]
+     * @return [type] [description]
+     */
+    public function getWomensTreeMenu(){
+        $category = self::model()->findByPk(25);
+        $descendants = $category->children()->findAll();
+        $result = array();
+        foreach($descendants as $key=>$descendant){
+
+            $result[$key]['child'] = Oterm::model()->getChildTerm($descendant->id);
+            $result[$key]['name'] = Oterm::model()->findByPk($descendant->id)->name;
+        }
+        // print_r($result);exit;
+        return $result;
+    }
+    /**
+     * [getMensTreeMenu description]
+     * @return [type] [description]
+     */
+    public function getHatsTreeMenu(){
+        $category = self::model()->findByPk(27);
+        $descendants = $category->children()->findAll();
+        $result = array();
+        foreach($descendants as $key=>$descendant){
+            $result[$key]['child'] = Oterm::model()->getChildTerm($descendant->id);
+            $result[$key]['name'] = Oterm::model()->findByPk($descendant->id)->name;
+        }
+        return $result;
+    }
+    /**
+     * [getTreeByTerm description]
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getTreeByTermId($term_id){
+        $category = self::model()->findByPk($term_id);
+        $descendants = $category->children()->findAll();
+        return $descendants;
+    }
 }
