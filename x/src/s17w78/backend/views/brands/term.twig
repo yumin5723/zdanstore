@@ -17,24 +17,14 @@
                 <dd><a href="#" title="Daimond Supply Co.">Daimond Supply Co.</a></dd>
                 <dd><a href="#" title="Volcom">Volcom</a></dd>
             </dl>
+            {% for profile in leftProfiles %}
             <dl>
-                <dt>Shop By Size</dt>
-                <dd><a href="#" title="S(111)">S(111)</a></dd>
-                <dd><a href="#" title="M(111)">M(111)</a></dd>
-                <dd><a href="#" title="L(222)">L(222)</a></dd>
+                <dt>Shop By {{ profile.name }}</dt>
+                {% for v in profile.value %}
+                    <dd><a href="#" title="{{ v }}">{{ v }}</a></dd>
+                {% endfor %}
             </dl>
-            <dl>
-                <dt>Shop By Color</dt>
-                <dd><a href="#" title="White(222)">White(222)</a></dd>
-                <dd><a href="#" title="Black(111)">Black(111)</a></dd>
-                <dd><a href="#" title="Blue(123)">Blue(123)</a></dd>
-            </dl>
-            <dl>
-                <dt>Shop By Price</dt>
-                <dd><a href="#" title="0-$10(111)">0-$10(111)</a></dd>
-                <dd><a href="#" title="$10-$20(111)">$10-$20(111)</a></dd>
-                <dd><a href="#" title="$20-$30(111)">$20-$30(111)</a></dd>
-            </dl>
+            {% endfor %}
         </div>
     </div>
     <div class="mright">

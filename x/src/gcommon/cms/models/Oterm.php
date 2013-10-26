@@ -400,4 +400,18 @@ class Oterm extends CmsActiveRecord {
         $descendants = $category->children()->findAll();
         return $descendants;
     }
+    /**
+     * get term profile
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getTermProfile($term_id){
+        $profiles = TermProfile::model()->findAllByAttributes(array('term_id'=>$term_id));
+        $ret = array();
+        foreach($profiles as $key=>$profile){
+            $ret[$key]['name'] = $profile->name;
+            $ret[$key]['value'] = explode(',', $profile->value);
+        }
+        return $ret;
+    }
 }

@@ -99,6 +99,8 @@ class BrandsController extends GController {
 
         //left menu category
         $leftCategory = Oterm::model()->getTreeByTermId($term_id);
+        //left menu term profile
+        $leftProfile = Oterm::model()->getTermProfile($term_id);
         $count = 24;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
         $objects = Product::model()->fetchProductsByTermIdAndBrand($term_id,$brand_id,$count,$pageCurrent);
@@ -108,7 +110,9 @@ class BrandsController extends GController {
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
-        $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory));
+        $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory
+            ,'leftProfiles'=>$leftProfile
+            ));
         // $this->render('term');
     }
 

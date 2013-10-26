@@ -217,5 +217,4 @@ class TermProfile extends CmsActiveRecord
         $profiles = self::model()->findAllByAttributes(array('term_id'=>$term_id));
         return $profiles;
     }
-
 }
