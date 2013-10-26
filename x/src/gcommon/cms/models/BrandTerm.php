@@ -355,5 +355,20 @@ class BrandTerm extends CActiveRecord
         $brands = self::model()->with('brand')->findAllByAttributes(array("term_id"=>$termid));
         return $brands;
     }
+    /**
+     * [getBrandsByTerm description]
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getBrandsByTerm($term_id){
+        $category= Oterm::model()->findByPk($term_id);
+        $descendants=$category->ancestors()->findAll();
+        $ret =  array_map(function ($a){return $a->id;}, $descendants);
+        array_push($ret,$term_id);
 
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition("term_id",$ret);
+        $brands = self::model()->with('brand')->findAll($criteria);
+        return $brands;
+    }
 }

@@ -13,9 +13,9 @@
             </dl>
             <dl>
                 <dt>Shop By Brands</dt>
-                <dd><a href="#" title="Obye">Obye</a></dd>
-                <dd><a href="#" title="Daimond Supply Co.">Daimond Supply Co.</a></dd>
-                <dd><a href="#" title="Volcom">Volcom</a></dd>
+                {% for br in leftbrands %}
+                <dd><a href="#" title="{{ br.brand.name }}">{{ br.brand.name }}</a></dd>
+                {% endfor %}
             </dl>
             {% for profile in leftProfiles %}
             <dl>
