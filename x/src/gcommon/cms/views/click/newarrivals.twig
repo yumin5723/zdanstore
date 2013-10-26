@@ -1,0 +1,9 @@
+{% extends "@pp/click/index.twig" %}
+{% set menu_name="广告管理"%}
+{% set sidebar_name = "导航条新品管理" %}
+
+{% block content %}
+{% include "layouts/notice.twig" %}
+<br />
+ {% include "@pp/click/new_form.twig" %}
+{% endblock %}

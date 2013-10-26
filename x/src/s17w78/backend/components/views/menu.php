@@ -22,13 +22,9 @@
                 <div class="nav_mans clearfix">
                     <dl class="mans1">
                         <dt>NEW ARRIVALS</dt>
-                        <dd><a href="#" title="">Vans 2013 Fall Shirts</a></dd>
-                        <dd><a href="#" title="">Beach Towels</a></dd>
-                        <dd><a href="#" title="">Obey Snapbacks New</a></dd>
-                        <dd><a href="#" title="">Roxy Women 2013 New Boardshorts </a></dd>
-                        <dd><a href="#" title="">REBEL 8 Snapbacks</a></dd>
-                        <dd><a href="#" title="">Diamond Supply Co. T-Shirts</a></dd>
-                        <dd><a href="#" title="">Supreme New Tees</a></dd>
+                        <?php foreach ($newarrivals as $new):?>
+                        <dd><a href="<?php echo $new->url ?>" title="<?php echo $new->name; ?>"><?php echo $new->name; ?></a></dd>
+                        <?php endforeach ?>
                     </dl>
                     <?php foreach($mensterms as $key=>$mens):?>
                     <?php 
@@ -45,10 +41,13 @@
                         <?php endforeach ?>
                     </dl>
                     <?php endforeach ?>
-                    <div class="mans_ad">
-                        <a href="#" title=""><img src="images/test/m1.jpg" width="220" height="140" /></a>
-                        <i><a href="#" title="">I LOVE Haters ! Collections</a></i>
-                    </div>
+                    <?php foreach($mensad as $women):?>
+                        <?php echo $women['url']; ?>
+                        <div class="mans_ad">
+                            <a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><img src="<?php echo $women->image; ?>" width="220" height="140" /></a>
+                            <i><a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><?php echo $women->name; ?></a></i>
+                        </div>
+                    <?php endforeach ?>
                 </div>
             </div>
         </li>
@@ -71,14 +70,12 @@
                         <dd><a href="#" title="">New Arrivals</a></dd>
                         <dd><a href="#" title="">Brands</a></dd>
                     </dl>
+                    <?php foreach($womensad as $women):?>
                     <div class="mans_ad">
-                        <a href="#" title=""><img src="images/test/m1.jpg" width="220" height="140" /></a>
-                        <i><a href="#" title="">I LOVE Haters ! Collections</a></i>
+                            <a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><img src="<?php echo $women->image; ?>" width="220" height="140" /></a>
+                            <i><a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><?php echo $women->name; ?></a></i>
                     </div>
-                    <div class="mans_ad">
-                        <a href="#" title=""><img src="images/test/m2.jpg" width="220" height="140" /></a>
-                        <i><a href="#" title="">I LOVE Haters ! Collections</a></i>
-                    </div>
+                    <?php endforeach ?>
                 </div>
             </div>
         </li>
@@ -105,10 +102,12 @@
                         <?php endforeach ?>
                         <dt class="more"><a href="#" title="">MORE&gt;</a></dt>
                     </dl>
-                    <div class="mans_ad">
-                        <a href="#" title=""><img src="images/test/m2.jpg" width="220" height="140" /></a>
-                        <i><a href="#" title="">I LOVE Haters ! Collections</a></i>
-                    </div>
+                     <?php foreach($hatsad as $women):?>
+                        <div class="mans_ad">
+                                <a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><img src="<?php echo $women->image; ?>" width="220" height="140" /></a>
+                                <i><a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><?php echo $women->name; ?></a></i>
+                        </div>
+                    <?php endforeach ?>
                 </div>
             </div>
         </li>

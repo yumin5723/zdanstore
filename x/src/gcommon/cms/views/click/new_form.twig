@@ -1,0 +1,47 @@
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false}) %}
+  {% if isNew == true %}
+  <div  class="control-group">
+      <label for="Category_name" class="control-label required">新品名称</label>
+        <div class="controls">
+          <div id="uploads">
+            <a class="btn btn-success" onclick="return showUpload();">add</a>
+        </div>
+      </div>
+  </div>
+{% else %}
+  <div  class="control-group">
+      <label for="Category_name" class="control-label required">新品名称</label>
+        <div class="controls">
+          <div id="uploads">
+            <a class="btn btn-success" onclick="return showUpload();">add</a>
+            {% for new in newarrivals %}
+              <div id="pic_{{ loop.index }}" class="picCount"><a onclick="return deletePic('pic_{{ loop.index }}');" class="btn btn-danger">delete</a><br>
+                名称:<input type="text" name="Newarrivals[{{ loop.index }}][name]" value="{{ new.name }}"><br>值:<input type="text" name="Newarrivals[{{ loop.index }}][url]" value="{{ new.url }}"><br></div>
+            {% endfor %}
+        </div>
+      </div>
+  </div>
+{% endif %}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-large btn-primary">submit</button>
+    </div>
+  </div>
+{{ void(this.endWidget()) }}
+
+<script type="text/javascript">
+
+    var i=$(".picCount").length;
+    function showUpload(){
+      i++;
+      var str='<div class="picCount" id="pic_'+i+'"><a class="btn btn-danger" onclick="return deletePic(\'pic_'+i+'\');">delete</a><br/>';
+                str+='名称:'+i+'<input type="text" value="" name="Newarrivals['+i+'][name]" /><br>';
+                str+='值:<input type="text" value="" name="Newarrivals['+i+'][url]" /><br>';
+                str+='</div>';
+      $("#uploads").append(str);
+    }
+
+    function deletePic(id){
+        $("#"+id).html("");
+    }
+</script>

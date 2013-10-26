@@ -20,6 +20,11 @@ class ClickController extends GController {
             'icon' => 'tasks',
             'url' => 'create',
         ),
+        array(
+            'name' => '导航条新品管理',
+            'icon' => 'tasks',
+            'url' => 'new',
+        ),
     );
     /**
      * @return array action filters
@@ -47,6 +52,7 @@ class ClickController extends GController {
                     'update',
                     'delete',
                     'product',
+                    'new','newarrivals'
                 ) ,
                 'users' => array(
                     '@'
@@ -152,5 +158,31 @@ class ClickController extends GController {
      */
     public function actionDelete($id) {
         GxcHelpers::deleteModel('Click', $id);
+    }
+    /**
+     * action for new arrivals create
+     * @return [type] [description]
+     */
+    public function actionNew(){
+        $model = new Newarrivals;
+        $Newarrivals = $model->findAll();
+        if(isset($_POST['Newarrivals'])){
+            if($model->validate()){
+                if($model->saveNewarrivals($_POST['Newarrivals'])){
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new arrivals Successfully!'));
+                }
+            }
+        }
+        $this->render('new',array('model'=>$model,'isNew'=>true));
+    }
+    public function actionNewarrivals(){
+        $Newarrivals = Newarrivals::model()->findAll();
+        $model = new Newarrivals;
+        if(isset($_POST['Newarrivals'])){
+            if($model->updateNewarrivals($_POST['Newarrivals'])){
+                Yii::app()->user->setFlash('success', Yii::t('cms', 'Update new Newarrivals Successfully!'));
+            }
+        }
+        $this->render('newarrivals',array('newarrivals'=>$Newarrivals,'isNew'=>false));
     }
 }
