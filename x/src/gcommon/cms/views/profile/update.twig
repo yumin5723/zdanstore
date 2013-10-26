@@ -1,0 +1,10 @@
+{% extends "@pp/profile/nav.twig" %}
+{% set menu_name="商品属性"%}
+{% set sidebar_name = "新建属性" %}
+
+{% block content %}
+{% include "layouts/notice.twig" %}
+<br />
+<span>VALUE是多个的情况下，请用英文逗号分割</span>
+ {% include "@pp/profile/profile_form.twig" %}
+{% endblock %}

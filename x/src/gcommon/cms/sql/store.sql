@@ -263,3 +263,17 @@ CREATE TABLE `brand_term` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+--
+-- Table structure for table `term_profile`
+--
+CREATE TABLE `term_profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `term_id` int(4) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `term_id` (`term_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

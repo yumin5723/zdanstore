@@ -1,0 +1,25 @@
+{% extends "@pp/profile/nav.twig" %}
+{% set menu_name="商品属性"%}
+{% set sidebar_name = "属性管理" %}
+{% block content %}
+  <h2>{{ root.name }}</h2>
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':descendants, 
+            'columns':{
+                0:'id',
+                1:{'name':'name','value':'Oterm::str_tree($data->level,$data->name)'},
+                2:'short_name',
+                3:'description',
+                4:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{update}',
+                     'buttons':{
+                        'update':{'url':'Yii::app()->createUrl("pp/profile/update",array("id"=>$data->id))'},
+                      },
+                      'htmlOptions':{'width':'50px'}
+                }
+            },})) 
+         }}
+{% endblock %}

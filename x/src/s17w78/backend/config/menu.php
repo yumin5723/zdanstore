@@ -34,6 +34,11 @@ return array(
             'url'=>'/pp/oterm/index',
             'icon'=>'indent-left',
         ),
+        'profile'=>array(
+            'name'=>'商品属性',
+            'url'=>'/pp/profile/index',
+            'icon'=>'indent-left',
+        ),
         'product'=>array(
             'name'=>'商品管理',
             'url'=>'/pp/product/admin',

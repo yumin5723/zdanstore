@@ -1,0 +1,64 @@
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false}) %}
+  <div  class="control-group">
+      <label for="Category_name" class="control-label required">父类 <span class="required">*</span></label>
+      {% if isNew == true %}
+      <div class="controls">
+          <select class="u_select" name="term_id">
+          <option value="{{ root.id }}">|-顶级</option>
+            {% for desc in descendants %}
+          <option value="{{ desc.id }}">{{ str_repeat(desc.level ) }}{{ desc.name }}({{ desc.level-1 }}级分类 )</option>
+            {% endfor %}
+          </select>
+      </div>
+      {% else %}
+          <select class="u_select" name="term_id">
+          <option value="{{ term.id }}">{{ term.name }}</option>
+          </select>
+      {% endif %}
+  </div>
+  {% if isNew == true %}
+  <div  class="control-group">
+      <label for="Category_name" class="control-label required">商品属性</label>
+        <div class="controls">
+          <div id="uploads">
+            <a class="btn btn-success" onclick="return showUpload();">add</a>
+        </div>
+      </div>
+  </div>
+{% else %}
+  <div  class="control-group">
+      <label for="Category_name" class="control-label required">商品属性</label>
+        <div class="controls">
+          <div id="uploads">
+            <a class="btn btn-success" onclick="return showUpload();">add</a>
+            {% for profile in profiles %}
+              <div id="pic_{{ loop.index }}" class="picCount"><a onclick="return deletePic('pic_{{ loop.index }}');" class="btn btn-danger">delete</a><br>
+                名称:<input type="text" name="TermProfile[{{ loop.index }}][name]" value="{{ profile.name }}"><br>值:<input type="text" name="TermProfile[{{ loop.index }}][value]" value="{{ profile.value }}"><br></div>
+            {% endfor %}
+        </div>
+      </div>
+  </div>
+{% endif %}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-large btn-primary">submit</button>
+    </div>
+  </div>
+{{ void(this.endWidget()) }}
+
+<script type="text/javascript">
+
+    var i=$(".picCount").length;
+    function showUpload(){
+      i++;
+      var str='<div class="picCount" id="pic_'+i+'"><a class="btn btn-danger" onclick="return deletePic(\'pic_'+i+'\');">delete</a><br/>';
+                str+='名称:'+i+'<input type="text" value="" name="TermProfile['+i+'][name]" /><br>';
+                str+='值:<input type="text" value="" name="TermProfile['+i+'][value]" /><br>';
+                str+='</div>';
+      $("#uploads").append(str);
+    }
+
+    function deletePic(id){
+        $("#"+id).html("");
+    }
+</script>
