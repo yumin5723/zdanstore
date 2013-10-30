@@ -15,7 +15,8 @@ class Product extends CmsActiveRecord
     const PRODUCT_IS_RECOMMOND = 1;
     const PRODUCT_IS_NOT_RECOMMOND = 0;
 
-
+    const PRODUCT_IS_RECOMMOND_MANS = 1;
+    const PRODUCT_IS_NOT_RECOMMOND_MANS = 0;
 
     const PRODUCT_NOT_NEED_POSTAGE = 0;
     const PRODUCT_NEED_POSTAGE = 1;
@@ -45,7 +46,7 @@ class Product extends CmsActiveRecord
         // will receive user inputs.
         return array(
             array('name,brand_id,status,logo,quantity,shop_price,total_price,desc','required'),
-            array('rank,batch_number,weight,give_points,points_buy,is_new,is_recommond,need_postage,special_price,special_begin,special_end,order','safe'),
+            array('rank,batch_number,weight,give_points,points_buy,is_new,is_recommond,is_recommond_mans,need_postage,special_price,special_begin,special_end,order','safe'),
         );
     }
     public function behaviors()
@@ -161,6 +162,10 @@ class Product extends CmsActiveRecord
             $attrs[] = 'is_recommond';
             $this->is_recommond = $attributes['is_recommond'];
         }
+        if (!empty($attributes['is_recommond_mans']) && $attributes['is_recommond_mans'] != $this->is_recommond_mans) {
+            $attrs[] = 'is_recommond_mans';
+            $this->is_recommond_mans = $attributes['is_recommond_mans'];
+        }
         if (!empty($attributes['need_postage']) && $attributes['need_postage'] != $this->need_postage) {
             $attrs[] = 'need_postage';
             $this->need_postage = $attributes['need_postage'];
@@ -211,6 +216,7 @@ class Product extends CmsActiveRecord
             'status' => '商品状态',
             'is_new' => '是否新品',
             'is_recommond' => '是否推荐首页',
+            'is_recommond_mans' => '是否推荐男装首页',
             'brand_id' => '所属品牌',
             'batch_number' => '商品批次',
             'quantity' => '商品库存',
@@ -339,6 +345,13 @@ class Product extends CmsActiveRecord
     public function getIsRecommond(){
         return array(self::PRODUCT_IS_NOT_RECOMMOND => "未推荐",self::PRODUCT_NEED_POSTAGE => "推荐");
     }
+    /**
+     * get all product is recommond
+     * @return [type] [description]
+     */
+    public function getIsRecommondMans(){
+        return array(self::PRODUCT_IS_NOT_RECOMMOND_MANS => "未推荐",self::PRODUCT_IS_RECOMMOND_MANS => "推荐");
+    }
      /**
      * get all product need postage
      * @return [type] [description]
@@ -380,6 +393,20 @@ class Product extends CmsActiveRecord
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
+     * get index recommond products
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondMansProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond_mans = :is_recommond_mans";
+        $criteria->params = array(":is_recommond_mans"=>self::PRODUCT_IS_RECOMMOND_MANS);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
      * get product sum by brand id 
      * @param  [type] $brand_id [description]
      * @return [type]           [description]
@@ -416,7 +443,7 @@ class Product extends CmsActiveRecord
      * ppid profile id
      * @return [type] [description]
      */
-    public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$ppid){
+    public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$brid,$request_profiles){
         $termIds = $this->getAllChindrenIdByTermId($term_id);
 
         $criteria = new CDbCriteria;
@@ -442,14 +469,20 @@ class Product extends CmsActiveRecord
             }
             $ids = array_unique($ids);
         }
-        if(isset($ppid) && $ppid != ""){
-
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
         }
-
+       
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-        $criteria->condition = "t.brand_id = :brand_id";
-        $criteria->params = array(":brand_id"=>$brand_id);
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }else{
+             $criteria->condition = "t.brand_id = :brand_id";
+             $criteria->params = array(":brand_id"=>$brand_id);
+        }
+        // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
         $criteria->order = "t.id DESC";
         $criteria->limit = $count;
@@ -460,7 +493,7 @@ class Product extends CmsActiveRecord
      * get objects count by term_id
      * @return [type] [description]
      */
-    public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$ppid){
+    public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profiles){
         $termIds = $this->getAllChindrenIdByTermId($term_id);
 
         $criteria = new CDbCriteria;
@@ -484,14 +517,19 @@ class Product extends CmsActiveRecord
             }
             $ids = array_unique($ids);
         }
-        if(isset($ppid) && $ppid != ""){
-
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
         }
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-        $criteria->condition = "t.brand_id = :brand_id";
-        $criteria->params = array(":brand_id"=>$brand_id);
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }else{
+             $criteria->condition = "t.brand_id = :brand_id";
+             $criteria->params = array(":brand_id"=>$brand_id);
+        }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
     }

@@ -231,4 +231,21 @@ class TermProfile extends CmsActiveRecord
         }
         return $ret;
     }
+    /**
+     * [getIdsByProfiles description]
+     * @return [type] [description]
+     */
+    public function getIdsByProfiles($ids,$request_profiles){
+        foreach($ids as $key=>$id){
+            foreach($request_profiles as $profile){
+                $product = ProductProfile::model()->findByAttributes(array('product_id'=>$id,'profile_value'=>$profile));
+                if(empty($product)){
+                    unset($ids[$key]);
+                }else{
+                    continue;
+                }
+            }
+        }
+        return $ids;
+    }
 }

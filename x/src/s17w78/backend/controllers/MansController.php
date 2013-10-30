@@ -1,12 +1,12 @@
 <?php
 /**
- * BrandController Controller.
+ * MansController Controller.
  *
  * @version 1.0
  *
  */
 
-class BrandsController extends GController {
+class MansController extends GController {
     /**
      * @return array action filters
      */
@@ -55,9 +55,15 @@ class BrandsController extends GController {
         // $this->render("index",array("terms"=>$terms));
         // 
         //brand page banner ad
-        $banner = Click::model()->getAdsByType(Click::AD_POSITION_BRAND_BANNER,1);
-        $brands = Brand::model()->getBrandsForIndex(100);
-        $this->render("index",array('banner'=>$banner,'brands'=>$brands));
+        $focus = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOCUS,1);
+        $rights = Click::model()->getAdsByType(Click::AD_POSITION_MANS_RIGHT);
+        $footers = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER,3);
+        // $brands = Brand::model()->getBrandsForIndex(100);
+        $newarrivals = Newarrivals::model()->findAll();
+        $products = Product::model()->getAllRecommondMansProducts();
+        $mensTerms = Oterm::model()->getMensTreeMenu();
+        $this->render("index",array('focus'=>$focus,'rights'=>$rights,'news'=>$newarrivals,
+            'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers));
     }
     /**
      * action for brand view

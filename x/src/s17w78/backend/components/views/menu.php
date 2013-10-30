@@ -15,7 +15,7 @@
                 <div class="more"><a href="/brand" title="">MORE&gt;</a></div>
             </div>
         </li>
-        <li><a href="#">MANS</a>
+        <li><a href="/mans">MANS</a>
             <!-- mans menu -->
             <div class="navbox">
                 <div class="subnav">MANS</div>
