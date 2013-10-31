@@ -305,3 +305,24 @@ CREATE TABLE `product_profile` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ CREATE TABLE `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `zipcode` int(10) NOT NULL,
+  `country` varchar(200) NOT NULL,
+  `phone` varchar(150) NOT NULL,
+  `default` tinyint(2) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
