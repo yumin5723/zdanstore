@@ -1,6 +1,6 @@
 <?php
 Yii::import('common.components.UserActiveRecord');
-class User extends CActiveRecord
+class User extends UserActiveRecord
 {
     public $password_repeat;
     public $rememberMe;
@@ -13,6 +13,7 @@ class User extends CActiveRecord
     public $new_password;
     public $p_password;
     public $confirm_password;
+    public $nickname;
     public $old_email;
     public $new_email;
     private $_identity;
@@ -66,16 +67,16 @@ class User extends CActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('password,email,username,nickname', 'required', 'on'=>'register',),
-            // array('password,password_repeat,username,nickname', 'required', 'on'=>'register',),
+            array('password,password_repeat,username,nickname,email', 'required', 'on'=>'register',),
             // array('password,old_password,new_password,p_password,username', 'length','min'=>'6','max'=>'16','tooLong'=>'长度限定为6-16的字符串！','tooShort'=>'长度限定为6-16的字符串！', 'on'=>'register'),
             array('nickname', 'length','min'=>'2','max'=>'16','tooLong'=>'长度限定为2-16的字符串！','tooShort'=>'长度限定为2-16的字符串！', 'on'=>'register'),
             array('username', 'unique', 'on'=>'register'),
             array('username','match','pattern'=>'/^[a-zA-Z0-9]+$/','message'=>'必须为字母、数字！', 'on'=>'register',),
             array('password_repeat', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),
+            array('email','email'),
             // array('verifyCode','required', 'on'=>'register'),
-            // array('username, password', 'required', 'on' => 'login'),
-            // array('password', 'authenticatePass', 'on' => 'login'),
+            array('username, password', 'required', 'on' => 'login'),
+            array('password', 'authenticatePass', 'on' => 'login'),
             // array('email', 'required', 'on'=>'recover'),
             // array('old_email,p_password,new_email', 'required', 'on'=>'changeemail'),
             // array('new_email,old_email', 'email'),
@@ -100,7 +101,7 @@ class User extends CActiveRecord
             // array('email','check_safeemail','on'=>'profile'),
             //array('verifyCode','captcha','allowEmpty'=>YII_DEBUG,'on'=>"recover"),
             //array('verifyCode','captcha','allowEmpty'=>YII_DEBUG,'on'=>"changeemail"),
-            //array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements(),'on'=>'register'),
+            // array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements(),'on'=>'register'),
             //array('verifyCode', 'captcha', 'allowEmpty'=> !extension_loaded('gd') ,'on'=>'login'),
             // array('verifyCode', 'captcha', 'allowEmpty'=> !extension_loaded('gd') ,'on'=>'register,recover'),
 
@@ -674,18 +675,18 @@ class User extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'username' => "用户名",
-            'nickname' => "昵称",
-            'old_password' => "旧密码",
-            'new_password' => "新密码",
-            'confirm_password' => "确认新密码",
-            'password' => "密码",
-            'p_password' => "密码",
-            'password_repeat' => "确认密码",
-            'old_email' => "旧邮箱",
-            'new_email' => "新邮箱",
-            'email' => "安全邮箱： ",
-            'verifyCode'=>'验证码',
+            // 'username' => "用户名",
+            // 'nickname' => "昵称",
+            // 'old_password' => "旧密码",
+            // 'new_password' => "新密码",
+            // 'confirm_password' => "确认新密码",
+            // 'password' => "密码",
+            // 'p_password' => "密码",
+            // 'password_repeat' => "确认密码",
+            // 'old_email' => "旧邮箱",
+            // 'new_email' => "新邮箱",
+            // 'email' => "安全邮箱： ",
+            // 'verifyCode'=>'验证码',
         );
     }
 
