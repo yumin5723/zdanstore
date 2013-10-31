@@ -264,4 +264,38 @@ and year(created)=year(now())";
             self::ORDER_STATUS_PAY=>'付款成功等待发货',self::ORDER_STATUS_SHIPING=>'订单已发货',
             self::ORDER_STATUS_COMOLETE=>'交易完成',self::ORDER_STATUS_CLOSED=>'订单关闭');
     }
+    /**
+     * get all order status
+     * @return [type] [description]
+     */
+    public function getAllChargeRecords($uid,$count,$page){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->addCondition("t.uid=$uid");
+        $criteria->order = "t.id DESC";
+        $criteria->group = 't.id'; 
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        $datas =self::model()->findAll($criteria);
+        return $datas;
+    }
+    public function getCount($uid){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->addCondition("t.uid=$uid");
+        $counts = self::model()->count($criteria);
+        return $counts;
+    }
+    /**
+     * get my newest orders 
+     * @return [type] [description]
+     */
+    public function getNewOrder($uid){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->addCondition("t.uid=$uid");
+        $criteria->order = "id desc";
+        $criteria->limit = "10";
+        return self::model()->findAll($criteria);
+    }
 }

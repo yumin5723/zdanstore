@@ -14,13 +14,13 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
     array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name'=>'梦幻天下',
-    'language'=>'zh_cn',
+    'language'=>'en_us',
     'defaultController'=>'default',
 
     // preloading 'log' component
     'preload'=>array(
         'log',
-        // 'bootstrap'
+        'bootstrap'
     ),
 
     // autoloading model and component classes
@@ -29,6 +29,7 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
         'application.components.*',
         'common.models.*',
         'common.components.*',
+        'ext.restfullyii.components.*',
     ),
 
     'modules'=>array(
@@ -109,6 +110,14 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
                 '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
             ),
         ),
+        'TaoHaoRedis' => array(
+            'class' => 'common.extensions.RedisConnection',
+            'masterServer'=>array(
+                'host'=>'127.0.0.1',
+                'port'=>6379,
+                'timeout'=>2,
+            ),
+        ),
         'authManager' => array(
             'class' => 'gcommon.extensions.srbac.components.SDbAuthManager',
             'connectionID' => 'adminDb',
@@ -123,6 +132,7 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
             ),
             'extensions' => array(
                 /* 'My_Twig_Extension', */
+                'Twig1378Ext' => "Twig1378Ext",
             ),
             'globals' => array(
                 'html' => 'CHtml',

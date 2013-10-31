@@ -1,0 +1,81 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="/user/">My Account</a> &gt; <a href="/user/address">My Address</a></div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt>My Account</dt>
+                <dd><a href="/user/setting">Account Settings</a></dd>
+                <dd class="cur"><a href="/user/address">My Address</a></dd>
+                <dd><a href="/user/order">My Order</a></dd>
+                <dd><a href="/user/message">My Message</a></dd>
+                <dd><a href="/user/trackOrder">Track Order</a></dd>
+                <dd><a href="/user/wishList">Wish List</a></dd>
+                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
+            </dl>
+        </div>
+        <div class="act_content">
+            <div class="address_box clearfix">
+                <div class="myaddress fl">
+                    <div class="title">My Address</div>
+                    <div class="content">
+                    {% for a in data %}
+                        <div class="tip">
+                            <label><a href="/user/address?id={{ a.id }}"><input type="radio" name="defaultAddress" value="" {% if a.default == 1 %}checked="checked"{% endif %}/> </a>Default Address</label>
+                            <p>
+                                {{ a.name }}<br/>
+                                Address {{ a.address }}<br/>
+                                Zip Code {{ a.zipcode }}<br/>
+                                Country {{ a.country }}<br/>
+                                Tel:{{ a.phone }}<br/>
+                            </p>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div><!-- default address -->
+
+                <div class="newaddress fl">
+                    <div class="title">Add New Address</div>
+                    <div class="content">
+                    {% include "base/notify.twig" %}
+                    {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+                    {{ form.errorSummary(model)|raw }}
+                        <ul class="ads_form">
+                            <li class="clearfix">
+                                <div class="fl">
+                                    <em class="red">*</em> Name
+                                    <label><input type="text" name="Address[name]" value="" size="16"></label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Address
+                                <label><input type="text" name="Address[address]" value="" size="35"></label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Zip Code
+                                <label><input type="text" name="Address[zipcode]" value="" size="16"></label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Country
+                                <label><select name="Address[country]"><option value="CA">CA</option></select></label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Phone Number
+                                <label><input type="text" name="Address[phone]" value="" size="35"></label>
+                            </li>
+                        </ul>
+                        <div class="submit_btn"><input type="submit" name="" value="Submit" class="btn2"></div>
+                        {{ void(this.endWidget()) }}<!-- form -->
+                    </div>
+                </div><!-- new address -->
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

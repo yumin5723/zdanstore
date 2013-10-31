@@ -1,0 +1,86 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="/user/">My Account</a></div>
+    <div class="login_box clearfix">
+        <div class="sign">
+            <div class="title">Sign In</div>
+            <div class="content">
+                <p class="tip">If you have an account with us, please log in with your email.</p>
+                {% include "base/notify.twig" %}
+                <form method="post" action="/user/login">
+                <ul class="login_form">
+                    <li class="clearfix">
+                        <em class="red">*</em> Email Address/username
+                        <label><input type="text" name="username" value="" size="32"></label>
+                    </li>
+                    <li class="clearfix">
+                        <em class="red">*</em> Password
+                        <label><input type="password" name="password" value="" size="32"></label>
+                    </li>
+                    <li class="clearfix">
+                        <label><input type="checkbox" name="" value=""> Remember Me</label>
+                    </li>
+                </ul>
+                <div class="submit_btn"><input type="submit" name="" value="Login" class="btn2"></div>
+                </form>
+            </div>
+
+            <div class="title">Forgot Your Password ?</div>
+            <div class="content">
+                <p class="tip">Fotgot your password? Do not worry, please provide your email address, we will send your password to you very soon.</p>
+                <ul class="login_form">
+                    <li class="clearfix">
+                        <em class="red">*</em> Email Address
+                        <label><input type="text" name="" value="" size="32"></label>
+                    </li>
+                </ul>
+                <div class="submit_btn"><input type="submit" name="" value="Submit" class="btn2"></div>
+            </div>
+        </div><!-- sign in end -->
+
+        <div class="reg">
+            <div class="title">Create Account</div>
+            <div class="content">
+            {% include "base/notify.twig" %}
+            {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'action':'/user/register','htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+            {{ form.errorSummary(user)|raw }}
+                <ul class="login_form">
+                    <li class="clearfix">
+                        <div class="fl">
+                            <em class="red">*</em> User Name
+                            <label><input type="text" name="User[username]" value="" size="15"></label>
+                        </div>
+                        <div class="fr">
+                            <em class="red">*</em> Nick Name
+                            <label><input type="text" name="User[nickname]" value="" size="15"></label>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <em class="red">*</em> Email Address
+                        <label><input type="text" name="User[email]" value="" size="32"></label>
+                    </li>
+                    <li class="clearfix">
+                        <em class="red">*</em> Password
+                        <label><input type="password" name="User[password]" value="" size="32"></label>
+                    </li>
+                    <li class="clearfix">
+                        <em class="red">*</em> Confirm Password
+                        <label><input type="password" name="User[password_repeat]" value="" size="32"></label>
+                    </li>
+                    <li class="clearfix">
+                        <label><input type="checkbox" name="" value=""> Remember Me</label>
+                    </li>
+                </ul>
+                <div class="submit_btn"><input type="submit" name="" value="Create Account" class="login_btn"></div>
+            {{ void(this.endWidget()) }}<!-- form -->
+            </div>
+        </div><!-- create account end -->
+
+    </div>
+
+</div>
+{% endblock %}
