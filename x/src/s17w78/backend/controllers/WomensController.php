@@ -1,12 +1,12 @@
 <?php
 /**
- * BrandController Controller.
+ * MansController Controller.
  *
  * @version 1.0
  *
  */
 
-class BrandsController extends GController {
+class WomensController extends GController {
     /**
      * @return array action filters
      */
@@ -55,9 +55,14 @@ class BrandsController extends GController {
         // $this->render("index",array("terms"=>$terms));
         // 
         //brand page banner ad
-        $banner = Click::model()->getAdsByType(Click::AD_POSITION_BRAND_BANNER,1);
-        $brands = Brand::model()->getBrandsForIndex(100);
-        $this->render("index",array('banner'=>$banner,'brands'=>$brands));
+        $focus = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOCUS,3);
+        $footers = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER,3);
+        // $brands = Brand::model()->getBrandsForIndex(100);
+        $newarrivals = Newarrivals::model()->findAll();
+        $products = Product::model()->getAllRecommondWomensProducts();
+        $womensTerms = Oterm::model()->getWomensTreeMenu();
+        $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
+            'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers));
     }
     /**
      * action for brand view
@@ -89,14 +94,8 @@ class BrandsController extends GController {
      * @return [type] [description]
      */
     public function actionTerm(){
-        $brand_id = intval($_GET['id']);
-        $brand = Brand::model()->findByPk($brand_id);
-        if(empty($brand)){
-            throw new Exception("this page is not found", 404);
-            
-        }
         $term_id = intval($_GET['cid']);
-
+        $term = Oterm::model()->findByPk($term_id);
         //left menu category
         $leftCategory = Oterm::model()->getTreeByTermId($term_id);
         //left menu term profile
@@ -113,7 +112,7 @@ class BrandsController extends GController {
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
 
-        $url = '/brands/term';
+        $url = '/womens/term';
         foreach($_GET as $k=>$o){
             $url.="/".$k."/".$o; 
         }
@@ -121,14 +120,14 @@ class BrandsController extends GController {
 
         $count = 24;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $objects = Product::model()->fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
-        $sum = Product::model()->getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profile);
+        $objects = Product::model()->fetchProductsByTermIdAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
+        $sum = Product::model()->getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profile);
         $sub_pages = 6;
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
-        $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,
+        $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term
             ));
         // $this->render('term');
     }
@@ -148,7 +147,7 @@ class BrandsController extends GController {
                 unset($options[$key]);
             }
         }
-        $url = '/brands/term';
+        $url = '/womens/term';
         foreach($options as $k=>$o){
             $url.="/".$k."/".$o; 
         }

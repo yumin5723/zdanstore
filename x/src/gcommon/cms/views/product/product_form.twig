@@ -30,6 +30,8 @@
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
 {{ form.dropDownListRow(model, 'is_new', model.getIsNew(), {})|raw }}
 {{ form.dropDownListRow(model, 'is_recommond', model.getIsRecommond(), {})|raw }}
+{{ form.dropDownListRow(model, 'is_recommond_mans', model.getIsRecommondMans(), {})|raw }}
+{{ form.dropDownListRow(model, 'is_recommond_womens', model.getIsRecommondWomens(), {})|raw }}
 {{ form.dropDownListRow(model, 'brand_id', model.Brands, {})|raw }}
 {{ form.textFieldRow(model, "batch_number", {'placeholder':''})|raw }}
 {{ form.textFieldRow(model, "quantity", {'placeholder':''})|raw }}
@@ -106,7 +108,19 @@
          {% for profile in termprofiles %}
             <input type="checkbox" name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}<br /> 
             {% for v in profile.value %}
-             <input type="checkbox" name="Profile[{{profile.profile_id}}][value][]" value="{{ v }}">{{ v }}
+             <input type="checkbox" name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
+             {% if profile.name == "COLOR"%}
+             <div class="controls">
+                <span>插入</span>      
+                    <img valign="top" alt="Image" title="Image" onClick="insertImageToProduct('image','profile_image{{ v }}');" src="{{ App.assets.Url}}/images/insert_image.png" />
+            </div>
+            <div class="control-group ">
+                <div class="controls">
+                    <img class="profile_image{{ v }}" src="" />
+                </div>
+            </div>
+            <input type="hidden" id="profile_image{{ v }}" name="Profile[{{profile.profile_id}}][{{ v }}][profile_image]">
+            {% endif %}
             {% endfor %}
             <br />
          {% endfor %}
@@ -117,13 +131,26 @@
   <div  class="control-group">
       <label for="Category_name" class="control-label required">商品属性</label>
         <div class="controls">
-          <div id="uploads">
-            <a class="btn btn-success" onclick="return showUpload();">add</a>
-            {% for meta in metas %}
-              <div id="pic_{{ loop.index }}" class="picCount"><a onclick="return deletePic('pic_{{ loop.index }}');" class="btn btn-danger">delete</a><br>
-                名称:<input type="text" name="Meta[{{ loop.index }}][key]" value="{{ meta.meta_key }}"><br>值:<input type="text" name="Meta[{{ loop.index }}][value]" value="{{ meta.meta_value }}"><br></div>
+         {% for profile in termprofiles %}
+            <input type="checkbox" {% if profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %} name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}<br /> 
+            {% for v in profile.value %}
+             <input type="checkbox" {% if v in profiles.profile_values %} checked="checked" {% endif %}name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
+             {% if profile.name == "COLOR"%}
+             <div class="controls">
+                <span>插入</span>      
+                    <img valign="top" alt="Image" title="Image" onClick="insertImageToProduct('image','profile_image{{ v }}');" src="{{ App.assets.Url}}/images/insert_image.png" />
+            </div>
+            <div class="control-group ">
+                <div class="controls">
+                    <img class="profile_image{{ v }}" src="{{ pro_image(profiles,v) }}"/>
+                </div>
+            </div>
+            <input type="hidden" id="profile_image{{ v }}" name="Profile[{{profile.profile_id}}][{{ v }}][profile_image]" value="{{ pro_image(profiles,v) }}">
+            {% endif %}
             {% endfor %}
-        </div>
+            <br />
+         {% endfor %}
+      </div>
       </div>
   </div>
 {% endif %}

@@ -15,7 +15,7 @@
                 <div class="more"><a href="/brand" title="">MORE&gt;</a></div>
             </div>
         </li>
-        <li><a href="#">MANS</a>
+        <li><a href="/mans">MANS</a>
             <!-- mans menu -->
             <div class="navbox">
                 <div class="subnav">MANS</div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </li>
-        <li><a href="#">WOMENS</a>
+        <li><a href="/womens">WOMENS</a>
             <!-- womens menu -->
             <div class="navbox">
                 <div class="subnav">WOMENS</div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </li>
-		<li><a href="#">HATS</a>
+		<li><a href="/hats">HATS</a>
             <!-- hats menu -->
             <div class="navbox">
                 <div class="subnav">hats</div>

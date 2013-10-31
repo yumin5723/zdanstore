@@ -14,6 +14,13 @@ class Click extends CmsActiveRecord
     const AD_POSITION_MENU_MENS = 5;
     const AD_POSITION_MENU_WOMENS = 6;
     const AD_POSITION_MENU_HATS = 7;
+    const AD_POSITION_MANS_FOCUS = 8;
+    const AD_POSITION_MANS_RIGHT = 9;
+    const AD_POSITION_MANS_FOOTER = 10;
+    const AD_POSITION_WOMANS_FOCUS = 11;
+    const AD_POSITION_WOMANS_FOOTER = 12;
+    const AD_POSITION_HATS_FOCUS = 13;
+    const AD_POSITION_HATS_FOOTER = 14;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -132,7 +139,10 @@ class Click extends CmsActiveRecord
         return array(self::AD_POSITION_INDEX_FOCUS => "首页焦点图广告",self::AD_POSITION_INDEX_RIGHT => "首页焦点图右侧"
             ,self::AD_POSITION_INDEX_DOWN=>"首页尾部广告",self::AD_POSITION_BRAND_BANNER=>"品牌页banner",
             self::AD_POSITION_MENU_MENS=>"导航条MENS广告",self::AD_POSITION_MENU_WOMENS=>"导航条WOMENS广告",
-            self::AD_POSITION_MENU_HATS=>'导航条HATS广告',
+            self::AD_POSITION_MENU_HATS=>'导航条HATS广告',self::AD_POSITION_MANS_FOCUS=>'男装首页焦点图',
+            self::AD_POSITION_MANS_RIGHT=>'男装首页右侧广告',self::AD_POSITION_MANS_FOOTER=>"男装首页尾部广告",
+            self::AD_POSITION_WOMANS_FOCUS=>'女装首页焦点图',self::AD_POSITION_WOMANS_FOOTER=>'女装首页尾部广告',
+            self::AD_POSITION_HATS_FOCUS=>'hats首页焦点图',self::AD_POSITION_HATS_FOOTER=>'hats首页尾部广告'
             );
     }
     /**
@@ -153,6 +163,20 @@ class Click extends CmsActiveRecord
             return "导航条WOMENS广告";
         }elseif($type == self::AD_POSITION_MENU_HATS){
             return "导航条HATS广告";
+        }elseif($type == self::AD_POSITION_MANS_FOCUS){
+            return "男装首页焦点图";
+        }elseif($type == self::AD_POSITION_MANS_RIGHT){
+            return "男装首页右侧广告";
+        }elseif($type == self::AD_POSITION_MANS_FOOTER){
+            return "男装首页尾部广告";
+        }elseif($type == self::AD_POSITION_WOMANS_FOCUS){
+            return "女装首页焦点图";
+        }elseif($type == self::AD_POSITION_WOMANS_FOOTER){
+            return "女装首页尾部广告";
+        }elseif($type == self::AD_POSITION_HATS_FOCUS){
+            return "hats首页焦点图";
+        }elseif($type == self::AD_POSITION_HATS_FOOTER){
+            return "hats首页尾部广告";
         }else{
             return "品牌页banner";
         }

@@ -67,8 +67,8 @@ class ShoppingController extends GController {
             }
             $product_id = $_POST['product'];
             $quantity = $_POST['quantity'];
-            $meta = isset($_POST['Meta']) ? $_POST['Meta'] : "";
-            Yii::app()->shoppingcart->addToCart($uid,$product_id,$quantity,$meta);
+            $profiles = isset($_POST['profiles']) ? $_POST['profiles'] : "";
+            Yii::app()->shoppingcart->addToCart($uid,$product_id,$quantity,$profiles);
         }else{
             throw new Exception("this Request is not valid", 404);
         }

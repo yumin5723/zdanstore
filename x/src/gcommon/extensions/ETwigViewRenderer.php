@@ -434,7 +434,11 @@ function getCmsBlock($block_id){
     return $html->html;
 }
 
-
+function getProfileImage($profiles,$pro){
+    if(isset($profiles["profile_image"][$pro])){
+        return $profiles["profile_image"][$pro]['image'];
+    }
+}
 /*
 
  */

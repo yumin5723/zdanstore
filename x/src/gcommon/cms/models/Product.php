@@ -15,7 +15,14 @@ class Product extends CmsActiveRecord
     const PRODUCT_IS_RECOMMOND = 1;
     const PRODUCT_IS_NOT_RECOMMOND = 0;
 
+    const PRODUCT_IS_RECOMMOND_MANS = 1;
+    const PRODUCT_IS_NOT_RECOMMOND_MANS = 0;
 
+    const PRODUCT_IS_RECOMMOND_WOMENS = 1;
+    const PRODUCT_IS_NOT_RECOMMOND_WOMENS = 0;
+
+    const PRODUCT_IS_RECOMMOND_HATS = 1;
+    const PRODUCT_IS_NOT_RECOMMOND_HATS = 0;
 
     const PRODUCT_NOT_NEED_POSTAGE = 0;
     const PRODUCT_NEED_POSTAGE = 1;
@@ -45,7 +52,8 @@ class Product extends CmsActiveRecord
         // will receive user inputs.
         return array(
             array('name,brand_id,status,logo,quantity,shop_price,total_price,desc','required'),
-            array('rank,batch_number,weight,give_points,points_buy,is_new,is_recommond,need_postage,special_price,special_begin,special_end,order','safe'),
+            array('rank,batch_number,weight,give_points,points_buy,is_new,is_recommond,
+              is_recommond_mans,is_recommond_womens,need_postage,special_price,special_begin,special_end,order','safe'),
         );
     }
     public function behaviors()
@@ -161,6 +169,18 @@ class Product extends CmsActiveRecord
             $attrs[] = 'is_recommond';
             $this->is_recommond = $attributes['is_recommond'];
         }
+        if (!empty($attributes['is_recommond_mans']) && $attributes['is_recommond_mans'] != $this->is_recommond_mans) {
+            $attrs[] = 'is_recommond_mans';
+            $this->is_recommond_mans = $attributes['is_recommond_mans'];
+        }
+        if (!empty($attributes['is_recommond_womens']) && $attributes['is_recommond_womens'] != $this->is_recommond_womens) {
+            $attrs[] = 'is_recommond_womens';
+            $this->is_recommond_womens = $attributes['is_recommond_womens'];
+        }
+        if (!empty($attributes['is_recommond_hats']) && $attributes['is_recommond_hats'] != $this->is_recommond_hats) {
+            $attrs[] = 'is_recommond_hats';
+            $this->is_recommond_hats = $attributes['is_recommond_hats'];
+        }
         if (!empty($attributes['need_postage']) && $attributes['need_postage'] != $this->need_postage) {
             $attrs[] = 'need_postage';
             $this->need_postage = $attributes['need_postage'];
@@ -211,6 +231,9 @@ class Product extends CmsActiveRecord
             'status' => '商品状态',
             'is_new' => '是否新品',
             'is_recommond' => '是否推荐首页',
+            'is_recommond_mans' => '是否推荐男装首页',
+            'is_recommond_womens' => '是否推荐女装首页',
+            'is_recommond_hats' => '是否推荐hats首页',
             'brand_id' => '所属品牌',
             'batch_number' => '商品批次',
             'quantity' => '商品库存',
@@ -339,6 +362,27 @@ class Product extends CmsActiveRecord
     public function getIsRecommond(){
         return array(self::PRODUCT_IS_NOT_RECOMMOND => "未推荐",self::PRODUCT_NEED_POSTAGE => "推荐");
     }
+    /**
+     * get all product is recommond
+     * @return [type] [description]
+     */
+    public function getIsRecommondMans(){
+        return array(self::PRODUCT_IS_NOT_RECOMMOND_MANS => "未推荐",self::PRODUCT_IS_RECOMMOND_MANS => "推荐");
+    }
+    /**
+     * get all product is recommond womans
+     * @return [type] [description]
+     */
+    public function getIsRecommondWomens(){
+        return array(self::PRODUCT_IS_NOT_RECOMMOND_WOMENS => "未推荐",self::PRODUCT_IS_RECOMMOND_WOMENS => "推荐");
+    }
+     /**
+     * get all product is recommond hats
+     * @return [type] [description]
+     */
+    public function getIsRecommondHats(){
+        return array(self::PRODUCT_IS_NOT_RECOMMOND_HATS => "未推荐",self::PRODUCT_IS_RECOMMOND_HATS => "推荐");
+    }
      /**
      * get all product need postage
      * @return [type] [description]
@@ -380,6 +424,48 @@ class Product extends CmsActiveRecord
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
+     * get index recommond products
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondMansProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond_mans = :is_recommond_mans";
+        $criteria->params = array(":is_recommond_mans"=>self::PRODUCT_IS_RECOMMOND_MANS);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get index recommond products
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondWomensProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond_womens = :is_recommond_womens";
+        $criteria->params = array(":is_recommond_womens"=>self::PRODUCT_IS_RECOMMOND_WOMENS);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get index recommond hats
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondHatsProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond_hats = :is_recommond_hats";
+        $criteria->params = array(":is_recommond_hats"=>self::PRODUCT_IS_RECOMMOND_HATS);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
      * get product sum by brand id 
      * @param  [type] $brand_id [description]
      * @return [type]           [description]
@@ -412,26 +498,30 @@ class Product extends CmsActiveRecord
     /**
      * fetch all objects by term id 
      * the data include term's children id 
+     * ssid term's children id
+     * ppid profile id
      * @return [type] [description]
      */
-    public function fetchProductsByTermIdAndBrand($term_id,$brand_id,$count,$page){
-        $termIds = $this->getAllChindrenIdByTermId($term_id);
+    public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$brid,$request_profiles){
+        $ids = $this->getProdcutIdsByTermId($term_id);
 
-        $criteria = new CDbCriteria;
-        $criteria->addInCondition("term_id",$termIds);
-        $criteria->order = "t.product_id DESC";
-        $results = ProductTerm::model()->findAll($criteria);
-        $ids = array();
-        foreach($results as $result){
-            $ids[] = $result->product_id;
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getProdcutIdsByTermId($ssid);
         }
-        $ids = array_unique($ids);
-
-
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+       
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-        $criteria->condition = "t.brand_id = :brand_id";
-        $criteria->params = array(":brand_id"=>$brand_id);
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }else{
+             $criteria->condition = "t.brand_id = :brand_id";
+             $criteria->params = array(":brand_id"=>$brand_id);
+        }
+        // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
         $criteria->order = "t.id DESC";
         $criteria->limit = $count;
@@ -442,7 +532,34 @@ class Product extends CmsActiveRecord
      * get objects count by term_id
      * @return [type] [description]
      */
-    public function getProductsCountByTermIdAndBrand($term_id,$brand_id){
+    public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profiles){
+        
+        $ids = $this->getProdcutIdsByTermId($term_id);
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }else{
+             $criteria->condition = "t.brand_id = :brand_id";
+             $criteria->params = array(":brand_id"=>$brand_id);
+        }
+        $criteria->addInCondition("id",$ids);
+        return self::model()->count($criteria);
+    }
+    /**
+     * [getProdcutIdsByTermId description]
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getProdcutIdsByTermId($term_id){
         $termIds = $this->getAllChindrenIdByTermId($term_id);
 
         $criteria = new CDbCriteria;
@@ -453,12 +570,76 @@ class Product extends CmsActiveRecord
             $ids[] = $result->product_id;
         }
         $ids = array_unique($ids);
+        return $ids;
+    }
+    /**
+     * fetch all objects by term id 
+     * the data include term's children id 
+     * ssid term's children id
+     * ppid profile id
+     * @return [type] [description]
+     */
+    public function fetchProductsByTermIdAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles){
+        $ids = $this->getProdcutIdsByTermId($term_id);
+
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+       
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }
+        // $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("t.id",$ids);
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get objects count by term_id
+     * @return [type] [description]
+     */
+    public function getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profiles){
+        
+        $ids = $this->getProdcutIdsByTermId($term_id);
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-        $criteria->condition = "t.brand_id = :brand_id";
-        $criteria->params = array(":brand_id"=>$brand_id);
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
+    }
+    /**
+     * get the object term level
+     * @param  intaval $id object_id
+     * @return array   
+     */
+    public function getObjectTermById($id){
+        $criteria = new CDbCriteria;
+        $criteria->condition = "product_id = :product_id";
+        $criteria->params = array(":product_id"=>$id);
+        $criteria->order = "term_id DESC";
+        $criteria->limit = 1;
+        $result = ProductTerm::model()->findByAttributes(array(),$criteria);
+        if(empty($result)){
+            return "";
+        }
+        return Oterm::model()->getLevelByTermId($result->term_id);
     }
 }

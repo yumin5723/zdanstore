@@ -65,17 +65,34 @@ class ProductProfile extends CmsActiveRecord
      * @return boolean
      */
     public function saveProductProfile($product_id,$metas){
-        foreach ( $metas as $meta ) {
-            // if (!self::model()->findByPk(array("term_id"=>$term_id,"name"=>$meta['name']))){
-                $product_meta = new self;
-                $product_meta->product_id = $product_id;
-                $product_meta->profile_id = $meta['profile_id'];
-                $product_meta->profile_value = $meta['profile_value'];
-                $product_meta->profile_image = $meta['profile_image'];
-                $product_meta->save(false);
-            // }
+        foreach($metas as $key=>$meta){
+            foreach($meta as $v){
+                if(isset($v['value'])){
+                    $model = new self;
+                    $model->product_id = $product_id;
+                    $model->profile_id = $key;
+                    $model->profile_value = $v['value'];
+                    if(isset($v['profile_image'])){
+                        $model->profile_image = $v['profile_image'];
+                    }else{
+                        $model->profile_image == "";
+                    }
+                    $model->save(false);
+                }
+            }
         }
         return true;
+    }
+
+    /**
+     * save meta for product
+     * @param  intval $term_id 
+     * @param  array $meta 
+     * @return boolean
+     */
+    public function updateProductProfile($product_id,$metas){
+        self::model()->deleteAllByAttributes(array('product_id'=>$product_id));
+        $this->saveProductProfile($product_id,$metas);
     }
     /**
      * update metas for object
@@ -166,5 +183,40 @@ class ProductProfile extends CmsActiveRecord
         $term_id = intval($term_id);
         $profiles = self::model()->findAllByAttributes(array('term_id'=>$term_id));
         return $profiles;
+    }
+    /**
+     * [getProductProfileByProduct description]
+     * @param  [type] $product_id [description]
+     * @return [type]             [description]
+     */
+    public function getProductProfileByProduct($product_id){
+        $results = self::model()->findAllByAttributes(array('product_id'=>$product_id));
+        $ret = array();
+        foreach($results as $key=>$result){
+            $ret['profile_ids'][] = $result->profile_id;
+            $ret['profile_values'][] = $result->profile_value;
+            if($result->profile_image != ""){
+                $ret['profile_image'][$result->profile_value]['image'] = $result->profile_image;
+            }
+        }
+        return $ret;
+    }
+    // static public function getimagevale($profiles,$pro){
+    //     return $profiles['profile_image'][$pro]['image'];
+    // }
+    /**
+     * [getProfilesByProductId description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getProfilesByProductId($id){
+        $results = self::model()->findAllByAttributes(array('product_id'=>$id));
+        $ret = array();
+        foreach($results as $key=>$result){
+            $profile = TermProfile::model()->findByPk($result->profile_id);
+            $ret[$profile->name][$key]['value'] = $result->profile_value;
+            $ret[$profile->name][$key]['image'] = $result->profile_image;
+        }
+        return $ret;
     }
 }
