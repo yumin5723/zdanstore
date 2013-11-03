@@ -38,7 +38,7 @@ class Order extends CmsActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            
+            array(''),
         );
     }
     public function behaviors()
@@ -297,5 +297,44 @@ and year(created)=year(now())";
         $criteria->order = "id desc";
         $criteria->limit = "10";
         return self::model()->findAll($criteria);
+    }
+    /**
+     * create order for user checkout
+     * @param  [type] $products [description]
+     * @return [type]           [description]
+     */
+    public function createOrder($products){
+        if(!empty($producrts)){
+            $total = 0;
+           foreach($products as $product){
+                $product = Product::model()->findByPk($product['id']);
+                if(!empty($prioduct)){
+                    $price = $product->shop_price;
+                    $product_total = $price * $product['quatity'];
+                    $total += $product_total;
+                }
+           }
+           $model = new self;
+           $model->uid = Yii::app()->user->id;
+           // $model->ip = Yii::app()->request->HostAddress
+           $model->address = $products['address'];
+           $model->total_price = $total;
+           $model->status = self::ORDER_STATUS_CREATED;
+           $model->save(false);
+
+           //create order product relations
+           foreach($products as $product){
+                $orderProduct = new OrderProduct;
+                $orderProduct->order_id = $model->id;
+                $orderProduct->product_id = $product['id'];
+                $orderProduct->product_quantity = $product['quantity'];
+                $orderProduct->product_meta = serialize($product['profile']);
+                $product = Product::model()->findByPk($product['id']);
+                $orderProduct->product_price = $product->shop_price;
+
+                $orderProduct->save(false);
+           }
+        }
+        return true;
     }
 }

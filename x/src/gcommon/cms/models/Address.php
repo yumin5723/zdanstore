@@ -162,4 +162,19 @@ class Address extends CmsActiveRecord
         $criteria->addCondition("t.default=1");
         return self::model()->findAll($criteria);
     }
+    /**
+     * create address for user
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function createAddress($data){
+        $model = new self;
+        $model->uid = Yii::app()->user->id;
+        $model->name = $data['name'];
+        $model->address = $data['address'];
+        $model->zipcode = $data['zipcode'];
+        $model->country = $data['country'];
+        $model->sava(false);
+        return $model->id;
+    }
 }

@@ -28,7 +28,7 @@ class ShoppingController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'confirm'
+                    'confirm','checkout'
                 ) ,
                 'users' => array(
                     '@'
@@ -139,6 +139,30 @@ class ShoppingController extends GController {
             }
         }else{
             throw new Exception("Error Processing Request", 404);
+        }
+    }
+    /**
+     * action for user checkout 
+     * @return [type] [description]
+     */
+    public function actionCheckout(){
+        if(Yii::app()->resquest->isPostRequest){
+            if(empty($_POST['products'])){
+                return;
+            }     
+            if(isset($_POST['choseaddress'])){
+                if(isset($_POST['is_new_address']) && $_POST['is_new_address'] != ""){
+                    $address_id = Address::model()->createAddress($_POST['newAddress']);
+                    $_POST['address'] = $address_id;
+                }   
+                if(Order::model()->createOrder($_POST['products'])){
+                    $this->redirect("/shopping/complete");
+                }    
+            }else{
+                //get user address
+                $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
+                $this->render('address',array('products'=>$_POST['products'],'address'=>$addresee));
+            }
         }
     }
 }
