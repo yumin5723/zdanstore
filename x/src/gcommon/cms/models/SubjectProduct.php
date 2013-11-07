@@ -65,7 +65,7 @@ class SubjectProduct extends CmsActiveRecord
      * @param  [type] $brand_id [description]
      * @return [type]           [description]
      */
-    public function fetchAllSelectProductsByBrandId($brand_id){
+    public function fetchAllSelectProductsByBrandId($brand_id,$subjectid){
         $products = Product::model()->findAllByAttributes(array('brand_id'=>$brand_id,'status'=>Product::PRODUCT_STATUS_SELL));
         $ret = array();
         foreach($products as $product){
@@ -74,6 +74,8 @@ class SubjectProduct extends CmsActiveRecord
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
+        $criteria->condition = "t.subject_id = :subject_id";
+        $criteria->params = array(":subject_id"=>$subjectid);
         $criteria->addIncondition("t.product_id",$ret);
         $data = self::model()->findAll($criteria);
         return array_map(function ($a){return $a->product_id;}, $data);
@@ -83,11 +85,13 @@ class SubjectProduct extends CmsActiveRecord
      * @param  [type] $brand_id [description]
      * @return [type]           [description]
      */
-    public function fetchAllSelectProductsByTermId($term_id){
+    public function fetchAllSelectProductsByTermId($term_id,$subjectid){
         $ret = Product::model()->getProdcutIdsByTermId($term_id);
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
+        $criteria->condition = "t.subject_id = :subject_id";
+        $criteria->params = array(":subject_id"=>$subjectid);
         $criteria->addIncondition("t.product_id",$ret);
         $data = self::model()->findAll($criteria);
         return array_map(function ($a){return $a->product_id;}, $data);
@@ -127,7 +131,15 @@ class SubjectProduct extends CmsActiveRecord
      */
     public function updateSubjectProduct($subject_id,$products){
 
-        
+        foreach($products as $product){
+            $subjects = self::model()->findAllByAttributes(array("product_id"=>$product));
+        }
+        foreach($subjects as $subject){
+            if($subject_id != $subject->id){
+                $product = Product::model()->findByPk($subject->product_id);
+                return array(false,$product->name);
+            }
+        }
         // get current dependence
         $current = $this->getProductsBySubjectId($subject_id);
         // calculate need to delete
@@ -142,7 +154,7 @@ class SubjectProduct extends CmsActiveRecord
         if (!empty($to_insert)) {
             $this->addTerms($subject_id,$to_insert);
         }
-        return true;
+        return array(true,"");
     }
     /**
      * get terms of page id 

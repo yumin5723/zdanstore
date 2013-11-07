@@ -166,11 +166,16 @@ class SubjectController extends GController {
             //all products
             $products = Product::model()->findAllByAttributes(array('brand_id'=>$brand_id,'status'=>Product::PRODUCT_STATUS_SELL));
             //select products
-            $selected = SubjectProduct::model()->fetchAllSelectProductsByBrandId($brand_id);
+            $selected = SubjectProduct::model()->fetchAllSelectProductsByBrandId($brand_id,$subjectid);
             if(Yii::app()->request->isPostRequest){
                 $model = new SubjectProduct;
-                $model->updateSubjectProduct($subjectid,$_POST['Product']);
-                Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Subject Successfully!'));
+                $result = $model->updateSubjectProduct($subjectid,$_POST['Product']);
+
+                if($result[0] == false){
+                    Yii::app()->user->setFlash('error', Yii::t('cms', '以下商品已经参加了其他打折活动，一件商品暂时不能参加多个打折活动!:'.$result[1]));
+                }else{
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'update success!!'));
+                }
             }
         }
         if(isset($_REQUEST['termid'])){
@@ -178,11 +183,16 @@ class SubjectController extends GController {
             //all products
             $products = Product::model()->getAllProductsByTermId($term_id);
             //select products
-            $selected = SubjectProduct::model()->fetchAllSelectProductsByTermId($term_id);
+            $selected = SubjectProduct::model()->fetchAllSelectProductsByTermId($term_id,$subjectid);
             if(Yii::app()->request->isPostRequest){
                 $model = new SubjectProduct;
-                $model->updateSubjectProduct($subjectid,$_POST['Product']);
-                Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Subject Successfully!'));
+                $result = $model->updateSubjectProduct($subjectid,$_POST['Product']);
+
+                if($result[0] == false){
+                    Yii::app()->user->setFlash('error', Yii::t('cms', '以下商品已经参加了其他打折活动，一件商品暂时不能参加多个打折活动!:'.$result[1]));
+                }else{
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'update success!!'));
+                }
             }
         }
         $this->render("detail",array('all'=>$products,"select"=>$selected,'id'=>$subjectid,"brandid"=>$brand_id,"termid"=>$term_id));
