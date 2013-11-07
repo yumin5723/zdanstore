@@ -694,4 +694,5 @@ class Product extends CmsActiveRecord
         $criteria->order = "t.id DESC";
         return self::model()->findAll($criteria);
     }
+
 }

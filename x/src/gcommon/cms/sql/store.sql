@@ -211,6 +211,7 @@ alter table product add `is_recommond` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_mans` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_womens` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_hats` tinyint(4) NOT NULL DEFAULT '0';
+alter table subject_product add `subject_type` tinyint(4) NOT NULL DEFAULT '0';
 
 
 --
@@ -372,6 +373,7 @@ CREATE TABLE `subject_product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `subject_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `subject_type` tinyint(4) NOT NULL,
   `name` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,

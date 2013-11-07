@@ -42,6 +42,8 @@ class SubjectProduct extends CmsActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'product'=>array(self::BELONGS_TO, 'Product',
+                    'product_id'),
         );
     }
     /**
@@ -186,12 +188,14 @@ class SubjectProduct extends CmsActiveRecord
         if (empty($products)) {
             return true;
         }
-        $sql = "INSERT INTO " . $this->tableName() . " (subject_id,product_id) VALUES (:subject_id,:product_id)";
+        $sql = "INSERT INTO " . $this->tableName() . " (subject_id,subject_type,product_id) VALUES (:subject_id,:subject_type,:product_id)";
         $cmd = $this->getDbConnection()->createCommand($sql);
         if (!is_array($products)) {
             $products = array($products);
         }
+        $subject = Subject::model()->findByPk($subject_id);
         $cmd->bindParam(":subject_id", $subject_id);
+        $cmd->bindParam(":subject_type",$subject->type);
         foreach ($products as $id) {
             if(empty($id)){
                 continue;
@@ -226,5 +230,31 @@ class SubjectProduct extends CmsActiveRecord
         $cmd = $this->getDbConnection()->createCommand($sql);
         $cmd->bindParam(":subject_id", $subject_id);
         return $cmd->execute();
+    }
+        /**
+     * get sale count
+     * @return [type] [description]
+     */
+    public function getCountSales(){
+        $criteria = new CDbCriteria;
+        $criteria->condition = "subject_type = :subject_type";
+        $criteria->params = array(":subject_type"=>Subject::SUBJECT_TYPE_DISCOUNT);
+        return SubjectProduct::model()->count($criteria);
+    }
+    /**
+     * [getSaleProducts description]
+     * @param  [type] $count       [description]
+     * @param  [type] $pageCurrent [description]
+     * @return [type]              [description]
+     */
+    public function getSaleProducts($count,$pageCurrent){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->condition = "subject_type = :subject_type";
+        $criteria->params = array(":subject_type"=>Subject::SUBJECT_TYPE_DISCOUNT);
+        $criteria->limit = $count;
+        $criteria->offset = ($pageCurrent - 1) * $count;
+        return SubjectProduct::model()->with('product')->findAll($criteria);
     }
 }
