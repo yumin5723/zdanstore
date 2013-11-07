@@ -1,0 +1,51 @@
+{% extends "@pp/subject/index.twig" %}
+{% set menu_name="活动管理"%}
+{% block content %}
+<style type="text/css">.red{color:red;} .green{color: green;} .orange{color: orange;}</style>
+<a href="{{ this.createUrl("/pp/subject/view",{'id':subjectid,'type':'brand'})}}" class='btn btn-info'>按品牌查看</a>
+<a href="{{ this.createUrl("/pp/subject/view",{'id':subjectid,'type':'term'})}}" class='btn btn-info'>按分类查看</a>
+{% set sid = subjectid %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {% if flag == true %}
+    {% if brands is not empty %}
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':brands.search(), 
+            'filter':brands, 
+            'columns':{
+                0:'id',
+                1:'name',
+                2:'desc',
+                3:'created',
+                4:{
+                  'type' :'raw',
+                  'value':'CHtml::link("查看商品",Yii::app()->createUrl("/pp/subject/detail/",array("id"=>10,"brandid"=>$data->id)))'
+                },
+            },})) 
+         }} 
+    {% else %}
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':descendants, 
+            'columns':{
+                0:'id',
+                1:{'name':'name','value':'Oterm::str_tree($data->level,$data->name)'},
+                2:'short_name',
+                3:'description',
+                4:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':'{view}',
+                     'buttons':{
+                        'view':{'url':'Yii::app()->createUrl("/pp/subject/detail/",array("id"=>10,"termid"=>$data->id))'},
+                      },
+                      'htmlOptions':{'width':'50px'}
+                }
+            },})) 
+         }}
+    {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

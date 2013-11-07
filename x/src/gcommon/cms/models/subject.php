@@ -40,8 +40,8 @@ class Subject extends CmsActiveRecord
         $criteria->order = "id DESC";
         $criteria->compare('id',$this->id,true);
         $criteria->compare('name',$this->name,true);
-        $criteria->compare('value',$this->value,true);
-        $criteria->compare('type',$this->type,true);
+        $criteria->compare('url',$this->created,true);
+        $criteria->compare('created',$this->created,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
@@ -85,52 +85,5 @@ class Subject extends CmsActiveRecord
          * }
          */
         return $rules;
-    }
-        /**
-     * function_description
-     *
-     * @param $attributes:
-     *
-     * @return
-     */
-    public function updateAttrs($attributes) {
-        $attrs = array();
-        if (!empty($attributes['name']) && $attributes['name'] != $this->name) {
-            $attrs[] = 'name';
-            $this->name = $attributes['name'];
-        }
-        if (!empty($attributes['type']) && $attributes['type'] != $this->type) {
-            $attrs[] = 'type';
-            $this->type = $attributes['type'];
-        }
-        if (!empty($attributes['value']) && $attributes['value'] != $this->value) {
-            $attrs[] = 'value';
-            $this->value = $attributes['value'];
-        }
-        if ($this->validate($attrs)) {
-            return $this->save(false);
-        } else {
-            return false;
-        }
-    }
-    /**
-     * [convertProductIsNew description]
-     * @param  [type] $isNew [description]
-     * @return [type]        [description]
-     */
-    static public function convertSubjectTypes($type){
-        if($type == self::SUBJECT_TYPE_DISCOUNT){
-            return "折扣活动";
-        }
-    }
-    /**
-     * get all ad types 
-     * status is self::PRODUCT_STATUS_SELL
-     * @return [type] [description]
-     */
-    public function getTypes(){
-        return array(
-            self::SUBJECT_TYPE_DISCOUNT=>'折扣活动'
-            );
     }
 }

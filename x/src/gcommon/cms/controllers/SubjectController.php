@@ -10,14 +10,14 @@
 class SubjectController extends GController {
     public $sidebars = array(
         array(
+            'name' => '折扣活动',
+            'icon' => 'tasks',
+            'url' => 'discount',
+        ),
+         array(
             'name' => '满减活动',
             'icon' => 'tasks',
-            'url' => 'admin',
-        ),
-        array(
-            'name' => '创建活动',
-            'icon' => 'tasks',
-            'url' => 'create',
+            'url' => 'discount',
         ),
     );
     /**
@@ -46,6 +46,9 @@ class SubjectController extends GController {
                     'update',
                     'delete',
                     'product',
+                    'discount',
+                    'view',
+                    'detail',
                 ) ,
                 'users' => array(
                     '@'
@@ -74,7 +77,7 @@ class SubjectController extends GController {
      * @param integer the ID of the model to be loaded
      */
     public function loadModel($id) {
-        $model = Brand::model()->findByPk((int)$id);
+        $model = Subject::model()->findByPk((int)$id);
         if ($model === null) throw new CHttpException(404, 'The requested page does not exist.');
         
         return $model;
@@ -92,35 +95,19 @@ class SubjectController extends GController {
      */
     public function actionCreate() {
         $model = new Subject;
-        $types = ConstantDefine::getSubjectType();
-        if(isset($_POST['choosetype'])){
-            $subject = $model->findByAttributes(array('type'=>$_POST['choosetype']));
-            if(!empty($subject)){
-                 Yii::app()->user->setFlash('error', '已经存在此类活动');
-                 return $this->render('new', array(
-                    'subject' => $model,"types"=>$types,"isNew"=>true
-                ));
-            }
-            $type = $types[$_POST['Subject']['type']];
-            $all_brands = Brand::model()->findAll();
-            $node = Oterm::model()->roots()->findByPk(7);
-            $descendants = $node->descendants()->findAll();
-            return $this->render($type,array("subject"=>$model,"type"=>$_POST['Subject']['type'],'brands'=>$all_brands,"isNew"=>true,"descendants" => $descendants));
-        }
+        // collect user input data
         if (isset($_POST['Subject'])) {
-            $model->attributes = $_POST['Subject'];
-            $model->product_type = isset($_POST['product_type']) ? $_POST['product_type '] : "";
-            $model->brand = isset($_POST['brand']) ? $_POST['brand'] : "";
-            $model->oterm = isset($_POST['oterm']) ? $_POST['oterm'] : "";
+            $model->setAttributes($_POST['Subject']);
+            // validate user input password
             if ($model->validate()) {
-                if($model->saveSubject()){
-                    Yii::app()->user->setFlash('success', '新建成功！');
-                    // $this->redirect("admin");
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Subject Successfully!'));
+                    $this->redirect('discount');
                 }
             }
         }
-        $this->render('new', array(
-            'subject' => $model,"types"=>$types,"isNew"=>true
+        $this->render('create', array(
+            "model" => $model,'isNew'=>true,
         ));
     }
     /**
@@ -128,13 +115,7 @@ class SubjectController extends GController {
      *
      */
     public function actionAdmin() {
-        $model = new Brand('search');
-        $model->unsetAttributes(); // clear any default values
-        if(isset($_GET["Brand"]))
-                    $model->attributes=$_GET["Brand"];  
-        $this->render('admin', array(
-            "model" => $model
-        ));
+        $this->render('admin');
     }
     /**
      * The function that do View User
@@ -142,11 +123,69 @@ class SubjectController extends GController {
      */
     public function actionView() {
         $id = isset($_GET['id']) ? (int)($_GET['id']) : 0;
-        $model_name = "Game";
-        $model = GxcHelpers::loadDetailModel($model_name, $id);
-        $this->render('view', array(
-            "model" => $model
-        ));
+        $brands = array();
+        $root = "";
+        $results = array();
+        $flag = false;
+        if(isset($_GET['type']) && $_GET['type'] == 'brand'){
+            $brands = new Brand('search');
+            $brands->unsetAttributes(); // clear any default values
+            if(isset($_GET["Brand"]))
+                        $brands->attributes=$_GET["Brand"];
+            // return $this->render('brands', array(
+            //     "model" => $model
+            // ));
+            $flag = true;
+        }elseif(isset($_GET['type']) && $_GET['type'] == 'term'){
+            $root = 14;
+            $model = new Oterm;
+            $root = Oterm::model()->findByAttributes(array("root"=>$root));
+            $descendants = $root->descendants()->findAll();
+            $results = new CActiveDataProvider("Oterm", array(
+                'data'=>$descendants,
+                'pagination' => array(
+                        'pageSize' => 20,
+                    )
+            ));
+            $flag = true;
+            // $this->render("show",array("root"=>$root,"descendants"=>$results));
+        }
+        $this->render("view",array('flag'=>$flag,'subjectid'=>$id,'brands'=>$brands,"root"=>$root,"descendants"=>$results));
+    }
+    /**
+     * [actionDetail description]
+     * @return [type] [description]
+     */
+    public function actionDetail(){
+        $subjectid = $_REQUEST['id'];
+        $brand_id = "";
+        $term_id = "";
+        if(isset($_REQUEST['brandid'])){
+            $brand_id = $_REQUEST['brandid'];
+
+            //all products
+            $products = Product::model()->findAllByAttributes(array('brand_id'=>$brand_id,'status'=>Product::PRODUCT_STATUS_SELL));
+            //select products
+            $selected = SubjectProduct::model()->fetchAllSelectProductsByBrandId($brand_id);
+            if(Yii::app()->request->isPostRequest){
+                $model = new SubjectProduct;
+                $model->updateSubjectProduct($subjectid,$_POST['Product']);
+                Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Subject Successfully!'));
+            }
+        }
+        if(isset($_REQUEST['termid'])){
+            $term_id = $_REQUEST['termid'];
+            //all products
+            $products = Product::model()->getAllProductsByTermId($term_id);
+            //select products
+            $selected = SubjectProduct::model()->fetchAllSelectProductsByTermId($term_id);
+            if(Yii::app()->request->isPostRequest){
+                $model = new SubjectProduct;
+                $model->updateSubjectProduct($subjectid,$_POST['Product']);
+                Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Subject Successfully!'));
+            }
+        }
+        $this->render("detail",array('all'=>$products,"select"=>$selected,'id'=>$subjectid,"brandid"=>$brand_id,"termid"=>$term_id));
     }
     /**
      * The function that do Update User
@@ -157,8 +196,8 @@ class SubjectController extends GController {
         if ($id !== 0) {
             $model = $this->loadModel($id);
             // collect user input data
-            if (isset($_POST['Brand'])) {
-                if ($model->updateAttrs($_POST['Brand'])) {
+            if (isset($_POST['Subject'])) {
+                if ($model->updateAttrs($_POST['Subject'])) {
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
                 }
             }
@@ -188,5 +227,18 @@ class SubjectController extends GController {
         }
         $products = Product::model()->getAllProductsByBrand($id);
         $this->render('product',array('model'=> new Product,'id'=>$id));
+    }
+    /**
+     * action for discount subject
+     * @return [type] [description]
+     */
+    public function actionDiscount(){
+        $model = new Subject('search');
+        $model->unsetAttributes(); // clear any default values
+        if(isset($_GET["Subject"]))
+                    $model->attributes=$_GET["Subject"];  
+        $this->render('discount', array(
+            "model" => $model
+        ));
     }
 }

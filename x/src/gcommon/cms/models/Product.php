@@ -517,10 +517,10 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         if(isset($brid) && $brid != ""){
-            $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+            $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }else{
-             $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
              $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
         }
         // $criteria->params = array(":brand_id"=>$brand_id);
@@ -547,10 +547,10 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         if(isset($brid) && $brid != ""){
-            $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+            $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }else{
-             $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
              $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
         }
         $criteria->addInCondition("id",$ids);
@@ -675,5 +675,23 @@ class Product extends CmsActiveRecord
         $criteria->addInCondition("id",$oids);
 
         return self::model()->findAllByAttributes(array(),$criteria);
+    }
+    /**
+     * [getAllProductsByTermId description]
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getAllProductsByTermId($term_id){
+        $ids = $this->getProdcutIdsByTermId($term_id);
+
+       
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->condition = "t.status=:status";
+        $criteria->params = array(":status"=>self::PRODUCT_STATUS_SELL);
+        // $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("t.id",$ids);
+        $criteria->order = "t.id DESC";
+        return self::model()->findAll($criteria);
     }
 }

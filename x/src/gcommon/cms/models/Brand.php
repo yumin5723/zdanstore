@@ -23,6 +23,7 @@ class Brand extends CmsActiveRecord
 {
     public $upload;
     public $upload1;
+    public $subjectid;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class

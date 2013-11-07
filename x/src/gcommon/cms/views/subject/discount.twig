@@ -1,0 +1,31 @@
+{% extends "@pp/subject/index.twig" %}
+{% set menu_name="活动管理"%}
+{% block content %}
+<a href="/pp/subject/create">添加活动</a> 
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'name',
+                2:'value',
+                3:{
+                  'name' :'type',
+                  'type' :'raw',
+                  'value' :'Subject::convertSubjectTypes($data->type)',
+                },
+                4:'created',
+                5:'modified',
+                6:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {view} {update}'
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}

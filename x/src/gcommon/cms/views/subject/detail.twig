@@ -1,0 +1,20 @@
+{% extends "@pp/subject/index.twig" %}
+{% set menu_name="活动管理"%}
+{% block content %}
+<br />
+{% include "layouts/notice.twig" %}
+{% if brandid != "" %}
+<form action="/pp/subject/detail/id/{{id}}/brandid/{{ brandid }}" method="POST">
+{% else %}
+<form action="/pp/subject/detail/id/{{id}}/termid/{{ termid }}" method="POST">
+{% endif %}
+{% for al in all %}
+<label><input type="checkbox" name="Product[]" value="{{ al.id }}" {% if al.id in select %} checked="checked" {% endif %}/>{{ al.name }}</label>
+{% endfor %}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-large btn-primary">提交</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

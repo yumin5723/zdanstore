@@ -1,0 +1,29 @@
+{% extends "@pp/subject/index.twig" %}
+{% set menu_name="活动管理"%}
+{% block content %}
+{% include "layouts/notice.twig" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'name',
+                2:'desc',
+                3:'created',
+                8:{
+                  'type' :'raw',
+                  'value':'CHtml::link("查看商品",Yii::app()->createUrl("/pp/brand/product",array("id"=>$data->id)))'
+                },
+                5:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}'
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}
