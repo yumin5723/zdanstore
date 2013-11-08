@@ -49,7 +49,7 @@ class Message extends CmsActiveRecord
             array('uid','safe','on'=>'addmsg'),
             array('reply','safe','on'=>'reply'),
             array('email','email'),
-            array('uid','safe'),
+            array('uid,username','safe'),
         );
         /*
          * if (!isset(Yii::app()->params['needAlphaCode']) || !Yii::app()->params['needAlphaCode']) {
@@ -101,6 +101,10 @@ class Message extends CmsActiveRecord
         if (!empty($attributes['email']) || $attributes['email'] != $this->email) {
             $attrs[] = 'email';
             $this->email = $attributes['email'];
+        }
+        if (!empty($attributes['username']) || $attributes['username'] != $this->username) {
+            $attrs[] = 'username';
+            $this->username = $attributes['username'];
         }
         if (!empty($attributes['content']) || $attributes['content'] != $this->content) {
             $attrs[] = 'content';

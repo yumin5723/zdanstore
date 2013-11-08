@@ -53,14 +53,12 @@ class ContactController extends GController {
         if(!empty($uid)){
             $email = User::model()->findByPk($uid);
         }
-        // if(Yii::app()->user->isGuest){
-        //     return $this->redirect('/user/');
-        // }
         if (isset($_POST['Message'])) {
             $model->setAttributes($_POST['Message']);
             if ($model->validate()) {
                 if ($model->save(false)) {
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new User Successfully!'));
+                    return $this->render("index",array("model"=>$model,"uid"=>$uid,"data"=>$email));
                 }
             }else{
                 Yii::app()->user->setFlash('failed', Yii::t('cms', 'Create new User failed!'));

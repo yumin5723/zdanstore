@@ -200,11 +200,7 @@ class UserController extends GController {
         $uid = Yii::app()->user->id;
         $datas =array();
         $model = new Message('message');
-        if(!empty($uid)){
-            $datas = $model->getAlldatas($uid);
-        }else{
-            $datas = $model->getAlldatas();
-        }
+        $datas = $model->getAlldatas($uid);
         if (isset($_POST['Message'])) {
             $_POST['Message']['uid']=$uid;
             $model->setAttributes($_POST['Message']);

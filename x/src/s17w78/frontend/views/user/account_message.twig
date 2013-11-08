@@ -30,7 +30,7 @@
                     {% for m in data %}
                         <li class="from">
                             <div class="clearfix">
-                                <span class="name">{% if m.uid != 0 %}{{ this.getName(m.uid) }}{% else %}visitor{% endif %}</span>
+                                <span class="name">{{ u.username }}</span>
                                 <span class="date">{{ m.created }}</span>
                             </div>
                             <div class="word">

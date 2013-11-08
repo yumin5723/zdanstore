@@ -24,15 +24,15 @@
                         <ul>
                             <li class="clearfix">
                                 <span>Names:</span>
-                                <label>{% if uid is not empty %}{{ u.username }}<input type="hidden" name="Message[uid]" value="{{ uid }}" />{% else %}<input type="text" name="Message[uid]" value="{{ uid }}" />{% endif %}</label>
+                                <label>{% if uid is not empty %}{{ u.username }}<input type="hidden" name="Message[uid]" value="{{ uid }}" />{% else %}<input type="text" name="Message[username]" value="{{ uid }}" />{% endif %}</label>
                             </li>
                             <li class="clearfix">
                                 <span>Emails:</span>
-                                <label><input type="text" name="Message[email]" value="{% if data is not empty %}{{ data.email }}{% else %}{{ model.email }}{% endif %}" /></label>
+                                <label><input type="text" name="Message[email]" value="{% if data is not empty %}{{ data.email }}{% endif %}" /></label>
                             </li>
                             <li class="clearfix">
                                 <span>Message:</span>
-                                <textarea name="Message[content]" cols="" rows="">{{ model.content }}</textarea>
+                                <textarea name="Message[content]" cols="" rows=""></textarea>
                             </li>
                             <li class="clearfix">
                                 <input type="submit" class="btn3" name="" value="Send" />
