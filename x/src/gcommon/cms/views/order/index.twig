@@ -18,8 +18,7 @@
 <a href="/pp/order/index?type={{ type }}&dtype=1"><input type="radio" {% if dtype == 1 %}checked="checked"{% endif %}>订单确认等待付款</a>
 <a href="/pp/order/index?type={{ type }}&dtype=2"><input type="radio" {% if dtype == 2 %}checked="checked"{% endif %}>付款成功等待发货</a>
 <a href="/pp/order/index?type={{ type }}&dtype=3"><input type="radio" {% if dtype == 3 %}checked="checked"{% endif %}>订单已发货</a>
-<a href="/pp/order/index?type={{ type }}&dtype=4"><input type="radio" {% if dtype == 4 %}checked="checked"{% endif %}>交易完成</a>
-<a href="/pp/order/index?type={{ type }}&dtype=5"><input type="radio" {% if dtype == 5 %}checked="checked"{% endif %}>订单关闭</a>
+<a href="/pp/order/index?type={{ type }}&dtype=6"><input type="radio" {% if dtype == 4 %}checked="checked"{% endif %}>已配货</a>
 <br>
 <table class="items table">
 <thead>
@@ -53,8 +52,8 @@
 			付款成功等待发货
 			{% elseif v.status == constant('Order::ORDER_STATUS_SHIPING') %}
 			订单已发货
-			{% elseif v.status == constant('Order::ORDER_STATUS_COMPLETE') %}
-			交易完成
+			{% elseif v.status == constant('Order::ORDER_STATUS_PACKAGING') %}
+			配货
 			{% else %}
 			订单关闭
 			{% endif %}
