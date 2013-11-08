@@ -59,5 +59,10 @@ return array(
             'url'=>'/pp/subject/admin',
             'icon'=>'fire',
         ),
+        'message'=>array(
+            'name'=>'信息管理',
+            'url'=>'/pp/message/admin',
+            'icon'=>'gift',
+        ),
     ),
 );

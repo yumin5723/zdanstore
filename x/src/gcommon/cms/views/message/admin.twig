@@ -1,0 +1,44 @@
+{% extends "layouts/base_with_sidebar.twig" %}
+{% set menu_name="信息管理"%}
+{% set sidebar_name = "信息管理" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+		<h2>成员管理<span class="info">来创建和管理您的管理员吧</span></h2>
+
+		<br />
+		{{ void(this.widget('bootstrap.widgets.TbGridView',{
+		    'id':'app-grid', 
+		    'dataProvider':model.search(), 
+		    'filter':model, 
+		    'columns':{
+		        0:'id',
+		        1:'email',  
+		        2:{
+                    'name':'content',
+                    'value':'$data->content',
+                    "type":"raw",
+                    
+                },
+		        4:{
+                    'name':'isreply',
+                    'value':'($data->isreply== 1) ? "是" : "否"',
+                    "type":"raw",
+                    
+                },
+                5:'created',
+		        6:'modified',
+		        7:
+		        {
+		             'class':'bootstrap.widgets.TbButtonColumn',
+		             'template':'{update}{delete}',
+		             'buttons':{
+		             	'update':{'url':'Yii::app()->createUrl("pp/message/reply",array("id"=>$data->id))'}}
+		        }
+		    },})) 
+		 }} 
+		<br />
+		
+	</div>
+</div>
+{% endblock %}

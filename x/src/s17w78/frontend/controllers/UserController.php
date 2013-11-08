@@ -21,7 +21,7 @@ class UserController extends GController {
     {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('login','register'),//'account','setting','message','order','address',
+                'actions'=>array('login','register','message'),//'account','setting','message','order','address',
                 'users'=>array('*'),
             ),
             array('allow',
@@ -29,7 +29,7 @@ class UserController extends GController {
                 'users'=>array('?'),
             ),
             array('allow',
-                'actions'=>array('logout','account','index','setting','wishlist','message','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish','trackorder'),
+                'actions'=>array('logout','account','index','setting','wishlist','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish','trackorder'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -198,8 +198,13 @@ class UserController extends GController {
     /*backend user message*/
     public function actionMessage(){
         $uid = Yii::app()->user->id;
+        $datas =array();
         $model = new Message('message');
-        $datas = $model->getAlldatas($uid);
+        if(!empty($uid)){
+            $datas = $model->getAlldatas($uid);
+        }else{
+            $datas = $model->getAlldatas();
+        }
         if (isset($_POST['Message'])) {
             $_POST['Message']['uid']=$uid;
             $model->setAttributes($_POST['Message']);
@@ -214,6 +219,7 @@ class UserController extends GController {
                 }
             }
         }
+        
         $this->render("account_message",array("model"=>$model,"data"=>$datas[0],'pages'=>$datas[1]));
     }
     /*backend user address*/
@@ -308,5 +314,9 @@ class UserController extends GController {
      */
     public function actionTrackorder(){
         $this->render('trackorder');
+    }
+    public function getName($uid){
+        $result = User::model()->findByPk($uid);
+        return $result->username;
     }
 }

@@ -30,12 +30,21 @@
                     {% for m in data %}
                         <li class="from">
                             <div class="clearfix">
-                                <span class="name">{{ u.username }}</span>
-                                <span class="date">{{ m.date }}</span>
+                                <span class="name">{% if m.uid != 0 %}{{ this.getName(m.uid) }}{% else %}visitor{% endif %}</span>
+                                <span class="date">{{ m.created }}</span>
                             </div>
                             <div class="word">
                                 {{ m.content }}
                             </div>
+                            {% if m.isreply == 1 %}
+                            <div class="clearfix">
+                                <span class="name" style="color:green">问题回复</span>
+                                <span class="date">{{ m.modified }}</span>
+                            </div>
+                            <div class="word">
+                                {{ m.reply }}
+                            </div>
+                            {% endif %}
                         </li>
                     {% endfor %}
                     </ul>

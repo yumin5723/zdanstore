@@ -1,0 +1,107 @@
+<script type="text/javascript" src="{{ App.GcommonAssets.url}}/js/ckeditor/ckeditor.js"></script>
+<div class="form">
+{% include "layouts/notice.twig" %}
+创建新成员
+{% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+{{ form.errorSummary(model)|raw }}
+{{ form.textFieldRow(model, "name", {'placeholder':''})|raw }}
+
+
+{{ form.dropDownListRow(model,'province',model.ProvinceList,{
+                'empty':'-请选择-',
+                'ajax':{
+                    'url':"/member/dynamicCity",
+                    'data':{'pid':'js:this.value'},
+                    'update':'#Member_city',
+                },
+            })|raw }}
+
+
+            {{ form.dropDownListRow(model,'city',model.getCityList(model.province),{'empty':'-请选择-'})|raw }}
+
+
+  {{ form.textFieldRow(model, "contact", {'placeholder':''})|raw }}
+{{ form.radioButtonListRow(model, "ifhide", {'1':'是','2':'否'})|raw }}      
+
+<div class="control-group ">
+    <label for="Game_upload" class="control-label">上传照片</label>
+        <div class="controls">
+            <span></span>      
+                <img valign="top" alt="Image" width="30" height="30" title="Image" onClick="insertFileToContent('image','game_image');" src="{{ App.assets.Url}}/images/insert_image.png" />
+        </div>
+</div>
+{% if isNew  == true %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="game_image" src="" />
+        </div>
+</div>
+<input type="hidden" id="game_image" name="Member[image]">
+{% else %}
+<div class="control-group ">
+        <div class="controls">
+            <img class="game_image" src="{{ model.image }}" />
+        </div>
+</div>
+<input type="hidden" id="game_image" name="Member[image]" value="{{ model.image }}">
+{% endif %}
+
+
+<div class="control-group ">
+    <label for="MobileGame_publish_date" class="control-label required">简介  <span class="required">*</span></label>
+    <div class="controls">
+        {{form.textArea(model,'describe',{'tabindex':'2','class':'specialContent','id':'ckeditor_desc'})|raw }}
+        {{form.error(model,'describe')|raw}} 
+    </div>
+</div>
+
+
+
+<div class="control-group">
+  <div class="controls">
+    <button type="submit" class="btn btn-large btn-primary">提交</button>
+  </div>
+</div>
+{{ void(this.endWidget()) }}<!-- form -->
+<script type="text/javascript">
+    CKEDITOR.replace( 'ckeditor_desc', {
+        toolbar: 'Full',
+        width:'820'
+    });
+    $(document).ready(function(){
+           $("a[rel^='prettyPhoto']").prettyPhoto({show_title: true,social_tools: '',deeplinking: false});
+      });
+    function insertFileToContent(file_type,id){    
+        $.prettyPhoto.open('/cms/resource/createframe?&image_id='+ id +'&parent_call=true&ckeditor='+file_type+'&iframe=true&height=400','upload','');        
+    }
+    function afterUploadResourceWithGame(resource_path,image_id){
+        $("#"+image_id).val(resource_path);
+        $("."+image_id).attr("src",resource_path);
+        $.prettyPhoto.close();
+    }
+
+
+    
+
+
+    function insertFileToContentDesc(file_type){   
+        $.prettyPhoto.open('/cms/resource/createframe?parent_call=true&ckeditor='+file_type+'&iframe=true&height=400','上传资源','');        
+    }
+    
+    function afterUploadResourceWithEditor(resource_id,resource_path,file_type,insert_type,width,height,alt){
+        var add_width='';
+        var add_height='';
+        var add_alt='';
+        if(width!='0') add_width='width="'+width+'"';
+        if(height!='0') add_height='height="'+height+'"';
+        if(alt!='') add_alt='alt="'+alt+'"';   
+        if(file_type=='image'){
+            CKEDITOR.instances['ckeditor_desc'].insertHtml('<img '+add_width+' '+add_height+' '+ add_alt+' src="'+resource_path+'"/>');  
+        }
+        if(file_type=='video'){
+        }
+            
+        
+        $.prettyPhoto.close();
+    }
+</script>

@@ -1,0 +1,64 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="#">Contact Us</a></div>
+    <div class="mleft">
+        <div class="list_nav">
+            <dl>
+                <dt></dt>
+                <dd><a href="#" title="Vans 2013 Fall Shirts"></a></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="mright">
+        <div class="contact_box">
+            <div class="title">Contact Us</div>
+            <div class="email">
+                <h3>By Emails</h3>
+                {% include "base/notify.twig" %}
+                <div class="content">
+                   {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+                    {{ form.errorSummary(model)|raw }}
+                        <ul>
+                            <li class="clearfix">
+                                <span>Names:</span>
+                                <label>{% if uid is not empty %}{{ u.username }}<input type="hidden" name="Message[uid]" value="{{ uid }}" />{% else %}<input type="text" name="Message[uid]" value="{{ uid }}" />{% endif %}</label>
+                            </li>
+                            <li class="clearfix">
+                                <span>Emails:</span>
+                                <label><input type="text" name="Message[email]" value="{% if data is not empty %}{{ data.email }}{% else %}{{ model.email }}{% endif %}" /></label>
+                            </li>
+                            <li class="clearfix">
+                                <span>Message:</span>
+                                <textarea name="Message[content]" cols="" rows="">{{ model.content }}</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <input type="submit" class="btn3" name="" value="Send" />
+                            </li>
+                        </ul>
+                    {{ void(this.endWidget()) }}<!-- form -->
+                </div>
+            </div>
+            <div class="chat">
+                <h3>Live Chat</h3>
+                <div class="content">
+                    <p>If you have any questions, you may talk with our live representative during store hours.</p>
+                    <p>Chat Hour: 8:00 ~ 12:00 pm<br/><br/></p>
+                    <p><a href="#">Click Here</a>  to start live chat.</p>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="faq">
+                <div class="title">FAQ</div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+
+{% endblock %}
+
