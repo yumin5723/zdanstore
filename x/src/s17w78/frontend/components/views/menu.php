@@ -112,6 +112,6 @@
             </div>
         </li>
         <li><a href="/sale">SALE</a></li>
-        <li><a href="#">CONTACT</a></li>
+        <li><a href="/contact">CONTACT</a></li>
     </ul>
 </div>

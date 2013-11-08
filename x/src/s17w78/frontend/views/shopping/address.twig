@@ -138,7 +138,20 @@
                         </p>
                     </div>
                 </td>
-                <td class="price"><b>${{ cart.shop_price }}</b></td>
+                <td class="price">
+                    {% if App.shoppingcart.getNowPrice(cart.id) != "" %}
+                        <b>
+                            <del>${{ cart.shop_price }}</del>
+                        </b>
+                        <b>
+                            <dev>${{ App.shoppingcart.getNowPrice(cart.id) }}</del>
+                        </b>
+                        {% else %}
+                    <b>
+                        ${{ cart.shop_price }}
+                    </b>
+                    {% endif %}
+                </td>
                 <td>
                     <div class="buy_input">
                         {{ cart.quantity }}
@@ -146,7 +159,11 @@
                 </td>
                 <td>
                     <div class="buy_input">
+                        {% if App.shoppingcart.getNowPrice(cart.id) != "" %}
+                        {{ cart.quantity * App.shoppingcart.getNowPrice(cart.id) }}
+                        {% else %}
                         {{ cart.quantity * cart.shop_price }}
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -182,7 +199,7 @@
                     <label><input type="radio" checked="checked" name="Product[payment]" value="1"> PayPal</label>
                     <p class="ptip">
                         <em class="red">*</em> Your PayPal Account Emial<br/>
-                        <input type="text" name="Product[payment]" value="0" size="42">
+                        <input type="text" name="Product[payment]" value="" size="42">
                     </p>
                     <p class="tip">The invoice will be sent to your PayPal account within 24 hours. Please confirm your payment once the invoice received. Your order will be canceled automatically by our system if payment not clears in 5 days.  </p>
                 </div>
@@ -194,23 +211,17 @@
         </div>
 
         <!-- Bonus -->
-        <div class="shipping clearfix">
-            <div class="title">Bonus</div>
-            <div class="content">
-                <div class="fl">Use Voucher :<input type="text" name="" value="" size="24"></div>
-                <p class="tip fl">Please enter your voucher code or promotion code.</p>
-            </div>
-        </div>
+
 
         <!-- order total -->
         <div class="order_total clearfix">
             <dl>
                 <dd class="clearfix">
                     <span class="t1">Sub Total :</span>
-                    <span class="t2">$32.00</span>
+                    <span class="t2">${{ total }}</span>
                 </dd>
                 <dd class="clearfix">
-                    <span class="t1"><input type="checkbox" name="" value=""> Insurance :</span>
+                    <span class="t1"><input type="checkbox" name="Product[Insurance]" value="1"> Insurance :</span>
                     <span class="t2">$1.00</span>
                 </dd>
                 <dd class="clearfix">

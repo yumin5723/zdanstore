@@ -153,7 +153,8 @@ CREATE TABLE IF NOT EXISTS `order` (
   `billing_address` int(11) NOT NULL,
   `shipping` tinyint(4) NOT NULL DEFAULT '0',
   `payment` tinyint(4) NOT NULL DEFAULT '0',
-  `payaccount` varchar(255) DEFAULT NULL, 
+  `payaccount` varchar(255) DEFAULT NULL,
+  `insurance`  Decimal(32, 2) NOT NULL,
   `total_price` Decimal(32, 2) NOT NULL,
   `modified_uid` bigint(20) NOT NULL,
   `created` datetime DEFAULT NULL,
@@ -173,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `order_product` (
   `product_quantity` int(11) NOT NULL,
   `product_price` Decimal(32, 2) NOT NULL,
   `info` varchar(255) NOT NULL,
+  `product_meta` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
 ) AUTO_INCREMENT = 1000000000
@@ -341,14 +343,19 @@ CREATE TABLE `billing_address` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE `message` (
+CREATE TABLE IF NOT EXISTS `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
+  `username` varchar(120) NOT NULL,
+  `email` varchar(128) NOT NULL,
   `content` text NOT NULL,
-  `date` datetime NOT NULL,
+  `isreplys` tinyint(2) NOT NULL,
+  `isreply` tinyint(2) NOT NULL,
+  `reply` text NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35;
 
 
 CREATE TABLE `wishlist` (

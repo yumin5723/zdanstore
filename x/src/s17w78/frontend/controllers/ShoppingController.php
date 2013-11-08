@@ -175,12 +175,11 @@ class ShoppingController extends GController {
                     }
                     $_POST['Product']['address'] = $address->id;
                     $_POST['Product']['billing_address'] = $billingAddress->id;
-
                     $orderid = Order::model()->createOrder($_POST['Product']);
                     //delete shopping carts
                     // Cart::model()->delete/
                     // if($order_id == Order::model()->createOrder($_POST['Product'])){
-                        $this->redirect("/shopping/complete/id/".$orderid);
+                    $this->redirect("/shopping/complete/id/".$orderid);
                     // }    
                 }
                 
