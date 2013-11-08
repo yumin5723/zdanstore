@@ -29,6 +29,7 @@ class ProductController extends GController {
                     'index',
                     'list',
                     'view',
+                    'quick'
                 ) ,
                 'users' => array(
                     '*'
@@ -107,5 +108,22 @@ class ProductController extends GController {
             $html .= " <a href='#'>$name</a> &gt;";
         }
         return $html;
+    }
+    /**
+     * [actionQuick description]
+     * @return [type] [description]
+     */
+    public function actionQuick(){
+        $id = intval($_POST['id']);
+        $product = Product::model()->with('brand')->findByPk($id);
+
+        // $categories = Product::model()->getObjectTermById($id);
+        if(empty($product)){
+            throw new Exception("this page is not find", 404);
+        }
+        $product_images = ProductImage::model()->findAllByAttributes(array('product_id'=>$id));
+        $product_profiles = ProductProfile::model()->getProfilesByProductId($id);
+        $html = $this->render('quick',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles),true);
+        echo json_encode($html);
     }
 }

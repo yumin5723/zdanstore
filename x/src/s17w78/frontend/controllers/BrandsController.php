@@ -89,13 +89,7 @@ class BrandsController extends GController {
      * @return [type] [description]
      */
     public function actionTerm(){
-        $brand_id = intval($_GET['id']);
-        $brand = Brand::model()->findByPk($brand_id);
-        if(empty($brand)){
-            throw new Exception("this page is not found", 404);
-            
-        }
-        $term_id = intval($_GET['cid']);
+        $term_id = intval($_GET['id']);
 
         //left menu category
         $leftCategory = Oterm::model()->getTreeByTermId($term_id);
@@ -113,7 +107,7 @@ class BrandsController extends GController {
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
 
-        $url = '/brands/term';
+        $url = '/subject/term';
         foreach($_GET as $k=>$o){
             $url.="/".$k."/".$o; 
         }

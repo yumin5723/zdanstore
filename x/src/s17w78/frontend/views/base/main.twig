@@ -100,5 +100,41 @@
     </div>
 </div>
 
+<!-- dialog code -->
+<div class="popmark"></div>
+<div id="popup" class="clearfix">
+    <a href="javascript:void(0);" class="popclose">×</a>
+    <div class="popcontent">
+        
+    </div>
+</div>
+<script type="text/javascript">
+    $("ul li div.pic").mouseover(function(){
+        $(this).find(".quick").show();
+    });
+    $("ul li div.pic").mouseout(function(){
+        $(this).find(".quick").hide();
+    });
+
+    $(".quick").click(function(){
+        popup();
+        var id = $(this).parent().find("input").val();
+        var cartData = {"id":id};
+        $.ajax({
+            type: "POST",
+            url:"/product/quick",
+            data:cartData,
+            dataType:'json',
+            success:function(data){     
+                $(".popcontent").html(data); 
+            }
+        });
+    });
+
+    $(".popclose").click(function(){
+        closePopup();
+    });
+</script>
+
 </body>
 </html>

@@ -146,7 +146,7 @@ class ProductController extends GController {
         if(isset($_GET["Product"]))
                     $model->attributes=$_GET["Product"];  
         $this->render('admin', array(
-            "model" => $model
+            "model" => $model,
         ));
     }
     /**

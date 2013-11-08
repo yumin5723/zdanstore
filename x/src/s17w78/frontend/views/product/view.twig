@@ -30,8 +30,12 @@
                     <span class="name"><b>{{ product.brand.name }}</b></span>
                     <span class="subname">{{ product.name }}</span>
                     <span class="num">{{ product.batch_number }}</span>
-                    <span class="price">${{ product.shop_price }}</span>
-                    <span class="off">Buy 1 Get 1 50% Off</span>
+                    {% if App.shoppingcart.getNowPrice(product.id) != "" %}
+                        <span class="price"><del>${{ product.shop_price}}</del></span>&nbsp;
+                        <span class="off">${{ App.shoppingcart.getNowPrice(product.id) }}</span>
+                    {% else %}
+                        <span class="price">${{ product.shop_price}}</span>
+                    {% endif %}
                 </div>
             </div>
             <div class="d_123">
@@ -122,6 +126,28 @@
                 });
             });
 
+            $(".fav_btn").click(function(){
+                var id = $("#pro_id").val();
+                var cartData = {"id":id};
+                // var cartData = {'id':id};
+                $.ajax({
+                    type: "POST",
+                    // contentType:"application/json",
+                    url:"/subscription/addwish",
+                    data:cartData,
+                    dataType:'json',
+                    success:function(data){
+                        if(data == 0){
+                            alert("You can't shopping until login.");
+                        }else if(data == 1){
+                            alert("already added");
+                        }else{
+                            alert("add success!!");
+                        }  
+                    }
+                });
+            });
+
             $(".cart_dialog .close").click(function(){
                 $(".cart_dialog").hide();  
             });
@@ -141,7 +167,7 @@
             {% for also in alsolikes %}
             <dd>
                 <div class="pic">
-                    <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title=""><img src="{{ also.product_logo }}" width="118" height="136" /></a>
+                    <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title=""><img src="{{ also.logo }}" width="118" height="136" /></a>
                 </div>
                 <div class="txt">
                     <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':also.brand_id} ) }}" title="">{{ also.brand.name }}</a></span><br/>

@@ -127,7 +127,11 @@ class Cart extends CActiveRecord
         $price = 0;
         foreach($carts as $cart){
             $product = Product::model()->findByPk($cart->product_id);
-            $price += $cart->quantity * $product->shop_price;
+            if(Yii::app()->shoppingcart->getNowPrice($cart->product_id) == ""){
+                $price += $cart->quantity * $product->shop_price;
+            }else{
+                $price += $cart->quantity * Yii::app()->shoppingcart->getNowPrice($cart->product_id);
+            }
         }
         return $price;
     }

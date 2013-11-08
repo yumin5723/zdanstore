@@ -199,4 +199,18 @@ class ShoppingCart extends CApplicationComponent{
         }
         return $total;
     }
+    /**
+     * [getNowPrice description]
+     * @param  [type] $product_id [description]
+     * @return [type]             [description]
+     */
+    public function getNowPrice($product_id){
+        $product = Product::model()->findByPk($product_id);
+        $subject = SubjectProduct::model()->with('subject')->findByAttributes(array('product_id'=>$product_id));
+        if(empty($subject)){
+            return "";
+        }
+        $discount = $subject->subject->value/10;
+        return $product->shop_price*$discount;
+    }
 }

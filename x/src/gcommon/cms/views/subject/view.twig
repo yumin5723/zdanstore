@@ -20,7 +20,7 @@
                 3:'created',
                 4:{
                   'type' :'raw',
-                  'value':'CHtml::link("查看商品",Yii::app()->createUrl("/pp/subject/detail/",array("id"=>10,"brandid"=>$data->id)))'
+                  'value':'CHtml::link("查看商品",Yii::app()->createUrl("/pp/subject/detail/",array("id"=>' ~ subjectid ~',"brandid"=>$data->id)))'
                 },
             },})) 
          }} 
@@ -38,7 +38,7 @@
                      'class':'bootstrap.widgets.TbButtonColumn',
                      'template':'{view}',
                      'buttons':{
-                        'view':{'url':'Yii::app()->createUrl("/pp/subject/detail/",array("id"=>10,"termid"=>$data->id))'},
+                        'view':{'url':'Yii::app()->createUrl("/pp/subject/detail/",array("id"=>' ~ subjectid ~',"termid"=>$data->id))'},
                       },
                       'htmlOptions':{'width':'50px'}
                 }

@@ -5,7 +5,14 @@
         <div class="txt">
             <span class="name">{{ cart.brand_name }}</span><br />
             <span class="subname">{{ cart.productName}}</span><br />
-            <span class="price">${{ cart.shop_price }}</span><em class="line">|</em><span class="price">Qty: 1</span><br />
+
+            {% if App.shoppingcart.getNowPrice(cart.id) != "" %}
+            <span class="price"><del>${{ cart.shop_price }}</del></span>&nbsp;
+            <span class="price">${{ App.shoppingcart.getNowPrice(cart.id) }}</span>
+            {% else %}
+            <span class="price">${{ cart.shop_price }}</span>
+            {% endif %}
+            <em class="line">|</em><span class="price">Qty: {{ cart.quantity }}</span><br />
             {% for k,v in cart.profiles %}
             <span class="color">
                 {{ k }}: {{ v }}</span>

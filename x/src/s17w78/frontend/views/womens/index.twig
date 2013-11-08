@@ -73,11 +73,18 @@
                     <li>
                         <div class="pic">
                             <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title=""><img src="{{ p.logo }}" width="174" height="166" /></a>
+                            <span class="quick">quick shop</span>
+                            <input type="hidden" value="{{ p.id }}" name="" />
                         </div>
                         <div class="txt">
                             <span class="name"><a href="#" title="">{{ p.brand.name }}</a></span><br/>
                             <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title="">{{ p.name }}</a><br/>
-                            <span class="price">{{ p.shop_price }}</span>
+                            {% if App.shoppingcart.getNowPrice(p.id) != "" %}
+                            <span class="price"><del>${{ p.shop_price}}</del></span>&nbsp;
+                            <span class="price">${{ App.shoppingcart.getNowPrice(p.id) }}</span>
+                            {% else %}
+                            <span class="price">${{ p.shop_price}}</span>
+                            {% endif %}
                         </div>
                     </li>
                 {% endfor %}

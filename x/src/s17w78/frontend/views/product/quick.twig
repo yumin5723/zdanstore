@@ -1,0 +1,131 @@
+<!-- image -->
+<div class="d_focus">
+    <div class="image" id="bigpics" title=""><img src="{{ product_images[0].image }}" /></div>
+    <div class="switch"><a href="{{ this.createUrl('/product/view',{'id':product.id} ) }}" class="link1">View Details</a></div>
+</div>
+
+<!-- info --> 
+<div class="d_info">
+    <div class="d_txt clearfix">
+        <div class="pic"><img src="{{ product.brand.image }}" width="40" height="40" /></div>
+        <div class="txt">
+            <span class="name"><b>{{ product.brand.name }}</b></span>
+            <span class="subname">{{ product.name }}</span>
+            <span class="num">{{ product.batch_number }}</span>
+            {% if App.shoppingcart.getNowPrice(product.id) != "" %}
+                <span class="price"><del>${{ product.shop_price}}</del></span>&nbsp;
+                <span class="off">${{ App.shoppingcart.getNowPrice(product.id) }}</span>
+            {% else %}
+                <span class="price">${{ product.shop_price}}</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="d_123">
+        {% if product.status == 1 %}
+        商品已下架
+        {% else %}
+        {% for k,v in product_profiles %}
+        <div class="{{ k|lower }} clearfix">
+            <div class="dt"><span class="red">*</span> {{ k }}:</div>
+            <dl> 
+                {% for va in v %}
+                    {% if va.image is not empty %}   
+                        <dd {% if loop.index == 1 %}class="cur"{% endif %} data-value="{{ va.value }}"><img src="{{ va.image }}" width="40" height="42" /></dd>
+                    {% else %}
+                        <dd {% if loop.index == 1 %}class="cur"{% endif %} data-value="{{ va.value }}">{{va.value|lower}}</dd>
+                    {% endif %}
+                {% endfor %}
+            <dl>
+        </div>
+        {% endfor %}
+        <input type="hidden" value="{{ product.id }}" id="pro_id" />
+        <div class="quantity clearfix">
+            <div class="dt"><span class="red">*</span> Quantity:</div>
+            <dl>
+                <dd class="buy_input">
+                    <a href="javascript:void(0);" class="reduce">-</a>
+                    <input value="1" id="buy_num" class="text" readOnly="true">
+                    <a href="javascript:void(0);" class="add">+</a>
+                </dd>
+                
+            </dl>
+        </div>
+        {% endif %}
+    </div>
+    {% if product.status == 0 %}<div class="d_buy clearfix"><input type="button" value="Add to Cart" class="buy_btn"></div>{% endif %}
+    <div class="d_fav clearfix"><a class="fav_btn">Add to Wishlist</a></div>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+    $(".reduce").click(function(){
+        var qut = parseInt($("#buy_num").val());
+        if(qut == 1){
+            return false;
+        }else{
+            qut = qut -1;
+            $("#buy_num").val(qut);
+        }
+    });
+    $(".add").click(function(){
+        var qut = parseInt($("#buy_num").val());
+        qut = qut + 1;
+        $("#buy_num").val(qut);
+    });
+    // select color/size
+    $(".d_123 .color dd").click(function(){
+        $(".d_123 .color dd").removeClass("cur");
+        $(this).addClass("cur");
+    });
+    $(".d_123 .size dd").click(function(){
+        $(".d_123 .size dd").removeClass("cur");
+        $(this).addClass("cur");
+    });
+
+    // add to cart
+    $(".buy_btn").click(function(){
+        var id = $("#pro_id").val();
+        var color = $(".d_123 .color").find("dd.cur").attr("data-value");
+        var size = $(".d_123 .size").find("dd.cur").attr("data-value");
+        var quantity = $("#buy_num").val();
+        var cartData = {"id":id,
+                        "quantity":quantity,
+                        "property":{
+                            "color":color,
+                            "size":size
+                        }
+                        };
+        // var cartData = {'id':id};
+        $.ajax({
+            type: "POST",
+            url:"/shopping/cartinit",
+            data:cartData,
+            dataType:'json',
+            success:function(data){     
+                closePopup();
+                $("#cart_back").html(data);
+                $(".cart_dialog").show();   
+            }
+        });
+    });
+    $(".fav_btn").click(function(){
+        var id = $("#pro_id").val();
+        var cartData = {"id":id};
+        // var cartData = {'id':id};
+        $.ajax({
+            type: "POST",
+            // contentType:"application/json",
+            url:"/subscription/addwish",
+            data:cartData,
+            dataType:'json',
+            success:function(data){
+                if(data == 0){
+                    alert("You can't shopping until login.");
+                }else if(data == 1){
+                    alert("already added");
+                }else{
+                    alert("add success!!");
+                }  
+            }
+        });
+    });
+</script>

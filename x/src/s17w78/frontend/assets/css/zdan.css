@@ -26,7 +26,7 @@
 	.fr{float:right;}
 	
 	/* main style */
-	.header{background: url(../images/header_bg.png) repeat-x top;width:980px;margin:0 auto;height:114px;position: relative;z-index:0;}
+	.header{background: url(../images/header_bg.png) repeat-x top;width:980px;margin:0 auto;height:114px;position: relative;z-index:1;}
 	.header .fl{height:114px;overflow: hidden;}
 	.header .search{position: relative;margin:12px 0 4px 22px;}
 	.header .search_ipt{height:23px;line-height: 23px;width:160px;padding-right:27px;}
@@ -384,3 +384,24 @@
 	.contact_box .chat p{line-height:18px;padding-bottom:5px;}
 	.contact_box .chat p a{font-style:italic;text-decoration: underline;}
 	.contact_box .faq .title{border-bottom:1px dotted #949494;}
+
+/* tracking */
+	#tracking p{line-height:18px;text-align:left;padding:3px 0;}
+	#tracking table td img{margin-right:2px;}
+
+/* dialog style */
+	.popmark{position:absolute;left:0;top:0;width:100%;height:100%;background:url(../images/dian.png);z-index:900;display:none;}
+	#popup{position:absolute;width:600px;padding:10px;background:#fff;display:none;z-index:10000;height:400px;}
+	#popup .popclose{width:16px;height:16px;border:1px solid #949494;position:absolute;top:8px;right:8px;line-height:16px;text-align:center;cursor:pointer;}
+/* quick shop */
+	ul li .pic,ul li .pic{position: relative;z-index:0;}
+	.quick{position:absolute;right:2px;bottom:2px;padding:2px 5px;color:#fff;background:#739F26;z-index:10;cursor:pointer;display:none;}
+	/* product image */
+	#popup .d_focus{float: left;width:300px;}
+	#popup .d_focus .image{border:1px dotted #949494;width:298px;height:310px;overflow: hidden;vertical-align:middle;}
+	#popup .d_focus .image img{width:298px;height:312px;}
+	#popup .d_focus .switch{padding:10px 0;margin:0 auto;text-align:center;width:298px;}
+	#popup .switch .link1{background: url(../images/cart_btn.png) no-repeat;width:150px;height:25px;line-height: 25px;color:#fff;display:inline-block;}
+	/* product info */
+	#popup .d_info{float:right;width:280px;}
+	#popup .d_info .d_123 dl{float: left;width:200px;}

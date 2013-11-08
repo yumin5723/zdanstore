@@ -1,0 +1,71 @@
+{% extends "base/main.twig" %}
+{% block content %}
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="/brands">Brands</a> &gt; <a href="/brand/view/id/{{ brand.id }}" title="">{{ brand.name }}</a></div>
+    <div class="mleft">
+        <div class="list_nav">
+            {% for term in terms %}
+                 <dl>
+                    <dt>{{ term.name }}</dt>
+                    {% for child in term.child %}
+                        <dd><a href="/brands/term/id/{{ brand.id}}/cid/{{ child.id }}" title="Long Sleeve T-Shirts">{{ child.name }}</a></dd>
+                    {% endfor %}
+                </dl>
+
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mright">
+        <!-- ad -->
+        <div class="mans_ad3"><a href="#" title=""><img src="{{ brand.ad_image }}" width="780" height="100" /></a></div>
+
+        <!-- mans product list -->
+                <div class="index_product">
+            <div class="total clearfix">
+                <div class="fl">
+                    <select><option>New Arrivals</option></select>
+                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                </div>
+                <div class="fr">
+                    <div class="page">
+                        <span>Total <b>{{ nums }}</b> records</span>
+                        {{ pager|raw }}
+                    </div>
+                </div>
+            </div>
+            <ul class="mans_dlist clearfix">
+                {% for result in results %}
+                <li>
+                    <div class="pic">
+                        <a href="{{ this.createUrl('/product/view',{'id':result.product_id} )}}" title=""><img src="{{ result.product.logo }}" width="178" height="208" /></a>
+                        <span class="quick">quick shop</span>
+                        <input type="hidden" value="{{ result.product_id }}" name="" />
+                    </div>
+                    <div class="txt">
+                        <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':result.product.brand_id })}}" title="">{{ result.product.brand.name }}</a></span><br/>
+                        <a href="{{ this.createUrl('/product/view',{'id':result.product_id} )}}" title="">{{ result.product.name }}</a><br/>
+                        <span class="price">{{ result.product.shop_price}}</span><span class="price">{{ this.getNowPrice(result.product_id) }}</span><br/>
+                        <span class="new">{% if result.product.is_new == 1 %}New Arrivals{% endif %}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="total clearfix">
+                <div class="fl">
+                    <select><option>New Arrivals</option></select>
+                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                </div>
+                <div class="fr">
+                    <div class="page">
+                        <span>Total <b>{{ nums }}</b> records</span>
+                        {{ pager|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
+</div>
+{% endblock %}

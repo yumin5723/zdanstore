@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `order_product` (
   `product_id` bigint(20),
   `product_quantity` int(11) NOT NULL,
   `product_price` Decimal(32, 2) NOT NULL,
+  `info` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
 ) AUTO_INCREMENT = 1000000000
@@ -212,7 +213,7 @@ alter table product add `is_recommond_mans` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_womens` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_hats` tinyint(4) NOT NULL DEFAULT '0';
 alter table subject_product add `subject_type` tinyint(4) NOT NULL DEFAULT '0';
-
+alter table subject add `status` tinyint(4) NOT NULL DEFAULT '0';
 
 --
 -- Table structure for table `deliverynote`
@@ -375,6 +376,18 @@ CREATE TABLE `subject_product` (
   `product_id` int(11) NOT NULL,
   `subject_type` tinyint(4) NOT NULL,
   `name` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+alter table subject add `url` varchar(255) NOT NULL;
+
+
+
+CREATE TABLE `subscription` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
