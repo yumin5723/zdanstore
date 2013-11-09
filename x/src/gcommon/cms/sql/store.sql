@@ -400,4 +400,6 @@ CREATE TABLE `subscription` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
+alter table `order` add `shipping_price` Decimal(32, 2) NOT NULL;
+
 
