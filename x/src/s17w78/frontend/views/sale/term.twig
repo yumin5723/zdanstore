@@ -7,7 +7,7 @@
         <div class="list_nav">
             <dl>
                 <dt>Shop By Category</dt>
-                <dd><a href="{{ this.getUrl('ssid','') }}" title="all">all</a>
+                <dd><a href="{{ this.getUrl('ssid','') }}" title="all">ALL</a>
                 {% for de in leftCategory %}
                 <dd><a href="{{ this.getUrl('ssid',de.id) }}" title="{{ de.name }}">{{ de.name }}</a></dd>
                 {% endfor %}
@@ -15,7 +15,7 @@
             {% for profile in leftProfiles %}
             <dl>
                 <dt>Shop By {{ profile.name }}</dt>
-                <dd><a href="{{ this.getUrl(profile.name,'') }}" title="all">all</a></dd>
+                <dd><a href="{{ this.getUrl(profile.name,'') }}" title="all">ALL</a></dd>
                 {% for v in profile.value %}
                 <dd><a href="{{ this.getUrl(profile.name,v) }}" title="{{ v }}">{{ v }}</a></dd>
                 {% endfor %}
@@ -23,7 +23,7 @@
             {% endfor %}
             <dl>
                 <dt>Shop By Brands</dt>
-                <dd><a href="{{ this.getUrl('brid','') }}" title="all">all</a>
+                <dd><a href="{{ this.getUrl('brid','') }}" title="all">ALL</a>
                 {% for br in leftbrands %}
                 <dd><a href="{{ this.getUrl('brid',br.brand.id) }}" title="{{ br.brand.name }}">{{ br.brand.name }}</a></dd>
                 {% endfor %}
