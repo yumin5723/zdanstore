@@ -217,6 +217,7 @@ class ShoppingCart extends CApplicationComponent{
             return "";
         }
         $discount = $subject->subject->value/10;
-        return $product->shop_price*$discount;
+        // sprintf(”%01.3f”,1)
+        return sprintf("%01.2f",$product->shop_price*$discount);
     }
 }

@@ -37,7 +37,7 @@
                     <!-- <dl class="mans2"> -->
                         <dt><?php echo $mens['name'] ?></dt>
                         <?php foreach ($mens['child'] as $child):?>
-                        <dd><a href="#" title=""><?php echo $child['name'] ?></a></dd>
+                        <dd><a href="<?php echo '/mans/term/cid/'.$child["id"];?>" title=""><?php echo $child['name'] ?></a></dd>
                         <?php endforeach ?>
                     </dl>
                     <?php endforeach ?>
@@ -61,7 +61,7 @@
                         <!-- <dl class="mans2"> -->
                             <dt><?php echo $womens['name'] ?></dt>
                             <?php foreach ($womens['child'] as $child):?>
-                            <dd><a href="#" title=""><?php echo $child['name'] ?></a></dd>
+                            <dd><a href="<?php echo '/womens/term/cid/'.$child["id"];?>" title=""><?php echo $child['name'] ?></a></dd>
                             <?php endforeach ?>
                         </dl>
                     <?php endforeach ?>
@@ -88,7 +88,7 @@
                         <dt>CATEGORIES</dt>
                         <?php foreach($hatsterms as $key=>$hats):?>
                             <?php foreach ($hats['child'] as $child):?>
-                                <dd><a href="#" title=""><?php echo $child['name']; ?></a></dd>
+                                <dd><a href="<?php echo '/hats/view/id/'.$child["id"];?>" title=""><?php echo $child['name']; ?></a></dd>
                             <?php endforeach ?>
                         <?php endforeach ?>
                     </dl>
@@ -96,11 +96,11 @@
                         <dt>BRADNS</dt>
                         <?php foreach($hatsbrands as $key=>$hats):?>
                             <dd>
-                                <a href="#" title=""><img src="<?php echo $hats->brand['image']; ?>" width="40" height="40" /></a>
-                                <span><a href="#" title=""><?php echo $hats->brand['name']; ?></a></span>
+                                <a href="<?php echo '/brands/view/id/'.$hats->brand["id"];?>" title=""><img src="<?php echo $hats->brand['image']; ?>" width="40" height="40" /></a>
+                                <span><a href="<?php echo '/brands/view/id/'.$hats->brand["id"];?>" title=""><?php echo $hats->brand['name']; ?></a></span>
                             </dd>
                         <?php endforeach ?>
-                        <dt class="more"><a href="#" title="">MORE&gt;</a></dt>
+                        <dt class="more"><a href="/brands" title="">MORE&gt;</a></dt>
                     </dl>
                      <?php foreach($hatsad as $women):?>
                         <div class="mans_ad">
