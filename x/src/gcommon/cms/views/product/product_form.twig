@@ -8,7 +8,7 @@
 </div>
 {{ form.textAreaRow(model, "desc", {'placeholder':'','id':'ckeditor_content','class':'specialContent'})|raw }}
 
-<div class="control-group ">
+<!--<div class="control-group ">
     <label for="Game_upload" class="control-label">商品图片</label>
         <div class="controls">
             <span>插入</span>      
@@ -25,7 +25,7 @@
               <input type="hidden" id="product_logo" value="{{ model.logo }}" name="Product[logo]">
             {% endif %}
         </div>
-</div>
+</div>-->
 
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
 {{ form.dropDownListRow(model, 'is_new', model.getIsNew(), {})|raw }}
@@ -107,14 +107,14 @@
             <input type="checkbox" name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}<br /> 
             {% for v in profile.value %}
              <input type="checkbox" name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
-             {% if profile.name == "COLOR"%}
+             {% if profile.name|upper == "COLOR"%}
              <div class="controls">
                 <span>插入</span>      
                     <img valign="top" alt="Image" title="Image" onClick="insertImageToProduct('image','profile_image{{ v }}');" src="{{ App.assets.Url}}/images/insert_image.png" />
             </div>
             <div class="control-group ">
                 <div class="controls">
-                    <img class="profile_image{{ v }}" src="" />
+                    <img class="profile_image{{ v }}" src="" width="200" height="150"/>
                 </div>
             </div>
             <input type="hidden" id="profile_image{{ v }}" name="Profile[{{profile.profile_id}}][{{ v }}][profile_image]">
@@ -133,14 +133,14 @@
             <input type="checkbox" {% if profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %} name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}<br /> 
             {% for v in profile.value %}
              <input type="checkbox" {% if v in profiles.profile_values %} checked="checked" {% endif %}name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
-             {% if profile.name == "COLOR"%}
+             {% if profile.name|upper == "COLOR"%}
              <div class="controls">
                 <span>插入</span>      
                     <img valign="top" alt="Image" title="Image" onClick="insertImageToProduct('image','profile_image{{ v }}');" src="{{ App.assets.Url}}/images/insert_image.png" />
             </div>
             <div class="control-group ">
                 <div class="controls">
-                    <img class="profile_image{{ v }}" src="{{ pro_image(profiles,v) }}"/>
+                    <img class="profile_image{{ v }}" width="100" height="100" src="{{ pro_image(profiles,v) }}"/>
                 </div>
             </div>
             <input type="hidden" id="profile_image{{ v }}" name="Profile[{{profile.profile_id}}][{{ v }}][profile_image]" value="{{ pro_image(profiles,v) }}">

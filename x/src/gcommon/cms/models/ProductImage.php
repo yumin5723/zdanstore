@@ -137,6 +137,9 @@ class ProductImage extends CActiveRecord
             $product_meta->image_type = $type;
             $product_meta->save(false);
         }
+        $product = Product::model()->findByPk($product_id);
+        $product->logo = $images[1]['image'];
+        $product->save(false);
     }
     /**
      * update metas for object
@@ -155,6 +158,9 @@ class ProductImage extends CActiveRecord
             $model->image_type = $type;
             $model->save(false);
         }
+        $product = Product::model()->findByPk($product_id);
+        $product->logo = $images[1]['image'];
+        $product->save(false);
         return true;
     }
     /**

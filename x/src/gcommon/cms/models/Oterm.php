@@ -47,7 +47,7 @@ class Oterm extends CmsActiveRecord {
      */
     public function rules() {
         return array(
-            array('name,short_name', 'required',),
+            array('name,short_name,sort', 'required',),
            array('description,url,template_id','safe'),
         );
     }
@@ -111,11 +111,7 @@ class Oterm extends CmsActiveRecord {
      * err is the error for not created or saved. if saved success, the err is null
      */
     public function updateCategory($data){
-        if($data['template_id'] != 0){
-            $data['url'] = "/list/".$this->id."_1.html";
-        }
         return $this->saveAttributes($data);
-
     }
     /**
      *  add "|-" for view category
@@ -197,7 +193,7 @@ class Oterm extends CmsActiveRecord {
      */
     public function getChildTerm($term_id){
         $category=Oterm::model()->findByPk($term_id);
-        $descendants=$category->children()->findAll();
+        $descendants=$category->children()->findAll(array('order'=>'sort DESC'));
         $allterms = array();
         foreach ($descendants as $key=>$value) {
             $allterms[$key]['id'] = $value->id;

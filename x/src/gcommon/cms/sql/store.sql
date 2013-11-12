@@ -405,3 +405,5 @@ alter table `order` add `shipping_price` Decimal(32, 2) NOT NULL;
 alter table `product` add `sales` int(11) NOT NULL;
 
 alter table `order` add `express_number` varchar(64) NOT NULL;
+
+alter table `oterm` add `sort` int(11) DEFAULT '0' NOT NULL;

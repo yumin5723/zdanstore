@@ -19,16 +19,6 @@ class OrderController extends GController {
             'icon' => 'tasks',
             'url' => 'search',
         ),
-        array(
-            'name' => '添加发货单',
-            'icon' => 'tasks',
-            'url' => 'adddelivery',
-        ),
-        array(
-            'name' => '发货单列表',
-            'icon' => 'tasks',
-            'url' => 'deliverylist',
-        ),
     );
     /**
      * @return array action filters

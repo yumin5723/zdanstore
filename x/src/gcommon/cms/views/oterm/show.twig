@@ -15,7 +15,10 @@
             'columns':{
                 0:'id',
                 1:{'name':'name','value':'Oterm::str_tree($data->level,$data->name)'},
-                2:'short_name',
+                2:{
+                  'type':'raw',
+                  'value':'CHtml::link($data->short_name,"/pp/oterm/edit/id/$data->id")',
+                },
                 3:'description',
                 4:
                 {

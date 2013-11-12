@@ -3,7 +3,7 @@
 {% set sidebar_name = "分类管理" %}
 {% block content %}
 <div class="nav">
-    当前位置：<a href="{{ this.createUrl('/cms/oterm/show',{'root':parent.root}) }}">分类管理</a>>>编辑分类
+    当前位置：<a href="{{ this.createUrl('/pp/oterm/show',{'root':parent.root}) }}">分类管理</a>>>编辑分类
 </div>
 {% include "layouts/notice.twig" %}
 {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':false}) %}
@@ -20,7 +20,7 @@
     </div>
 </div>
 {{ form.textFieldRow(model, "name", {'placeholder':'game'})|raw }}
-{{ form.textFieldRow(model, "url", {'placeholder':'url'})|raw }}
+{{ form.textFieldRow(model, "sort", {'placeholder':''})|raw }}
   {{ form.textFieldRow(model, "short_name", {'placeholder':'short_name'})|raw }}
   {{ form.textFieldRow(model, "description", {'placeholder':'description'})|raw }}
   <div class="control-group">

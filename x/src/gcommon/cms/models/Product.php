@@ -51,8 +51,8 @@ class Product extends CmsActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name,brand_id,status,logo,quantity,shop_price,desc','required'),
-            array('rank,batch_number,weight,give_points,points_buy,is_new,is_recommond,
+            array('name,brand_id,status,quantity,shop_price,desc','required'),
+            array('rank,batch_number,logo,weight,give_points,points_buy,is_new,is_recommond,
               is_recommond_mans,is_recommond_womens,need_postage,special_price,special_begin,special_end,order','safe'),
         );
     }
