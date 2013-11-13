@@ -11,6 +11,21 @@ class UserIdentity extends CUserIdentity
 
     public $id;
 
+    public $email;
+
+    /**
+     * Constructor.
+     * @param string $username username
+     * @param string $password password
+     */
+    public function __construct($email,$password)
+    {
+        // parent::__construct($username,$password);
+        // 
+        $this->email=$email;
+        $this->password=$password;
+        // $this->password=$password;
+    }
     /**
      * Authenticates a user.
      * The example implementation makes sure if the username and password
@@ -26,8 +41,8 @@ class UserIdentity extends CUserIdentity
             $criteria->condition = 'id=:id';
             $criteria->params['id'] = $this->id;
         } else {
-            $criteria->condition = 'username=:username';
-            $criteria->params['username'] = $this->username;
+            $criteria->condition = 'email=:email';
+            $criteria->params['email'] = $this->email;
         }
         $record = User::model()->find($criteria);
         if ($record === null) {
@@ -50,7 +65,7 @@ class UserIdentity extends CUserIdentity
     }
 
     public function getName() {
-        return $this->user->username;
+        return $this->user->email;
     }
 
 }

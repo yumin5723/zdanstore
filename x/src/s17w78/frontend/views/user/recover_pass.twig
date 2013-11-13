@@ -1,0 +1,66 @@
+{% extends "base/main.twig" %}
+{% block content %}
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="#">Contact Us</a></div>
+    <div class="mleft">
+        <div class="list_nav">
+            <dl>
+                <dt></dt>
+                <dd><a href="#" title="Vans 2013 Fall Shirts"></a></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="mright">
+        <div class="login_main mbg">
+    <div class="reg_box clearfix">
+        <div class="reg_pic"><img src="{{ App.assets.Url }}/images/user/reg_pic.png"/></div>
+        {% if result == "0" %}
+        <div class="reg_info">
+            <div class="succ">
+                <p>
+                    <span class="red">{{ message }}</span><br>
+                </p>
+            </div>
+        </div>
+        {% elseif result == "2"%}
+        <div class="reg_info">
+            <div class="succ">
+                <p>
+                    <span class="red">{{message}}</span><br>
+                    <a href="http://www.1378.com" class="ablue">进入首页</a> | <a href="/user/profile" class="ablue">完善资料</a>
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <div class="reg_txt">
+            已有1378玩家账号？<br/><a href="/user/login"><img src="{{ App.assets.Url }}/images/user/reg_link.png"/></a>
+        </div>
+        <div class="reg_form">
+            <h3>找回密码</h3>
+            {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+            <ul>
+                <li class="clearfix">
+                    <span>输入新密码: </span>
+                    {{ form.passwordField(user, "password", {'placeholder':'','class':"login_input"})|raw }}
+                    {{ form.error(user, 'password', {'placeholder':'','class':"login_span"})|raw }}
+                </li>
+                <li class="clearfix">
+                    <span>确认新密码: </span>
+                    {{ form.passwordField(user, "confirm_password", {'placeholder':'','class':"login_input"})|raw }}
+                    {{ form.error(user, 'confirm_password', {'placeholder':'','class':"login_span"})|raw }}
+                </li>
+                <li>
+                    <input type="submit" value="确认" class="reg_btn"/>
+                </li>
+            </ul>
+            {{ void(this.endWidget()) }}<!-- form -->
+        </div>
+        {% endif %}
+    </div>
+</div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+
+{% endblock %}

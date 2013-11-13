@@ -21,7 +21,7 @@ class UserController extends GController {
     {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('login','register','message'),//'account','setting','message','order','address',
+                'actions'=>array('login','register','message','recover','recoverpass'),//'account','setting','message','order','address',
                 'users'=>array('*'),
             ),
             array('allow',
@@ -75,8 +75,8 @@ class UserController extends GController {
         }
         $user = new User;
         if(Yii::app()->request->isPostRequest){
-            if (!empty($_POST['username']) && !empty($_POST['password'])) {
-                $user->username=$_POST['username'];
+            if (!empty($_POST['email']) && !empty($_POST['password'])) {
+                $user->email=$_POST['email'];
                 $user->password=$_POST['password'];
                 $user->rememberMe = true;
                 if ($user->login()) {
@@ -314,5 +314,58 @@ class UserController extends GController {
     public function getName($uid){
         $result = User::model()->findByPk($uid);
         return $result->username;
+    }
+    /**
+     * recover user
+     *
+     *
+     * @return
+     */
+    public function actionRecover() {
+        $user = new User;
+        if (isset($_POST['User'])) {
+            $user->setScenario('recover');
+            $user->setAttributes($_POST['User']);
+            if ($user->validate()) {
+                $found = User::model()->findByAttributes(array('email' => $user->email));
+
+                if ($found !== null) {
+                    $link = $found->getResetPasswordLink();
+                    // $found->send_recover_mail();
+                    return $this->render('recover_sent', array('user'=>$found));
+                } else {
+                    Yii::app()->user->setFlash('error',array(
+                                'main'=>Yii::t('mii','邮箱地址不存在！'),
+                            ));
+                }
+            }
+        }
+        
+        $this->render('login', compact('user'));
+    }
+        /**
+     * function_description
+     *
+     *
+     * @return
+     */
+    public function actionRecoverpass() {
+        $code = $_GET['code'];
+        if (!$user = User::findUserByResetPasswordCode($code)) {
+            $message = "无效的地址！";
+            return $this->render('recover_pass', array('user' => false, 'result' => 0, 'message' => $message));
+        }
+        if (isset($_POST['User']['password'])) {
+            $user->setScenario('resetPass');
+            $user->password = $_POST['User']['password'];
+            $user->confirm_password = $_POST['User']['confirm_password'];
+            $user->reset_password_code = $code;
+            if ($user->validate()) {
+                $user->save(false);
+                return $this->render('recover_pass', array('user' => $user, 'result' => 2, 'message'=>'重置密码成功'));
+            }
+        }
+        unset($user->password);
+        return $this->render('recover_pass', array('user'=>$user,'result' => 1));
     }
 }

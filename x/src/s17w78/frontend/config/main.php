@@ -30,6 +30,7 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
         'common.models.*',
         'common.components.*',
         'ext.restfullyii.components.*',
+        'gcommon.extensions.yii-mail.YiiMailMessage',
     ),
 
     'modules'=>array(
@@ -55,6 +56,17 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
         ),
         'ip' => array(
             'class' => 'common.extensions.IpAddress',
+        ),
+        'mail' => array(
+                'class' => 'gcommon.extensions.yii-mail.YiiMail',
+                'transportType'=>'smtp',
+                'transportOptions'=>array(
+                        'host'=>'mail.live.com',
+                        'username'=>'zdanonline@live.com',
+                        'password'=>'haoting21e',
+                        'port'=>'25',                       
+                ),
+                'viewPath' => 'application.views.mail',             
         ),
         'GcommonAssets' => array(
             'class' => 'gcommon.components.AppAssetManager',

@@ -77,20 +77,20 @@ class User extends UserActiveRecord
             // array('verifyCode','required', 'on'=>'register'),
             array('username, password', 'required', 'on' => 'login'),
             array('password', 'authenticatePass', 'on' => 'login'),
-            // array('email', 'required', 'on'=>'recover'),
+            array('email', 'required', 'on'=>'recover'),
             // array('old_email,p_password,new_email', 'required', 'on'=>'changeemail'),
             // array('new_email,old_email', 'email'),
             // array('p_password','check_pass','on'=>'changeemail'),
             // array('old_email', 'check_changeemail', 'on'=>'changeemail'),
             // array('new_email','check_email','on'=>'changeemail'),
-            // array('email', 'check_recoveremail', 'on'=>'recover'),
+            array('email', 'check_recoveremail', 'on'=>'recover'),
             
-            // array('password, reset_password_code','required','on'=>'resetPass'),
+            array('password, reset_password_code','required','on'=>'resetPass'),
             // array('old_password,new_password,confirm_password', 'required','on'=>'changePass'),
             // array('old_password','check_password','on'=>'changePass'),
             // array('new_password','compare','compareAttribute'=>'confirm_password', 'on'=>'changePass'),
-            // array('password','compare','compareAttribute'=>'confirm_password', 'on'=>'resetPass'),
-            // array('reset_password_code', 'resetPassword','on'=>'resetPass'),
+            array('password','compare','compareAttribute'=>'confirm_password', 'on'=>'resetPass'),
+            array('reset_password_code', 'resetPassword','on'=>'resetPass'),
             // array('username', 'length', 'min'=>6, 'max'=>15, 'on'=>'update,setusername'),
             // array('username', 'required','on'=>'setusername'),
             // array('username', 'check_username','on'=>'setusername'),
@@ -135,7 +135,7 @@ class User extends UserActiveRecord
         $textHash = hash($mode, $password);
         // set where salt will appear in hash //
         $saltStart = strlen($password);
-        $saltHash = hash($mode, $this->username);
+        $saltHash = hash($mode, $this->email);
         // add salt into text hash at pass length position and hash it //
         if($saltStart > 0 && $saltStart < strlen($saltHash)) {
             $textHashStart = substr($textHash,0,$saltStart);
@@ -170,7 +170,7 @@ class User extends UserActiveRecord
 
         if (!$this->hasErrors()) { // we only want to authenticate when no input errors
             Yii::import('common.components.UserIdentity');
-            $identity = new UserIdentity($this->username, $this->password);
+            $identity = new UserIdentity($this->email, $this->password);
             $identity->authenticate();
             switch ($identity->errorCode) {
                 case UserIdentity::ERROR_NONE:
@@ -195,7 +195,7 @@ class User extends UserActiveRecord
         Yii::import('common.components.UserIdentity');
         if($this->_identity===null)
         { 
-            $this->_identity=new UserIdentity($this->username,$this->password);
+            $this->_identity=new UserIdentity($this->email,$this->password);
             $this->_identity->authenticate();
         }
         if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
@@ -247,7 +247,7 @@ class User extends UserActiveRecord
     public function check_password($attribute, $params) {
         $pass = $this->$attribute;
         $user = self::model()->findByAttributes(array(
-                'username'=>$this->username));
+                'email'=>$this->email));
         if($this->hashPassword($pass) != $user->password){
             $this->addError('old_password', '旧密码错误！');
         }
@@ -325,7 +325,7 @@ class User extends UserActiveRecord
         $user = self::model()->findByAttributes(array(
                 'email'=>$this->email));
         if($user === null){
-            $this->addError('email', '邮箱地址不存在！');
+            $this->addError('email', 'E-mail address does not exist！');
         }
     }
     /**
@@ -729,10 +729,20 @@ class User extends UserActiveRecord
      * @return
      */
     public function send_recover_mail() {
-        $to_send = $this->email;
-        $subject = Yii::t('mii', '1378密码找回');
-        $content = Yii::app()->getViewRenderer()->renderPartial('user/recoveremail', array('user'=>$this));
-        return Yii::app()->sendMail->send($to_send, $subject,$content,'html');
+        // $to_send = $this->email;
+        // $subject = Yii::t('mii', '1378密码找回');
+        // $content = Yii::app()->getViewRenderer()->renderPartial('user/recoveremail', array('user'=>$this));
+        // return Yii::app()->sendMail->send($to_send, $subject,$content,'html');
+
+        $message            = new YiiMailMessage;
+           //this points to the file test.php inside the view path
+        $message->view = "recoverpass";
+        $sid                 = 1;
+        $message->subject    = Yii::t('mii', '1378密码找回');
+        $message->setBody(array('user'=>$this), 'text/html');                
+        $message->addTo($this->email);
+        $message->from = 'liuwanglei2001@163.com';   
+        Yii::app()->mail->send($message);       
     }
 
     /**

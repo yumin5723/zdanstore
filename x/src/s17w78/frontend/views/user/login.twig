@@ -14,8 +14,8 @@
                 <form method="post" action="/user/login">
                 <ul class="login_form">
                     <li class="clearfix">
-                        <em class="red">*</em> Email Address/username
-                        <label><input type="text" name="username" value="" size="32"></label>
+                        <em class="red">*</em> Email Address
+                        <label><input type="text" name="email" value="" size="32"></label>
                     </li>
                     <li class="clearfix">
                         <em class="red">*</em> Password
@@ -30,16 +30,19 @@
             </div>
 
             <div class="title">Forgot Your Password ?</div>
+            {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'action':'/user/recover','htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+            {{ form.errorSummary(user)|raw }}
             <div class="content">
                 <p class="tip">Fotgot your password? Do not worry, please provide your email address, we will send your password to you very soon.</p>
                 <ul class="login_form">
                     <li class="clearfix">
                         <em class="red">*</em> Email Address
-                        <label><input type="text" name="" value="" size="32"></label>
+                        <label><input type="text" name="User[email]" value="" size="32"></label>
                     </li>
                 </ul>
                 <div class="submit_btn"><input type="submit" name="" value="Submit" class="btn2"></div>
             </div>
+            {{ void(this.endWidget()) }}<!-- form -->
         </div><!-- sign in end -->
 
         <div class="reg">

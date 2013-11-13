@@ -422,3 +422,13 @@ CREATE TABLE `shipping` (
   PRIMARY KEY (`id`),
   KEY `country` (`country`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `user_reset_pass`;
+CREATE TABLE IF NOT EXISTS `user_reset_pass` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `code` varchar(128) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

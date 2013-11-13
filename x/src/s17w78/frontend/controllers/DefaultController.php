@@ -88,4 +88,17 @@ class DefaultController extends GController {
         // $this->render('index',array('products'=>$products,'focus'=>$focus,'rightads'=>$rightads,"downAds"=>$downAd));
         $this->render("index",array('focus'=>$focus,'rights'=>$rightAd,"downAds"=>$downAd,'brands'=>$brands,'products'=>$products));
     }
+
+    public function SendMail()
+    {   
+        $message            = new YiiMailMessage;
+           //this points to the file test.php inside the view path
+        $message->view = "test";
+        $sid                 = 1;
+        $message->subject    = 'My TestSubject';
+        $message->setBody(array(), 'text/html');                
+        $message->addTo('liuwanglei2001@163.com');
+        $message->from = 'liuwanglei2001@163.com';   
+        Yii::app()->mail->send($message);       
+    }
 }
