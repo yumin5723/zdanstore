@@ -52,7 +52,7 @@ class ClickController extends GController {
                     'update',
                     'delete',
                     'product',
-                    'new','newarrivals'
+                    'new','newarrivals','addnew','updatenew','deletenew'
                 ) ,
                 'users' => array(
                     '@'
@@ -165,6 +165,19 @@ class ClickController extends GController {
      * @return [type] [description]
      */
     public function actionNew(){
+        
+        $model = new Newarrivals('search');
+        $model->unsetAttributes(); // clear any default values
+        if(isset($_GET["Newarrivals"]))
+                    $model->attributes=$_GET["Newarrivals"];  
+        $this->render('newlist', array(
+            "model" => $model
+        ));
+    }
+    /**
+     * 
+     */
+    public function actionAddnew(){
         $model = new Newarrivals;
         $Newarrivals = $model->findAll();
         if(isset($_POST['Newarrivals'])){
@@ -176,6 +189,34 @@ class ClickController extends GController {
         }
         $this->render('new',array('model'=>$model,'isNew'=>true));
     }
+    public function actionUpdatenew(){
+        $id = isset( $_GET['id'] ) ? (int)( $_GET['id'] ) : 0;
+        if ($id !== 0) {
+            $model = Newarrivals::model()->findByPk($id);
+            // collect user input data
+            if (isset($_POST['Newarrivals'])) {
+                if ($model->updateAttrs($_POST['Newarrivals'])) {
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
+                }
+            }
+        } else {
+            throw new CHttpException(404, Yii::t('cms', 'The requested page does not exist.'));
+        }
+        $this->render('updatenew', array(
+            "model" => $model
+        ));
+    }
+    /**
+     * The function is to Delete a User
+     *
+     */
+    public function actionDeletenew($id) {
+        GxcHelpers::deleteModel('Newarrivals', $id);
+    }
+    /**
+     * [actionNewarrivals description]
+     * @return [type] [description]
+     */
     public function actionNewarrivals(){
         $Newarrivals = Newarrivals::model()->findAll();
         $model = new Newarrivals;

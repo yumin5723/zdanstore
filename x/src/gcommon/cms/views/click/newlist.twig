@@ -3,6 +3,7 @@
 {% set sidebar_name = "导航条新品管理" %}
 {% block content %}
 {% include "layouts/notice.twig" %}
+<a href="/pp/click/addnew">新建新品</a>
 <div class="container-fluid">
     <div class="row-fluid">
     {{ void(this.widget('bootstrap.widgets.TbGridView',{
@@ -14,15 +15,14 @@
                 1:'name',
                 2:'url',
                 3:'created',
-                4:{
-                  'name' :'type',
-                  'type' :'raw',
-                  'value' :'Click::convertAdTypes($data->type)',
-                },
                 5:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
-                     'template':' {update} {delete}'
+                     'template':' {update} {delete}',
+                     'buttons':{
+                      'update':{'url':'Yii::app()->createUrl("pp/click/updatenew/id/$data->id")'},
+                      'delete':{'url':'Yii::app()->createUrl("pp/click/deletenew/id/$data->id")'},
+                      }
                 }
             },})) 
          }} 

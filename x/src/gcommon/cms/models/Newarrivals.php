@@ -65,13 +65,11 @@ class Newarrivals extends CmsActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria=new CDbCriteria;
         $criteria->order = "id DESC";
         $criteria->compare('id',$this->id,true);
         $criteria->compare('name',$this->name,true);
+        $criteria->compare('url',$this->created,true);
         $criteria->compare('created',$this->created,true);
 
         return new CActiveDataProvider(get_class($this), array(
@@ -80,6 +78,29 @@ class Newarrivals extends CmsActiveRecord
                     'pageSize' => 20,
                 )
         ));
+    }
+    /**
+     * function_description
+     *
+     * @param $attributes:
+     *
+     * @return
+     */
+    public function updateAttrs($attributes) {
+        $attrs = array();
+        if (!empty($attributes['name']) && $attributes['name'] != $this->name) {
+            $attrs[] = 'name';
+            $this->name = $attributes['name'];
+        }
+        if (!empty($attributes['url']) && $attributes['url'] != $this->url) {
+            $attrs[] = 'url';
+            $this->url = $attributes['url'];
+        }
+        if ($this->validate($attrs)) {
+            return $this->save(false);
+        } else {
+            return false;
+        }
     }
     /**
      * save meta for product
