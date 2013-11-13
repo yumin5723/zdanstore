@@ -64,5 +64,10 @@ return array(
             'url'=>'/pp/message/admin',
             'icon'=>'gift',
         ),
+        'shipping'=>array(
+            'name'=>'运费管理',
+            'url'=>'/pp/shipping/admin',
+            'icon'=>'gift',
+        ),
     ),
 );

@@ -411,3 +411,14 @@ alter table `oterm` add `sort` int(11) DEFAULT '0' NOT NULL;
 alter table `brand` add `sort` int(11) DEFAULT '0' NOT NULL;
 
 alter table `term_profile` change `value` `value` text NOT NULL;
+
+CREATE TABLE `shipping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `country` varchar(64) NOT NULL,
+  `first_weight_price` Decimal(32, 2) NOT NULL,
+  `add_weight_price` Decimal(32, 2) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `country` (`country`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;

@@ -1,0 +1,27 @@
+{% extends "@pp/brand/index.twig" %}
+{% set menu_name="运费管理"%}
+{% set sidebar_name = "运费列表" %}
+{% block content %}
+{% include "layouts/notice.twig" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+    {{ void(this.widget('bootstrap.widgets.TbGridView',{
+            'id':'app-grid', 
+            'dataProvider':model.search(), 
+            'filter':model, 
+            'columns':{
+                0:'id',
+                1:'country',
+                2:'first_weight_price',
+                3:'add_weight_price',
+                4:'created',
+                5:
+                {
+                     'class':'bootstrap.widgets.TbButtonColumn',
+                     'template':' {update} {delete}'
+                }
+            },})) 
+         }} 
+  </div>
+</div>
+{% endblock %}
