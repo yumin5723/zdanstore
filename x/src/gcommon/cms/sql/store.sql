@@ -409,3 +409,5 @@ alter table `order` add `express_number` varchar(64) NOT NULL;
 alter table `oterm` add `sort` int(11) DEFAULT '0' NOT NULL;
 
 alter table `brand` add `sort` int(11) DEFAULT '0' NOT NULL;
+
+alter table `term_profile` change `value` `value` text NOT NULL;
