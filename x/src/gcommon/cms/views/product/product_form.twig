@@ -26,7 +26,7 @@
             {% endif %}
         </div>
 </div>-->
-
+{% include "@pp/product/photo_form.twig" %}
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
 {{ form.dropDownListRow(model, 'is_new', model.getIsNew(), {})|raw }}
 {{ form.dropDownListRow(model, 'is_recommond', model.getIsRecommond(), {})|raw }}
@@ -161,16 +161,6 @@
     CKEDITOR.replace( 'ckeditor_content', {
         toolbar: 'Full'
     });
-
-    var i=$(".picCount").length;
-    function showUpload(){
-      i++;
-      var str='<div class="picCount" id="pic_'+i+'"><a class="btn btn-danger" onclick="return deletePic(\'pic_'+i+'\');">delete</a><br/>';
-                str+='名称:'+i+'<input type="text" value="" name="Meta['+i+'][key]" /><br>';
-                str+='值:<input type="text" value="" name="Meta['+i+'][value]" /><br>';
-                str+='</div>';
-      $("#uploads").append(str);
-    }
 
     function deletePic(id){
         $("#"+id).html("");

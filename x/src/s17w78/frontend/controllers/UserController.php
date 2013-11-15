@@ -362,7 +362,7 @@ class UserController extends GController {
             $user->reset_password_code = $code;
             if ($user->validate()) {
                 $user->save(false);
-                return $this->render('recover_pass', array('user' => $user, 'result' => 2, 'message'=>'重置密码成功'));
+                return $this->render('recover_pass', array('user' => $user, 'result' => 2, 'message'=>'Reset Password success!'));
             }
         }
         unset($user->password);

@@ -83,6 +83,10 @@ class ProductController extends GController {
                     if(isset($_POST['Profile'])){
                         ProductProfile::model()->saveProductProfile($model->id,$_POST['Profile']);
                     }
+                    if(isset($_POST['ProductPhoto'])){
+                        // print_r($_POST['ProductPhoto']);exit;
+                        ProductImage::model()->saveProductImages($model->id,$_POST['ProductPhoto']);
+                    }
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
                     $this->redirect("/pp/product/stock/id/".$model->id);
                 }
@@ -112,6 +116,7 @@ class ProductController extends GController {
         // $metas = ProductMeta::model()->getAllMetasByProductId($_GET['id']);
         $termsProfiles = TermProfile::model()->getAllProfiles();
         $profiles = ProductProfile::model()->getProductProfileByProduct($_GET['id']);
+        $images = ProductImage::model()->getAllImagesByProductId($_GET['id']);
         // print_r($profiles);exit;
         if ( isset( $_POST["Product"] ) ) {
             $product->attributes=$_POST["Product"];
@@ -125,15 +130,18 @@ class ProductController extends GController {
                     if(isset($_POST['Profile'])){
                         ProductProfile::model()->updateProductProfile($product->id,$_POST['Profile']);
                     }
+                    if(isset($_POST['ProductPhoto'])){
+                        ProductImage::model()->updateProductImages($product->id,$_POST['ProductPhoto']);
+                    }
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
-                    // $this->redirect("/pp/product/update/id/".$_GET['id']);
+                    $this->redirect("/pp/product/update/id/".$_GET['id']);
                 }
             }else{
                 print_r($product->getErrors());exit;
             }
         }
         $this->render( 'update',array("model"=>$product,"isNew"=>false,"descendants" => $descendants,
-            "node" => $node,'select_terms'=>$select_terms,'termprofiles'=>$termsProfiles,'profiles'=>$profiles,
+            "node" => $node,'select_terms'=>$select_terms,'termprofiles'=>$termsProfiles,'profiles'=>$profiles,'images'=>$images
             ) );
     }
     /**
