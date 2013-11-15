@@ -237,7 +237,11 @@ class TermProfile extends CmsActiveRecord
         foreach($profiles as $key=>$profile){
             $ret[$key]['profile_id'] =$profile->id;
             $ret[$key]['name'] = $profile->name;
-            $ret[$key]['termname'] = $profile->term->name;
+            if(empty($profile->term->name)){
+                $ret[$key]['termname'] = "";
+            }else{
+                $ret[$key]['termname'] = $profile->term->name;
+            }
             $ret[$key]['value'] = explode(',', $profile->value);
         }
         return $ret;

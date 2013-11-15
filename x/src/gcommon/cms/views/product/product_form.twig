@@ -106,7 +106,7 @@
          {% for profile in termprofiles %}
             <input type="checkbox" name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}"><font color="red">{{ profile.name }}</font>({{ profile.termname }})<br /> 
             {% for v in profile.value %}
-             <input type="checkbox" name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
+             <input type="checkbox" name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;<br />
              {% if profile.name|upper == "COLOR"%}
              <div class="controls">
                 <span>插入</span>      
@@ -145,7 +145,7 @@
                         </div>
                         <input type="hidden" id="profile_image{{ v }}" name="Profile[{{profile.profile_id}}][{{ v }}][profile_image]" value="{{ pro_image(profiles,v) }}">
                 {% endif %}
-            {% endfor %}
+            {% endfor %}<br />
          {% endfor %}
       </div>
       </div>
