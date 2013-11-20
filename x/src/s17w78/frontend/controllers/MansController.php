@@ -77,6 +77,7 @@ class MansController extends GController {
             
         }
         $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
+
         // $this->render('view',array('brand'=>$brand,'terms'=>$terms));
 
         $count = 24;
@@ -104,6 +105,8 @@ class MansController extends GController {
         //left brand
         $leftBrands = BrandTerm::model()->getBrandsByTerm($term_id);
 
+        //mans banner 
+        $banner = Click::model()->getAdsByType(Click::AD_POSITION_MANS_TERM_BANNER,1);
         $request_profile = array();
         foreach($leftProfile as $p){
             if(isset($_GET[$p['name']]) && $_GET[$p['name']] != ""){
@@ -129,7 +132,7 @@ class MansController extends GController {
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft,'option'=>$_GET,'brid'=>$brid
+            ,'leftProfiles'=>$leftProfile,'banner'=>$banner,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft,'option'=>$_GET,'brid'=>$brid
             ));
         // $this->render('term');
     }

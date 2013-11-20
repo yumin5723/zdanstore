@@ -22,6 +22,7 @@ class Click extends CActiveRecord
     const AD_POSITION_HATS_FOCUS = 13;
     const AD_POSITION_HATS_FOOTER = 14;
     const AD_POSITION_SALE_FOCUS = 15;
+    const AD_POSITION_MANS_TERM_BANNER = 16;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -144,7 +145,7 @@ class Click extends CActiveRecord
             self::AD_POSITION_MANS_RIGHT=>'男装首页右侧广告',self::AD_POSITION_MANS_FOOTER=>"男装首页尾部广告",
             self::AD_POSITION_WOMANS_FOCUS=>'女装首页焦点图',self::AD_POSITION_WOMANS_FOOTER=>'女装首页尾部广告',
             self::AD_POSITION_HATS_FOCUS=>'hats首页焦点图',self::AD_POSITION_HATS_FOOTER=>'hats首页尾部广告',
-            self::AD_POSITION_SALE_FOCUS=>'SALE页焦点图'
+            self::AD_POSITION_SALE_FOCUS=>'SALE页焦点图',self::AD_POSITION_MANS_TERM_BANNER=>'男装分类页横幅广告',
             );
     }
     /**
@@ -181,6 +182,8 @@ class Click extends CActiveRecord
             return "hats首页尾部广告";
         }elseif($type == self::AD_POSITION_SALE_FOCUS){
             return "SALE页焦点图";
+        }elseif($type == self::AD_POSITION_MANS_TERM_BANNER){
+            return "男装分类页横幅广告";
         }else{
             return "品牌页banner";
         }

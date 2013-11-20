@@ -44,7 +44,7 @@ class Address extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('firstname,lastname,address,phone,country,zipcode','required'),
+            array('firstname,lastname,address,phone,country,state,zipcode','required'),
             //array('email','email'),
         );
         /*
@@ -79,6 +79,10 @@ class Address extends CmsActiveRecord
         if (!empty($attributes['country']) || $attributes['country'] != $this->country) {
             $attrs[] = 'country';
             $this->country = $attributes['country'];
+        }
+        if (!empty($attributes['state']) || $attributes['state'] != $this->state) {
+            $attrs[] = 'state';
+            $this->state = $attributes['state'];
         }
         if (!empty($attributes['zipcode']) || $attributes['zipcode'] != $this->zipcode) {
             $attrs[] = 'zipcode';
@@ -161,6 +165,7 @@ class Address extends CmsActiveRecord
         $model->address = $data['address'];
         $model->zipcode = $data['zipcode'];
         $model->country = $data['country'];
+        $model->state = $data['state'];
         $model->sava(false);
         return $model->id;
     }

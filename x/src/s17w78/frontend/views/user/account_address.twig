@@ -30,6 +30,7 @@
                                 Address {{ a.address }}<br/>
                                 Zip Code {{ a.zipcode }}<br/>
                                 Country {{ a.country }}<br/>
+                                State {{ a.state }}<br/>
                                 Tel:{{ a.phone }}<br/>
                             </p>
                         </div>
@@ -64,6 +65,10 @@
                             </li>
                             <li class="clearfix">
                                 <label>{{ form.dropDownListRow(model, 'country', model.Cu)|raw }}</label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> State
+                                <label><input type="text" name="Address[state]" value="" size="16"></label>
                             </li>
                             <li class="clearfix">
                                 <em class="red">*</em> Phone Number

@@ -47,6 +47,10 @@
                             </label>
                         </li>
                         <li class="clearfix">
+                            <em class="red">*</em> State
+                            <label><input type="text" name="BillingAddress[state]" value="" size="16"></label>
+                        </li>
+                        <li class="clearfix">
                             <em class="red">*</em> Phone Number
                             <label><input type="text" name="BillingAddress[phone]" value="" size="35"></label>
                         </li>
@@ -96,6 +100,10 @@
                                         <option value="{{ a }}">{{ a }}</option>
                                     {% endfor %}
                                 </select></label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> State
+                                <label><input type="text" name="Address[state]" value="" size="16"></label>
                             </li>
                             <li class="clearfix">
                                 <em class="red">*</em> Phone Number
@@ -324,7 +332,7 @@
             dataType:'json',
             success:function(data){   
                 if(data == -1){
-                    alert("no ems!");
+                    alert("The country does not support EMS!");
                     $("#check_shipping .fl").find("label").trigger("click");
                     return false;
                 }else{

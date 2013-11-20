@@ -443,5 +443,9 @@ CREATE TABLE IF NOT EXISTS `product_stock` (
   kEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+alter table `address` add `state` varchar(255) NOT NULL;
+
+alter table `billing_address` add `state` varchar(255) NOT NULL;
+
 
 

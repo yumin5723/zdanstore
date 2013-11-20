@@ -50,7 +50,7 @@
                             {% if va.image is not empty %}   
                                 <dd {% if loop.index == 1 %}class="cur"{% endif %} data-value="{{ va.value }}"><img src="{{ va.image }}" width="40" height="42" /></dd>
                             {% else %}
-                                <dd {% if loop.index == 1 %}class="cur"{% endif %} data-value="{{ va.value }}">{{va.value|lower}}</dd>
+                                <dd {% if loop.index == 1 %}class="cur"{% endif %} data-value="{{ va.value }}">{{va.value|title}}</dd>
                             {% endif %}
                         {% endfor %}
                     <dl>

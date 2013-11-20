@@ -80,6 +80,7 @@ class UserController extends GController {
                 $user->password=$_POST['password'];
                 $user->rememberMe = true;
                 if ($user->login()) {
+                    Yii::app()->shoppingcart->shareShoppintCartAfterLogin(Yii::app()->user->id);
                     return $this->redirect(Yii::app()->user->returnUrl);
                 }else{
                     Yii::app()->user->setFlash('error', Yii::t('mii', 'Username or password is wrong!!'));

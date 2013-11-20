@@ -716,7 +716,7 @@ class Product extends CmsActiveRecord
         }
         $criteria->order = "t.id DESC";
         if($ft == 1){
-            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
+            $criteria->order = "t.id DESC";
         }elseif($ft == 2){
             $criteria->order = "t.sales DESC";
         }elseif($ft == 3){
@@ -751,9 +751,9 @@ class Product extends CmsActiveRecord
             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }
-        if($ft == 1){
-            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
-        }
+        // if($ft == 1){
+        //     $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
+        // }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
     }
@@ -849,7 +849,7 @@ class Product extends CmsActiveRecord
         }
         $criteria->order = "t.id DESC";
         if($ft == 1){
-            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
+            $criteria->order = "t.id DESC";
         }elseif($ft == 2){
             $criteria->order = "t.sales DESC";
         }elseif($ft == 3){
@@ -883,9 +883,9 @@ class Product extends CmsActiveRecord
             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }
-        if($ft == 1){
-            $criteria->addCondition("t.is_new = ".self::PRODUCT_IS_NEW);
-        }
+        // if($ft == 1){
+        //     $criteria->addCondition("t.is_new = ".self::PRODUCT_IS_NEW);
+        // }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
     }

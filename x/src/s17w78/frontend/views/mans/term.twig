@@ -32,7 +32,11 @@
     </div>
     <div class="mright">
         <!-- ad -->
-        <div class="mans_ad3"><a href="#" title=""><img src="images/test/mans7.jpg" width="780" height="100" /></a></div>
+        <div class="mans_ad3">
+            {% for b in banner %}
+            <a href="{{ b.url }}" title=""><img src="{{ b.image }}" width="780" height="200" /></a>
+            {% endfor %}
+        </div>
 
          <!-- brands list 
         <div class="brands_box clearfix">
