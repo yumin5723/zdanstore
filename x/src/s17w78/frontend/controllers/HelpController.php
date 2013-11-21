@@ -52,14 +52,14 @@ class  HelpController extends GController {
         $this->render("pravitypolicy");
     }
     public function actionCheckorder(){
-        if(Yii::app()->request->isPostRequest){
+        // if(Yii::app()->request->isPostRequest){
             if(Yii::app()->user->isGuest){
                 $brands = Brand::model()->getBrandsForIndex(100);
                 $this->render('checkorder',array('brands'=>$brands));
             }else{
                 $this->redirect("/user/trackorder");
             }
-        }
+        // }
     }
 
 }

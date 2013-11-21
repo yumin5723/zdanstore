@@ -42,7 +42,7 @@
                 <p class="tip">Free Shipping By Internatinoal Air Mail !</p>
                 <div class="btn clearfix">
                     <a href="/shopping/cart" class="fr">View Cart</a>
-                    <a href="#" class="fr">Continue Shopping</a>
+                    <a href="javascript:void(0);" class="fr" id="cotinue_shop">Continue Shopping</a>
                     <a href="/shopping/cart" class="fr"><img src="{{ App.assets.Url}}/images/cart_ico.png" align="absmiddle" /> Checkout</a>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <dt>SHIPPING</dt>
             <dd><a href="/shipping/returns" title="">Returns</a></dd>
             <dd><a href="/shipping/shippingtime" title="">Shipping Time</a></dd>
-            <dd><a href="#" title="">Order Tracking</a></dd>
+            <dd><a href="/help/checkorder" title="">Order Tracking</a></dd>
             <dd><a href="/shipping/options" title="">Shipping Options</a></dd>
             <dd><a href="/shipping/insruance" title="">Insurance</a></dd>
         </dl>
@@ -133,6 +133,10 @@
 
     $(".popclose").click(function(){
         closePopup();
+    });
+    $("#cotinue_shop").click(function(){
+        $(".cart_dialog").hide();
+        cart_show = 0;
     });
     $(".cart_dialog .close").click(function(){
         $(".cart_dialog").hide();
