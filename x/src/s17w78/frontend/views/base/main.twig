@@ -138,6 +138,23 @@
         $(".cart_dialog").hide();
         cart_show = 0;
     });
+    $(".email_s_btn").click(function(){
+        var email = $("#s_email").val();
+        var cartData = {"email":email};
+        $.ajax({
+            type: "POST",
+            url:"/subscription/do",
+            data:cartData,
+            dataType:'json',
+            success:function(data){
+                if(data[0] == 3){
+                    window.location.href=data[1];
+                }else{
+                    alert("You have subscribed ZDAN news successfully!");
+                }
+            }
+        });
+    });
 </script>
 
 </body>
