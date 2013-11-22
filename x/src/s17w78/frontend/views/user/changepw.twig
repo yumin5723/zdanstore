@@ -1,0 +1,50 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="/user/">My Account</a> &gt; <a href="/user/setting">Account Settings</a></div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt><a href="/user">My Account</a></dt>
+                <dd><a href="/user/setting">Account Settings</a></dd>
+                <dd class="cur"><a href="/user/changepw">Change Password</a></dd>
+                <dd><a href="/user/address">My Address</a></dd>
+                <dd><a href="/user/order">My Order</a></dd>
+                <dd><a href="/user/message">My Message</a></dd>
+                <dd><a href="/user/trackOrder">Track Order</a></dd>
+                <dd><a href="/user/wishList">Wish List</a></dd>
+            </dl>
+        </div>
+        <div class="act_content">
+            <div class="act_edit">
+                <div class="title">Change Password</div>
+                <div class="content">
+                {% include "base/notify.twig" %}
+                {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create-form','enableAjaxValidation':true,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+                {{ form.errorSummary(user)|raw }}
+                    <ul class="login_form">
+                        <li class="clearfix">
+                            <em class="red">*</em> Old Password
+                            <label><input type="password" name="User[old_password]" value="" size="32"></label>
+                        </li>
+                         <li class="clearfix">
+                            <em class="red">*</em> Password
+                            <label><input type="password" name="User[new_password]" value="" size="32"></label>
+                        </li>
+                        <li class="clearfix">
+                            <em class="red">*</em> Confirm Password
+                            <label><input type="password" name="User[password_repeat]" value="" size="32"></label>
+                        </li>
+                    </ul>
+                    <div class="submit_btn"><input type="submit" name="" value="Apply" class="btn2"></div>
+                {{ void(this.endWidget()) }}<!-- form -->
+                </div>
+            </div><!-- Edit Profile -->
+        </div>
+    </div>
+
+</div>
+{% endblock %}
