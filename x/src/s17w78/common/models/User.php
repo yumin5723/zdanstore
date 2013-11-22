@@ -1,6 +1,6 @@
 <?php
 Yii::import('common.components.UserActiveRecord');
-class User extends UserActiveRecord
+class User extends CActiveRecord
 {
     public $password_repeat;
     public $rememberMe;
@@ -13,7 +13,6 @@ class User extends UserActiveRecord
     public $new_password;
     public $p_password;
     public $confirm_password;
-    public $nickname;
     public $old_email;
     public $new_email;
     private $_identity;
@@ -67,32 +66,30 @@ class User extends UserActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('password,password_repeat,username,nickname,email', 'required', 'on'=>'register',),
+            array('password,email,username,nickname', 'required', 'on'=>'register',),
+            // array('password,password_repeat,username,nickname', 'required', 'on'=>'register',),
             // array('password,old_password,new_password,p_password,username', 'length','min'=>'6','max'=>'16','tooLong'=>'长度限定为6-16的字符串！','tooShort'=>'长度限定为6-16的字符串！', 'on'=>'register'),
             array('nickname', 'length','min'=>'2','max'=>'16','tooLong'=>'长度限定为2-16的字符串！','tooShort'=>'长度限定为2-16的字符串！', 'on'=>'register'),
-            array('username,email', 'unique', 'on'=>'register'),
+            array('username', 'unique', 'on'=>'register'),
             array('username','match','pattern'=>'/^[a-zA-Z0-9]+$/','message'=>'必须为字母、数字！', 'on'=>'register',),
             array('password_repeat', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),
-            array('email','email'),
             // array('verifyCode','required', 'on'=>'register'),
-            array('username, password', 'required', 'on' => 'login'),
-            array('password', 'authenticatePass', 'on' => 'login'),
-            array('email', 'required', 'on'=>'recover'),
+            // array('username, password', 'required', 'on' => 'login'),
+            // array('password', 'authenticatePass', 'on' => 'login'),
+            // array('email', 'required', 'on'=>'recover'),
             // array('old_email,p_password,new_email', 'required', 'on'=>'changeemail'),
             // array('new_email,old_email', 'email'),
             // array('p_password','check_pass','on'=>'changeemail'),
             // array('old_email', 'check_changeemail', 'on'=>'changeemail'),
             // array('new_email','check_email','on'=>'changeemail'),
-            array('email', 'check_recoveremail', 'on'=>'recover'),
-            array('username,nickname,birthday','required','on'=>'setting'),
-            array('password, reset_password_code','required','on'=>'resetPass'),
-
-            array('old_password,new_password,password_repeat', 'required','on'=>'changePass'),
-            array('old_password','check_password','on'=>'changePass'),
-            array('new_password','compare','compareAttribute'=>'password_repeat', 'on'=>'changePass'),
+            // array('email', 'check_recoveremail', 'on'=>'recover'),
             
-            array('password','compare','compareAttribute'=>'confirm_password', 'on'=>'resetPass'),
-            array('reset_password_code', 'resetPassword','on'=>'resetPass'),
+            // array('password, reset_password_code','required','on'=>'resetPass'),
+            // array('old_password,new_password,confirm_password', 'required','on'=>'changePass'),
+            // array('old_password','check_password','on'=>'changePass'),
+            // array('new_password','compare','compareAttribute'=>'confirm_password', 'on'=>'changePass'),
+            // array('password','compare','compareAttribute'=>'confirm_password', 'on'=>'resetPass'),
+            // array('reset_password_code', 'resetPassword','on'=>'resetPass'),
             // array('username', 'length', 'min'=>6, 'max'=>15, 'on'=>'update,setusername'),
             // array('username', 'required','on'=>'setusername'),
             // array('username', 'check_username','on'=>'setusername'),
@@ -103,7 +100,7 @@ class User extends UserActiveRecord
             // array('email','check_safeemail','on'=>'profile'),
             //array('verifyCode','captcha','allowEmpty'=>YII_DEBUG,'on'=>"recover"),
             //array('verifyCode','captcha','allowEmpty'=>YII_DEBUG,'on'=>"changeemail"),
-            // array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements(),'on'=>'register'),
+            //array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements(),'on'=>'register'),
             //array('verifyCode', 'captcha', 'allowEmpty'=> !extension_loaded('gd') ,'on'=>'login'),
             // array('verifyCode', 'captcha', 'allowEmpty'=> !extension_loaded('gd') ,'on'=>'register,recover'),
 
@@ -121,16 +118,7 @@ class User extends UserActiveRecord
             'login'=>'email, password, rememberMe',
         );
     }*/
-   /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'username' => "First Name",
-            'nickname' => "Last Name",
-        );
-    }
+
     /**
      * hash password
      *
@@ -146,7 +134,7 @@ class User extends UserActiveRecord
         $textHash = hash($mode, $password);
         // set where salt will appear in hash //
         $saltStart = strlen($password);
-        $saltHash = hash($mode, $this->email);
+        $saltHash = hash($mode, $this->username);
         // add salt into text hash at pass length position and hash it //
         if($saltStart > 0 && $saltStart < strlen($saltHash)) {
             $textHashStart = substr($textHash,0,$saltStart);
@@ -181,7 +169,7 @@ class User extends UserActiveRecord
 
         if (!$this->hasErrors()) { // we only want to authenticate when no input errors
             Yii::import('common.components.UserIdentity');
-            $identity = new UserIdentity($this->email, $this->password);
+            $identity = new UserIdentity($this->username, $this->password);
             $identity->authenticate();
             switch ($identity->errorCode) {
                 case UserIdentity::ERROR_NONE:
@@ -206,7 +194,7 @@ class User extends UserActiveRecord
         Yii::import('common.components.UserIdentity');
         if($this->_identity===null)
         { 
-            $this->_identity=new UserIdentity($this->email,$this->password);
+            $this->_identity=new UserIdentity($this->username,$this->password);
             $this->_identity->authenticate();
         }
         if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
@@ -258,9 +246,9 @@ class User extends UserActiveRecord
     public function check_password($attribute, $params) {
         $pass = $this->$attribute;
         $user = self::model()->findByAttributes(array(
-                'email'=>$this->email));
+                'username'=>$this->username));
         if($this->hashPassword($pass) != $user->password){
-            $this->addError('old_password', 'Old password is incorrect！');
+            $this->addError('old_password', '旧密码错误！');
         }
     }
     /**
@@ -276,7 +264,7 @@ class User extends UserActiveRecord
         $user = self::model()->findByAttributes(array(
                 'password'=>$this->hashPassword($pass)));
         if(!$user){
-            $this->addError('old_password', 'Old password is incorrect！');
+            $this->addError('old_password', '旧密码错误！');
         }
     }
      /**
@@ -292,7 +280,7 @@ class User extends UserActiveRecord
         $user = self::model()->findByAttributes(array(
                 'password'=>$this->password));
         if($user === null){
-            $this->addError('p_password', 'Wrong password！');
+            $this->addError('p_password', '密码错误！');
         }
     }
     /**
@@ -336,7 +324,7 @@ class User extends UserActiveRecord
         $user = self::model()->findByAttributes(array(
                 'email'=>$this->email));
         if($user === null){
-            $this->addError('email', 'E-mail address does not exist！');
+            $this->addError('email', '邮箱地址不存在！');
         }
     }
     /**
@@ -470,7 +458,7 @@ class User extends UserActiveRecord
         
         $tmpuser = self::model()->findByAttributes(array('username'=>$username));
         if(!empty($user) || !empty($tmpuser)){
-            $this->addError('username', 'User name is already in use！');
+            $this->addError('username', '用户名已被使用！');
         }
     }
 
@@ -681,6 +669,27 @@ class User extends UserActiveRecord
     }
 
     /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'username' => "用户名",
+            'nickname' => "昵称",
+            'old_password' => "旧密码",
+            'new_password' => "新密码",
+            'confirm_password' => "确认新密码",
+            'password' => "密码",
+            'p_password' => "密码",
+            'password_repeat' => "确认密码",
+            'old_email' => "旧邮箱",
+            'new_email' => "新邮箱",
+            'email' => "安全邮箱： ",
+            'verifyCode'=>'验证码',
+        );
+    }
+
+    /**
      * function_description
      *
      *
@@ -719,20 +728,10 @@ class User extends UserActiveRecord
      * @return
      */
     public function send_recover_mail() {
-        // $to_send = $this->email;
-        // $subject = Yii::t('mii', '1378密码找回');
-        // $content = Yii::app()->getViewRenderer()->renderPartial('user/recoveremail', array('user'=>$this));
-        // return Yii::app()->sendMail->send($to_send, $subject,$content,'html');
-
-        $message            = new YiiMailMessage;
-           //this points to the file test.php inside the view path
-        $message->view = "recoverpass";
-        $sid                 = 1;
-        $message->subject    = Yii::t('mii', '1378密码找回');
-        $message->setBody(array('user'=>$this), 'text/html');                
-        $message->addTo($this->email);
-        $message->from = 'liuwanglei2001@163.com';   
-        Yii::app()->mail->send($message);       
+        $to_send = $this->email;
+        $subject = Yii::t('mii', '1378密码找回');
+        $content = Yii::app()->getViewRenderer()->renderPartial('user/recoveremail', array('user'=>$this));
+        return Yii::app()->sendMail->send($to_send, $subject,$content,'html');
     }
 
     /**
@@ -818,18 +817,14 @@ class User extends UserActiveRecord
      */
     public function updateAttrs($attributes) {
         $attrs = array();
-        if (!empty($attributes['username']) || $attributes['username'] != $this->username) {
-            $attrs[] = 'username';
-            $this->username = $attributes['username'];
-        }
         if (!empty($attributes['nickname']) || $attributes['nickname'] != $this->nickname) {
             $attrs[] = 'nickname';
             $this->nickname = $attributes['nickname'];
         }
-        // if (!empty($attributes['email']) || $attributes['email'] != $this->email) {
-        //     $attrs[] = 'email';
-        //     $this->email = $attributes['email'];
-        // }
+        if (!empty($attributes['email']) || $attributes['email'] != $this->email) {
+            $attrs[] = 'email';
+            $this->email = $attributes['email'];
+        }
         if ($this->validate($attrs)) {
             return $this->save(false);
         } else {
@@ -948,14 +943,5 @@ class User extends UserActiveRecord
             Yii::app()->user->login($identity,60*60*24*365);
             return true;            
         }
-    }
-
-    /**
-     * updata profile info if profile is emtpy create one
-     * @return [type] [description]
-     */
-    public function updateInfo($data){
-        $this->updateAttrs($data);
-        return true;
     }
 }

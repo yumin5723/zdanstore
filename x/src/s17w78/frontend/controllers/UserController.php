@@ -29,7 +29,7 @@ class UserController extends GController {
                 'users'=>array('?'),
             ),
             array('allow',
-                'actions'=>array('logout','account','index','setting','wishlist','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish','trackorder'),
+                'actions'=>array('logout','account','index','setting','wishlist','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish','trackorder','changepw'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -138,7 +138,7 @@ class UserController extends GController {
                     }
                 }
                 else{
-                    Yii::app()->user->setFlash('error', Yii::t('mii', '注册失败!!'));
+                    Yii::app()->user->setFlash('error', Yii::t('mii', 'Registration failed!!'));
                 }
             }
         }
@@ -155,14 +155,14 @@ class UserController extends GController {
     /*backend user setting*/
     public function actionSetting(){
         $user = $this->loadModel(Yii::app()->user->id);
-        $profile = Profile::model()->findByPk(Yii::app()->user->id);
+        $profile = User::model()->findByPk(Yii::app()->user->id);
         $profile->birthday = $profile->birthday == "0000-00-00 00:00:00" ? "" : date("Y-m-d",strtotime($profile->birthday));
-        if (isset($_POST['Profile'])) {
-            $profile->setScenario('profile');
-            $profile->setAttributes($_POST['Profile']);
+        if (isset($_POST['User'])) {
+            $profile->setScenario('setting');
+            $profile->setAttributes($_POST['User']);
             if ($profile->validate()) {
-                if($profile->updateInfo($_POST['Profile'])){
-                    Yii::app()->user->setFlash( 'success', Yii::t( 'mii', '注册资料添加成功！' ) );
+                if($profile->updateInfo($_POST['User'])){
+                    Yii::app()->user->setFlash( 'success', Yii::t( 'mii', 'Registration Information added successfully!!' ) );
                 }
             }
         }
@@ -234,7 +234,7 @@ class UserController extends GController {
                     return $this->redirect("address");
                 }
                 else{
-                    Yii::app()->user->setFlash('error', Yii::t('mii', '地址添加failed!!'));
+                    Yii::app()->user->setFlash('error', Yii::t('mii', 'Failed to add address!!'));
                 }
             }
         }
@@ -368,5 +368,23 @@ class UserController extends GController {
         }
         unset($user->password);
         return $this->render('recover_pass', array('user'=>$user,'result' => 1));
+    }
+    /**
+     * user change password
+     *
+     *
+     * @return
+     */
+    public function actionChangepw() {
+        $user = $this->loadModel(Yii::app()->user->id);
+        if (!empty($_POST['User'])) {
+            $user->setScenario('changePass');
+            $user->setAttributes($_POST['User']);
+            if ($user->validate()) {
+                $user->use_new_password();
+                 Yii::app()->user->setFlash( 'success', Yii::t( 'mii', 'Congratulations on your successful password change！' ) );
+            }
+        }
+        return $this->render('changepw', array('user' => $user));
     }
 }
