@@ -132,7 +132,7 @@
          {% for profile in termprofiles %}
             <input type="checkbox" {% if profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %} name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}"><font color="red">{{ profile.name }}</font>({{ profile.termname }})<br /> 
             {% for v in profile.value %}
-                 <input type="checkbox" {% if v in profiles.profile_values AND profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %}name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
+                 <input type="checkbox" {% if v in profiles.profile_values and profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %}name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
                  {% if profile.name|upper == "COLOR"%}
                          <div class="controls">
                             <span>插入</span>      

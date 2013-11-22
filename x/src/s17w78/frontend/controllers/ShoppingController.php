@@ -217,7 +217,7 @@ class ShoppingController extends GController {
             $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
             $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
             //get user address
-            // $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
+            $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
             $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress,'results'=>$results,'total'=>$total,'downAds'=>$downAd));
         }
     }

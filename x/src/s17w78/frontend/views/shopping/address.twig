@@ -312,7 +312,7 @@
     function shipping(){
         var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
         var shipping = 0;
-        insurance_price = Math.ceil((parseFloat((cart_total * 0.02))).toFixed(2);
+        insurance_price = (parseFloat((cart_total * 0.02))).toFixed(2);
         $("#shipping_price").text(shipping);
         $("#insurance_price").text(insurance_price);
         var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);
