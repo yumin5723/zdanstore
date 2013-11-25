@@ -1,0 +1,27 @@
+{% extends "layouts/base_with_sidebar.twig" %}
+{% set menu_name="用户管理"%}
+{% set sidebar_name = "用户管理" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+		<br />
+		{{ void(this.widget('bootstrap.widgets.TbGridView',{
+		    'id':'app-grid', 
+		    'dataProvider':model.search(), 
+		    'filter':model, 
+		    'columns':{
+		        0:'id',
+		        1:'username',  
+		        2:'nickname', 
+		        3:'birthday', 
+		        4:'email', 
+                5:'created',
+		        6:'modified',
+		        
+		    },})) 
+		 }} 
+		<br />
+		
+	</div>
+</div>
+{% endblock %}

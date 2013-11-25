@@ -69,5 +69,10 @@ return array(
             'url'=>'/pp/shipping/admin',
             'icon'=>'gift',
         ),
+        'user'=>array(
+            'name'=>'用户管理',
+            'url'=>'/pp/user/admin',
+            'icon'=>'gift',
+        ),
     ),
 );
