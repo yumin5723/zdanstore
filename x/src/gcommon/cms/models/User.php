@@ -93,6 +93,7 @@ class User extends UserActiveRecord
             
             array('password','compare','compareAttribute'=>'confirm_password', 'on'=>'resetPass'),
             array('reset_password_code', 'resetPassword','on'=>'resetPass'),
+            array('id,username,nickname,birthday,email','required','on'=>'search'),
             // array('username', 'length', 'min'=>6, 'max'=>15, 'on'=>'update,setusername'),
             // array('username', 'required','on'=>'setusername'),
             // array('username', 'check_username','on'=>'setusername'),
@@ -222,6 +223,29 @@ class User extends UserActiveRecord
         }
         else
             return false;
+    }
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->order = "id DESC";
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('username',$this->username,true);
+        $criteria->compare('nickname',$this->nickname,true);
+        $criteria->compare('birthday',$this->birthday,true);
+        $criteria->compare('email',$this->email,true);
+        $criteria->compare('created',$this->created,true);
+        $criteria->compare('modified',$this->modified,true);
+
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria'=>$criteria,
+            'pagination' => array(
+                    'pageSize' => 20,
+                )
+        ));
     }
     /**
      * function_description
