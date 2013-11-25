@@ -50,7 +50,7 @@ class Message extends CmsActiveRecord
             array('reply','safe','on'=>'reply'),
             array('email','email'),
             array('uid,username','safe'),
-            array('id,email,message','required','on'=>'search'),
+            array('id,email,content,created','required','on'=>'search'),
         );
         /*
          * if (!isset(Yii::app()->params['needAlphaCode']) || !Yii::app()->params['needAlphaCode']) {
