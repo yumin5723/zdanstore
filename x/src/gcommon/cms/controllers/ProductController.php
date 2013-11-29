@@ -67,6 +67,9 @@ class ProductController extends GController {
         $model = new Product;
         $node = Oterm::model()->roots()->findByPk(14);
         $descendants = $node->descendants()->findAll();
+
+        //product profiles
+        $termsProfiles = TermProfile::model()->findAll();
         if ( isset( $_POST["Product"] ) ) {
             $model->attributes=$_POST["Product"];
             if($model->validate()){
@@ -83,7 +86,7 @@ class ProductController extends GController {
             }
         }
         $this->render( 'create', array( "model"=>$model,"isNew"=>true,"descendants" => $descendants,
-            "node" => $node
+            "node" => $node,'termprofiles'=>$termsProfiles
             ) );
     }
 

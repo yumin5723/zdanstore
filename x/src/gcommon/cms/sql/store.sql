@@ -289,3 +289,17 @@ CREATE TABLE `newarrivals` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `product_profile`
+--
+CREATE TABLE `product_profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
+  `profile_value` varchar(255) NOT NULL,
+  `profile_image` varchar(255) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
