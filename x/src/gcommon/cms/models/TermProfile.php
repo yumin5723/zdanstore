@@ -217,4 +217,18 @@ class TermProfile extends CmsActiveRecord
         $profiles = self::model()->findAllByAttributes(array('term_id'=>$term_id));
         return $profiles;
     }
+    /**
+     * [getAllProfiles description]
+     * @return [type] [description]
+     */
+    public function getAllProfiles(){
+        $profiles = self::model()->findAll();
+        $ret = array();
+        foreach($profiles as $key=>$profile){
+            $ret[$key]['profile_id'] =$profile->id;
+            $ret[$key]['name'] = $profile->name;
+            $ret[$key]['value'] = explode(',', $profile->value);
+        }
+        return $ret;
+    }
 }

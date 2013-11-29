@@ -69,10 +69,11 @@ class ProductController extends GController {
         $descendants = $node->descendants()->findAll();
 
         //product profiles
-        $termsProfiles = TermProfile::model()->findAll();
+        $termsProfiles = TermProfile::model()->getAllProfiles();
         if ( isset( $_POST["Product"] ) ) {
             $model->attributes=$_POST["Product"];
             if($model->validate()){
+                print_r($_POST['Profile']);exit;
                 if ( $model->save() ) {
                     //save product term
                     ProductTerm::model()->saveProductTerm($model->id,$_POST['Oterm']);

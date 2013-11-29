@@ -103,14 +103,9 @@
   <div  class="control-group">
       <label for="Category_name" class="control-label required">商品属性</label>
         <div class="controls">
-         {% for profile in termprofiles %}
-            <input type="checkbox" name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}<br /> 
-            {% for v in profile.value %}
-             <input type="checkbox" name="Profile[{{profile.profile_id}}][value][]" value="{{ v }}">{{ v }}
-            {% endfor %}
-            <br />
-         {% endfor %}
-      </div>
+          <div id="uploads">
+            <a class="btn btn-success" onclick="return showUpload();">add</a>
+        </div>
       </div>
   </div>
 {% else %}

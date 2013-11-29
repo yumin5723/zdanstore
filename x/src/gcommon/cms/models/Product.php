@@ -308,7 +308,7 @@ class Product extends CmsActiveRecord
      * @param  [type] $isNew [description]
      * @return [type]        [description]
      */
-    public function convertProductIsNew($isNew){
+    static public function convertProductIsNew($isNew){
         if($isNew == 1){
             return "新品";
         }
@@ -319,7 +319,7 @@ class Product extends CmsActiveRecord
      * @param  [type] $isNew [description]
      * @return [type]        [description]
      */
-    public function convertProductIsRecommond($isRecommond){
+    static public function convertProductIsRecommond($isRecommond){
         if($isRecommond == 1){
             return "已推荐首页";
         }
