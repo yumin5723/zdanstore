@@ -104,17 +104,35 @@ class BrandsController extends GController {
         //left brand
         $leftBrands = BrandTerm::model()->getBrandsByTerm($term_id);
 
+        $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
+        // $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
+        $ppid = isset($_GET['ppid']) ? $_GET['ppid'] : '';
+
+        $options = $_GET;
+        foreach($options as $k=>$o){
+            if(empty($o)|| $o == 'all' || $k == 'p' || $k == 'id' || $k == 'cid'){
+                unset($options[$k]);
+            }
+        }
+
+        $url = '';
+        foreach($options as $k=>$o){
+            $url.="&".$k."=".$o; 
+        }
+        $link = "/brands/term/id/".$brand_id."/cid/".$term_id;
+        $pageurl = $link.ltrim($url,'&');
+        $pageurl.="&p=";
+
         $count = 24;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $objects = Product::model()->fetchProductsByTermIdAndBrand($term_id,$brand_id,$count,$pageCurrent);
-        $sum = Product::model()->getProductsCountByTermIdAndBrand($term_id,$brand_id);
+        $objects = Product::model()->fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$pageCurrent,$ssid,$ppid);
+        $sum = Product::model()->getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$ppid);
         $sub_pages = 6;
-        $url = "/brand/term/id/".$brand_id."/cid/".$term_id."?p=";
-        $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
+        $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$pageurl,2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'link'=>$link,'option'=>$options
             ));
         // $this->render('term');
     }

@@ -412,9 +412,11 @@ class Product extends CmsActiveRecord
     /**
      * fetch all objects by term id 
      * the data include term's children id 
+     * ssid term's children id
+     * ppid profile id
      * @return [type] [description]
      */
-    public function fetchProductsByTermIdAndBrand($term_id,$brand_id,$count,$page){
+    public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$ppid){
         $termIds = $this->getAllChindrenIdByTermId($term_id);
 
         $criteria = new CDbCriteria;
@@ -427,6 +429,22 @@ class Product extends CmsActiveRecord
         }
         $ids = array_unique($ids);
 
+        if(isset($ssid) && $ssid != ""){
+            $termIds = $this->getAllChindrenIdByTermId($ssid);
+
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition("term_id",$termIds);
+            $criteria->order = "t.product_id DESC";
+            $results = ProductTerm::model()->findAll($criteria);
+            $ids = array();
+            foreach($results as $result){
+                $ids[] = $result->product_id;
+            }
+            $ids = array_unique($ids);
+        }
+        if(isset($ppid) && $ppid != ""){
+
+        }
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
@@ -442,7 +460,7 @@ class Product extends CmsActiveRecord
      * get objects count by term_id
      * @return [type] [description]
      */
-    public function getProductsCountByTermIdAndBrand($term_id,$brand_id){
+    public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$ppid){
         $termIds = $this->getAllChindrenIdByTermId($term_id);
 
         $criteria = new CDbCriteria;
@@ -453,6 +471,22 @@ class Product extends CmsActiveRecord
             $ids[] = $result->product_id;
         }
         $ids = array_unique($ids);
+
+        if(isset($ssid) && $ssid != ""){
+            $termIds = $this->getAllChindrenIdByTermId($term_id);
+
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition("term_id",$termIds);
+            $results = ProductTerm::model()->findAll($criteria);
+            $ids = array();
+            foreach($results as $result){
+                $ids[] = $result->product_id;
+            }
+            $ids = array_unique($ids);
+        }
+        if(isset($ppid) && $ppid != ""){
+
+        }
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
