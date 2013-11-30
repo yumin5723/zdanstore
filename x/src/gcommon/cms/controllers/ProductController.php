@@ -73,13 +73,15 @@ class ProductController extends GController {
         if ( isset( $_POST["Product"] ) ) {
             $model->attributes=$_POST["Product"];
             if($model->validate()){
-                print_r($_POST['Profile']);exit;
                 if ( $model->save() ) {
                     //save product term
                     ProductTerm::model()->saveProductTerm($model->id,$_POST['Oterm']);
                     //save product meta
-                    if(isset($_POST['Meta'])){
-                        ProductMeta::model()->saveProductMeta($model->id,$_POST['Meta']);
+                    // if(isset($_POST['Meta'])){
+                    //     ProductMeta::model()->saveProductMeta($model->id,$_POST['Meta']);
+                    // }
+                    if(isset($_POST['Profile'])){
+                        ProductProfile::model()->saveProductProfile($model->id,$_POST['Profile']);
                     }
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
                     $this->redirect("/pp/product/admin");
@@ -107,15 +109,21 @@ class ProductController extends GController {
         //product terms 
         $select_terms = ProductTerm::model()->getAllTermsRefObject($_GET['id']);
         //product metas
-        $metas = ProductMeta::model()->getAllMetasByProductId($_GET['id']);
+        // $metas = ProductMeta::model()->getAllMetasByProductId($_GET['id']);
+        $termsProfiles = TermProfile::model()->getAllProfiles();
+        $profiles = ProductProfile::model()->getProductProfileByProduct($_GET['id']);
+        // print_r($profiles);exit;
         if ( isset( $_POST["Product"] ) ) {
             $product->attributes=$_POST["Product"];
             if($product->validate()){
                 if ( $product->save() ) {
                     ProductTerm::model()->updateProductTerm($product->id,$_POST['Oterm']);
                     //update product meta
-                    if(isset($_POST['Meta'])){
-                        ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
+                    // if(isset($_POST['Meta'])){
+                    //     ProductMeta::model()->updateProductMeta($product->id,$_POST['Meta']);
+                    // }
+                    if(isset($_POST['Profile'])){
+                        ProductProfile::model()->updateProductProfile($product->id,$_POST['Profile']);
                     }
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
                     // $this->redirect("/pp/product/update/id/".$_GET['id']);
@@ -125,7 +133,7 @@ class ProductController extends GController {
             }
         }
         $this->render( 'update',array("model"=>$product,"isNew"=>false,"descendants" => $descendants,
-            "node" => $node,'select_terms'=>$select_terms,'metas'=>$metas,
+            "node" => $node,'select_terms'=>$select_terms,'termprofiles'=>$termsProfiles,'profiles'=>$profiles
             ) );
     }
      /**

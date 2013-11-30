@@ -130,6 +130,7 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
             'functions' => array(
                 /* 'rot13' => 'str_rot13', */
                 'str_repeat'=>'str_tree',
+                'pro_image'=>'getProfileImage',
             ),
             'filters' => array(
                 /* 'jencode' => 'CJSON::encode', */
