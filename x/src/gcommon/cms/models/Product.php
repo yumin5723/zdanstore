@@ -444,30 +444,10 @@ class Product extends CmsActiveRecord
      * @return [type] [description]
      */
     public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$brid,$request_profiles){
-        $termIds = $this->getAllChindrenIdByTermId($term_id);
-
-        $criteria = new CDbCriteria;
-        $criteria->addInCondition("term_id",$termIds);
-        $criteria->order = "t.product_id DESC";
-        $results = ProductTerm::model()->findAll($criteria);
-        $ids = array();
-        foreach($results as $result){
-            $ids[] = $result->product_id;
-        }
-        $ids = array_unique($ids);
+        $ids = $this->getProdcutIdsByTermId($term_id);
 
         if(isset($ssid) && $ssid != ""){
-            $termIds = $this->getAllChindrenIdByTermId($ssid);
-
-            $criteria = new CDbCriteria;
-            $criteria->addInCondition("term_id",$termIds);
-            $criteria->order = "t.product_id DESC";
-            $results = ProductTerm::model()->findAll($criteria);
-            $ids = array();
-            foreach($results as $result){
-                $ids[] = $result->product_id;
-            }
-            $ids = array_unique($ids);
+            $ids = $this->getProdcutIdsByTermId($ssid);
         }
         if(isset($request_profiles) && !empty($request_profiles)){
             $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
@@ -494,28 +474,10 @@ class Product extends CmsActiveRecord
      * @return [type] [description]
      */
     public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profiles){
-        $termIds = $this->getAllChindrenIdByTermId($term_id);
-
-        $criteria = new CDbCriteria;
-        $criteria->addInCondition("term_id",$termIds);
-        $results = ProductTerm::model()->findAll($criteria);
-        $ids = array();
-        foreach($results as $result){
-            $ids[] = $result->product_id;
-        }
-        $ids = array_unique($ids);
-
+        
+        $ids = $this->getProdcutIdsByTermId($term_id);
         if(isset($ssid) && $ssid != ""){
-            $termIds = $this->getAllChindrenIdByTermId($term_id);
-
-            $criteria = new CDbCriteria;
-            $criteria->addInCondition("term_id",$termIds);
-            $results = ProductTerm::model()->findAll($criteria);
-            $ids = array();
-            foreach($results as $result){
-                $ids[] = $result->product_id;
-            }
-            $ids = array_unique($ids);
+            $ids = $this->getProdcutIdsByTermId($ssid);
         }
         if(isset($request_profiles) && !empty($request_profiles)){
             $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
@@ -529,6 +491,77 @@ class Product extends CmsActiveRecord
         }else{
              $criteria->condition = "t.brand_id = :brand_id";
              $criteria->params = array(":brand_id"=>$brand_id);
+        }
+        $criteria->addInCondition("id",$ids);
+        return self::model()->count($criteria);
+    }
+    /**
+     * [getProdcutIdsByTermId description]
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getProdcutIdsByTermId($term_id){
+        $termIds = $this->getAllChindrenIdByTermId($term_id);
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition("term_id",$termIds);
+        $results = ProductTerm::model()->findAll($criteria);
+        $ids = array();
+        foreach($results as $result){
+            $ids[] = $result->product_id;
+        }
+        $ids = array_unique($ids);
+        return $ids;
+    }
+    /**
+     * fetch all objects by term id 
+     * the data include term's children id 
+     * ssid term's children id
+     * ppid profile id
+     * @return [type] [description]
+     */
+    public function fetchProductsByTermIdAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles){
+        $ids = $this->getProdcutIdsByTermId($term_id);
+
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+       
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
+        }
+        // $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("t.id",$ids);
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get objects count by term_id
+     * @return [type] [description]
+     */
+    public function getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profiles){
+        
+        $ids = $this->getProdcutIdsByTermId($term_id);
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id";
+            $criteria->params = array(":brand_id"=>$brid);
         }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);

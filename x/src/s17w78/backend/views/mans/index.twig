@@ -15,7 +15,7 @@
             <dl>
                 <dt>{{ term.name }}</dt>
                 {% for child in term.child %}
-                <dd><a href="#" title="{{ child.name }}">{{ child.name }}</a></dd>
+                <dd><a href="/mans/term/cid/{{ child.id }}" title="{{ child.name }}">{{ child.name }}</a></dd>
                 {% endfor %}
             </dl>
             {% endfor %}

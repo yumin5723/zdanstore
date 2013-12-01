@@ -124,11 +124,11 @@ class BrandsController extends GController {
         $objects = Product::model()->fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
         $sum = Product::model()->getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profile);
         $sub_pages = 6;
-        $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$pageurl,2);
+        $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'link'=>$link,'option'=>$options
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,
             ));
         // $this->render('term');
     }
