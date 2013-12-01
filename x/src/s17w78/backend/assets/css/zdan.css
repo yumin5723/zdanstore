@@ -26,7 +26,8 @@
 	.fr{float:right;}
 	
 	/* main style */
-	.header{background: url(../images/header_bg.png) repeat-x top;width:980px;margin:0 auto;height:114px;overflow: hidden;}
+	.header{background: url(../images/header_bg.png) repeat-x top;width:980px;margin:0 auto;height:114px;position: relative;}
+	.header .fl{height:114px;overflow: hidden;}
 	.header .search{position: relative;margin:12px 0 4px 22px;}
 	.header .search_ipt{height:23px;line-height: 23px;width:160px;padding-right:27px;}
 	.header .search_btn{position: absolute;right:2px;top:2px;width: 27px;height:20px;background: url(../images/search_btn.jpg) no-repeat;border:none;cursor: pointer;}
@@ -199,7 +200,7 @@
 		.d_info .d_123 dl{float: left;width:246px;}
 		.d_info .d_123 dd{float: left;margin:2px 5px;display:inline;cursor: pointer;}
 		.d_info .d_123 .color dd.cur img{border:1px solid #f30;}
-		.d_info .d_123 .size dd{width:20px;height:20px;line-height: 20px;text-align: center;}
+		.d_info .d_123 .size dd{padding:2px 5px;text-align: center;}
 		.d_info .d_123 .size dd.cur{border:1px solid #f30;}
 		.d_info .d_123 .buy_input a{border:1px solid #949494;margin-right:3px;float:left;width:18px;height:18px;display: inline;line-height: 18px;text-align: center;}
 		.d_info .d_123 .buy_input input{border:1px solid #949494;height:18px;text-align: center;line-height: 18px;float: left;width:30px;margin-right:3px;display:inline;}
@@ -210,7 +211,7 @@
 
 	/* details */
 		.detail .title{background:#F1F1F1;text-align:left;padding:6px 20px;}
-		.detail .content{border:1px solid #E2E3EA;padding:12px;margin-top:1px;line-height:20px;}
+		.detail .content{border:1px solid #E2E3EA;padding:12px;margin-top:1px;line-height:20px;text-align:left;}
 		.detail .content p{padding:8px 0;}
 
 	/* also like */
@@ -347,3 +348,18 @@
 
 
 
+/* cart dialog */
+	.cart_dialog{width:270px;padding:20px;border:1px dotted #949494;background:#fff;position:absolute;right:10px;top:90px;text-align:left;z-index:200;display:none;}
+	.cart_dialog .title{border-bottom:1px dotted #949494;padding-bottom:8px;color:#739F26;font-weight: 700;}
+	.cart_dialog ul{padding-bottom:12px;border-bottom:1px dotted #949494;}
+	.cart_dialog ul li{padding-top:8px;}
+	.cart_dialog ul li .pic{float:left;width:72px;margin-right:6px;display:inline;}
+	.cart_dialog ul li .pic img{border:1px dotted #ccc;}
+	.cart_dialog ul li .txt{float:left;line-height:20px;}
+	.cart_dialog ul li .txt .name,.cart_dialog ul li .price{font-weight:700;}
+	.cart_dialog ul li .txt .line{margin:0 10px;color:#ccc;font-style: normal;}
+	.cart_dialog .tal{display:block;padding-top:5px;text-align: right;}
+	.cart_dialog .tip{color:#f60;font-weight:700;text-align: right;padding-top:5px;}
+	.cart_dialog .btn{padding-top:5px;}
+	.cart_dialog .btn a{margin:6px 5px;display:inline;text-align:center;background: url(../images/btn4.png) no-repeat;width:120px;height:25px;line-height: 25px;color:#fff;}
+	.cart_dialog .close{width:16px;height:16px;border:1px solid #949494;position:absolute;top:8px;right:8px;line-height:16px;text-align:center;cursor:pointer;}

@@ -70,11 +70,11 @@
                 {% for result in results %}
                 <li>
                     <div class="pic">
-                        <a href="#" title=""><img src="{{ result.logo }}" width="178" height="208" /></a>
+                        <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title=""><img src="{{ result.logo }}" width="178" height="208" /></a>
                     </div>
                     <div class="txt">
                         <span class="name"><a href="#" title="">{{ result.brand.name }}</a></span><br/>
-                        <a href="#" title="">{{ result.name }}</a><br/>
+                        <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title="">{{ result.name }}</a><br/>
                         <span class="price">{{ result.shop_price}}</span><br/>
                         <span class="new">{% if result.is_new == 1 %}New Arrivals{% endif %}</span>
                     </div>

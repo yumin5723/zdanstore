@@ -88,13 +88,15 @@ class Cart extends CActiveRecord
         $carts = self::model()->findAllByAttributes(array('uid'=>$uid));
         $ret = array();
         foreach($carts as $key=>$cart){
-            $product = Product::model()->findByPk($cart->product_id);
+            $product = Product::model()->with('brand')->findByPk($cart->product_id);
             $ret[$cart->id]['id'] = $cart->product_id;
             $ret[$cart->id]['quantity'] = $cart->quantity;
             $ret[$cart->id]['meta'] = unserialize($cart->meta);
             $ret[$cart->id]['productName'] = $product->name;
             $ret[$cart->id]['logo'] = $product->logo;
             $ret[$cart->id]['shop_price'] = $product->shop_price;
+            $ret[$cart->id]['brand_id'] = $product->brand->brand_id;
+            $ret[$cart->id]['brand_name'] = $product->brand->brand_name;
         }
         return $ret;
     }

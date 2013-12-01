@@ -65,10 +65,22 @@ class ShoppingController extends GController {
             }else{
                 $uid = Yii::app()->user->id;
             }
-            $product_id = $_POST['product'];
+            $product_id = $_POST['id'];
             $quantity = $_POST['quantity'];
-            $profiles = isset($_POST['profiles']) ? $_POST['profiles'] : "";
+            $profiles = isset($_POST['property']) ? $_POST['property'] : "";
             Yii::app()->shoppingcart->addToCart($uid,$product_id,$quantity,$profiles);
+
+            $result = array();
+            if(Yii::app()->user->isGuest){
+                //read from cookie
+                $results = Yii::app()->shoppingcart->getCartInfoFromCookie();
+            }else{
+                //read from database my uid
+                $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
+            }
+            $ret = array_slice($results, 0,2);
+            $html = $this->render('cartdialog',array('carts'=>$ret),true);
+            echo json_encode($html);
         }else{
             throw new Exception("this Request is not valid", 404);
         }

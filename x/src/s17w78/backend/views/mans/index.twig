@@ -52,11 +52,11 @@
                 {% for p in products %}
                     <li>
                         <div class="pic">
-                            <a href="#" title=""><img src="{{ p.logo }}" width="174" height="166" /></a>
+                            <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title=""><img src="{{ p.logo }}" width="174" height="166" /></a>
                         </div>
                         <div class="txt">
                             <span class="name"><a href="#" title="">{{ p.brand.name }}</a></span><br/>
-                            <a href="#" title="">{{ p.name }}</a><br/>
+                            <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title="">{{ p.name }}</a><br/>
                             <span class="price">{{ p.shop_price }}</span>
                         </div>
                     </li>
