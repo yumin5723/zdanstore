@@ -206,6 +206,7 @@ alter table product add `need_postage` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_mans` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_womens` tinyint(4) NOT NULL DEFAULT '0';
+alter table product add `is_recommond_hats` tinyint(4) NOT NULL DEFAULT '0';
 alter table `order` add `address` varchar(255) NOT NULL;
 
 --

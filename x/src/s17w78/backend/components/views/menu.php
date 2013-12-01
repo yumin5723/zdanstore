@@ -79,7 +79,7 @@
                 </div>
             </div>
         </li>
-		<li><a href="#">HATS</a>
+		<li><a href="/hats">HATS</a>
             <!-- hats menu -->
             <div class="navbox">
                 <div class="subnav">hats</div>

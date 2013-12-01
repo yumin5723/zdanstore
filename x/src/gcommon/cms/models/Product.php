@@ -21,6 +21,9 @@ class Product extends CmsActiveRecord
     const PRODUCT_IS_RECOMMOND_WOMENS = 1;
     const PRODUCT_IS_NOT_RECOMMOND_WOMENS = 0;
 
+    const PRODUCT_IS_RECOMMOND_HATS = 1;
+    const PRODUCT_IS_NOT_RECOMMOND_HATS = 0;
+
     const PRODUCT_NOT_NEED_POSTAGE = 0;
     const PRODUCT_NEED_POSTAGE = 1;
     /**
@@ -174,6 +177,10 @@ class Product extends CmsActiveRecord
             $attrs[] = 'is_recommond_womens';
             $this->is_recommond_womens = $attributes['is_recommond_womens'];
         }
+        if (!empty($attributes['is_recommond_hats']) && $attributes['is_recommond_hats'] != $this->is_recommond_hats) {
+            $attrs[] = 'is_recommond_hats';
+            $this->is_recommond_hats = $attributes['is_recommond_hats'];
+        }
         if (!empty($attributes['need_postage']) && $attributes['need_postage'] != $this->need_postage) {
             $attrs[] = 'need_postage';
             $this->need_postage = $attributes['need_postage'];
@@ -226,6 +233,7 @@ class Product extends CmsActiveRecord
             'is_recommond' => '是否推荐首页',
             'is_recommond_mans' => '是否推荐男装首页',
             'is_recommond_womens' => '是否推荐女装首页',
+            'is_recommond_hats' => '是否推荐hats首页',
             'brand_id' => '所属品牌',
             'batch_number' => '商品批次',
             'quantity' => '商品库存',
@@ -369,6 +377,13 @@ class Product extends CmsActiveRecord
         return array(self::PRODUCT_IS_NOT_RECOMMOND_WOMENS => "未推荐",self::PRODUCT_IS_RECOMMOND_WOMENS => "推荐");
     }
      /**
+     * get all product is recommond hats
+     * @return [type] [description]
+     */
+    public function getIsRecommondHats(){
+        return array(self::PRODUCT_IS_NOT_RECOMMOND_HATS => "未推荐",self::PRODUCT_IS_RECOMMOND_HATS => "推荐");
+    }
+     /**
      * get all product need postage
      * @return [type] [description]
      */
@@ -434,6 +449,20 @@ class Product extends CmsActiveRecord
         $criteria->limit = $limit;
         $criteria->condition = "is_recommond_womens = :is_recommond_womens";
         $criteria->params = array(":is_recommond_womens"=>self::PRODUCT_IS_RECOMMOND_WOMENS);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get index recommond hats
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondHatsProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond_hats = :is_recommond_hats";
+        $criteria->params = array(":is_recommond_hats"=>self::PRODUCT_IS_RECOMMOND_HATS);
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
