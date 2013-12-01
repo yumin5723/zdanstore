@@ -435,7 +435,9 @@ function getCmsBlock($block_id){
 }
 
 function getProfileImage($profiles,$pro){
-    return $profiles["profile_image"][$pro]['image'];
+    if(isset($profiles["profile_image"][$pro])){
+        return $profiles["profile_image"][$pro]['image'];
+    }
 }
 /*
 

@@ -625,4 +625,21 @@ class Product extends CmsActiveRecord
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
     }
+    /**
+     * get the object term level
+     * @param  intaval $id object_id
+     * @return array   
+     */
+    public function getObjectTermById($id){
+        $criteria = new CDbCriteria;
+        $criteria->condition = "product_id = :product_id";
+        $criteria->params = array(":product_id"=>$id);
+        $criteria->order = "term_id DESC";
+        $criteria->limit = 1;
+        $result = ProductTerm::model()->findByAttributes(array(),$criteria);
+        if(empty($result)){
+            return "";
+        }
+        return Oterm::model()->getLevelByTermId($result->term_id);
+    }
 }

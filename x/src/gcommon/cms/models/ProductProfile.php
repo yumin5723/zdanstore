@@ -201,7 +201,22 @@ class ProductProfile extends CmsActiveRecord
         }
         return $ret;
     }
-    static public function getimagevale($profiles,$pro){
-        return $profiles['profile_image'][$pro]['image'];
+    // static public function getimagevale($profiles,$pro){
+    //     return $profiles['profile_image'][$pro]['image'];
+    // }
+    /**
+     * [getProfilesByProductId description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function getProfilesByProductId($id){
+        $results = self::model()->findAllByAttributes(array('product_id'=>$id));
+        $ret = array();
+        foreach($results as $key=>$result){
+            $profile = TermProfile::model()->findByPk($result->profile_id);
+            $ret[$profile->name][$key]['value'] = $result->profile_value;
+            $ret[$profile->name][$key]['image'] = $result->profile_image;
+        }
+        return $ret;
     }
 }
