@@ -6,7 +6,7 @@
  *
  */
 
-class MansController extends GController {
+class WomensController extends GController {
     /**
      * @return array action filters
      */
@@ -55,14 +55,14 @@ class MansController extends GController {
         // $this->render("index",array("terms"=>$terms));
         // 
         //brand page banner ad
-        $focus = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOCUS,1);
-        $rights = Click::model()->getAdsByType(Click::AD_POSITION_MANS_RIGHT);
-        $footers = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER,3);
+        $focus = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOCUS,3);
+        $footers = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER,3);
+        // $brands = Brand::model()->getBrandsForIndex(100);
         $newarrivals = Newarrivals::model()->findAll();
-        $products = Product::model()->getAllRecommondMansProducts();
-        $mensTerms = Oterm::model()->getMensTreeMenu();
-        $this->render("index",array('focus'=>$focus,'rights'=>$rights,'news'=>$newarrivals,
-            'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers));
+        $products = Product::model()->getAllRecommondWomensProducts();
+        $womensTerms = Oterm::model()->getWomensTreeMenu();
+        $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
+            'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers));
     }
     /**
      * action for brand view
@@ -112,7 +112,7 @@ class MansController extends GController {
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
 
-        $url = '/mans/term';
+        $url = '/womens/term';
         foreach($_GET as $k=>$o){
             $url.="/".$k."/".$o; 
         }
@@ -147,7 +147,7 @@ class MansController extends GController {
                 unset($options[$key]);
             }
         }
-        $url = '/mans/term';
+        $url = '/womens/term';
         foreach($options as $k=>$o){
             $url.="/".$k."/".$o; 
         }

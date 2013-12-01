@@ -423,6 +423,20 @@ class Product extends CmsActiveRecord
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
+     * get index recommond products
+     * @param  integer $limit [description]
+     * @return [type]         [description]
+     */
+    public function getAllRecommondWomensProducts($limit = 5){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $limit;
+        $criteria->condition = "is_recommond_womens = :is_recommond_womens";
+        $criteria->params = array(":is_recommond_womens"=>self::PRODUCT_IS_RECOMMOND_WOMENS);
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
      * get product sum by brand id 
      * @param  [type] $brand_id [description]
      * @return [type]           [description]

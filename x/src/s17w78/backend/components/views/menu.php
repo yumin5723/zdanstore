@@ -51,7 +51,7 @@
                 </div>
             </div>
         </li>
-        <li><a href="#">WOMENS</a>
+        <li><a href="/womens">WOMENS</a>
             <!-- womens menu -->
             <div class="navbox">
                 <div class="subnav">WOMENS</div>

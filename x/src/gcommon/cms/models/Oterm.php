@@ -412,6 +412,9 @@ class Oterm extends CmsActiveRecord {
             $profiles = $this->getProfileByTermId($parentsIds);
         }
         $ret = array();
+        if(empty($profiles)){
+            return $ret;
+        }
         foreach($profiles as $key=>$profile){
             $ret[$key]['name'] = $profile->name;
             $ret[$key]['value'] = explode(',', $profile->value);
