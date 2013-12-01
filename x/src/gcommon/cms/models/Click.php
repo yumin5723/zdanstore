@@ -17,6 +17,7 @@ class Click extends CmsActiveRecord
     const AD_POSITION_MANS_FOCUS = 8;
     const AD_POSITION_MANS_RIGHT = 9;
     const AD_POSITION_MANS_FOOTER = 10;
+    const AD_POSITION_WOMANS_FOCUS = 11;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -137,6 +138,7 @@ class Click extends CmsActiveRecord
             self::AD_POSITION_MENU_MENS=>"导航条MENS广告",self::AD_POSITION_MENU_WOMENS=>"导航条WOMENS广告",
             self::AD_POSITION_MENU_HATS=>'导航条HATS广告',self::AD_POSITION_MANS_FOCUS=>'男装首页焦点图',
             self::AD_POSITION_MANS_RIGHT=>'男装首页右侧广告',self::AD_POSITION_MANS_FOOTER=>"男装首页尾部广告",
+            self::AD_POSITION_WOMANS_FOCUS=>'女装首页焦点图',
             );
     }
     /**
@@ -163,6 +165,8 @@ class Click extends CmsActiveRecord
             return "男装首页右侧广告";
         }elseif($type == self::AD_POSITION_MANS_FOOTER){
             return "男装首页尾部广告";
+        }elseif($type == self::AD_POSITION_WOMANS_FOCUS){
+            return "女装首页焦点图";
         }else{
             return "品牌页banner";
         }

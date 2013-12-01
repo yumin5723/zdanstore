@@ -31,14 +31,24 @@
                   'value' :'Product::convertProductIsRecommond($data->is_recommond)',
                 },
                 11:{
+                  'name' :'is_recommond_mans',
+                  'type' :'raw',
+                  'value' :'Product::convertProductIsRecommond($data->is_recommond_mans)',
+                },
+                12:{
+                  'name' :'is_recommond_womens',
+                  'type' :'raw',
+                  'value' :'Product::convertProductIsRecommond($data->is_recommond_womens)',
+                },
+                13:{
                   'type':'raw',
                   'value':'CHtml::link($data->is_recommond == 0 ? "推荐到首页" : "取消推荐",Yii::app()->createUrl("/pp/product/changerecommond",array("id"=>$data->id)))',
                 },
-                12:{
+                14:{
                   'type':'raw',
                   'value':'CHtml::link("添加图片",Yii::app()->createUrl("/pp/product/addphoto",array("id"=>$data->id)))'
                 },
-                13:
+                15:
                 {
                      'class':'bootstrap.widgets.TbButtonColumn',
                      'template':' {update}'
