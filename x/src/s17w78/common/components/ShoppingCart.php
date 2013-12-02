@@ -154,11 +154,16 @@ class ShoppingCart extends CApplicationComponent{
             return array();
         }
         foreach($this->product_list as $key=>$value){
-            $product = Product::model()->findByPk($value['id']);
+            $product = Product::model()->with('brand')->findByPk($value['id']);
             if(!empty($product)){
                 $this->product_list[$key]['productName'] = $product->name;
                 $this->product_list[$key]['logo'] = $product->logo;
                 $this->product_list[$key]['shop_price'] = $product->shop_price;
+                $this->product_list[$key]['profiles'] = ProductProfile::model()->getProfilesByProductId($value['id']);
+                $this->product_list[$key]['brand_id'] = $product->brand->brand_id;
+                $this->product_list[$key]['brand_name'] = $product->brand->brand_name;
+                $this->product_list[$key]['id'] = $product->id;
+                $this->product_list[$key]['quantity'] = $value['quantity'];
             }
         }
         return $this->product_list;
