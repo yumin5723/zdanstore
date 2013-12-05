@@ -66,12 +66,12 @@ class PpModule extends CWebModule {
         $this->setComponents(array(
                 'errorHandler' => array(
                         'errorAction' => 'pp/login/error'),
-                'user' => array(
-                        'class' => 'CWebUser',
-                        'loginUrl' => Yii::app()->createUrl('/pp/site/login'),
-                        'identityCookie'=>array('domain'=>'www.zdanstore-test.com'),
-                        'returnUrl'=> array('/pp/site/index'),
-                )
+                // 'user' => array(
+                //         'class' => 'CWebUser',
+                //         'loginUrl' => Yii::app()->createUrl('/pp/site/login'),
+                //         'identityCookie'=>array('domain'=>'www.zdanstore-test.com'),
+                //         'returnUrl'=> array('/pp/site/index'),
+                // )
                 )
         );
 

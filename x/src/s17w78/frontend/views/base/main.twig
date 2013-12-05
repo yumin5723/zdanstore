@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="{{ App.assets.Url }}/css/zdan.css" rel="stylesheet" type="text/css" />
+<link href="{{ App.assets.Url }}/css/zdan.css" rel="stylesheet" type="text/css" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="Shortcut Icon" href="favicon.ico"> 
+<link rel="Bookmark" href="favicon.ico">
+
+<script type="text/javascript" src="{{ App.assets.Url}}/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="{{ App.assets.Url}}/js/zdan.js"></script>
+</head>
+<body>
+<div class="header clearfix">
+	<div class="fl">
+        <div class="search">
+            <input type="text" name="" value="SEARCH..." class="search_ipt">
+            <input type="submit" name="" value="&nbsp;" class="search_btn">
+        </div>
+        <h1 class="logo"><a href="/"></a></h1> 
+    </div>
+    <div class="fr">
+        <div class="had">FREE SHIPPING ON ALL ORDRES</div>
+        <ul class="hnav">
+            <li class="i1"><a href="">Live chat!</a></li>
+            <li class="i2"><a href="/user/login">Sign in</a> | <a href="/user/register">Register</a></li>
+            <li class="i3"><a href="">View cart</a></li>
+        </ul>
+        <!-- cart dialog -->
+        <div class="cart_dialog">
+            <a class="close">×</a>
+            <div class="title">Add to Cart</div>
+            <div class="content">
+                <div id="cart_back"></div>
+                <p class="tip">Free Shipping By Internatinoal Air Mail !</p>
+                <div class="btn clearfix">
+                    <a href="#" class="fr">View Cart</a>
+                    <a href="#" class="fr">Continue Shopping</a>
+                    <a href="#" class="fr"><img src="images/cart_ico.png" align="absmiddle" /> Checkout</a>
+                </div>
+            </div>
+        </div>
+        <!-- cart dialog -->
+    </div>
+</div>
+{{ void(this.widget('MenuWidget')) }}
+
+{% block content %}
+{% endblock %}
+
+<div class="footer clearfix">
+    <div class="copyright">
+        <div class="search_order">
+            <span class="txt">Track Your Orders&gt;&gt;</span>
+            <span class="order">
+                <input type="text" name="" value="Tracking Numbers" class="email_ipt">
+                <input type="submit" name="" value="GO!" class="email_btn">
+            </span>
+        </div>
+        <div class="share">
+            <a href="#" title=""><img src="images/share_ico1.png" /></a>
+            <a href="#" title=""><img src="images/share_ico2.png" /></a>
+            <a href="#" title=""><img src="images/share_ico3.png" /></a>
+            <a href="#" title=""><img src="images/share_ico4.png" /></a>
+        </div>
+        <p>&copy 2005-2014 Zdanstore.com Copyright. All Rights Reserved.</p>
+    </div>
+    <div class="link">
+        <dl>
+            <dt>SHOP BY</dt>
+            <dd><a href="#" title="">Brand</a></dd>
+            <dd><a href="#" title="">Category</a></dd>
+            <dd><a href="#" title="">Sale</a></dd>
+            <dd><a href="#" title="">New Arrival</a></dd>
+            <dd><a href="#" title="">Men's Clothing</a></dd>
+            <dd><a href="#" title="">Women's clothing</a></dd>
+        </dl>
+        <dl>
+            <dt>SHIPPING</dt>
+            <dd><a href="#" title="">Returns</a></dd>
+            <dd><a href="#" title="">Shipping Time</a></dd>
+            <dd><a href="#" title="">Order Tracking</a></dd>
+            <dd><a href="#" title="">Shipping Options</a></dd>
+            <dd><a href="#" title="">Insurance</a></dd>
+        </dl>
+        <dl>
+            <dt>HELP</dt>
+            <dd><a href="#" title="">About Us</a></dd>
+            <dd><a href="#" title="">F.Q.A.</a></dd>
+            <dd><a href="#" title="">Contact Us</a></dd>
+            <dd><a href="#" title="">Privacy Policy</a></dd>
+        </dl>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+<div class="main">
+    <!-- focus -->
+    <div class="toppic clearfix">
+        <div class="focus" id="play">
+            <ul class="bannerImg">
+                {% for f in focus %}
+                <li><a class="img" href="{{ f.url }}"><img src="{{ f.image }}" width="650" height="400" /></a></li>
+                {% endfor %}
+                
+            </ul>
+            <ol class="bannerNum">
+                {% for f in focus %}
+                <li>{{ loop.index }}</li>
+                {% endfor %}
+            </ol>      
+        </div>
+        <ul class="ad1">
+            {% for r in rights %}
+            <li><a href="{{ r.url }}" title=""><img src="{{ r.image }}" width="316" height="200" /></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- quick register -->
+    <div class="quick_reg">
+        <div>
+            <span class="txt"><img src="{{ App.assets.Url}}/images/reg_ico.png" align="absmiddle" /> <i>Sigh up to receive special offers and ZDANSTORE.COM news</i></span>
+            <span class="email">
+                <input type="text" name="" value="youemail@example.com" class="email_ipt">
+                <input type="submit" name="" value="GO!" class="email_btn">
+            </span>
+        </div>
+    </div>
+
+    <!-- brands list -->
+    <div class="brands_box clearfix">
+        <ul>
+            {% for b in brands %}
+            <li><a href="/brand/id/{{ b.id }}" title="">22<img src="{{ b.image }}" width="40" height="40" /></a></li>
+            {% endfor %}
+        </ul>
+        <a href="/brand" class="more"><i>MORE BRANDS &gt;</i></a>
+    </div>
+
+    <!-- product list -->
+    <div class="index_product">
+        <ul class="product_list">
+            {% for p in products %}
+            <li>
+                <div class="pic">
+                    <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title=""><img src="{{ p.logo }}" width="174" height="166" /></a>
+                </div>
+                <div class="txt">
+                    <span class="name"><a href="#" title="">{{ p.brand.name }}</a></span><br/>
+                    <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title="">{{ p.name }}</a><br/>
+                    <span class="price">{{ p.shop_price }}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- ad2 -->
+    <div class="ad2 clearfix">
+        {% for d in downAds %}
+        <div {% if loop.index == 1 %}class="fl"{% else %} class="fr" {% endif %}><a href="{{ d.url }}" title=""><img src="{{ d.image }}" width="482" height="120" /></a></div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
