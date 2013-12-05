@@ -53,7 +53,7 @@
                     <dl>
                         <dd class="buy_input">
                             <a href="#" class="reduce">-</a>
-                            <input value="1" id="buy_num" class="text">
+                            <input value="1" id="buy_num" class="text" readOnly="true">
                             <a href="#" class="add">+</a>
                         </dd>
                         
@@ -110,10 +110,14 @@
                     data:cartData,
                     dataType:'json',
                     success:function(data){     
-                    alert(data);              
+                        $("#cart_back").html(data);
                         $(".cart_dialog").show();   
                     }
                 });
+            });
+
+            $(".cart_dialog .close").click(function(){
+                $(".cart_dialog").hide();  
             });
         </script>
         <!-- detail -->

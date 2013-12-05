@@ -28,7 +28,7 @@ class ShoppingController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'confirm','checkout'
+                    'confirm','checkout','checkaddr'
                 ) ,
                 'users' => array(
                     '@'
@@ -111,11 +111,13 @@ class ShoppingController extends GController {
         if(Yii::app()->user->isGuest){
             //read from cookie
             $results = Yii::app()->shoppingcart->getCartInfoFromCookie();
+            $total = Yii::app()->shoppingcart->getCartTotalPriceFromCookie();
         }else{
             //read from database my uid
             $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
+            $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
         }
-        $this->render('cart',array('carts'=>$results));
+        $this->render('cart',array('carts'=>$results,'total'=>$total));
     }
     /**
      * action for delete a cart product
@@ -162,6 +164,24 @@ class ShoppingController extends GController {
                 //get user address
                 $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
                 $this->render('address',array('products'=>$_POST['products'],'address'=>$addresee));
+            }
+        }
+    }
+    public function actionCheckaddr(){
+        if(Yii::app()->request->isPostRequest){
+            if(isset($_POST['Product'])){
+                foreach($_POST['Product'] as $key=>$value){
+                    $cart = Cart::model()->findByPk($key);
+                    if($cart->quantity != $value['quantity']){
+                        $cart->quantity = $value['quantity'];
+                        $cart->save();
+                    }else{
+                        continue;
+                    }
+                }
+                $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
+                $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
+                $this->render('address',array('results'=>$results,'total'=>$total));
             }
         }
     }

@@ -184,4 +184,19 @@ class ShoppingCart extends CApplicationComponent{
         Yii::app()->request->cookies['cart_info']=$cookie; 
         return true;
     }
+    /**
+     * [getCartTotalPriceFromCookie description]
+     * @return [type] [description]
+     */
+    public function getCartTotalPriceFromCookie(){
+        if(empty($this->product_list)){
+            return 0;
+        }
+        $total = 0;
+        foreach($this->product_list as $key=>$value){
+            $product = Product::model()->findByPk($value['id']);
+            $total += $value['quantity'] * $product->shop_price;
+        }
+        return $total;
+    }
 }

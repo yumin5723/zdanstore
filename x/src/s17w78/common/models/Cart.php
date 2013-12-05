@@ -95,9 +95,10 @@ class Cart extends CActiveRecord
             $ret[$cart->id]['productName'] = $product->name;
             $ret[$cart->id]['logo'] = $product->logo;
             $ret[$cart->id]['shop_price'] = $product->shop_price;
-            $ret[$cart->id]['brand_id'] = $product->brand->brand_id;
-            $ret[$cart->id]['brand_name'] = $product->brand->brand_name;
+            $ret[$cart->id]['brand_id'] = $product->brand->id;
+            $ret[$cart->id]['brand_name'] = $product->brand->name;
         }
+        // $ret['total'] = $total;
         return $ret;
     }
     /**
@@ -114,5 +115,19 @@ class Cart extends CActiveRecord
             return true;
         }
         return false;
+    }
+    /**
+     * get carts total price
+     * @param  [type] $uid [description]
+     * @return [type]      [description]
+     */
+    public function getCartsTotalPrice($uid){
+        $carts = self::model()->findAllByAttributes(array('uid'=>$uid));
+        $price = 0;
+        foreach($carts as $cart){
+            $product = Product::model()->findByPk($cart->product_id);
+            $price += $cart->quantity * $product->shop_price;
+        }
+        return $price;
     }
 }

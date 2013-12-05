@@ -6,7 +6,10 @@
             <span class="name">{{ cart.brand_name }}</span><br />
             <span class="subname">{{ cart.productName}}</span><br />
             <span class="price">${{ cart.shop_price }}</span><em class="line">|</em><span class="price">Qty: 1</span><br />
-            <span class="color">Color: White</span> <span class="color">Size: M</span>
+            {% for k,v in cart.profiles %}
+            <span class="color">
+                {{ k }}: {{ v }}</span>
+            {% endfor %}
         </div>
     </li>
     {% endfor %}
