@@ -219,4 +219,13 @@ class ProductProfile extends CmsActiveRecord
         }
         return $ret;
     }
+    public function getProfilesArrayByProductId($id){
+        $results = self::model()->findAllByAttributes(array('product_id'=>$id));
+        $ret = array();
+        foreach($results as $key=>$result){
+            $profile = TermProfile::model()->findByPk($result->profile_id);
+            $ret[$key][$profile->name]['value'] = $result->profile_value;
+        }
+        return $ret;
+    }
 }

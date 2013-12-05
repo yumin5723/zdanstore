@@ -87,14 +87,6 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
                 '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
             ),
         ),
-        'TaoHaoRedis' => array(
-            'class' => 'common.extensions.RedisConnection',
-            'masterServer'=>array(
-                'host'=>'127.0.0.1',
-                'port'=>6379,
-                'timeout'=>2,
-            ),
-        ),
         'authManager' => array(
             'class' => 'gcommon.extensions.srbac.components.SDbAuthManager',
             'connectionID' => 'adminDb',
