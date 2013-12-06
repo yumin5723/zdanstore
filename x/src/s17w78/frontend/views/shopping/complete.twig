@@ -1,0 +1,39 @@
+{% extends "base/main.twig" %}
+{% block content %}
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="#">Submit Order</a></div>
+    <div class="cart_list">
+        <div class="order_box">
+            <div class="title">Congratulations ! Your order has been submitted successfully.</div>
+            <div class="content">
+                <dl class="list">
+                    <dt>Order No. <b class="red">{{ order.id }}</b></dt>
+                    <dd class="clearfix">
+                        <span class="l1">Total Value:</span>
+                        <span class="l2">${{ order.total }}</span>
+                    </dd>
+                    <dd class="clearfix">
+                        <span class="l1">Shipping Method:</span>
+                        <span class="l2">{% if order.shipping == 0 %}International Air Mail.{% else %}EMS Express{% endif %}</span>
+                    </dd>
+                    <dd class="clearfix">
+                        <span class="l1">Payment Method:</span>
+                        <span class="l2">{% if order.payment == 1%}PayPal{% else %}Western Union{% endif %}</span>
+                    </dd>
+                </dl>
+                <p class="tip">
+                    The invoice will be sent to your PayPal account within 24 hours. Please confirm your payment once the invoice received. Your order will be canceled automatically by our system if payment not clears in 5 days. Tahnk you !
+                </p>
+                <p class="link">You can <a href="#">Back to Home</a>, or go to <a href="#">My Account</a>.<p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ad2 -->
+    <div class="ad2 clearfix">
+        <div class="fl"><a href="#" title=""><img src="images/test/p4.jpg" width="482" height="120" /></a></div>
+        <div class="fr"><a href="#" title=""><img src="images/test/p5.jpg" width="482" height="120" /></a></div>
+    </div>
+
+</div>
+{% endblock %}

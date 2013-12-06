@@ -13,6 +13,15 @@ class Order extends CmsActiveRecord
     const ORDER_STATUS_PAY = 2;
     const ORDER_STATUS_COMOLETE = 4;
     const ORDER_STATUS_CLOSED = 5;
+
+    const SHIPPING_BY_AIRMAIL = 0;
+    const SHIPPING_BY_EMS = 1;
+    const SHIPPING_EMS_PRICE = 50;
+
+    const PAYMENT_BY_PAYPAL = 1;
+    const PAYMENT_BY_WESTERNUNION = 0;
+
+
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class
@@ -308,7 +317,7 @@ and year(created)=year(now())";
             $total = 0;
            foreach($products as $product){
                 $product = Product::model()->findByPk($product['id']);
-                if(!empty($prioduct)){
+                if(!empty($product)){
                     $price = $product->shop_price;
                     $product_total = $price * $product['quatity'];
                     $total += $product_total;
@@ -316,9 +325,22 @@ and year(created)=year(now())";
            }
            $model = new self;
            $model->uid = Yii::app()->user->id;
-           // $model->ip = Yii::app()->request->HostAddress
+           $model->ip = Yii::app()->request->userHostAddress;
            $model->address = $products['address'];
+           $model->billing_address = $products['billing_address'];
            $model->total_price = $total;
+           if($products['shipping'] == self::SHIPPING_BY_EMS){
+                $model->shipping = self::SHIPPING_BY_EMS;
+                $model->total_price = $total + self::SHIPPING_EMS_PRICE;
+           }else{
+                $model->shipping = self::SHIPPING_BY_ARIMAIL;
+           }
+           if($products['payment'] == self::PAYMENT_BY_PAYPAL){
+                $model->payment = self::PAYMENT_BY_PAYPAL;
+                $model->payaccount = $products['payaccount'];
+           }else{
+                $model->payment = self::PAYMENT_BY_WESTERNUNION;
+           }
            $model->status = self::ORDER_STATUS_CREATED;
            $model->save(false);
 
@@ -335,6 +357,6 @@ and year(created)=year(now())";
                 $orderProduct->save(false);
            }
         }
-        return true;
+        return $model->id;
     }
 }

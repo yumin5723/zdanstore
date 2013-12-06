@@ -149,7 +149,11 @@ CREATE TABLE IF NOT EXISTS `order` (
   `uid` bigint(20) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `ip` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
+  `address` int(11) NOT NULL,
+  `billing_address` int(11) NOT NULL,
+  `shipping` tinyint(4) NOT NULL DEFAULT '0',
+  `payment` tinyint(4) NOT NULL DEFAULT '0',
+  `payaccount` varchar(255) DEFAULT NULL, 
   `total_price` Decimal(32, 2) NOT NULL,
   `modified_uid` bigint(20) NOT NULL,
   `created` datetime DEFAULT NULL,
@@ -207,7 +211,7 @@ alter table product add `is_recommond` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_mans` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_womens` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_hats` tinyint(4) NOT NULL DEFAULT '0';
-alter table `order` add `address` varchar(255) NOT NULL;
+
 
 --
 -- Table structure for table `deliverynote`
@@ -308,7 +312,8 @@ CREATE TABLE `product_profile` (
  CREATE TABLE `address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL,
+  `firstname` varchar(200) NOT NULL,
+  `lastname` varchar(200) NOT NULL,
   `address` varchar(255) NOT NULL,
   `zipcode` int(10) NOT NULL,
   `country` varchar(200) NOT NULL,
@@ -317,6 +322,21 @@ CREATE TABLE `product_profile` (
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `billing_address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `firstname` varchar(200) NOT NULL,
+  `lastname` varchar(200) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `zipcode` int(10) NOT NULL,
+  `country` varchar(200) NOT NULL,
+  `phone` varchar(150) NOT NULL,
+  `default` tinyint(2) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

@@ -1,6 +1,6 @@
 <?php
 
-class Address extends CmsActiveRecord
+class BillingAddress extends CmsActiveRecord
 {
     public $uid;
     /**
@@ -10,7 +10,7 @@ class Address extends CmsActiveRecord
      * @return
      */
     public function tableName() {
-        return 'address';
+        return 'billing_address';
     }
     public function behaviors()
     {
@@ -44,7 +44,7 @@ class Address extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('firstname,lastname,address,phone,country,zipcode','required', 'on'=>'address',),
+            array('firstname,lastname,address,phone,country,zipcode','required'),
             //array('email','email'),
         );
         /*

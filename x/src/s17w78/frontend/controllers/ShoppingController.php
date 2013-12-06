@@ -148,25 +148,46 @@ class ShoppingController extends GController {
      * @return [type] [description]
      */
     public function actionCheckout(){
-        if(Yii::app()->resquest->isPostRequest){
-            if(empty($_POST['products'])){
+        if(Yii::app()->request->isPostRequest){
+            if(empty($_POST['Product'])){
                 return;
             }     
-            if(isset($_POST['choseaddress'])){
-                if(isset($_POST['is_new_address']) && $_POST['is_new_address'] != ""){
-                    $address_id = Address::model()->createAddress($_POST['newAddress']);
-                    $_POST['address'] = $address_id;
-                }   
-                if(Order::model()->createOrder($_POST['products'])){
-                    $this->redirect("/shopping/complete");
-                }    
-            }else{
-                //get user address
-                $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
-                $this->render('address',array('products'=>$_POST['products'],'address'=>$addresee));
+            if(isset($_POST['BillingAddress'])){
+                //save billing address
+                $billingAddress = new BillingAddress;
+                $billingAddress->setAttributes($_POST['BillingAddress']);
+                $billingAddress->uid = Yii::app()->user->id;
+                if($billingAddress->validate()){
+                    $billingAddress->save(false);
+
+                    $address = new Address;
+                    $address->setAttributes($_POST['Address']);
+                    $address->uid = Yii::app()->user->id;
+                    if($address->validate()){
+                        if(isset($_POST['chose_address']) && $_POST['chose_address'] != 0){
+                            $address->save(false);
+                        }else{
+                            $address = Address::model()->findByAttributes(array("uid"=>Yii::app()->user->id,'default'=>1));
+                        }
+                    }
+                    $_POST['Product']['address'] = $address->id;
+                    $_POST['Product']['billing_address'] = $billing_address->id;
+
+                    if($order_id == Order::model()->createOrder($_POST['products'])){
+                        $this->redirect("/shopping/complete",array("id"=>$order_id));
+                    }    
+                }
+                
             }
+            //get user address
+            $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
+            $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress));
         }
     }
+    /**
+     * [actionCheckaddr description]
+     * @return [type] [description]
+     */
     public function actionCheckaddr(){
         if(Yii::app()->request->isPostRequest){
             if(isset($_POST['Product'])){
@@ -181,8 +202,20 @@ class ShoppingController extends GController {
                 }
                 $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
                 $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
-                $this->render('address',array('results'=>$results,'total'=>$total));
+                $this->render('address',array('results'=>$results,'total'=>$total,'billingaddress'=>new BillingAddress,'address'=>new Address));
             }
         }
+    }
+    /**
+     * [actionComplete description]
+     * @return [type] [description]
+     */
+    public function actionComplete(){
+        $id = $_GET['id'];
+        $order = Order::model()->findByPk($id);
+        if(empty($order) || $order->uid != Yii::app()->user->id){
+            throw new Exception("this request is not found", 404);
+        }
+        $this->render('complete',array('order'=>$order));
     }
 }
