@@ -44,7 +44,7 @@ class BillingAddress extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('firstname,lastname,address,phone,country,zipcode','required'),
+            array('firstname,lastname,address,phone,city,country,zipcode','required'),
             //array('email','email'),
         );
         /*
@@ -79,6 +79,10 @@ class BillingAddress extends CmsActiveRecord
         if (!empty($attributes['country']) || $attributes['country'] != $this->country) {
             $attrs[] = 'country';
             $this->country = $attributes['country'];
+        }
+        if (!empty($attributes['city']) || $attributes['city'] != $this->city) {
+            $attrs[] = 'city';
+            $this->city = $attributes['city'];
         }
         if (!empty($attributes['zipcode']) || $attributes['zipcode'] != $this->zipcode) {
             $attrs[] = 'zipcode';

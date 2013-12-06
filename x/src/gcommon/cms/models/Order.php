@@ -313,13 +313,13 @@ and year(created)=year(now())";
      * @return [type]           [description]
      */
     public function createOrder($products){
-        if(!empty($producrts)){
-            $total = 0;
-           foreach($products as $product){
-                $product = Product::model()->findByPk($product['id']);
+        if(!empty($products)){
+           $total = 0;
+           foreach($products["p"] as $value){
+                $product = Product::model()->findByPk($value['id']);
                 if(!empty($product)){
                     $price = $product->shop_price;
-                    $product_total = $price * $product['quatity'];
+                    $product_total = $price * $value['quantity'];
                     $total += $product_total;
                 }
            }
@@ -333,7 +333,7 @@ and year(created)=year(now())";
                 $model->shipping = self::SHIPPING_BY_EMS;
                 $model->total_price = $total + self::SHIPPING_EMS_PRICE;
            }else{
-                $model->shipping = self::SHIPPING_BY_ARIMAIL;
+                $model->shipping = self::SHIPPING_BY_AIRMAIL;
            }
            if($products['payment'] == self::PAYMENT_BY_PAYPAL){
                 $model->payment = self::PAYMENT_BY_PAYPAL;
@@ -343,9 +343,8 @@ and year(created)=year(now())";
            }
            $model->status = self::ORDER_STATUS_CREATED;
            $model->save(false);
-
            //create order product relations
-           foreach($products as $product){
+           foreach($products["p"] as $product){
                 $orderProduct = new OrderProduct;
                 $orderProduct->order_id = $model->id;
                 $orderProduct->product_id = $product['id'];
@@ -356,7 +355,7 @@ and year(created)=year(now())";
 
                 $orderProduct->save(false);
            }
+           return $model->id;
         }
-        return $model->id;
     }
 }

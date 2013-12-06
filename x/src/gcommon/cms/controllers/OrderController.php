@@ -231,4 +231,16 @@ class OrderController extends GController {
             echo $result->uid;
         }
     }
+    /**
+     * [getProfile description]
+     * @return [type] [description]
+     */
+    public function getProfile($meta){
+        $meta = unserialize($meta);
+        $str = "";
+        foreach($meta as $k=>$v){
+            $str .= $k.":".$v."  ";
+        }
+        return $str;
+    }
 }

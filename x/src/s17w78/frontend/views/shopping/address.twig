@@ -15,26 +15,26 @@
                         <li class="clearfix">
                             <div class="fl">
                                 <em class="red">*</em> First Name
-                                <label><input type="text" name="BillingAddress[firstname]" value="{{ billingaddress.firstname }}" size="16"></label>
+                                <label><input type="text" name="BillingAddress[firstname]" value="" size="16"></label>
                             </div>
                             <div class="fr">
                                 <em class="red">*</em> Last Name
-                                <label><input type="text" name="BillingAddress[lastname]" value="{{ billingaddress.lastname }}" size="16"></label>
+                                <label><input type="text" name="BillingAddress[lastname]" value="" size="16"></label>
                             </div>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Address
-                            <label><input type="text" name="BillingAddress[address]" value="{{ billingaddress.address }}" size="35"></label>
+                            <label><input type="text" name="BillingAddress[address]" value="" size="35"></label>
                         </li>
                         <li class="clearfix">
                             <div class="fl">
                                 <em class="red">*</em> City
-                                <label><input type="text" name="BillingAddress[city]" value="{{ billingaddress.city }}" size="16"></label>
+                                <label><input type="text" name="BillingAddress[city]" value="" size="16"></label>
                             </div>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Zip Code
-                            <label><input type="text" name="BillingAddress[zipcode]" value="{{ billingaddress.zipcode }}" size="16"></label>
+                            <label><input type="text" name="BillingAddress[zipcode]" value="" size="16"></label>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Country
@@ -42,7 +42,7 @@
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Phone Number
-                            <label><input type="text" name="BillingAddress[phone]" value="{{ billingaddress.phone }}" size="35"></label>
+                            <label><input type="text" name="BillingAddress[phone]" value="" size="35"></label>
                         </li>
                     </ul>
                 </div>
@@ -53,33 +53,33 @@
                 <div class="ops">
                     <label><input type="radio" name="chose_address" value="2"> Same as Billing Address</label>
                     <label><input type="radio" name="chose_address" value="1"> A Different Address</label>
-                    <label><input type="radio" name="chose_address" value="0"> Default Address</label>
+                    <label><input type="radio" name="chose_address" checked="checked" value="0"> Default Address</label>
                 </div>
                 <div class="content">
                     <ul class="ads_form">
                         <li class="clearfix">
                             <div class="fl">
                                 <em class="red">*</em> First Name
-                                <label><input type="text" name="Address[firstname]" value="{{ address.firstname }}" size="16"></label>
+                                <label><input type="text" name="Address[firstname]" value="" size="16"></label>
                             </div>
                             <div class="fr">
                                 <em class="red">*</em> Last Name
-                                <label><input type="text" name="Address[lastname]" value="{{ address.lastname }}" size="16"></label>
+                                <label><input type="text" name="Address[lastname]" value="" size="16"></label>
                             </div>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Address
-                            <label><input type="text" name="Address[address]" value="{{ address.address }}" size="35"></label>
+                            <label><input type="text" name="Address[address]" value="" size="35"></label>
                         </li>
                         <li class="clearfix">
                             <div class="fl">
                                 <em class="red">*</em> City
-                                <label><input type="text" name="Address[city]" value="{{ address.city }}" size="16"></label>
+                                <label><input type="text" name="Address[city]" value="" size="16"></label>
                             </div>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Zip Code
-                            <label><input type="text" name="Address[zipcode]" value="{{ address.zipcode }}" size="16"></label>
+                            <label><input type="text" name="Address[zipcode]" value="" size="16"></label>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Country
@@ -87,7 +87,7 @@
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Phone Number
-                            <label><input type="text" name="Address[phone]" value="{{ address.phone }}" size="35"></label>
+                            <label><input type="text" name="Address[phone]" value="" size="35"></label>
                         </li>
                     </ul>
                 </div>
@@ -106,8 +106,8 @@
             </thead>
             <tbody>
             {% for cart in results %}
-            <input type="hidden" name="Product[{{ cart.id}}][id]" value="{{ cart.id }}" />
-            <input type="hidden" name="Product[{{ cart.id}}][quantity]" value="{{ cart.quantity }}" />
+            <input type="hidden" name="Product[p][{{ cart.id}}][id]" value="{{ cart.id }}" />
+            <input type="hidden" name="Product[p][{{ cart.id}}][quantity]" value="{{ cart.quantity }}" />
             <tr>
                 <td>
                     <div class="cart_p clearfix">
@@ -119,7 +119,7 @@
                             <a href="{{ this.createUrl('/product/view',{'id':cart.id }) }}" title="">{{ cart.productName }}</a><br/>
                             <i>{{ cart.batch_number  }}</i><br>
                             {% for k,v in cart.profiles %}
-                                <input type="hidden" name="Product[{{ cart.id}}][Profile][{{ k }}]" value="{{ v }}" />
+                                <input type="hidden" name="Product[p][{{ cart.id}}][profile][{{ k }}]" value="{{ v }}" />
                                 {{ k }}: {{ v }}<span>|</span>
                             {% endfor %}
                         </p>
@@ -149,7 +149,7 @@
             <div class="title">Shipping Options</div>
             <div class="content">
                 <div class="fl">
-                    <label><input type="radio" name="Product[shipping]" value="0"> International Air Mail (4-6 weeks)</label>
+                    <label><input type="radio" name="Product[shipping]" checked="checked" value="0"> International Air Mail (4-6 weeks)</label>
                     <p class="ptip red"><b>Free Shipping</b></p>
                     <p class="tip">Economy air mail packages shipped with tracking number, Buyers can track the local post office system for shipping information after 3-4 days activation. </p>
                 </div>
@@ -166,7 +166,7 @@
             <div class="title">Payment</div>
             <div class="content">
                 <div class="fl">
-                    <label><input type="radio" name="Product[payment]" value="1"> PayPal</label>
+                    <label><input type="radio" checked="checked" name="Product[payment]" value="1"> PayPal</label>
                     <p class="ptip">
                         <em class="red">*</em> Your PayPal Account Emial<br/>
                         <input type="text" name="Product[payment]" value="0" size="42">
@@ -174,7 +174,7 @@
                     <p class="tip">The invoice will be sent to your PayPal account within 24 hours. Please confirm your payment once the invoice received. Your order will be canceled automatically by our system if payment not clears in 5 days.  </p>
                 </div>
                 <div class="fr">
-                    <label><input type="radio" name="" value=""> Western Union</label>
+                    <label><input type="radio" name="Product[payment]" value="0"> Western Union</label>
                     <p class="tip">The Western Union invoice will be sent to your E-mail box within 24 hours. You can deposit your payment to the information we offered. Your order will be canceled automatically by our system if payment not clears in 5 days.</p>
                 </div>
             </div>

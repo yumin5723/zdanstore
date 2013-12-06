@@ -28,7 +28,7 @@ class ShoppingController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'confirm','checkout','checkaddr'
+                    'confirm','checkout','checkaddr','complete'
                 ) ,
                 'users' => array(
                     '@'
@@ -171,17 +171,20 @@ class ShoppingController extends GController {
                         }
                     }
                     $_POST['Product']['address'] = $address->id;
-                    $_POST['Product']['billing_address'] = $billing_address->id;
+                    $_POST['Product']['billing_address'] = $billingAddress->id;
 
-                    if($order_id == Order::model()->createOrder($_POST['products'])){
-                        $this->redirect("/shopping/complete",array("id"=>$order_id));
-                    }    
+                    $orderid = Order::model()->createOrder($_POST['Product']);
+                    // if($order_id == Order::model()->createOrder($_POST['Product'])){
+                        $this->redirect("/shopping/complete/id/".$orderid);
+                    // }    
                 }
                 
             }
+            $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
+            $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
             //get user address
             $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
-            $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress));
+            $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress,'results'=>$results,'total'=>$total,));
         }
     }
     /**
