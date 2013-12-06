@@ -25,7 +25,7 @@ class LocalStorage
             $this->min_file_size=$this->min_file_size;
             $this->allow_types=$allow_types;
             $this->resource_url = Yii::app()->params['resource_url'];
-            $this->base_folder = Yii::getPathOfAlias('application.www.upload')."/";
+            $this->base_folder = Yii::app()->params['resource_folder'];
       }
         
       public function UploadFile(&$resource,$model,&$process,&$message,$remote=false){
