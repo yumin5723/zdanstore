@@ -170,7 +170,7 @@ class UserController extends GController {
         $user = $this->loadModel(Yii::app()->user->id);
         $uid =  Yii::app()->user->id;
         $model = new Order;
-        $count = 1;
+        $count = 20;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
         $nums = Order::model()->getCount($uid);
@@ -203,15 +203,15 @@ class UserController extends GController {
     /*backend user address*/
     public function actionAddress(){
         $uid = Yii::app()->user->id;
-        $model = new Address('address');
+        $model = new Address;
         $datas = $model->getAlldatas($uid);
         if (isset($_POST['Address'])) {
-            $_POST['Address']['uid']=$uid;
+            $model->uid = Yii::app()->user->id;
             $model->setAttributes($_POST['Address']);
             if ($model->validate()) {
                 if($model->save(false)){
                     
-                    Yii::app()->user->setFlash('success', Yii::t('mii', '地址添加success!!'));
+                    Yii::app()->user->setFlash('success', Yii::t('mii', 'create new address successful!!'));
                     return $this->redirect("address");
                 }
                 else{
@@ -232,7 +232,7 @@ class UserController extends GController {
             }
             // $model->updateDefault($_GET['id']);
         }
-        $this->render("account_address",array("model"=>$model,"data"=>$datas[0],'pages'=>$datas[1]));
+        $this->render("account_address",array("model"=>$model,"data"=>$datas));
     }
     /**
      * Returns the data model based on the primary key given in the GET variable.

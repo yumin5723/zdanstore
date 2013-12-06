@@ -35,7 +35,7 @@
                                 {{ void(this.widget('zii.widgets.jui.CJuiDatePicker', { 
                                     'attribute' : 'birthday', 
                                     'model':profile, 
-                                    'language':'zh_cn',
+                                    'language':'en_us',
                                     'name':'birthday', 
                                     'options': { 
                                             'showAnim' : 'fold', 
@@ -55,7 +55,7 @@
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> gender
-                            <label>{{ form.dropDownList(profile, "gender", {'1':'请选择','2':'男','3':'女'},{'placeholder':'','class':"se_data"})|raw }}</label>
+                            <label>{{ form.dropDownList(profile, "gender", {'1':'please chose','2':'male','3':'famale'},{'placeholder':'','class':"se_data"})|raw }}</label>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> ID number

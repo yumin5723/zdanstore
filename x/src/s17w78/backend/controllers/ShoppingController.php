@@ -40,6 +40,8 @@ class ShoppingController extends GController {
                     'cartinit',
                     'cart',
                     'index',
+                    'delete',
+                    'defaultaddress'
                 ) ,
                 'users' => array(
                     '*'
@@ -167,6 +169,10 @@ class ShoppingController extends GController {
             }
         }
     }
+    /**
+     * [actionCheckaddr description]
+     * @return [type] [description]
+     */
     public function actionCheckaddr(){
         if(Yii::app()->request->isPostRequest){
             if(isset($_POST['Product'])){
@@ -184,5 +190,14 @@ class ShoppingController extends GController {
                 $this->render('address',array('results'=>$results,'total'=>$total));
             }
         }
+    }
+    /**
+     * get user default address
+     * @return [type] [description]
+     */
+    public function actionDefaultaddress(){
+        $uid = Yii::app()->user->id;
+        $address = Address::model()->findByAttributes(array("uid"=>$uid,"defalut"=>1));
+        echo json_encode($address);
     }
 }

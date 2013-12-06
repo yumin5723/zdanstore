@@ -26,7 +26,7 @@
                         <div class="tip">
                             <label><a href="/user/address?id={{ a.id }}"><input type="radio" name="defaultAddress" value="" {% if a.default == 1 %}checked="checked"{% endif %}/> </a>Default Address</label>
                             <p>
-                                {{ a.name }}<br/>
+                                {{ a.lastname }}.{{ a.firstname }}<br/>
                                 Address {{ a.address }}<br/>
                                 Zip Code {{ a.zipcode }}<br/>
                                 Country {{ a.country }}<br/>

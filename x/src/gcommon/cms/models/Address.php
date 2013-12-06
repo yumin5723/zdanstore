@@ -44,7 +44,7 @@ class Address extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('firstname,lastname,address,phone,country,zipcode','required', 'on'=>'address',),
+            array('firstname,lastname,address,phone,country,zipcode','required',),
             //array('email','email'),
         );
         /*
@@ -104,14 +104,12 @@ class Address extends CmsActiveRecord
     }
     
     public function getAlldatas($uid){
-        $count = 3;
+        $count = 30;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
         $nums = $this->getCount($uid);
         $chargeRecords = $this->getAllChargeRecords($uid,$count,$pageCurrent);
-        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/user/address/p/",2);
-        $p = $subPages->show_SubPages(2);
-        return [$chargeRecords,$p];
+        return $chargeRecords;
     }
     public function getAllChargeRecords($uid,$count,$page){
         $criteria = new CDbCriteria;
@@ -158,7 +156,8 @@ class Address extends CmsActiveRecord
     public function createAddress($data){
         $model = new self;
         $model->uid = Yii::app()->user->id;
-        $model->name = $data['name'];
+        $model->firstname = $data['firstname'];
+        $model->lastname = $data['lastname'];
         $model->address = $data['address'];
         $model->zipcode = $data['zipcode'];
         $model->country = $data['country'];
