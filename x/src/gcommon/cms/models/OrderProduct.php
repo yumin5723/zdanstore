@@ -81,6 +81,7 @@ class OrderProduct extends CActiveRecord
      * @return [type]           [description]
      */
     public function getOrderDetail($order_id){
+        $order = self::model()->findByPk($order_id);
         return self::model()->findAllByAttributes(array('order_id'=>$order_id));
     }   
 

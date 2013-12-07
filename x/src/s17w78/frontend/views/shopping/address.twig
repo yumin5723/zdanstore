@@ -11,7 +11,7 @@
             <div class="b_ads">
                 <div class="title">Billing Address</div>
                 <div class="content">
-                    <ul class="ads_form">
+                    <ul class="ads_form" id="billing_form">
                         <li class="clearfix">
                             <div class="fl">
                                 <em class="red">*</em> First Name
@@ -38,7 +38,13 @@
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Country
-                            <label><select name="BillingAddress[country]"><option value="CA">CA</option></select></label>
+                            <label>
+                                <select name="BillingAddress[country]">
+                                    {% for a in billingaddress.Cu %}
+                                    <option value="{{ a }}">{{ a }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Phone Number
@@ -56,40 +62,47 @@
                     <label><input type="radio" name="chose_address" checked="checked" value="0"> Default Address</label>
                 </div>
                 <div class="content">
-                    <ul class="ads_form">
-                        <li class="clearfix">
-                            <div class="fl">
-                                <em class="red">*</em> First Name
-                                <label><input type="text" name="Address[firstname]" value="" size="16"></label>
-                            </div>
-                            <div class="fr">
-                                <em class="red">*</em> Last Name
-                                <label><input type="text" name="Address[lastname]" value="" size="16"></label>
-                            </div>
-                        </li>
-                        <li class="clearfix">
-                            <em class="red">*</em> Address
-                            <label><input type="text" name="Address[address]" value="" size="35"></label>
-                        </li>
-                        <li class="clearfix">
-                            <div class="fl">
-                                <em class="red">*</em> City
-                                <label><input type="text" name="Address[city]" value="" size="16"></label>
-                            </div>
-                        </li>
-                        <li class="clearfix">
-                            <em class="red">*</em> Zip Code
-                            <label><input type="text" name="Address[zipcode]" value="" size="16"></label>
-                        </li>
-                        <li class="clearfix">
-                            <em class="red">*</em> Country
-                            <label><select name="Address[country]"><option value="CA">CA</option></select></label>
-                        </li>
-                        <li class="clearfix">
-                            <em class="red">*</em> Phone Number
-                            <label><input type="text" name="Address[phone]" value="" size="35"></label>
-                        </li>
-                    </ul>
+                    <div id="default_box"></div>
+                    <div id="newAddress" style="display:none;">
+                        <ul class="ads_form" id="shipping_form">
+                            <li class="clearfix">
+                                <div class="fl">
+                                    <em class="red">*</em> First Name
+                                    <label><input type="text" name="Address[firstname]" value="" size="16"></label>
+                                </div>
+                                <div class="fr">
+                                    <em class="red">*</em> Last Name
+                                    <label><input type="text" name="Address[lastname]" value="" size="16"></label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Address
+                                <label><input type="text" name="Address[address]" value="" size="35"></label>
+                            </li>
+                            <li class="clearfix">
+                                <div class="fl">
+                                    <em class="red">*</em> City
+                                    <label><input type="text" name="Address[city]" value="" size="16"></label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Zip Code
+                                <label><input type="text" name="Address[zipcode]" value="" size="16"></label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Country
+                                <label><select name="Address[country]">
+                                    {% for a in address.Cu %}
+                                        <option value="{{ a }}">{{ a }}</option>
+                                    {% endfor %}
+                                </select></label>
+                            </li>
+                            <li class="clearfix">
+                                <em class="red">*</em> Phone Number
+                                <label><input type="text" name="Address[phone]" value="" size="35"></label>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,4 +235,48 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    // same as billing address
+    $(".ops").find("input").eq(0).click(function(){
+        var len = $("#billing_form").find("label").length;
+        $("#default_box").hide();
+        $("#newAddress").show();
+        for(var i=0;i<len;i++){
+            $("#shipping_form").find("label").eq(i).children().val($("#billing_form").find("label").eq(i).children().val());
+            $("#shipping_form").find("label").eq(i).children().attr("readonly","true");
+        }
+    });
+    // a different address
+    $(".ops").find("input").eq(1).click(function(){
+        var len = $("#billing_form").find("label").length;
+        $("#default_box").hide();
+        $("#newAddress").show();
+        for(var i=0;i<len;i++){
+            $("#shipping_form").find("label").eq(i).children().removeAttr("readonly","true");
+            $("#shipping_form").find("label").eq(i).children().val("");
+        }
+    });
+    // default address
+    $(".ops").find("input").eq(2).click(function(){
+        getDefault();
+    });
+    // defalut ajax
+    function getDefault(){
+       $.ajax({
+            type: "POST",
+            url:"/shopping/getdefault",
+            data:{},
+            dataType:'json',
+            success:function(data){   
+                $("#default_box").html(data);
+                $("#default_box").show();
+                $("#newAddress").hide();
+            }
+        }); 
+    }
+
+    $(document).ready(function(){
+        getDefault();
+    });
+</script> 
 {% endblock %}

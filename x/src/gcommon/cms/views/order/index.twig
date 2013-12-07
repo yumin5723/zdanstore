@@ -28,7 +28,6 @@
 		<th id="app-grid_c1">用户</th>
 		<th id="app-grid_c4">订单金额</th>
 		<th id="app-grid_c4">订单状态</th>
-		<th id="app-grid_c4">邮寄地址</th>
 		<th id="app-grid_c12">创建时间</th>
 		<th id="app-grid_c12">操作</th>
 		<th id="app-grid_c14" class="button-column">&nbsp;</th>
@@ -60,7 +59,6 @@
 			订单关闭
 			{% endif %}
 		</td>
-		<td>{{ v.address }}</td>
 		<td>{{ v.created }}</td>
 		<td>{% if v.status == constant('Order::ORDER_STATUS_PAY') %}<a target="_blank" href="/pp/order/adddelivery/orderid/{{ v.id }}">添加发货单</a>{% endif %}</td>
 		<td class="button-column"> 

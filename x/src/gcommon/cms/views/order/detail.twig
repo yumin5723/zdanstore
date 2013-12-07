@@ -12,6 +12,8 @@
 	</select>
 	<input type="submit" value="提交">
 </form>
+国家:{{ shipping.country }}&nbsp;&nbsp;城市:{{ shipping.city }}&nbsp;&nbsp;邮寄地址:{{ shipping.address }} &nbsp;&nbsp;收件人:{{ shipping.firstname}}{{ shipping.lastname }}&nbsp;&nbsp;电话:{{ shipping.phone }}<br />
+国家:{{ billing.country }}&nbsp;&nbsp;城市:{{ billing.city }}&nbsp;&nbsp;付款地址:{{ billing.address }} &nbsp;&nbsp;收件人:{{ billing.firstname}}{{ billing.lastname }}&nbsp;&nbsp;电话:{{ billing.phone }}<br />
 <table class="items table">
 <thead>
 	<tr>
@@ -20,6 +22,7 @@
 		<th id="app-grid_c4">商品图片</th>
 		<th id="app-grid_c4">商品属性</th>
 		<th id="app-grid_c4">商品数量</th>
+		<th id="app-grid_c4">商品单价</th>
 		<th id="app-grid_c4">商品单价</th>
 	</tr>
 </thead>

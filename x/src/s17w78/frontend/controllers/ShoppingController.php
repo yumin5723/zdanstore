@@ -28,7 +28,7 @@ class ShoppingController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'confirm','checkout','checkaddr','complete'
+                    'confirm','checkout','checkaddr','complete','getdefault'
                 ) ,
                 'users' => array(
                     '@'
@@ -177,6 +177,8 @@ class ShoppingController extends GController {
                     $_POST['Product']['billing_address'] = $billingAddress->id;
 
                     $orderid = Order::model()->createOrder($_POST['Product']);
+                    //delete shopping carts
+                    // Cart::model()->delete/
                     // if($order_id == Order::model()->createOrder($_POST['Product'])){
                         $this->redirect("/shopping/complete/id/".$orderid);
                     // }    
@@ -225,5 +227,15 @@ class ShoppingController extends GController {
             throw new Exception("this request is not found", 404);
         }
         $this->render('complete',array('order'=>$order));
+    }
+    /**
+     * [actionGetdefault description]
+     * @return [type] [description]
+     */
+    public function actionGetdefault(){
+        $uid = Yii::app()->user->id;
+        $default = Address::model()->findByAttributes(array("uid"=>$uid,"default"=>1));
+        $html = $this->render("default",array('address'=>$default),true);
+        echo json_encode($html);
     }
 }

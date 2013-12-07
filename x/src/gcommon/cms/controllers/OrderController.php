@@ -136,7 +136,9 @@ class OrderController extends GController {
         }
         $order_detail = OrderProduct::model()->getOrderDetail($id);
         $status = Order::model()->getAllStatus();
-        $this->render('detail',array('detail'=>$order_detail,'order'=>$order,'status'=>$status));
+        $shippaddress = Address::model()->findByPk($order->address);
+        $billingaddress = BillingAddress::model()->findByPk($order->billing_address);
+        $this->render('detail',array('detail'=>$order_detail,'order'=>$order,'status'=>$status,'shipping'=>$shippaddress,'billing'=>$billingaddress));
     }
     /**
      * action for change status
@@ -236,6 +238,9 @@ class OrderController extends GController {
      * @return [type] [description]
      */
     public function getProfile($meta){
+        if(empty($meta)){
+            return "";
+        }
         $meta = unserialize($meta);
         $str = "";
         foreach($meta as $k=>$v){
