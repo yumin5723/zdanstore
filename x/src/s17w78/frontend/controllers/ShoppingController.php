@@ -40,6 +40,7 @@ class ShoppingController extends GController {
                     'cartinit',
                     'cart',
                     'index',
+                    'delete',
                 ) ,
                 'users' => array(
                     '*'
@@ -128,13 +129,15 @@ class ShoppingController extends GController {
             $id = $_POST['id'];
             if(Yii::app()->user->isGuest){
                 if(Yii::app()->shoppingcart->deleteProductFromCart($id)){
-                    echo "success";
+                    $data = "success";
+                    echo json_encode($data);
                 }else{
                     echo "fail";
                 }
             }else{
                 if(Cart::model()->deleteProductById($id,Yii::app()->user->id)){
-                    echo "success";
+                    $data = "success";
+                    echo json_encode($data);
                 }else{
                     echo "fail";
                 }
@@ -207,6 +210,8 @@ class ShoppingController extends GController {
                 $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
                 $this->render('address',array('results'=>$results,'total'=>$total,'billingaddress'=>new BillingAddress,'address'=>new Address));
             }
+        }else{
+            $this->redirect('/shopping/cart');
         }
     }
     /**

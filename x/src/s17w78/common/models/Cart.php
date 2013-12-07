@@ -89,6 +89,7 @@ class Cart extends CActiveRecord
         $ret = array();
         foreach($carts as $key=>$cart){
             $product = Product::model()->with('brand')->findByPk($cart->product_id);
+            $ret[$cart->id]['cart_id'] = $cart->id;
             $ret[$cart->id]['id'] = $cart->product_id;
             $ret[$cart->id]['quantity'] = $cart->quantity;
             $ret[$cart->id]['profiles'] = unserialize($cart->meta);

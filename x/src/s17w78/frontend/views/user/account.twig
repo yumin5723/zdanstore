@@ -20,8 +20,8 @@
         </div>
         <div class="act_content">
             <div class="welcome">
-                <p>Hello, <b>James</b> ! Welcome back to Zdanstore.com !</p>
-                <p><img src="images/reg_ico.png" align="absmiddle" /> <b class="red">1 New Message !</b></p>
+                <p>Hello, <b>{{ user.username }}</b> ! Welcome back to Zdanstore.com !</p>
+                <!--<p><img src="images/reg_ico.png" align="absmiddle" /> <b class="red">1 New Message !</b></p>-->
             </div><!-- welcome -->
 
             <div class="info fl">
@@ -44,7 +44,7 @@
                         <label><input type="checkbox" name="" value="" checked="checked" /> Default Address</label>
                         {% for d in data %}
                         <p>
-                            {{ d.name }}<br/>
+                            {{ d.firstname }}.{{d.lastname}}<br/>
                             Address {{ d.address }}<br/>
                             Zip Code {{ d.zipcode }}<br/>
                             Country  {{ d.country }}<br/>

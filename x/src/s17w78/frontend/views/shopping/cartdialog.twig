@@ -1,7 +1,7 @@
 <ul class="list">
     {% for cart in carts %}
     <li class="clearfix">
-        <a href="{{ this.createUrl("/product/view",{'id':cart.id})}}" class="pic"><img src="images/test/d1.jpg" width="70" height="80" /></a>
+        <a href="{{ this.createUrl("/product/view",{'id':cart.id})}}" class="pic"><img src="{{ cart.logo}}" width="70" height="80" /></a>
         <div class="txt">
             <span class="name">{{ cart.brand_name }}</span><br />
             <span class="subname">{{ cart.productName}}</span><br />

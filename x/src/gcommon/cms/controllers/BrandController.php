@@ -107,6 +107,7 @@ class BrandController extends GController {
             if ($model->validate()) {
                 if ($model->save()) {
                     BrandTerm::model()->saveBrandTerm($model->id,$_POST['Oterm']);
+                    $this->redirect("admin");
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Brand Successfully!'));
                 }
             }

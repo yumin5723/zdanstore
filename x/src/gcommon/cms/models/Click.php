@@ -150,7 +150,7 @@ class Click extends CmsActiveRecord
      * @param  [type] $isNew [description]
      * @return [type]        [description]
      */
-    public function convertAdTypes($type){
+    static public function convertAdTypes($type){
         if($type == self::AD_POSITION_INDEX_FOCUS){
             return "首页焦点图广告";
         }elseif($type == self::AD_POSITION_INDEX_RIGHT){

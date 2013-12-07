@@ -96,8 +96,8 @@
                         <dt>BRADNS</dt>
                         <?php foreach($hatsbrands as $key=>$hats):?>
                             <dd>
-                                <a href="#" title=""><img src="<?php echo $hats->brand->image; ?>" width="40" height="40" /></a>
-                                <span><a href="#" title=""><?php echo $hats->brand->name; ?></a></span>
+                                <a href="#" title=""><img src="<?php echo $hats->brand['image']; ?>" width="40" height="40" /></a>
+                                <span><a href="#" title=""><?php echo $hats->brand['name']; ?></a></span>
                             </dd>
                         <?php endforeach ?>
                         <dt class="more"><a href="#" title="">MORE&gt;</a></dt>

@@ -1,7 +1,9 @@
 {% extends "base/main.twig" %}
 {% block content %}
 <div class="main">
-    <div class="position"><a href="#">Home</a> &gt; <a href="#">Mans</a> &gt; <a href="#">T-Shirt</a> &gt; Casual White Graphic T-Shirt</div>
+    <div class="position">
+        {{ this.getMenu(product.id)|raw }}
+    </div>
     <div class="dleft">
         <!-- image -->
         <div class="d_focus">
@@ -124,7 +126,7 @@
         <div class="detail">
             <div class="title">Details:</div>
             <div class="content">
-                {{ product.desc }}
+                {{ product.desc|raw }}
             </div>
         </div>
     </div> <!-- left end -->

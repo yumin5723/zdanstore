@@ -61,8 +61,9 @@ class MansController extends GController {
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondMansProducts();
         $mensTerms = Oterm::model()->getMensTreeMenu();
+        $brands = Brand::model()->getBrandsForIndex();
         $this->render("index",array('focus'=>$focus,'rights'=>$rights,'news'=>$newarrivals,
-            'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers));
+            'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers,'brands'=>$brands));
     }
     /**
      * action for brand view

@@ -365,7 +365,6 @@ class BrandTerm extends CActiveRecord
         $descendants=$category->ancestors()->findAll();
         $ret =  array_map(function ($a){return $a->id;}, $descendants);
         array_push($ret,$term_id);
-
         $criteria = new CDbCriteria;
         $criteria->addInCondition("term_id",$ret);
         $brands = self::model()->with('brand')->findAll($criteria);

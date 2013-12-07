@@ -19,23 +19,23 @@ class UserController extends GController {
      */
     public function accessRules()
     {
-    return array(
-        array('allow', // allow authenticated user to perform 'create' and 'update' actions
-            'actions'=>array('login','register'),//'account','setting','message','order','address',
+        return array(
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions'=>array('login','register'),//'account','setting','message','order','address',
+                'users'=>array('*'),
+            ),
+            array('allow',
+                'actions'=>array('info','success'),
+                'users'=>array('?'),
+            ),
+            array('allow',
+                'actions'=>array('logout','account','index','setting','message','order','address','bind','check','done','mygoods','resend','mypoints'),
+                'users'=>array('@'),
+            ),
+            array('deny',  // deny all users
             'users'=>array('*'),
-        ),
-        array('allow',
-            'actions'=>array('info','success'),
-            'users'=>array('?'),
-        ),
-        array('allow',
-            'actions'=>array('logout','account','index','setting','message','order','address','bind','check','done','mygoods','resend','mypoints'),
-            'users'=>array('@'),
-        ),
-        array('deny',  // deny all users
-        'users'=>array('*'),
-        ),
-    );
+            ),
+        );
     }
 
     /**
@@ -74,18 +74,19 @@ class UserController extends GController {
             return $this->redirect('/user/');
         }
         $user = new User;
-        if (!empty($_POST['username']) && !empty($_POST['password'])) {
-            $user->username=$_POST['username'];
-            $user->password=$_POST['password'];
-            $user->rememberMe = true;
-            if ($user->login()) {
-                
-                return $this->redirect("/user/");
+        if(Yii::app()->request->isPostRequest){
+            if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                $user->username=$_POST['username'];
+                $user->password=$_POST['password'];
+                $user->rememberMe = true;
+                if ($user->login()) {
+                    return $this->redirect(Yii::app()->user->returnUrl);
+                }else{
+                    Yii::app()->user->setFlash('error', Yii::t('mii', 'Username or password is wrong!!'));
+                }
             }else{
-                Yii::app()->user->setFlash('error', Yii::t('mii', 'Username or password is wrong!!'));
+                    Yii::app()->user->setFlash('error', Yii::t('mii', 'Username and password cannot be blank!!'));
             }
-        }else{
-                Yii::app()->user->setFlash('error', Yii::t('mii', 'Username and password cannot be blank!!'));
         }
         $this->render("login",compact('user'));
     }
@@ -102,7 +103,7 @@ class UserController extends GController {
         Yii::app()->request->cookies['bbsmember_id'] = new CHttpCookie('bbsmember_id', 0,array('domain'=>'.zdanstore.com'));
         Yii::app()->request->cookies['bbspath_hash'] = new CHttpCookie('bbspath_hash', 0,array('domain'=>'.zdanstore.com'));
         Yii::app()->request->cookies['bbssession_id'] = new CHttpCookie('bbssession_id', 0,array('domain'=>'.zdanstore.com'));
-        $this->redirect(Yii::app()->user->loginUrl);
+        $this->redirect("/");
     }
     /**
      * user register

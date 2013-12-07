@@ -11,6 +11,7 @@ class Order extends CmsActiveRecord
     const ORDER_STATUS_CONFIRM = 1;
     const ORDER_STATUS_SHIPING = 3;
     const ORDER_STATUS_PAY = 2;
+    const ORDER_STATUS_PACKAGING = 6;
     const ORDER_STATUS_COMOLETE = 4;
     const ORDER_STATUS_CLOSED = 5;
 

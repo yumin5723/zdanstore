@@ -87,4 +87,22 @@ class ProductController extends GController {
         $product_profiles = ProductProfile::model()->getProfilesByProductId($id);
         $this->render('view',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles));
     }
+    /**
+     * get product menu
+     * @return [type] [description]
+     */
+    public function getMenu($product_id){
+        $categories = Product::model()->getObjectTermById($product_id);
+
+        $html = '<a href="/">Home</a> &gt;';
+        if(empty($categories)){
+            return "";
+        }
+        foreach($categories as $key=>$category){
+            $name = $category['term_name'];
+            $url = $category['url'];
+            $html .= " <a href='#'>$name</a> &gt;";
+        }
+        return $html;
+    }
 }

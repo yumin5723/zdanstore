@@ -63,8 +63,7 @@
                                 <label><input type="text" name="Address[zipcode]" value="" size="16"></label>
                             </li>
                             <li class="clearfix">
-                                <em class="red">*</em> Country
-                                <label><select name="Address[country]"><option value="CA">CA</option></select></label>
+                                <label>{{ form.dropDownListRow(model, 'country', model.Cu)|raw }}</label>
                             </li>
                             <li class="clearfix">
                                 <em class="red">*</em> Phone Number

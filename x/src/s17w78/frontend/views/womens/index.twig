@@ -1,5 +1,6 @@
 {% extends "base/main.twig" %}
 {% block content %}
+<script type="text/javascript" src="{{ App.assets.Url}}/js/slider.js"></script>
 <div class="main">
     <div class="position"><a href="#">Home</a> &gt; <a href="#">Womens</a></div>
     <div class="mleft">
@@ -86,19 +87,9 @@
         <!-- brands list -->
         <div class="brands_box clearfix">
             <ul>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b2.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b3.jpg" width="40" height="40" /></a></li>
-                <li><a href="#" title=""><img src="images/test/b1.jpg" width="40" height="40" /></a></li>
+                {% for brand in brands %}
+                <li><a href="{{ this.createUrl('/brands/view',{'id':brand.id })}}" title=""><img src="{{ brand.image }}" width="40" height="40" /></a></li>
+                {% endfor %}
             </ul>
             <a href="#" class="more"><i>MORE BRANDS &gt;</i></a>
         </div>

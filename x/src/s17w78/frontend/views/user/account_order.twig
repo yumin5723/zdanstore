@@ -28,7 +28,18 @@
                             <td>{{ b.id }}</td>
                             <td>{{ b.created }}</td>
                             <td>{{ b.total_price }}</td>
-                            <td>{% if b.status == 2 %}success{% endif %}</td>
+                            <td>
+                                {% if b.status == 0 %}
+                                New Order 
+                                {% elseif b.status == 1 %}
+                                Confirmed
+                                {% elseif b.status == 2 %}
+                                Paid
+                                {% elseif b.status == 6 %}
+                                Packaging
+                                {% elseif b.status == 3 %}
+                                Shipped
+                            </td>
                             <td>Tracking Numbers</td>
                         </tr>
                     {% endfor %}

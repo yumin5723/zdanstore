@@ -157,6 +157,7 @@ class ShoppingCart extends CApplicationComponent{
             $product = Product::model()->with('brand')->findByPk($value['id']);
             if(!empty($product)){
                 $this->product_list[$key]['productName'] = $product->name;
+                $this->product_list[$key]['cart_id'] = $key;
                 $this->product_list[$key]['logo'] = $product->logo;
                 $this->product_list[$key]['shop_price'] = $product->shop_price;
                 $this->product_list[$key]['profiles'] = $value['meta'];
@@ -177,7 +178,6 @@ class ShoppingCart extends CApplicationComponent{
         if(empty($this->product_list)){
             return false;
         }
-
         unset($this->product_list[$id]);
         $cookie = new CHttpCookie('cart_info',serialize($this->product_list));
         $cookie->expire = time()+60*60*24*30;  //30 days

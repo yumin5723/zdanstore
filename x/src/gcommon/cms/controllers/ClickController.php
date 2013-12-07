@@ -99,6 +99,7 @@ class ClickController extends GController {
             if ($model->validate()) {
                 if ($model->save()) {
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new Click Successfully!'));
+                    $this->redirect('admin');
                 }
             }
         }

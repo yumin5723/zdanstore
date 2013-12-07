@@ -61,8 +61,9 @@ class WomensController extends GController {
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondWomensProducts();
         $womensTerms = Oterm::model()->getWomensTreeMenu();
+        $brands = Brand::model()->getBrandsForIndex();
         $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
-            'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers));
+            'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers,'brands'=>$brands));
     }
     /**
      * action for brand view

@@ -51,7 +51,7 @@ return CMap::mergeArray(require_with_local(Yii::getPathOfAlias('common.config') 
     'components'=>array(
         'bootstrap' => array(
             'class' => 'gcommon.extensions.bootstrap.components.Bootstrap',
-            // 'coreCss'=>false,
+            'coreCss'=>false,
         ),
         'ip' => array(
             'class' => 'common.extensions.IpAddress',

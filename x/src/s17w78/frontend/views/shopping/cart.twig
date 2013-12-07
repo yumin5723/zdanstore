@@ -41,7 +41,8 @@
                     </div>
                 </td>
                 <td>
-                    <a href="#"><i>Remove</i></a><br>
+                    <input type="hidden" name="" value="{{ cart.cart_id }}" />
+                    <a href="javascript:void(0);" class="delete"><i>Remove</i></a><br>
                     <a href="#"><i>Add to Wish List</i></a>
                 </td>
             </tr>
@@ -87,6 +88,21 @@ $(".add").click(function(){
     total = total + price ;
     $("#total_price").text(total);
     $(this).parent().find(".buy_num").val(qut);
+});
+
+$(".delete").click(function(){
+    var parentObj = $(this).parent().parent();
+    var id = $(this).parent().find("input").val();
+    var cartData = {"id":id};
+    $.ajax({
+        type: "POST",
+        url:"/shopping/delete",
+        data:cartData,
+        dataType:'json',
+        success:function(data){   
+            $(parentObj).fadeOut(); 
+        }
+    });
 });
 </script>
 {% endblock %}
