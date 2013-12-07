@@ -354,6 +354,7 @@ CREATE TABLE `wishlist` (
   `uid` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 

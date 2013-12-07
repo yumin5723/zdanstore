@@ -29,7 +29,7 @@ class UserController extends GController {
                 'users'=>array('?'),
             ),
             array('allow',
-                'actions'=>array('logout','account','index','setting','message','order','address','bind','check','done','mygoods','resend','mypoints'),
+                'actions'=>array('logout','account','index','setting','wishlist','message','order','address','bind','check','done','mygoods','resend','mypoints'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -148,7 +148,8 @@ class UserController extends GController {
         $user = $this->loadModel(Yii::app()->user->id);
         $address = Address::model()->getDefaultAddress(Yii::app()->user->id);
         $myorder = Order::model()->getNewOrder(Yii::app()->user->id);
-        $this->render("account",array("user"=>$user,"data"=>$address,"myOrder"=>$myorder));
+        $wishlist =  Wishlist::model()->getWishlistForHomepage(Yii::app()->user->id);
+        $this->render("account",array("user"=>$user,"data"=>$address,"myOrder"=>$myorder,'wishlist'=>$wishlist));
     }
     /*backend user setting*/
     public function actionSetting(){
@@ -234,6 +235,22 @@ class UserController extends GController {
             // $model->updateDefault($_GET['id']);
         }
         $this->render("account_address",array("model"=>$model,"data"=>$datas));
+    }
+    /**
+     * [actionWishlist description]
+     * @return [type] [description]
+     */
+    public function actionWishlist(){
+        $uid =  Yii::app()->user->id;
+        $model = new Wishlist;
+        $count = 20;
+        $sub_pages = 6;
+        $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
+        $nums = Order::model()->getWishCountByUid($uid);
+        $wishRecords = $model->getAllWishRecords($uid,$count,$pageCurrent);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/user/order/p/",2);
+        $p = $subPages->show_SubPages(2);
+        $this->render("account_wishlist",array('data'=>$wishRecords,'pages'=>$p));
     }
     /**
      * Returns the data model based on the primary key given in the GET variable.

@@ -79,58 +79,25 @@
                 <div class="title">Wish List</div>
                 <div class="content">
                     <ul class="mans_dlist clearfix">
+                        {% for w in wishlist %}
                         <li>
                             <div class="pic">
-                                <a href="#" title=""><img src="images/test/s1.jpg" width="178" height="208" /></a>
+                                <a href="{{ this.createUrl('/product/view',{'id':w.product_id }) }}" title=""><img src="{{ w.product.logo }}" width="178" height="208" /></a>
                             </div>
                             <div class="txt">
-                                <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                                <a href="#" title="">Casual T-Shirt</a><br/>
-                                <span class="price">$16.00</span><br/>
+                                <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':w.product.brand.id }) }}" title="">{{ w.product.brand.name}}</a></span><br/>
+                                <a href="{{ this.createUrl('/product/view',{'id':w.product_id }) }}" title="">{{ w.product.name }}</a><br/>
+                                <span class="price">${{ w.product.shop_price }}</span><br/>
+                                {% if w.product.is_new == 1%}
                                 <span class="new">New Arrivals</span>
+                                {% endif %}
                                 <span class="edit clearfix">
                                     <a href="#" class="btn3">Add To Cart</a>
                                     <a href="#" class="btn3">Delete</a>
                                 </span>
                             </div>
                         </li>
-                        <li>
-                            <div class="pic">
-                                <a href="#" title=""><img src="images/test/s1.jpg" width="178" height="208" /></a>
-                            </div>
-                            <div class="txt">
-                                <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                                <a href="#" title="">Casual T-Shirt</a><br/>
-                                <span class="price">$16.00</span><br/>
-                                <span class="new">New Arrivals</span>
-                                <span class="edit clearfix">
-                                    <a href="#" class="btn3">Add To Cart</a>
-                                    <a href="#" class="btn3">Delete</a>
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="pic">
-                                <a href="#" title=""><img src="images/test/s1.jpg" width="178" height="208" /></a>
-                            </div>
-                            <div class="txt">
-                                <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                                <a href="#" title="">Casual T-Shirt</a><br/>
-                                <span class="price">$16.00</span><br/>
-                                <span class="new">New Arrivals</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="pic">
-                                <a href="#" title=""><img src="images/test/s1.jpg" width="178" height="208" /></a>
-                            </div>
-                            <div class="txt">
-                                <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                                <a href="#" title="">Casual T-Shirt</a><br/>
-                                <span class="price">$16.00</span><br/>
-                                <span class="new">New Arrivals</span>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div><!-- wish list -->
