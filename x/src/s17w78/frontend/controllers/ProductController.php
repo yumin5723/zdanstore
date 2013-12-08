@@ -79,13 +79,16 @@ class ProductController extends GController {
     public function actionView(){
         $id = intval($_GET['id']);
         $product = Product::model()->with('brand')->findByPk($id);
+
+        //relation products
+        $alsolikes = Product::model()->getRelationList($id);
         // $categories = Product::model()->getObjectTermById($id);
         if(empty($product)){
             throw new Exception("this page is not find", 404);
         }
         $product_images = ProductImage::model()->findAllByAttributes(array('product_id'=>$id));
         $product_profiles = ProductProfile::model()->getProfilesByProductId($id);
-        $this->render('view',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles));
+        $this->render('view',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles,'alsolikes'=>$alsolikes));
     }
     /**
      * get product menu

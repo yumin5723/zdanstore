@@ -138,9 +138,10 @@
     <div class="dright">
         <dl class="also_list">
             <dt><i>You may also like:</i></dt>
+            {% for also in alsolikes %}
             <dd>
                 <div class="pic">
-                    <a href="#" title=""><img src="images/test/s1.jpg" width="118" height="136" /></a>
+                    <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title=""><img src="{{ also.product_logo }}" width="118" height="136" /></a>
                 </div>
                 <div class="txt">
                     <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
@@ -148,36 +149,7 @@
                     <span class="price">$16.00</span>
                 </div>
             </dd>
-            <dd>
-                <div class="pic">
-                    <a href="#" title=""><img src="images/test/s1.jpg" width="118" height="136" /></a>
-                </div>
-                <div class="txt">
-                    <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                    <a href="#" title="">Casual T-Shirt</a><br/>
-                    <span class="price">$16.00</span>
-                </div>
-            </dd>
-            <dd>
-                <div class="pic">
-                    <a href="#" title=""><img src="images/test/s1.jpg" width="118" height="136" /></a>
-                </div>
-                <div class="txt">
-                    <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                    <a href="#" title="">Casual T-Shirt</a><br/>
-                    <span class="price">$16.00</span>
-                </div>
-            </dd>
-            <dd>
-                <div class="pic">
-                    <a href="#" title=""><img src="images/test/s1.jpg" width="118" height="136" /></a>
-                </div>
-                <div class="txt">
-                    <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                    <a href="#" title="">Casual T-Shirt</a><br/>
-                    <span class="price">$16.00</span>
-                </div>
-            </dd>
+            {% endfor %}
         </dl>
     </div> <!-- right end -->
     <div class="clear"></div>

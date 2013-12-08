@@ -644,4 +644,36 @@ class Product extends CmsActiveRecord
         }
         return Oterm::model()->getLevelByTermId($result->term_id);
     }
+    /**
+     * get relation news list  
+     * @param  intval $object_id   [description]
+     * @param  intval $category_id [description]
+     * @param  intval $count [description]
+     * @return array
+     */
+    public function getRelationList($product_id,$count = 4){
+        $criteria = new CDbCriteria;
+        $criteria->order = "term_id DESC";
+        $category = ProductTerm::model()->findByAttributes(array("product_id"=>$product_id),$criteria);
+        if(empty($category)){
+            return array();
+        }
+        $objects = ProductTerm::model()->findAllByAttributes(array("term_id"=>$category->term_id));
+        $ids = array();
+        foreach($objects as $object){
+            $ids[] = $object->object_id;
+        }
+        $oids = array_unique($ids);
+        $key = array_search($object_id, $oids);
+        unset($oids[$key]);
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = "status=:status";
+        $criteria->params = array(":status"=>self::PRODUCT_STATUS_SELL);
+        $criteria->limit = $count;
+        $criteria->order = "id DESC";
+        $criteria->addInCondition("id",$oids);
+
+        return self::model()->findAllByAttributes(array(),$criteria);
+    }
 }
