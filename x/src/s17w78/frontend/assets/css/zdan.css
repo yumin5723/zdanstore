@@ -7,7 +7,7 @@
 	textarea{resize:none}
 	body,input,textarea{font-size:12px;font-family:Verdana,Arial}
 	body{font-family:Arial,Tahoma,'宋体';color:#666;background:#fff;word-break:break-all;word-wrap:break-word;text-align:center}
-	
+
 	/* clear float */
 	.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
 	.clearfix{zoom:1;}
@@ -26,7 +26,7 @@
 	.fr{float:right;}
 	
 	/* main style */
-	.header{background: url(../images/header_bg.png) repeat-x top;width:980px;margin:0 auto;height:114px;position: relative;}
+	.header{background: url(../images/header_bg.png) repeat-x top;width:980px;margin:0 auto;height:114px;position: relative;z-index:0;}
 	.header .fl{height:114px;overflow: hidden;}
 	.header .search{position: relative;margin:12px 0 4px 22px;}
 	.header .search_ipt{height:23px;line-height: 23px;width:160px;padding-right:27px;}
@@ -325,6 +325,10 @@
 	.order_table{margin-right:20px;}
 	.order_table td{border-bottom:1px dotted #ccc;padding:8px 5px;text-align:center;}
 	.order_record{padding:8px 0;text-align:right;}
+	.order_show{margin-bottom:20px;text-align:left;line-height:24px;}
+	.order_show dt{color:#739F26;font-weight:700;float: left;clear:left;width:200px;text-align:right;}
+	.order_show dd{float: left;width:500px;margin-left:8px;display:inline;}
+
 	/* message */
 	.act_content .mymsg .title{margin:0;}
 	.act_content .mymsg .content{padding:20px 40px;text-align:left;}
@@ -363,3 +367,20 @@
 	.cart_dialog .btn{padding-top:5px;}
 	.cart_dialog .btn a{margin:6px 5px;display:inline;text-align:center;background: url(../images/btn4.png) no-repeat;width:120px;height:25px;line-height: 25px;color:#fff;}
 	.cart_dialog .close{width:16px;height:16px;border:1px solid #949494;position:absolute;top:8px;right:8px;line-height:16px;text-align:center;cursor:pointer;}
+
+/* contact us */
+	.contact_box{padding-left:20px;text-align:left;font-size:13px;}
+	.contact_box .title{padding-bottom:6px;color:#739F26;font-weight: 700;}
+	.contact_box .email{float:left;width:230px;margin-left:60px;display:inline;margin-top:20px;}
+	.contact_box .chat{float:left;width:230px;margin-left:120px;display:inline;margin-top:20px;}
+	.contact_box h3{border-bottom:1px dotted #949494;padding-bottom:6px;font-weight: 700;font-size:12px;}
+	.contact_box .content{padding:18px 0;color:#666;}
+	.contact_box .email ul li{padding:5px 0;}
+	.contact_box .email ul li span{float:left;width:60px;}
+	.contact_box .email ul li label{float:left;}
+	.contact_box .email ul li input{height:20px;line-height:20px;padding:0 4px;}
+	.contact_box .email ul li textarea{width:100%;height:120px;margin-top:10px;}
+	.contact_box .email ul li .btn3{height:23px;line-height: 23px;float: right;}
+	.contact_box .chat p{line-height:18px;padding-bottom:5px;}
+	.contact_box .chat p a{font-style:italic;text-decoration: underline;}
+	.contact_box .faq .title{border-bottom:1px dotted #949494;}

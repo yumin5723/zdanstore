@@ -29,7 +29,8 @@ class UserController extends GController {
                 'users'=>array('?'),
             ),
             array('allow',
-                'actions'=>array('logout','account','index','setting','wishlist','message','order','address','bind','check','done','mygoods','resend','mypoints'),
+                'actions'=>array('logout','account','index','setting','wishlist','
+                    message','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -181,6 +182,20 @@ class UserController extends GController {
         $p = $subPages->show_SubPages(2);
         $this->render("account_order",array('data'=>$chargeRecords,'pages'=>$p));
     }
+    /**
+     * [actionOrdershow description]
+     * @return [type] [description]
+     */
+    public function actionOrdershow(){
+        $id = $_GET['id'];
+        $uid = Yii::app()->user->id;
+        $order = Order::model()->findByAttributes(array('id'=>$id,'uid'=>$uid));
+        if(empty($order)){
+            return array();
+        }
+        $products = OrderProduct::model()->findAllByAttributes(array('order_id'=>$id));
+        $this->render('ordershow',array('order'=>$order,'products'=>$products));
+    }
     /*backend user message*/
     public function actionMessage(){
         $uid = Yii::app()->user->id;
@@ -246,7 +261,7 @@ class UserController extends GController {
         $count = 20;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $nums = Order::model()->getWishCountByUid($uid);
+        $nums = Wishlist::model()->getWishCountByUid($uid);
         $wishRecords = $model->getAllWishRecords($uid,$count,$pageCurrent);
         $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/user/order/p/",2);
         $p = $subPages->show_SubPages(2);
@@ -262,6 +277,31 @@ class UserController extends GController {
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
+    }
+    /**
+     * [actionDeltewish description]
+     * @return [type] [description]
+     */
+    public function actionDeletewish(){
+        $id = $_POST['id'];
+        if(Wishlist::model()->deleteByPk($id)){
+            echo json_encode("success");
+        }
+    }
+    public function getProductProfile($id){
+        $product = OrderProduct::model()->findByPk($id);
+        if(empty($product)){
+            return "";
+        }
+        if(empty($product->product_meta)){
+            return "";
+        }
+        $meta = unserialize($product->product_meta);
+        $str = "";
+        foreach($meta as $k=>$v){
+            $str .= $k.":".$v."<span>|</span>";
+        }
+        return $str;
     }
     
 }

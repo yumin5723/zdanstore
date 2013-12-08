@@ -1,0 +1,114 @@
+{% extends "base/main.twig" %}
+{% block content %}
+<div class="main">
+    <div class="position"><a href="/">Home</a> &gt; <a href="/user">My Account</a> &gt; <a href="/user/order">My Order</a> &gt; Order# {{ order.id }}</div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt>My Account</dt>
+                <dd><a href="/user/setting">Account Settings</a></dd>
+                <dd><a href="/user/address">My Address</a></dd>
+                <dd class="cur"><a href="/user/order">My Order</a></dd>
+                <dd><a href="/user/message">My Message</a></dd>
+                <dd><a href="/user/trackOrder">Track Order</a></dd>
+                <dd><a href="/user/wishList">Wish List</a></dd>
+                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
+            </dl>
+        </div>
+        <div class="act_content">
+            <div class="myorder">
+                <dl class="order_show clearfix">
+                    <dt>Order No.</dt>
+                    <dd>{{ order.id }}</dd>
+                    <dt>Order Status :</dt>
+                    <dd>
+                        {% if b.status == 0 %}
+                                New Order 
+                                {% elseif b.status == 1 %}
+                                Confirmed
+                                {% elseif b.status == 2 %}
+                                Paid
+                                {% elseif b.status == 6 %}
+                                Packaging
+                                {% elseif b.status == 3 %}
+                                Shipped
+                                {% endif %}
+                    </dd>
+                    <dt>Shipping Method :</dt>
+                    <dd>
+                        {% if order.shipping == 1 %}
+                        EMS Express
+                        {% else %}
+                        International Air Mail
+                        {% endif %}
+                    </dd>
+                    <dt>Tracking Number :</dt>
+                    <dd>RB228845678CN</dd>
+                    <dt>Shipping Address :</dt>
+                    <dd>
+                        {{ order.addr.address }}
+                    </dd>
+                </dl>
+
+                <!-- product -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="cart_table">
+                    <thead>
+                    <tr>
+                        <td width="320">Product</td>
+                        <td width="116">Price</td>
+                        <td width="116">Quantity</td>
+                        <td>Total</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in products %}
+                    <tr>
+                        <td>
+                            <div class="cart_p clearfix">
+                                <div class="pic">
+                                    <a href="{{ this.createUrl('/product/view',{'id':p.product_id }) }}" title=""><img src="{{ p.product.logo }}" width="48" height="52" /></a>
+                                </div>
+                                <p class="txt">
+                                    <b><a href="{{ p.product.brand.image }}" title="">{{ p.product.brand.name }}</a></b>
+                                    <a href="{{ this.createUrl('/product/view',{'id':p.product_id }) }}" title="">{{ p.product.name }}</a><br/>
+                                    {{ this.getProductProfile(p.id)|raw }}
+                                </p>
+                            </div>
+                        </td>
+                        <td class="price"><b>${{ p.product_price }}</b></td>
+                        <td>
+                            <div class="buy_input">
+                                {{ p.product_quantity }}
+                            </div>
+                        </td>
+                        <td class="price"><b>${{ p.product_price * p.product_quantity }}</b></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- order total -->
+                <div class="order_total clearfix">
+                    <dl>
+                        <dd class="clearfix">
+                            <span class="t1">Sub Total :</span>
+                            <span class="t2">${{ order.total_price }}</span>
+                        </dd>
+                        <dd class="clearfix">
+                            <span class="t1"><input type="checkbox" name="" value=""> Insurance :</span>
+                            <span class="t2">$1.00</span>
+                        </dd>
+                        <dd class="clearfix">
+                            <span class="t1">Shipping :</span>
+                            <span class="t2">$0.00</span>
+                        </dd>
+                        <dt>Order Total : ${{ order.total_price }}</dt>
+                    </dl>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

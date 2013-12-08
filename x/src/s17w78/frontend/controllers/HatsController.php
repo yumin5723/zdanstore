@@ -61,8 +61,9 @@ class HatsController extends GController {
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondHatsProducts();
         $hatsTerms = Oterm::model()->getHatsTreeMenu();
+        $brands = Brand::model()->getBrandsForIndex();
         $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
-            'products'=>$products,'hatsterm'=>$hatsTerms,'footers'=>$footers));
+            'products'=>$products,'hatsterm'=>$hatsTerms,'footers'=>$footers,'brands'=>$brands));
     }
     /**
      * action for brand view

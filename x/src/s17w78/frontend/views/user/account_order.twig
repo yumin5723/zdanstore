@@ -25,7 +25,7 @@
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="order_table">
                     {% for b in data %}
                         <tr>
-                            <td>{{ b.id }}</td>
+                            <td><a href="{{ this.createUrl('/user/ordershow/',{'id':b.id })}}">{{ b.id }}</a></td>
                             <td>{{ b.created }}</td>
                             <td>{{ b.total_price }}</td>
                             <td>

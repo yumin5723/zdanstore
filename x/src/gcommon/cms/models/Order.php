@@ -76,6 +76,8 @@ class Order extends CmsActiveRecord
         return array(
             'user'=>array(self::BELONGS_TO, 'User',
                     'uid'),
+            'addr'=>array(self::BELONGS_TO, 'Address',
+                    'address'),
         );
     }
 

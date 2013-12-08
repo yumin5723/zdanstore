@@ -1,0 +1,67 @@
+{% extends "base/main.twig" %}
+{% block content %}
+<div class="main">
+    <div class="position"><a href="/">Home</a> &gt; <a href="/user">My Account</a> &gt; <a href="/user/wishlist">Wish List</a></div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt>My Account</dt>
+                <dd><a href="/user/setting">Account Settings</a></dd>
+                <dd><a href="/user/address">My Address</a></dd>
+                <dd class="cur"><a href="/user/order">My Order</a></dd>
+                <dd><a href="/user/message">My Message</a></dd>
+                <dd><a href="/user/trackOrder">Track Order</a></dd>
+                <dd><a href="/user/wishList">Wish List</a></dd>
+                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
+            </dl>
+        </div>
+                <div class="act_content">
+            <div class="wishlist">
+                <div class="title">Wish List</div>
+                <div class="content">
+                    <ul class="mans_dlist clearfix">
+                        {% for w in data %}
+                        <li>
+                            <div class="pic">
+                                <a href="{{ this.createUrl('/product/view',{'id':w.product_id }) }}" title=""><img src="{{ w.product.logo }}" width="178" height="208" /></a>
+                            </div>
+                            <div class="txt">
+                                <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':w.product.brand.id }) }}" title="">{{ w.product.brand.name}}</a></span><br/>
+                                <a href="{{ this.createUrl('/product/view',{'id':w.product_id }) }}" title="">{{ w.product.name }}</a><br/>
+                                <span class="price">${{ w.product.shop_price }}</span><br/>
+                                {% if w.product.is_new == 1%}
+                                <span class="new">New Arrivals</span>
+                                {% endif %}
+                                <span class="edit clearfix">
+                                    <input type="hidden" name="" value="{{ w.id }}" />
+                                    <a href="{{ this.createUrl('/product/view',{'id':w.product_id }) }}" class="btn3">Add To Cart</a>
+                                    <a href="javascript:void(0);" class="btn3">Delete</a>
+                                </span>
+                            </div>
+                        </li>
+                       {% endfor %}
+                    </ul>
+                </div>
+                <div class="order_record"><i>{{ pages|raw }}Total {{ total }} Record</i></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+$(".btn3").click(function(){
+    var parentObj = $(this).parent().parent().parent();
+    var id = $(this).parent().find("input").val();
+    var cartData = {"id":id};
+    $.ajax({
+        type: "POST",
+        url:"/user/deletewish",
+        data:cartData,
+        dataType:'json',
+        success:function(data){   
+            $(parentObj).fadeOut(); 
+        }
+    });
+});
+</script>
+{% endblock %}
