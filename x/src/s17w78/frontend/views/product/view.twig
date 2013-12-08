@@ -144,9 +144,9 @@
                     <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title=""><img src="{{ also.product_logo }}" width="118" height="136" /></a>
                 </div>
                 <div class="txt">
-                    <span class="name"><a href="#" title="">Diamond Supply Co.</a></span><br/>
-                    <a href="#" title="">Casual T-Shirt</a><br/>
-                    <span class="price">$16.00</span>
+                    <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':also.brand_id} ) }}" title="">{{ also.brand.name }}</a></span><br/>
+                    <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title="">{{ also.name }}</a><br/>
+                    <span class="price">${{ also.shop_price }}</span>
                 </div>
             </dd>
             {% endfor %}
