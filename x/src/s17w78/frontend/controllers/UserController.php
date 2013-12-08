@@ -29,8 +29,7 @@ class UserController extends GController {
                 'users'=>array('?'),
             ),
             array('allow',
-                'actions'=>array('logout','account','index','setting','wishlist','
-                    message','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish'),
+                'actions'=>array('logout','account','index','setting','wishlist','message','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish','trackorder'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -303,5 +302,11 @@ class UserController extends GController {
         }
         return $str;
     }
-    
+    /**
+     * [actionTrackorder description]
+     * @return [type] [description]
+     */
+    public function actionTrackorder(){
+        $this->render('trackorder');
+    }
 }

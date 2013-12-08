@@ -320,7 +320,8 @@ class Product extends CmsActiveRecord
 
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-
+        $criteria->condition = "t.status = :status";
+        $criteria->params = array("status"=>self::PRODUCT_STATUS_SELL);
         $criteria->addInCondition("id",$ids);
         $criteria->order = "t.id DESC";
         $criteria->limit = $count;
@@ -420,8 +421,8 @@ class Product extends CmsActiveRecord
         $criteria->alias = "t";
         $criteria->order = "t.id DESC";
         $criteria->limit = $limit;
-        $criteria->condition = "is_recommond = :is_recommond";
-        $criteria->params = array(":is_recommond"=>self::PRODUCT_IS_RECOMMOND);
+        $criteria->condition = "is_recommond = :is_recommond AND status = :status";
+        $criteria->params = array(":is_recommond"=>self::PRODUCT_IS_RECOMMOND,'status'=>self::PRODUCT_STATUS_SELL);
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
@@ -434,8 +435,8 @@ class Product extends CmsActiveRecord
         $criteria->alias = "t";
         $criteria->order = "t.id DESC";
         $criteria->limit = $limit;
-        $criteria->condition = "is_recommond_mans = :is_recommond_mans";
-        $criteria->params = array(":is_recommond_mans"=>self::PRODUCT_IS_RECOMMOND_MANS);
+        $criteria->condition = "is_recommond_mans = :is_recommond_mans AND status = :status";
+        $criteria->params = array(":is_recommond_mans"=>self::PRODUCT_IS_RECOMMOND_MANS,":status"=>self::PRODUCT_STATUS_SELL);
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
@@ -448,8 +449,8 @@ class Product extends CmsActiveRecord
         $criteria->alias = "t";
         $criteria->order = "t.id DESC";
         $criteria->limit = $limit;
-        $criteria->condition = "is_recommond_womens = :is_recommond_womens";
-        $criteria->params = array(":is_recommond_womens"=>self::PRODUCT_IS_RECOMMOND_WOMENS);
+        $criteria->condition = "is_recommond_womens = :is_recommond_womens AND status = :status";
+        $criteria->params = array(":is_recommond_womens"=>self::PRODUCT_IS_RECOMMOND_WOMENS,":status"=>self::PRODUCT_STATUS_SELL);
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
@@ -462,8 +463,8 @@ class Product extends CmsActiveRecord
         $criteria->alias = "t";
         $criteria->order = "t.id DESC";
         $criteria->limit = $limit;
-        $criteria->condition = "is_recommond_hats = :is_recommond_hats";
-        $criteria->params = array(":is_recommond_hats"=>self::PRODUCT_IS_RECOMMOND_HATS);
+        $criteria->condition = "is_recommond_hats = :is_recommond_hats AND status=:status";
+        $criteria->params = array(":is_recommond_hats"=>self::PRODUCT_IS_RECOMMOND_HATS,":status"=>self::PRODUCT_STATUS_SELL);
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
@@ -475,8 +476,8 @@ class Product extends CmsActiveRecord
         $brand_id = intval($brand_id);
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-        $criteria->condition = "t.brand_id = :brand_id";
-        $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+        $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
         return self::model()->count($criteria);
     }
     /**
@@ -490,8 +491,8 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         $criteria->order = "t.id DESC";
-        $criteria->condition = "t.brand_id = :brand_id";
-        $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+        $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
         $criteria->limit = $count;
         $criteria->offset = ($page - 1) * $count;
         return self::model()->with('brand')->findAll($criteria);
@@ -516,11 +517,11 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         if(isset($brid) && $brid != ""){
-            $criteria->condition = "t.brand_id = :brand_id";
-            $criteria->params = array(":brand_id"=>$brid);
+            $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+            $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }else{
-             $criteria->condition = "t.brand_id = :brand_id";
-             $criteria->params = array(":brand_id"=>$brand_id);
+             $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+             $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
         }
         // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
@@ -546,11 +547,11 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         if(isset($brid) && $brid != ""){
-            $criteria->condition = "t.brand_id = :brand_id";
-            $criteria->params = array(":brand_id"=>$brid);
+            $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+            $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }else{
-             $criteria->condition = "t.brand_id = :brand_id";
-             $criteria->params = array(":brand_id"=>$brand_id);
+             $criteria->condition = "t.brand_id = :brand_id t.status = :status";
+             $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
         }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
@@ -593,8 +594,8 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         if(isset($brid) && $brid != ""){
-            $criteria->condition = "t.brand_id = :brand_id";
-            $criteria->params = array(":brand_id"=>$brid);
+            $criteria->condition = "t.brand_id = :brand_id AND t.status=:status";
+            $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }
         // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
@@ -620,8 +621,8 @@ class Product extends CmsActiveRecord
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         if(isset($brid) && $brid != ""){
-            $criteria->condition = "t.brand_id = :brand_id";
-            $criteria->params = array(":brand_id"=>$brid);
+            $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+            $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);

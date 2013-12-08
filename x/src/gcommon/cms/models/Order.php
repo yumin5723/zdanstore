@@ -274,7 +274,7 @@ and year(created)=year(now())";
     public function getAllStatus(){
         return array(self::ORDER_STATUS_CREATED=>'订单创建成功',self::ORDER_STATUS_CONFIRM=>'订单确认等待付款',
             self::ORDER_STATUS_PAY=>'付款成功等待发货',self::ORDER_STATUS_SHIPING=>'订单已发货',
-            self::ORDER_STATUS_COMOLETE=>'交易完成',self::ORDER_STATUS_CLOSED=>'订单关闭');
+            self::ORDER_STATUS_PACKAGING=>'配货');
     }
     /**
      * get all order status

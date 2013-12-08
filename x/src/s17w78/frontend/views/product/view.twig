@@ -35,6 +35,9 @@
                 </div>
             </div>
             <div class="d_123">
+                {% if product.status == 1 %}
+                商品已下架
+                {% else %}
                 {% for k,v in product_profiles %}
                 <div class="{{ k|lower }} clearfix">
                     <div class="dt"><span class="red">*</span> {{ k }}:</div>
@@ -61,8 +64,9 @@
                         
                     </dl>
                 </div>
+                {% endif %}
             </div>
-            <div class="d_buy clearfix"><input type="button" value="Add to Cart" class="buy_btn"></div>
+            {% if product.status == 0 %}<div class="d_buy clearfix"><input type="button" value="Add to Cart" class="buy_btn"></div>{% endif %}
             <div class="d_fav clearfix"><a class="fav_btn">Add to Wishlist</a></div>
         </div>
         <div class="clear"></div>

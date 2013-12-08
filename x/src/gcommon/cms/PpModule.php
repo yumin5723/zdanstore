@@ -86,28 +86,5 @@ class PpModule extends CWebModule {
         );
     }
 
-    public function beforeControllerAction($controller, $action) {
 
-        if(parent::beforeControllerAction($controller, $action)) {
-            // this method is called before any module controller 
-            //action is performed
-            $route = $controller->id . '/' . $action->id;
-
-
-            $publicPages = array(
-                    'site/login',
-                    'site/error',
-            );
-
-            if (Yii::app()->user->name !== 'admin' && !in_array($route, 
-                              $publicPages)) {
-                Yii::app()->getModule('pp')->user->loginRequired();
-
-            } else {
-                return true;
-            }
-        }
-        else
-            return false;
-    }
 }
