@@ -44,6 +44,7 @@ class Subject extends CmsActiveRecord
         $criteria->compare('name',$this->name,true);
         $criteria->compare('value',$this->value,true);
         $criteria->compare('type',$this->type,true);
+        $criteria->compare('url',$this->url,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
@@ -78,7 +79,7 @@ class Subject extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('name,type,value,status','required',),
+            array('name,type,value,status,url','required',),
             //array('email','email'),
         );
         /*
@@ -112,6 +113,10 @@ class Subject extends CmsActiveRecord
         if (!empty($attributes['status']) && $attributes['status'] != $this->status) {
             $attrs[] = 'status';
             $this->status = $attributes['status'];
+        }
+        if (!empty($attributes['url']) && $attributes['url'] != $this->url) {
+            $attrs[] = 'url';
+            $this->url = $attributes['url'];
         }
         if ($this->validate($attrs)) {
             return $this->save(false);

@@ -380,4 +380,7 @@ CREATE TABLE `subject_product` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
+alter table subject add `url` varchar(255) NOT NULL;
+
+
 

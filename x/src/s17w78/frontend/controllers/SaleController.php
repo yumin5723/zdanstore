@@ -28,7 +28,7 @@ class SaleController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'index','view','term','subject'
+                    'index','view','term','subject','subview'
                 ) ,
                 'users' => array(
                     '*'
@@ -123,7 +123,26 @@ class SaleController extends GController {
         $id = $_GET['id'];
         $subject = Subject::model()->findByPk($id);
         if($subject->status == Subject::SUBJECT_STATUS_OPEN){
-            
+            $subjectProduct = SubjectProduct::model()->findByAttributes(array('subject_id'=>$id));
+            $product = Product::model()->findByPk($subjectProduct->product_id);
+            $brand = Brand::model()->findByPk($product->brand_id);
+            if(empty($brand)){
+                throw new Exception("this page is not found", 404);
+                
+            }
+            $terms = BrandTerm::model()->getBrandTerms($product->brand_id);
+            // $this->render('view',array('brand'=>$brand,'terms'=>$terms));
+
+            $count = 24;
+            $sub_pages = 6;
+            $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
+
+            $nums = Product::model()->getCountProductsByBrandAndSubject($product->brand_id,$id);
+            $results = Product::model()->getProductsByBrandAndSubject($product->brand_id,$id,$count,$pageCurrent);
+            $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/sale/subject/id/".$id."?p=",2);
+            $p = $subPages->show_SubPages(2);
+
+            $this->render('subject',array('subject'=>$subject,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p));
         }
     }
     /**
@@ -168,15 +187,5 @@ class SaleController extends GController {
             ));
         // $this->render('term');
     }
-    /**
-     * [getNowPrice description]
-     * @param  [type] $product_id [description]
-     * @return [type]             [description]
-     */
-    public function getNowPrice($product_id){
-        $product = Product::model()->findByPk($product_id);
-        $subject = SubjectProduct::model()->with('subject')->findByAttributes(array('product_id'=>$product_id));
-        $discount = $subject->subject->value/10;
-        return $product->shop_price*$discount;
-    }
+    
 }

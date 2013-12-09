@@ -2,6 +2,7 @@
 {% include "layouts/notice.twig" %}
 {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
 {{ form.textFieldRow(model, "name", {'placeholder':''})|raw }}
+{{ form.textFieldRow(model, "url", {'placeholder':''})|raw }}
 {{ form.dropDownListRow(model, 'type', model.Types, {})|raw }}
 {{ form.textFieldRow(model, "value", {'placeholder':''})|raw }}
 {{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}

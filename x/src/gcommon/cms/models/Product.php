@@ -759,5 +759,43 @@ class Product extends CmsActiveRecord
         $results = SubjectProduct::model()->findAll($criteria);
         return array_map(function($a){return $a['product_id'];},$results);
     }
+    /**
+     * get product sum by brand id 
+     * @param  [type] $brand_id [description]
+     * @return [type]           [description]
+     */
+    public function getCountProductsByBrandAndSubject($brand_id,$subject_id){
+        $allproducts = self::model()->findAllByAttributes(array('brand_id'=>$brand_id,"status"=>self::PRODUCT_STATUS_SELL));
+        $product_ids = array_map(function($a){return $a['id'];},$allproducts);
 
+        $brand_id = intval($brand_id);
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->condition = "subject_id = :subject_id";
+        $criteria->params = array(":subject_id"=>$subject_id);
+        $criteria->addInCondition("product_id",$product_ids);
+        return SubjectProduct::model()->count($criteria);
+    }
+    /**
+     * function_description
+     *
+     * @param $term_all_id:
+     *
+     * @return
+     */
+    public function getProductsByBrandAndSubject($brand_id,$subject_id,$count,$page){
+
+        $allproducts = self::model()->findAllByAttributes(array('brand_id'=>$brand_id,"status"=>self::PRODUCT_STATUS_SELL));
+        $product_ids = array_map(function($a){return $a['id'];},$allproducts);
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->order = "t.id DESC";
+        $criteria->condition = "subject_id = :subject_id";
+        $criteria->params = array(":subject_id"=>$subject_id);
+        $criteria->addInCondition("product_id",$product_ids);
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        return SubjectProduct::model()->findAll($criteria);
+    }
 }
