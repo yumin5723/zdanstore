@@ -1,5 +1,5 @@
 <?php
-class SubscriptionController.php extends GController {
+class SubscriptionController extends GController {
 
     /**
      * function_description
@@ -20,23 +20,20 @@ class SubscriptionController.php extends GController {
     {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('do'),//'account','setting','message','order','address',
+                'actions'=>array('do','addwish'),//'account','setting','message','order','address',
                 'users'=>array('*'),
             ),
-            array('deny',  // deny all users
-            'users'=>array('*'),
+            array('allow',
+                'actions'=>array('info','success'),
+                'users'=>array('?'),
             ),
-        );
-    }
-
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
-    public function accessRules()
-    {
-        return array(
+            array('allow',
+                'actions'=>array('logout','account','index','setting','wishlist','message','order','address','bind','check','done','mygoods','resend','mypoints','ordershow','deletewish','trackorder'),
+                'users'=>array('@'),
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
         );
     }
     public function actionDo(){
@@ -58,5 +55,26 @@ class SubscriptionController.php extends GController {
         }
         echo json_encode($flag);
     }
-
+    /**
+     * [actionAddwish description]
+     * @return [type] [description]
+     */
+    public function actionAddwish(){
+        $id = $_POST['id'];
+        $flag = 0;
+        if(Yii::app()->user->isGuest){
+            $flag = 0;
+        }else{
+            $wish = Wishlist::model()->findByAttributes(array('product_id'=>$id,'uid'=>Yii::app()->user->id));
+            if(empty($wish)){
+                $model = new Wishlist;
+                if($model->saveWish(Yii::app()->user->id,$id)){
+                    $flag = 2;
+                }
+            }else{
+                $flag = 1;
+            }
+        }
+        echo json_encode($flag);
+    }
 }

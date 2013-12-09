@@ -30,7 +30,7 @@
                     <span class="name"><b>{{ product.brand.name }}</b></span>
                     <span class="subname">{{ product.name }}</span>
                     <span class="num">{{ product.batch_number }}</span>
-                    {% if App.shoppingcart.getNowPrice(product.id) != "'" %}
+                    {% if App.shoppingcart.getNowPrice(product.id) != "" %}
                         <span class="price"><del>${{ product.shop_price}}</del></span>&nbsp;
                         <span class="off">${{ App.shoppingcart.getNowPrice(product.id) }}</span>
                     {% else %}
@@ -122,6 +122,28 @@
                     success:function(data){     
                         $("#cart_back").html(data);
                         $(".cart_dialog").show();   
+                    }
+                });
+            });
+
+            $(".fav_btn").click(function(){
+                var id = $("#pro_id").val();
+                var cartData = {"id":id};
+                // var cartData = {'id':id};
+                $.ajax({
+                    type: "POST",
+                    // contentType:"application/json",
+                    url:"/subscription/addwish",
+                    data:cartData,
+                    dataType:'json',
+                    success:function(data){
+                        if(data == 0){
+                            alert("You can't shopping until login.");
+                        }else if(data == 1){
+                            alert("already added");
+                        }else{
+                            alert("add success!!");
+                        }  
                     }
                 });
             });

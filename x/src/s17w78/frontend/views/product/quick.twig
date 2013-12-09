@@ -107,4 +107,25 @@
             }
         });
     });
+    $(".fav_btn").click(function(){
+        var id = $("#pro_id").val();
+        var cartData = {"id":id};
+        // var cartData = {'id':id};
+        $.ajax({
+            type: "POST",
+            // contentType:"application/json",
+            url:"/subscription/addwish",
+            data:cartData,
+            dataType:'json',
+            success:function(data){
+                if(data == 0){
+                    alert("You can't shopping until login.");
+                }else if(data == 1){
+                    alert("already added");
+                }else{
+                    alert("add success!!");
+                }  
+            }
+        });
+    });
 </script>
