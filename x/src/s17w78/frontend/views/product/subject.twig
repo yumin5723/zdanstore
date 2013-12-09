@@ -1,7 +1,7 @@
 {% extends "base/main.twig" %}
 {% block content %}
 <div class="main">
-    <div class="position"><a href="#">Home</a> &gt; <a href="/sale">Sale</a> &gt; <a href="/sale/subject/id/{{ subject.id }}" title="">{{ subject.name }}</a></div>
+    <div class="position"><a href="#">Home</a> &gt; <a href="/brands">Brands</a> &gt; <a href="/brand/view/id/{{ brand.id }}" title="">{{ brand.name }}</a></div>
     <div class="mleft">
         <div class="list_nav">
             {% for term in terms %}
@@ -44,12 +44,7 @@
                     <div class="txt">
                         <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':result.product.brand_id })}}" title="">{{ result.product.brand.name }}</a></span><br/>
                         <a href="{{ this.createUrl('/product/view',{'id':result.product_id} )}}" title="">{{ result.product.name }}</a><br/>
-                        {% if App.shoppingcart.getNowPrice(result.product.id) != "" %}
-                        <span class="price"><del>${{ result.product.shop_price}}</del></span>&nbsp;
-                        <span class="price">${{ App.shoppingcart.getNowPrice(result.product.id) }}</span>
-                        {% else %}
-                        <span class="price">${{ result.product.shop_price}}</span>
-                        {% endif %}
+                        <span class="price">{{ result.product.shop_price}}</span><span class="price">{{ this.getNowPrice(result.product_id) }}</span><br/>
                         <span class="new">{% if result.product.is_new == 1 %}New Arrivals{% endif %}</span>
                     </div>
                 </li>

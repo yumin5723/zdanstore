@@ -52,6 +52,8 @@
             <li>
                 <div class="pic">
                     <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title=""><img src="{{ p.logo }}" width="174" height="166" /></a>
+                    <span class="quick">quick shop</span>
+                    <input type="hidden" value="{{ p.id }}" name="" />
                 </div>
                 <div class="txt">
                     <span class="name"><a href="#" title="">{{ p.brand.name }}</a></span><br/>
@@ -76,4 +78,20 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    $("ul li div.pic").mouseover(function(){
+        $(this).find(".quick").show();
+    });
+    $("ul li div.pic").mouseout(function(){
+        $(this).find(".quick").hide();
+    });
+
+    $(".quick").click(function(){
+        popup();
+    });
+
+    $(".popclose").click(function(){
+        closePopup();
+    });
+</script>
 {% endblock %}

@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `order_product` (
   `product_id` bigint(20),
   `product_quantity` int(11) NOT NULL,
   `product_price` Decimal(32, 2) NOT NULL,
+  `info` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
 ) AUTO_INCREMENT = 1000000000
@@ -381,7 +382,15 @@ CREATE TABLE `subject_product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 alter table subject add `url` varchar(255) NOT NULL;
-alter table order_product add `info` varchar(255) DEFAULT NULL;
 
+
+
+CREATE TABLE `subscription` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 

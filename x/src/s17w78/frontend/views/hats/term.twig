@@ -71,6 +71,8 @@
                 <li>
                     <div class="pic">
                         <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title=""><img src="{{ result.logo }}" width="178" height="208" /></a>
+                        <span class="quick">quick shop</span>
+                        <input type="hidden" value="{{ result.id }}" name="" />
                     </div>
                     <div class="txt">
                         <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':result.brand.id} )}}" title="">{{ result.brand.name }}</a></span><br/>

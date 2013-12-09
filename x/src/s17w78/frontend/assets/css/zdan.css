@@ -394,7 +394,7 @@
 	#popup{position:absolute;width:600px;padding:10px;background:#fff;display:none;z-index:10000;height:400px;}
 	#popup .popclose{width:16px;height:16px;border:1px solid #949494;position:absolute;top:8px;right:8px;line-height:16px;text-align:center;cursor:pointer;}
 /* quick shop */
-	.mans_list .pic,.mans_dlist .pic{position: relative;z-index:0;}
+	ul li .pic,ul li .pic{position: relative;z-index:0;}
 	.quick{position:absolute;right:2px;bottom:2px;padding:2px 5px;color:#fff;background:#739F26;z-index:10;cursor:pointer;display:none;}
 	/* product image */
 	#popup .d_focus{float: left;width:300px;}
