@@ -694,5 +694,70 @@ class Product extends CmsActiveRecord
         $criteria->order = "t.id DESC";
         return self::model()->findAll($criteria);
     }
+        /**
+     * fetch all objects by term id 
+     * the data include term's children id 
+     * ssid term's children id
+     * ppid profile id
+     * @return [type] [description]
+     */
+    public function fetchSubjectProductsByTermIdAndBrandAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles){
+        $ids = $this->getSubjectProdcutIdsByTermId($term_id);
+
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getSubjectProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+       
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+            $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
+        }
+        // $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("t.id",$ids);
+        $criteria->order = "t.id DESC";
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
+     * get objects count by term_id
+     * @return [type] [description]
+     */
+    public function getSubjectProductsCountByTermIdAndBrandAndOptions($term_id,$ssid,$brid,$request_profiles){
+        
+        $ids = $this->getSubjectProdcutIdsByTermId($term_id);
+        if(isset($ssid) && $ssid != ""){
+            $ids = $this->getSubjectProdcutIdsByTermId($ssid);
+        }
+        if(isset($request_profiles) && !empty($request_profiles)){
+            $ids = TermProfile::model()->getIdsByProfiles($ids,$request_profiles);
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        if(isset($brid) && $brid != ""){
+            $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+            $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
+        }
+        $criteria->addInCondition("id",$ids);
+        return self::model()->count($criteria);
+    }
+    /**
+     * [getSubjectProdcutIdsByTermId description]
+     * @param  [type] $term_id [description]
+     * @return [type]          [description]
+     */
+    public function getSubjectProdcutIdsByTermId($term_id){
+        $all_products_ids = $this->getProdcutIdsByTermId($term_id);
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition("product_id",$all_products_ids);
+        $results = SubjectProduct::model()->findAll($criteria);
+        return array_map(function($a){return $a['product_id'];},$results);
+    }
 
 }

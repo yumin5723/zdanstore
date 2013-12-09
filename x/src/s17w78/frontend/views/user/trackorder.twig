@@ -1,0 +1,159 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+
+<div class="main">
+    <div class="position"><a href="#">Home</a> &gt; <a href="/user/">My Account</a> &gt; <a href="/user/setting">Account Settings</a></div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt>My Account</dt>
+                <dd><a href="/user/setting">Account Settings</a></dd>
+                <dd><a href="/user/address">My Address</a></dd>
+                <dd><a href="/user/order">My Order</a></dd>
+                <dd><a href="/user/message">My Message</a></dd>
+                <dd class="cur"><a href="/user/trackOrder">Track Order</a></dd>
+                <dd><a href="/user/wishList">Wish List</a></dd>
+                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
+            </dl>
+        </div>
+        <div class="act_content">
+            <div class="myorder">
+                <div class="title">Order Tracking</div>
+                <div class="content" id="tracking">
+                    <p>Please track your order by clicking the follow countries, if there isn't your country, please contact our customer service.</p>
+                    <p><span style="color: rgb(255, 0, 0); ">Attention:</span> The tracking number usually takes<strong><span style="color: rgb(255, 0, 0); "> 3-4 days</span></strong> to be activated; &nbsp;therefore, you may not get the tracking information promptly once your order was sent out. Please track your package(s) after activation time.&nbsp;</p>
+                    <p>&nbsp;<font color="#0000ff"><br>
+                    </font></p>
+                    <h2>&nbsp;<span style="color: rgb(0, 0, 255); "><strong> <strong style="font-family: Arial, tahoma, å&reg;‹ä½“; font-size: 12px; line-height: 22px; text-align: left; ">Economy Air Mail Tracking:&nbsp;</strong></strong></span></h2>
+                    <p>&nbsp;</p>
+                    <table width="700" cellspacing="1" cellpadding="1" align="center">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.correoargentino.com.ar/seguimiento_envios/oidn"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Argentina3.jpg">Argentina</a>&nbsp;</td>
+                            <td style="text-align: left; "><a href="http://search.belpost.by/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Austria.jpg">Austria</a></td>
+                            <td style="text-align: left; "><a href="http://www.bpost.be/etr/light/showSearchPage.do?oss_language="><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Belgium.gif">Belgium</a>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td style="text-align: left; "><a href="http://www.correios.com.br/servicos/rastreamento/rastreamento.cfm"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/brazil1.jpg">Brazil</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.bgpost.bg/IPSWebTracking/IPSWeb_submit.htm"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Bulgaria.gif">Bulgaria</a></td>
+                            <td style="text-align: left; "><a href="http://www.postur.is/en/desktopdefault.aspx/tabid-516"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Iceland.jpg">Iceland</a></td>
+                            <td style="text-align: left; "><a href="http://tracking.correoparaguayo.gov.py:8085/rastreo/Default.aspx"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Paraguay1.jpg"><img width="0" height="0" alt="" src="{{ App.assets.Url}}/images/co/Paraguay.jpg">Paraguay</a></td>
+                            <td style="text-align: left; "><a href="http://sledzenie.poczta-polska.pl/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Poland.jpg">Poland</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.postdanmark.dk/da/Sider/Quick%20Finder/TrackTrace.aspx"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Danmark.jpg">Danmark</a></td>
+                            <td style="text-align: left; "><a href="http://ipsweb.correosdelecuador.com.ec/ipswebtracking/IPSWeb_submit.htm"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Ecuador.gif">Ecuador</a></td>
+                            <td style="text-align: left; "><a href="http://www.russianpost.ru/rp/servise/en/home/postuslug/trackingpo"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Russia.jpg">Russia</a></td>
+                            <td style="text-align: left; "><a href="http://www.posti.fi/english/eservices/itemtracking/index.html"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Finland.jpg">Finland</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.canadapost.ca/cpo/mc/default.jsf?LOCALE=en"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Canada.png">Canada</a></td>
+                            <td style="text-align: left; "><a href="http://www.pos.com.my/pos/appl/service/sub_registered_mail.asp"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Malaysia.jpg">Malaysia</a></td>
+                            <td style="text-align: left; "><a href="http://www.correosdemexico.gob.mx/English/Paginas/track.aspx"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Mexico.jpg">Mexico</a></td>
+                            <td style="text-align: left; "><a href="http://clientes.serpost.com.pe/Web-Original/IPSWeb_submit.htm"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Peru.jpg">Peru</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.usps.com/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/United States.jpg">United States</a></td>
+                            <td style="text-align: left; "><a href="http://www.posten.no/en/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Norway.gif">Norway</a></td>
+                            <td style="text-align: left; "><a href="http://www.ctt.pt/feapl_2/app/open/tools.jspx?tool=0&amp;lang=01"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Portugal1.jpg">Portugal</a></td>
+                            <td style="text-align: left; "><a href="http://tracking.post.japanpost.jp/service/numberSearch.do?locale=en&amp;searchKind=S004"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Japan1.jpg">Japan</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.posten.se/tracktrace/TrackConsignments_do.jsp?lang=GB"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Sweden1.jpg">Sweden</a></td>
+                            <td style="text-align: left; "><a href="http://www.swisspost.ch/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Switzerland1.jpg">Switzerland</a></td>
+                            <td style="text-align: left; "><a href="http://www1.ptt.gov.tr/en/interaktif/kayitliposta-yd.php"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/turkey.png">Turkey</a></td>
+                            <td style="text-align: left; "><a href="http://www.ukrposhta.com/www/upost_en.nsf/search_post?openpage"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Ukraine1.jpg">Ukraine</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.correo.com.uy/index.asp?codPag=tyt"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Uruguay1.png">Uruguay</a></td>
+                            <td style="text-align: left; "><a href="http://212.205.82.71/trackandtrace/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Greece1.jpg">Greece</a></td>
+                            <td style="text-align: left; "><a href="http://www.posta.hu/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Hungary1.gif">Hungary</a></td>
+                            <td style="text-align: left; "><a href="http://www.nzpost.co.nz/tools/tracking"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/New Zealand1.jpg">New Zealand</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.singpost.com/index.php"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Singapore1.gif">Singapore</a></td>
+                            <td style="text-align: left; "><a href="http://www.correos.es/comun/Localizador/2010_c1-LocalizadorE.asp"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Spain1.gif">Spain</a></td>
+                            <td style="text-align: left; "><a href="http://ems.posindonesia.co.id"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Indonesia1.gif">Indonesia</a></td>
+                            <td style="text-align: left; "><a href="http://tntsearch.post.ir/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Iran1.gif">Iran</a></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; "><a href="http://www.israelpost.co.il/itemtrace.nsf/mainsearch?openform&amp;L=EN"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Israel1.gif">Israel</a></td>
+                            <td style="text-align: left; "><a href="http://www.poste.it/online/dovequando/start.do?subaction=raccomandata"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Italy1.gif">Italy</a></td>
+                            <td style="text-align: left; "><a href="http://www.correos.cl/SitePages/home.aspx"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Chile1.gif">Chile</a></td>
+                            <td style="text-align: left; ">
+                            <p><span style="color: rgb(0, 0, 255); "><a href="http://ips.posta.hr/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Croatia.gif">Croatia</a></span></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>&nbsp;</p>
+                <p><strong style="line-height: 22px; text-align: left; ">&nbsp; &nbsp;</strong><span style="color: rgb(0, 0, 255); "><strong style="font-family: Arial, tahoma, å&reg;‹ä½“; line-height: 22px; text-align: left; ">EMS Express Air Mail Tracking:&nbsp;</strong></span></p>
+                <p>&nbsp;</p>
+                <table width="700" cellspacing="1" cellpadding="1" align="center">
+                    <tbody>
+                        <tr>
+                            <td><a href="http://auspost.com.au/track/"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Australia.gif">Australia</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Austria1.jpg"><a href="http://www.post.at/tnt_query.php">Austria</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Belgium.jpg"><a href="http://www.post.be">Belgium</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Belarus.gif"><a href="http://www.belpost.by/info/ems-search-packages-mail/">Belarus</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/brazil2.jpg"><a href="http://www.correios.com.br/servicos/rastreamento/rastreamento.cfm">Brazil</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Bahamas1.gif"><a href="http://www.bahamas.gov.bs/">Bahamas</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Bolivia.gif"><a href="http://www.correosbolivia.com/correos/buscar.php">Bolivia</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Chile2.gif"><a href="http://www.correos.cl/seguimiento/index.php">Chile</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Canada1.png"><a href="http://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumbe">Canada</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Denmark.gif"><a href="http://www.postdanmark.dk/contentfull.dk?lang=en">Denmark</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/France.gif"><a href="http://www.fr.chronopost.com/fr/">France</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Finland.gif"><a href="http://www.posti.fi/english/thepostsservices/itemtracking/">Finland</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Germany.jpg"><a href="http://www.gdsk.de/eng/trackindex.html">Germany</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Iran2.gif"><a href="http://tntsearch.post.ir/searchPage.aspx">Iran</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/India.gif"><a href="http://www.indiapost.gov.in/_Track/Track.html">India</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Indonesia2.gif"><a href="http://ems.posindonesia.co.id/">Indonesia</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Ireland.gif"><a href="http://track.anpost.ie/track/trackone.html">Ireland</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Japan2.jpg"><a href="http://www.post.japanpost.jp/int/ems/index_en.html">Japan</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/korea.GIF"><a href="http://service.epost.go.kr/iservice/ems/ems_eng.jsp">Korea</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Malaysia1.jpg"><a href="http://www.pos.com.my/posekspres/mainframe.asp?addr=first1.asp">Malaysia</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/New Zealand2.jpg"><a href="http://www.nzpost.co.nz/Cultures/en-NZ/OnlineTools/TrackAndTrace/">New Zealand</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Norway.png"><a href="http://www.posten.no/en/Customer+service">Norway</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Russia.gif"><a href="http://www.garantpost.ru/">Russia</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Nigeria.jpg"><a href="http://www.emsng.com/">Nigeria</a></td>
+                        </tr>
+                        <tr>
+                            <td><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Singapore2.gif"><a href="http://www.speedpost.com.sg/TrackAndTrace.asp">Singapore</a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Switzerland.gif"><a href="http://www.post.ch/en/post-startseite.htm">Switzerland</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Spain2.gif"><a href="http://www.correos.es/comun/Localizador/2010_c1-LocalizadorE.asp">Spain</a></td>
+                            <td>&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Slovakia.gif"><a href="http://tandt.posta.sk/">Slovakia</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.posten.se/tracktrace/TrackConsignments_do.jsp?lang=GB"><img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/Sweden2.jpg">Sweden </a></td>
+                            <td>&nbsp; &nbsp;&nbsp;<img width="33" height="20" alt="" src="{{ App.assets.Url}}/images/co/United States1.jpg"><a href="http://www.usps.com/shipping/trackandconfirm.htm">United States</a></td>
+                            <td>&nbsp;<a href="http://www.parcelforce.com/portal/pw/track?catId=7500082"><img width="33" height="20" style="color: rgb(0, 0, 0); " alt="" src="{{ App.assets.Url}}/images/co/United Kingdom.jpg">United Kingdom</a></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -44,6 +44,8 @@ class SubjectProduct extends CmsActiveRecord
         return array(
             'product'=>array(self::BELONGS_TO, 'Product',
                     'product_id'),
+            'subject'=>array(self::BELONGS_TO, 'Subject',
+                    'subject_id'),
         );
     }
     /**

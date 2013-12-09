@@ -28,7 +28,7 @@ class SaleController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'index','view','term'
+                    'index','view','term','subject'
                 ) ,
                 'users' => array(
                     '*'
@@ -94,12 +94,45 @@ class SaleController extends GController {
         $this->render('view',array('brand'=>$brand,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p));
     }
     /**
+     * get filter url 
+     * @return [type] [description]
+     */
+    public function getUrl($key,$value){
+        $options = $_GET;
+        foreach($options as $k=>$v){
+            if($k == $key){
+                $options[$k] = $value;
+            }else{
+                $options[$key] = $value;
+            }
+            if($value == ""){
+                unset($options[$key]);
+            }
+        }
+        $url = '/sale/term';
+        foreach($options as $k=>$o){
+            $url.="/".$k."/".$o; 
+        }
+        return $url;
+    }
+    /**
+     * [actionSubject description]
+     * @return [type] [description]
+     */
+    public function actionSubject(){
+        $id = $_GET['id'];
+        $subject = Subject::model()->findByPk($id);
+        if($subject->status == Subject::SUBJECT_STATUS_OPEN){
+            
+        }
+    }
+    /**
      * action for brand term
      * @return [type] [description]
      */
     public function actionTerm(){
-        $term_id = intval($_GET['cid']);
-        $term = Oterm::model()->findByPk($term_id);
+        $term_id = intval($_GET['id']);
+
         //left menu category
         $leftCategory = Oterm::model()->getTreeByTermId($term_id);
         //left menu term profile
@@ -116,45 +149,34 @@ class SaleController extends GController {
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
 
-        $url = '/womens/term';
+        $url = '/sale/term';
         foreach($_GET as $k=>$o){
             $url.="/".$k."/".$o; 
         }
         $url.="/p/";
 
-        $count = 24;
+        $count = 1;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $objects = Product::model()->fetchProductsByTermIdAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
-        $sum = Product::model()->getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profile);
+        $objects = Product::model()->fetchSubjectProductsByTermIdAndBrandAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
+        $sum = Product::model()->getSubjectProductsCountByTermIdAndBrandAndOptions($term_id,$ssid,$brid,$request_profile);
         $sub_pages = 6;
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,
             ));
         // $this->render('term');
     }
     /**
-     * get filter url 
-     * @return [type] [description]
+     * [getNowPrice description]
+     * @param  [type] $product_id [description]
+     * @return [type]             [description]
      */
-    public function getUrl($key,$value){
-        $options = $_GET;
-        foreach($options as $k=>$v){
-            if($k == $key){
-                $options[$k] = $value;
-            }else{
-                $options[$key] = $value;
-            }
-            if($value == ""){
-                unset($options[$key]);
-            }
-        }
-        $url = '/womens/term';
-        foreach($options as $k=>$o){
-            $url.="/".$k."/".$o; 
-        }
-        return $url;
+    public function getNowPrice($product_id){
+        $product = Product::model()->findByPk($product_id);
+        $subject = SubjectProduct::model()->with('subject')->findByAttributes(array('product_id'=>$product_id));
+        $discount = $subject->subject->value/10;
+        return $product->shop_price*$discount;
     }
 }

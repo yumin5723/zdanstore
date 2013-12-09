@@ -8,14 +8,14 @@
             <dl>
                 <dt>Leastest Sales</dt>
                 {% for le in lastest %}
-                <dd><a href="" title="{{ le.name }}">{{ le.name }}</a></dd>
+                <dd><a href="{{ this.createUrl('/sale/subject/',{'id':le.id}) }}" title="{{ le.name }}">{{ le.name }}</a></dd>
                 {% endfor %}
             </dl>
             {% for term in mensterm %}
             <dl>
                 <dt>{{ term.name }}</dt>
                 {% for child in term.child %}
-                <dd><a href="/mans/term/cid/{{ child.id }}" title="{{ child.name }}">{{ child.name }}</a></dd>
+                <dd><a href="/sale/term/id/{{ child.id }}" title="{{ child.name }}">{{ child.name }}</a></dd>
                 {% endfor %}
             </dl>
             {% endfor %}
@@ -23,7 +23,7 @@
             <dl>
                 <dt>{{ term.name }}</dt>
                 {% for child in term.child %}
-                <dd><a href="/womens/term/cid/{{ child.id }}" title="{{ child.name }}">{{ child.name }}</a></dd>
+                <dd><a href="/sale/term/id/{{ child.id }}" title="{{ child.name }}">{{ child.name }}</a></dd>
                 {% endfor %}
             </dl>
             {% endfor %}
@@ -97,7 +97,7 @@
                     <div class="txt">
                         <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':result.product.brand_id })}}" title="">{{ result.product.brand.name }}</a></span><br/>
                         <a href="{{ this.createUrl('/product/view',{'id':result.product_id} )}}" title="">{{ result.product.name }}</a><br/>
-                        <span class="price">{{ result.product.shop_price}}</span><br/>
+                        <span class="price">{{ result.product.shop_price}}</span><span class="price">{{ this.getNowPrice(result.product_id) }}</span><br/>
                         <span class="new">{% if result.product.is_new == 1 %}New Arrivals{% endif %}</span>
                     </div>
                 </li>
