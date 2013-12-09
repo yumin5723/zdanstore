@@ -194,13 +194,13 @@ class SubjectProduct extends CmsActiveRecord
             $products = array($products);
         }
         $subject = Subject::model()->findByPk($subject_id);
-        $cmd->bindParam(":subject_id", $subject_id);
-        $cmd->bindParam(":subject_type",$subject->type);
+        $cmd->bindValue(":subject_id", $subject_id);
+        $cmd->bindValue(":subject_type",$subject->type);
         foreach ($products as $id) {
             if(empty($id)){
                 continue;
             }
-            $cmd->bindParam(":product_id", $id);
+            $cmd->bindValue(":product_id", $id);
             $cmd->execute();
         }
         return true;

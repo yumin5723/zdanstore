@@ -3,6 +3,8 @@
 class Subject extends CmsActiveRecord
 {
     const SUBJECT_TYPE_DISCOUNT = 1;
+    const SUBJECT_STATUS_OPEN = 0;
+    const SUBJECT_STATUS_CLOSED = 1;
     /**
      * table name
      *
@@ -76,7 +78,7 @@ class Subject extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('name,type,value','required',),
+            array('name,type,value,status','required',),
             //array('email','email'),
         );
         /*
@@ -107,6 +109,10 @@ class Subject extends CmsActiveRecord
             $attrs[] = 'value';
             $this->value = $attributes['value'];
         }
+        if (!empty($attributes['status']) && $attributes['status'] != $this->status) {
+            $attrs[] = 'status';
+            $this->status = $attributes['status'];
+        }
         if ($this->validate($attrs)) {
             return $this->save(false);
         } else {
@@ -132,5 +138,28 @@ class Subject extends CmsActiveRecord
         return array(
             self::SUBJECT_TYPE_DISCOUNT=>'折扣活动'
             );
+    }
+    /**
+     * get all brands
+     * @return [type] [description]
+     */
+    public function getStatus(){
+        return array(
+            self::SUBJECT_STATUS_OPEN=>'活动开放',
+            self::SUBJECT_STATUS_CLOSED=>'活动关闭',
+            );
+    }
+    /**
+     * [getLastestSale description]
+     * @return [type] [description]
+     */
+    public function getLastestSale($limit = 5){
+
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        $criteria->condition = "t.status = :status AND t.type = :type";
+        $criteria->params = array("status"=>self::SUBJECT_STATUS_OPEN,":type"=>self::SUBJECT_TYPE_DISCOUNT);
+        $criteria->order = "t.id DESC";
+        return self::model()->findAll($criteria);
     }
 }

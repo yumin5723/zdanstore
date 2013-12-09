@@ -212,7 +212,7 @@ alter table product add `is_recommond_mans` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_womens` tinyint(4) NOT NULL DEFAULT '0';
 alter table product add `is_recommond_hats` tinyint(4) NOT NULL DEFAULT '0';
 alter table subject_product add `subject_type` tinyint(4) NOT NULL DEFAULT '0';
-
+alter table subject add `status` tinyint(4) NOT NULL DEFAULT '0';
 
 --
 -- Table structure for table `deliverynote`

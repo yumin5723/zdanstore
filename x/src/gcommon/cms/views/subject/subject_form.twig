@@ -4,6 +4,7 @@
 {{ form.textFieldRow(model, "name", {'placeholder':''})|raw }}
 {{ form.dropDownListRow(model, 'type', model.Types, {})|raw }}
 {{ form.textFieldRow(model, "value", {'placeholder':''})|raw }}
+{{ form.dropDownListRow(model, 'status', model.Status, {})|raw }}
 <div class="control-group">
   <div class="controls">
     <button type="submit" class="btn btn-large btn-primary">提交</button>

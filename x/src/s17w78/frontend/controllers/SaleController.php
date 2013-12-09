@@ -50,7 +50,7 @@ class SaleController extends GController {
         //brand page banner ad
         $focus = Click::model()->getAdsByType(Click::AD_POSITION_SALE_FOCUS,3);
         $brands = Brand::model()->getBrandsForIndex(100);
-        // $lastest_sales = Newarrivals::model()->findAll();
+        $lastest_sales = Subject::model()->getLastestSale();
         //mans left menu
         $mensTerms = Oterm::model()->getMensTreeMenu();
         //womens left menu
@@ -65,8 +65,8 @@ class SaleController extends GController {
         $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/sale/view?p=",2);
         $p = $subPages->show_SubPages(2);
 
-        $this->render("index",array('focus'=>$focus,'mensterm'=>$mensTerms,
-            'womensterm'=>$womensTerms,'nums'=>$nums,'results'=>$results,'pager'=>$p));
+        $this->render("index",array('focus'=>$focus,'mensterm'=>$mensTerms,'lastest'=>$lastest_sales,
+            'womensterm'=>$womensTerms,'nums'=>$nums,'results'=>$results,'pager'=>$p,'brands'=>$brands));
     }
     /**
      * action for brand view
