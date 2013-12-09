@@ -1,7 +1,7 @@
 <!-- image -->
 <div class="d_focus">
     <div class="image" id="bigpics" title=""><img src="{{ product_images[0].image }}" /></div>
-    <div class="switch"><a href="#" class="link1">View Details</a></div>
+    <div class="switch"><a href="{{ this.createUrl('/product/view',{'id':product.id} ) }}" class="link1">View Details</a></div>
 </div>
 
 <!-- info --> 
