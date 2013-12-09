@@ -381,6 +381,7 @@ CREATE TABLE `subject_product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 alter table subject add `url` varchar(255) NOT NULL;
+alter table order_product add `info` varchar(255) DEFAULT NULL;
 
 
 

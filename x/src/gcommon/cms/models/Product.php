@@ -661,10 +661,10 @@ class Product extends CmsActiveRecord
         $objects = ProductTerm::model()->findAllByAttributes(array("term_id"=>$category->term_id));
         $ids = array();
         foreach($objects as $object){
-            $ids[] = $object->object_id;
+            $ids[] = $object->product_id;
         }
         $oids = array_unique($ids);
-        $key = array_search($object_id, $oids);
+        $key = array_search($product_id, $oids);
         unset($oids[$key]);
 
         $criteria = new CDbCriteria;

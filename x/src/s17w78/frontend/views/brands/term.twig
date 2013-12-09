@@ -75,11 +75,11 @@
                     <div class="txt">
                         <span class="name"><a href="#" title="">{{ result.brand.name }}</a></span><br/>
                         <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title="">{{ result.name }}</a><br/>
-                        {% if App.shoppingcart.getNowPrice(result.id) is not null %}
+                        {% if App.shoppingcart.getNowPrice(result.id) != "" %}
                         <span class="price"><del>${{ result.shop_price}}</del></span>&nbsp;
                         <span class="price">${{ App.shoppingcart.getNowPrice(result.id) }}</span>
                         {% else %}
-                        <span class="price"><del>${{ result.shop_price}}</del></span>
+                        <span class="price">${{ result.shop_price}}</span>
                         {% endif %}
                         <span class="new">{% if result.is_new == 1 %}New Arrivals{% endif %}</span>
                     </div>

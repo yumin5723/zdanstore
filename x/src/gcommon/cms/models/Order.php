@@ -354,8 +354,14 @@ and year(created)=year(now())";
                 $orderProduct->product_quantity = $product['quantity'];
                 $orderProduct->product_meta = serialize($product['profile']);
                 $product = Product::model()->findByPk($product['id']);
-                $orderProduct->product_price = $product->shop_price;
-
+                
+                if(Yii::app()->shoppingcart->getNowPrice($product['id']) == ""){
+                    $orderProduct->product_price = $product->shop_price;
+                }else{
+                    $orderProduct->product_price = Yii::app()->shoppingcart->getNowPrice($product['id']);
+                    $subject = SubjectProduct::model()->findByAttributes(array('product_id'=>$product['id']));
+                    $orderProduct->info = $subject->subject->name;
+                }
                 $orderProduct->save(false);
            }
            return $model->id;

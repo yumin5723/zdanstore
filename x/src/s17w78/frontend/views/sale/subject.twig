@@ -42,11 +42,11 @@
                     <div class="txt">
                         <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':result.product.brand_id })}}" title="">{{ result.product.brand.name }}</a></span><br/>
                         <a href="{{ this.createUrl('/product/view',{'id':result.product_id} )}}" title="">{{ result.product.name }}</a><br/>
-                        {% if App.shoppingcart.getNowPrice(result.product.id) is not null %}
+                        {% if App.shoppingcart.getNowPrice(result.product.id) != "" %}
                         <span class="price"><del>${{ result.product.shop_price}}</del></span>&nbsp;
                         <span class="price">${{ App.shoppingcart.getNowPrice(result.product.id) }}</span>
                         {% else %}
-                        <span class="price"><del>${{ result.product.shop_price}}</del></span>
+                        <span class="price">${{ result.product.shop_price}}</span>
                         {% endif %}
                         <span class="new">{% if result.product.is_new == 1 %}New Arrivals{% endif %}</span>
                     </div>
