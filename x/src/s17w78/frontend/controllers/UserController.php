@@ -259,12 +259,12 @@ class UserController extends GController {
     public function actionWishlist(){
         $uid =  Yii::app()->user->id;
         $model = new Wishlist;
-        $count = 20;
+        $count = 1;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
         $nums = Wishlist::model()->getWishCountByUid($uid);
         $wishRecords = $model->getAllWishRecords($uid,$count,$pageCurrent);
-        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/user/order/p/",2);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/user/wishlist/p/",2);
         $p = $subPages->show_SubPages(2);
         $this->render("account_wishlist",array('data'=>$wishRecords,'pages'=>$p));
     }

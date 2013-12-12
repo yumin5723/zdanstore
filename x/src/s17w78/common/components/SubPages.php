@@ -121,8 +121,8 @@ class SubPages {
         if ($this->current_page > 1) {
             $firstPageUrl = $this->subPage_link . "1";
             $prewPageUrl = $this->subPage_link . ($this->current_page - 1);
-            $subPageCss2Str.="<a href='$firstPageUrl'>首页</a> ";
-            $subPageCss2Str.="<a href='$prewPageUrl'>上一页</a> ";
+            $subPageCss2Str.="<a href='$firstPageUrl'>First Page</a> ";
+            $subPageCss2Str.="<a href='$prewPageUrl'>Previous Page</a> ";
         } else {
             //$subPageCss2Str ='';
         }
@@ -147,8 +147,8 @@ class SubPages {
         if ($this->current_page < $this->pageNums) {
             $lastPageUrl = $this->subPage_link . $this->pageNums;
             $nextPageUrl = $this->subPage_link . ($this->current_page + 1);
-            $subPageCss2Str.=" <a href='$nextPageUrl'>下一页</a> ";
-            $subPageCss2Str.="<a href='$lastPageUrl'>尾页</a>";
+            $subPageCss2Str.=" <a href='$nextPageUrl'>Next Page</a> ";
+            $subPageCss2Str.="<a href='$lastPageUrl'>Last Page</a>";
         } else {
             
         }
