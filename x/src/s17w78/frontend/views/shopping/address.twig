@@ -175,7 +175,7 @@
         </div>
 
         <!-- shipping -->
-        <div class="shipping clearfix">
+        <div class="shipping clearfix" id="check_shipping">
             <div class="title">Shipping Options</div>
             <div class="content">
                 <div class="fl">
@@ -302,12 +302,12 @@
         $("#checkout_total").text(checkout_total.toFixed(2));
     }
 
-    $(".shipping .fl").find("label").click(function(){
+    $("#check_shipping .fl").find("label").click(function(){
         shipping();
 
     });
 
-    $(".shipping .fr").find("label").click(function(){
+    $("#check_shipping .fr").find("label").click(function(){
         var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
         var shipping = 50.00;
         insurance_price = 0;

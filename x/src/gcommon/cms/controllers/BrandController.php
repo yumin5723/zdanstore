@@ -154,6 +154,7 @@ class BrandController extends GController {
                 if ($model->updateAttrs($_POST['Brand'])) {
                     BrandTerm::model()->updateBrandTerm($model->id,$_POST['Oterm']);
                     Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
+                    $this->redirect("/pp/brand/update/id/".$id);
                 }
             }
         } else {
