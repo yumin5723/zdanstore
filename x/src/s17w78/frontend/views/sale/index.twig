@@ -78,8 +78,12 @@
         <div class="index_product">
             <div class="total clearfix">
                 <div class="fl">
-                    <select><option>New Arrivals</option></select>
-                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                   <select onchange="self.location.href=options[selectedIndex].value">
+                        <option {% if type == 1 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'1'})}}">New Arrivals</option>
+                        <option {% if type == 2 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'2'})}}">Best Sellers</option>
+                        <option {% if type == 3 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'3'})}}">Price - Low to High</option>
+                        <option {% if type == 4 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'4'})}}">Price - High to Low</option>
+                    </select>
                 </div>
                 <div class="fr">
                     <div class="page">
@@ -112,8 +116,12 @@
             </ul>
             <div class="total clearfix">
                 <div class="fl">
-                    <select><option>New Arrivals</option></select>
-                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                  <select onchange="self.location.href=options[selectedIndex].value">
+                        <option {% if type == 1 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'1'})}}">New Arrivals</option>
+                        <option {% if type == 2 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'2'})}}">Best Sellers</option>
+                        <option {% if type == 3 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'3'})}}">Price - Low to High</option>
+                        <option {% if type == 4 %} selected="selected" {% endif %} value="{{ this.createUrl('/sale/index',{'type':'4'})}}">Price - High to Low</option>
+                    </select>
                 </div>
                 <div class="fr">
                     <div class="page">

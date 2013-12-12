@@ -66,7 +66,7 @@ class SaleController extends GController {
         $p = $subPages->show_SubPages(2);
 
         $this->render("index",array('focus'=>$focus,'mensterm'=>$mensTerms,'lastest'=>$lastest_sales,
-            'womensterm'=>$womensTerms,'nums'=>$nums,'results'=>$results,'pager'=>$p,'brands'=>$brands));
+            'womensterm'=>$womensTerms,'nums'=>$nums,'results'=>$results,'pager'=>$p,'brands'=>$brands,'type'=>$type));
     }
     /**
      * action for brand view
