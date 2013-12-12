@@ -7,17 +7,17 @@
         <div class="list_nav">
             <dl>
                 <dt>Shop By Category</dt>
-                 <dd><a href="{{ this.getUrl('ssid','') }}" title="all">ALL</a>
+                 <dd><a href="{{ this.getUrl('ssid','') }}" {% if option.ssid == "" %} class="cur" {% endif %} title="all">ALL</a>
                 {% for de in leftCategory %}
-                <dd><a href="{{ this.getUrl('ssid',de.id) }}" title="{{ de.name }}">{{ de.name }}</a></dd>
+                <dd><a href="{{ this.getUrl('ssid',de.id) }}" {% if option.ssid == de.id %} class="cur" {% endif %} title="{{ de.name }}">{{ de.name }}</a></dd>
                 {% endfor %}
             </dl>
             {% for profile in leftProfiles %}
             <dl>
                 <dt>Shop By {{ profile.name }}</dt>
-                <dd><a href="{{ this.getUrl(profile.name,'') }}" title="all">ALL</a></dd>
+                <dd><a href="{{ this.getUrl(profile.name,'') }}" {% if this.checkUrl(profile.name,"",option) == "aaa" %} class="cur" {% endif %} title="all">ALL</a></dd>
                 {% for v in profile.value %}
-                <dd><a href="{{ this.getUrl(profile.name,v) }}" title="{{ v }}">{{ v }}</a></dd>
+                <dd><a href="{{ this.getUrl(profile.name,v) }}" {% if this.checkUrl(profile.name,v,option) == "bbb" %} class="cur" {% endif %} title="{{ v }}">{{ v }}</a></dd>
                 {% endfor %}
             </dl>
             {% endfor %}

@@ -129,7 +129,7 @@ class WomensController extends GController {
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft,'option'=>$_GET
             ));
         // $this->render('term');
     }
@@ -154,5 +154,18 @@ class WomensController extends GController {
             $url.="/".$k."/".$o; 
         }
         return $url;
+    }
+    /**
+     * [checkUrl description]
+     * @return [type] [description]
+     */
+    public function checkUrl($key,$value,$option){
+        if(!isset($option[$key])){
+            return "aaa";
+        }
+        if(isset($option[$key]) && $option[$key] == $value){
+            return "bbb";
+        }
+        return false;
     }
 }

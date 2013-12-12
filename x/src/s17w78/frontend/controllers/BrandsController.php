@@ -122,9 +122,8 @@ class BrandsController extends GController {
         $sub_pages = 6;
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
-
         $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'ft'=>$ft
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'ft'=>$ft,'option'=>$_GET
             ));
         // $this->render('term');
     }
@@ -148,6 +147,20 @@ class BrandsController extends GController {
         foreach($options as $k=>$o){
             $url.="/".$k."/".$o; 
         }
+        
         return $url;
+    }
+    /**
+     * [checkUrl description]
+     * @return [type] [description]
+     */
+    public function checkUrl($key,$value,$option){
+        if(!isset($option[$key])){
+            return "aaa";
+        }
+        if(isset($option[$key]) && $option[$key] == $value){
+            return "bbb";
+        }
+        return false;
     }
 }

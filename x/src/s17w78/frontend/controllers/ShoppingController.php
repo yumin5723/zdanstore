@@ -198,15 +198,6 @@ class ShoppingController extends GController {
     public function actionCheckaddr(){
         if(Yii::app()->request->isPostRequest){
             if(isset($_POST['Product'])){
-                foreach($_POST['Product'] as $key=>$value){
-                    $cart = Cart::model()->findByPk($key);
-                    if($cart->quantity != $value['quantity']){
-                        $cart->quantity = $value['quantity'];
-                        $cart->save();
-                    }else{
-                        continue;
-                    }
-                }
                 $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
                 $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
                 $this->render('address',array('results'=>$results,'total'=>$total,'billingaddress'=>new BillingAddress,'address'=>new Address));
