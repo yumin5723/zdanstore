@@ -89,8 +89,9 @@ class BrandsController extends GController {
      * @return [type] [description]
      */
     public function actionTerm(){
-        $term_id = intval($_GET['id']);
-
+        $term_id = intval($_GET['cid']);
+        $brand_id = intval($_GET['id']);
+        $brand = Brand::model()->findByPk($brand_id);
         //left menu category
         $leftCategory = Oterm::model()->getTreeByTermId($term_id);
         //left menu term profile

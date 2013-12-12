@@ -321,19 +321,31 @@ and year(created)=year(now())";
            foreach($products["p"] as $value){
                 $product = Product::model()->findByPk($value['id']);
                 if(!empty($product)){
-                    $price = $product->shop_price;
+                    //get discount price
+                    $nowprice = Yii::app()->shoppingcart->getNowPrice($value['id']);
+                    if($nowprice == ""){
+                        $price = $product->shop_price;
+                    }else{
+                        $price = $nowprice;
+                    }
+
                     $product_total = $price * $value['quantity'];
                     $total += $product_total;
                 }
+           }
+           $order_total = 0;
+           if(isset($products['Insurance']) && $products['Insurance'] == 1){
+                $order_total = $total + ceil($total * 0.02);
            }
            $model = new self;
            $model->uid = Yii::app()->user->id;
            $model->ip = Yii::app()->request->userHostAddress;
            $model->address = $products['address'];
            $model->billing_address = $products['billing_address'];
-           $model->total_price = $total;
+           $model->total_price = $order_total;
            if($products['shipping'] == self::SHIPPING_BY_EMS){
                 $model->shipping = self::SHIPPING_BY_EMS;
+                $model->shipping_price = self::SHIPPING_EMS_PRICE;
                 $model->total_price = $total + self::SHIPPING_EMS_PRICE;
            }else{
                 $model->shipping = self::SHIPPING_BY_AIRMAIL;
@@ -344,6 +356,10 @@ and year(created)=year(now())";
            }else{
                 $model->payment = self::PAYMENT_BY_WESTERNUNION;
            }
+           if(isset($products['Insurance']) && $products['Insurance'] == 1){
+                $model->insurance = ceil($total * 0.02);
+           }
+           
            $model->status = self::ORDER_STATUS_CREATED;
            $model->save(false);
            //create order product relations
@@ -352,6 +368,9 @@ and year(created)=year(now())";
                 $orderProduct->order_id = $model->id;
                 $orderProduct->product_id = $product['id'];
                 $orderProduct->product_quantity = $product['quantity'];
+                if(empty($product['profile'])){
+                    $product['profile'] = array();
+                }
                 $orderProduct->product_meta = serialize($product['profile']);
                 $product = Product::model()->findByPk($product['id']);
                 

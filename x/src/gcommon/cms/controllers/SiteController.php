@@ -88,7 +88,7 @@ class SiteController extends BackendController {
      */
     public function actionLogout() {
         Yii::app()->user->logout();
-        $this->redirect(Yii::app()->getModule('pp')->user->loginUrl);
+        $this->redirect(Yii::app()->user->loginUrl);
     }
     public function actionError(){
         if (YII_DEBUG) {

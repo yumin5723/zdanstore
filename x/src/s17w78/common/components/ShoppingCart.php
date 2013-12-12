@@ -195,7 +195,13 @@ class ShoppingCart extends CApplicationComponent{
         $total = 0;
         foreach($this->product_list as $key=>$value){
             $product = Product::model()->findByPk($value['id']);
-            $total += $value['quantity'] * $product->shop_price;
+            $nowprice = $this->getNowPrice($value['id']);
+            if($nowprice == ""){
+                $price = $product->shop_price;
+            }else{
+                $price = $nowprice;
+            }
+            $total += $value['quantity'] * $price;
         }
         return $total;
     }
@@ -207,10 +213,11 @@ class ShoppingCart extends CApplicationComponent{
     public function getNowPrice($product_id){
         $product = Product::model()->findByPk($product_id);
         $subject = SubjectProduct::model()->with('subject')->findByAttributes(array('product_id'=>$product_id));
-        if(empty($subject)){
+        if(empty($subject) || $subject->subject->status == Subject::SUBJECT_STATUS_CLOSED){
             return "";
         }
         $discount = $subject->subject->value/10;
-        return $product->shop_price*$discount;
+        // sprintf(”%01.3f”,1)
+        return sprintf("%01.2f",$product->shop_price*$discount);
     }
 }
