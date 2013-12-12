@@ -218,17 +218,17 @@
             <dl>
                 <dd class="clearfix">
                     <span class="t1">Sub Total :</span>
-                    <span class="t2">${{ total }}</span>
+                    <span class="t2">$<em id="cart_total">{{ total }}</em></span>
                 </dd>
                 <dd class="clearfix">
-                    <span class="t1"><input type="checkbox" name="Product[Insurance]" value="1"> Insurance :</span>
-                    <span class="t2">$1.00</span>
+                    <span class="t1"><input type="hidden" name="Product[Insurance]" value="1"> Insurance :</span>
+                    <span class="t2">$<em id="insurance_price">0.00</em></span>
                 </dd>
                 <dd class="clearfix">
                     <span class="t1">Shipping :</span>
-                    <span class="t2">$0.00</span>
+                    <span class="t2">$<em id="shipping_price">0.00</em></span>
                 </dd>
-                <dt>Order Total : $33.00</dt>
+                <dt>Order Total : $<span id="checkout_total">33.00</dt>
             </dl>
         </div>
 
@@ -288,6 +288,34 @@
 
     $(document).ready(function(){
         getDefault();
+        shipping();
+
+    });
+
+    function shipping(){
+        var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
+        var shipping = 0;
+        insurance_price = parseFloat((cart_total * 0.02)).toFixed(2);
+        $("#shipping_price").text(shipping);
+        $("#insurance_price").text(insurance_price);
+        var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);
+        $("#checkout_total").text(checkout_total.toFixed(2));
+    }
+
+    $(".shipping .fl").find("label").click(function(){
+        shipping();
+
+    });
+
+    $(".shipping .fr").find("label").click(function(){
+        var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
+        var shipping = 50.00;
+        insurance_price = 0;
+        $("#shipping_price").text(shipping.toFixed(2));
+        $("#insurance_price").text(insurance_price);
+        var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);
+        $("#checkout_total").text(checkout_total.toFixed(2));
+
     });
 </script> 
 {% endblock %}

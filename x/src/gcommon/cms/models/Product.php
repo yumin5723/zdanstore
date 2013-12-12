@@ -810,7 +810,7 @@ class Product extends CmsActiveRecord
      * ppid profile id
      * @return [type] [description]
      */
-    public function fetchSubjectProductsByTermIdAndBrandAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles){
+    public function fetchSubjectProductsByTermIdAndBrandAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles,$ft = 1){
         $ids = $this->getSubjectProdcutIdsByTermId($term_id);
 
         if(isset($ssid) && $ssid != ""){
@@ -826,9 +826,18 @@ class Product extends CmsActiveRecord
             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }
+        $criteria->order = "t.id DESC";
+        if($ft == 1){
+            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
+        }elseif($ft == 2){
+            $criteria->order = "t.sales DESC";
+        }elseif($ft == 3){
+            $criteria->order = "t.shop_price ASC";
+        }else{
+            $criteria->order = "t.shop_price DESC";
+        }
         // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
-        $criteria->order = "t.id DESC";
         $criteria->limit = $count;
         $criteria->offset = ($page - 1) * $count;
         return self::model()->with('brand')->findAll($criteria);
@@ -837,7 +846,7 @@ class Product extends CmsActiveRecord
      * get objects count by term_id
      * @return [type] [description]
      */
-    public function getSubjectProductsCountByTermIdAndBrandAndOptions($term_id,$ssid,$brid,$request_profiles){
+    public function getSubjectProductsCountByTermIdAndBrandAndOptions($term_id,$ssid,$brid,$request_profiles,$ft){
         
         $ids = $this->getSubjectProdcutIdsByTermId($term_id);
         if(isset($ssid) && $ssid != ""){
@@ -852,6 +861,9 @@ class Product extends CmsActiveRecord
         if(isset($brid) && $brid != ""){
             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
+        }
+        if($ft == 1){
+            $criteria->addCondition("t.is_new = ".self::PRODUCT_IS_NEW);
         }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);

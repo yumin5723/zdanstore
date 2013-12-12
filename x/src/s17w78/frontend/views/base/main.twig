@@ -43,7 +43,7 @@
                 <div class="btn clearfix">
                     <a href="/shopping/cart" class="fr">View Cart</a>
                     <a href="#" class="fr">Continue Shopping</a>
-                    <a href="#" class="fr"><img src="images/cart_ico.png" align="absmiddle" /> Checkout</a>
+                    <a href="/shopping/cart" class="fr"><img src="images/cart_ico.png" align="absmiddle" /> Checkout</a>
                 </div>
             </div>
         </div>
@@ -133,6 +133,9 @@
 
     $(".popclose").click(function(){
         closePopup();
+    });
+    $(".cart_dialog .close").click(function(){
+        $(".cart_dialog").hide();  
     });
 </script>
 

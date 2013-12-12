@@ -103,7 +103,8 @@
             success:function(data){     
                 closePopup();
                 $("#cart_back").html(data);
-                $(".cart_dialog").show();   
+                $(".cart_dialog").show();
+                $("body,html").animate({scrollTop:0},200);
             }
         });
     });

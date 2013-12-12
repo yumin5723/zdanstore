@@ -266,6 +266,7 @@
 	.order_total dl dd .t1{float:left;text-align: right;width:110px;margin-right:8px;display:inline;}
 	.order_total dl dd .t2{float:left;}
 	.order_total dl dt{font-size:16px;color:#739F26;padding:10px 0;border-top:1px dotted #949494;margin-top:10px;text-align: right;}
+	.order_total em{font-style:normal;}
 
 /* submit order */
 	.order_box{width:600px;margin:0 auto;border:1px dotted #949494;}

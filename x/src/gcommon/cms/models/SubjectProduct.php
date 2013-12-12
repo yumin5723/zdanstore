@@ -237,11 +237,19 @@ class SubjectProduct extends CmsActiveRecord
      * get sale count
      * @return [type] [description]
      */
-    public function getCountSales(){
+    public function getCountSales($type = 1){
         $criteria = new CDbCriteria;
         $criteria->condition = "subject_type = :subject_type";
         $criteria->params = array(":subject_type"=>Subject::SUBJECT_TYPE_DISCOUNT);
-        return SubjectProduct::model()->count($criteria);
+        if($type == 1){
+            return SubjectProduct::model()->with(array('product'=>array(
+                    'select'=>false,
+                    'joinType'=>'INNER JOIN',
+                    'condition'=>'product.is_new ='.Product::PRODUCT_IS_NEW,
+                )))->count($criteria);
+        }else{
+            return SubjectProduct::model()->count($criteria);
+        }
     }
     /**
      * [getSaleProducts description]
@@ -249,7 +257,7 @@ class SubjectProduct extends CmsActiveRecord
      * @param  [type] $pageCurrent [description]
      * @return [type]              [description]
      */
-    public function getSaleProducts($count,$pageCurrent){
+    public function getSaleProducts($type,$count,$pageCurrent){
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
         $criteria->order = "t.id DESC";
@@ -257,6 +265,14 @@ class SubjectProduct extends CmsActiveRecord
         $criteria->params = array(":subject_type"=>Subject::SUBJECT_TYPE_DISCOUNT);
         $criteria->limit = $count;
         $criteria->offset = ($pageCurrent - 1) * $count;
-        return SubjectProduct::model()->with('product')->findAll($criteria);
+        if($type == 1){
+            return SubjectProduct::model()->with(array('product'=>array(
+                    'select'=>false,
+                    'joinType'=>'INNER JOIN',
+                    'condition'=>'product.is_new ='.Product::PRODUCT_IS_NEW,
+                )))->findAll($criteria);
+        }else{
+            return SubjectProduct::model()->with('product')->findAll($criteria);
+        }
     }
 }

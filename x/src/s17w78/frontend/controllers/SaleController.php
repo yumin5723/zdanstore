@@ -60,9 +60,9 @@ class SaleController extends GController {
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
         $type = isset($_GET['type']) ? $_GET['type'] : 1;
-        $nums = SubjectProduct::model()->getCountSales();
-        $results = SubjectProduct::model()->getSaleProducts($count,$pageCurrent);
-        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/sale/index/p=",2);
+        $nums = SubjectProduct::model()->getCountSales($type);
+        $results = SubjectProduct::model()->getSaleProducts($type,$count,$pageCurrent);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/sale/index/type/".$type."/p=",2);
         $p = $subPages->show_SubPages(2);
 
         $this->render("index",array('focus'=>$focus,'mensterm'=>$mensTerms,'lastest'=>$lastest_sales,
@@ -167,7 +167,7 @@ class SaleController extends GController {
         }
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
-
+        $ft = isset($_GET['ft']) ?$_GET['ft'] : 1;
         $url = '/sale/term';
         foreach($_GET as $k=>$o){
             $url.="/".$k."/".$o; 
@@ -176,14 +176,14 @@ class SaleController extends GController {
 
         $count = 1;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $objects = Product::model()->fetchSubjectProductsByTermIdAndBrandAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
-        $sum = Product::model()->getSubjectProductsCountByTermIdAndBrandAndOptions($term_id,$ssid,$brid,$request_profile);
+        $objects = Product::model()->fetchSubjectProductsByTermIdAndBrandAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile,$ft);
+        $sum = Product::model()->getSubjectProductsCountByTermIdAndBrandAndOptions($term_id,$ssid,$brid,$request_profile,$ft);
         $sub_pages = 6;
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'ft'=>$ft
             ));
         // $this->render('term');
     }

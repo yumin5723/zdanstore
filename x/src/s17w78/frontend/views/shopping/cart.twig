@@ -50,7 +50,7 @@
                         <a href="javascript:void(0);" class="reduce">-</a>
                         <input value="{{ cart.quantity }}" name="Product[{{ kid }}][quantity]" class="buy_num" class="text" readOnly="true">
                         <a href="javascript:void(0);" class="add">+</a>
-                        {% if App.shoppingcart.getNowPrice(cart.id) is not null %}
+                        {% if App.shoppingcart.getNowPrice(cart.id) != "" %}
                         <input type="hidden" class="shop_price" value="{{ App.shoppingcart.getNowPrice(cart.id) }}" />
                         {% else %}
                         <input type="hidden" class="shop_price" value="{{ cart.shop_price }}" />
@@ -86,24 +86,24 @@
 </div>
 <script type="text/javascript">
 $(".reduce").click(function(){
-    var qut = parseInt($(this).parent().find(".buy_num").val());
-    var price = parseInt($(this).parent().find(".shop_price").val());
-    var total = parseInt($("#total_price").text());
+    var qut = parseFloat($(this).parent().find(".buy_num").val());
+    var price = parseFloat($(this).parent().find(".shop_price").val());
+    var total = parseFloat($("#total_price").text());
     if(qut == 1){
         return false;
     }else{
         qut = qut -1;
-        total = total - price;
+        total = (total - price).toFixed(2);
         $("#total_price").text(total);
         $(this).parent().find(".buy_num").val(qut);
     }
 });
 $(".add").click(function(){
-    var qut = parseInt($(this).parent().find(".buy_num").val());
-    var price = parseInt($(this).parent().find(".shop_price").val());
-    var total = parseInt($("#total_price").text());
+    var qut = parseFloat($(this).parent().find(".buy_num").val());
+    var price = parseFloat($(this).parent().find(".shop_price").val());
+    var total = parseFloat($("#total_price").text());
     qut = qut + 1;
-    total = total + price ;
+    total = (total + price).toFixed(2);
     $("#total_price").text(total);
     $(this).parent().find(".buy_num").val(qut);
 });
@@ -111,6 +111,9 @@ $(".add").click(function(){
 $(".delete").click(function(){
     var parentObj = $(this).parent().parent();
     var id = $(this).parent().find("input").val();
+    var qut = parseFloat($(this).parent().parent().find(".buy_num").val());
+    var price = parseFloat($(this).parent().parent().find(".shop_price").val());
+    var total = parseFloat($("#total_price").text());
     var cartData = {"id":id};
     $.ajax({
         type: "POST",
@@ -118,7 +121,10 @@ $(".delete").click(function(){
         data:cartData,
         dataType:'json',
         success:function(data){   
-            $(parentObj).fadeOut(); 
+            $(parentObj).fadeOut();
+            total = (total - qut * price).toFixed(2);
+            $("#total_price").text(total);
+
         }
     });
 });
