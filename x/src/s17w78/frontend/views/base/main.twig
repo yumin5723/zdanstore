@@ -29,7 +29,7 @@
             {% if u.username is empty %}
             <li class="i2"><a href="/user/login">Sign in</a> | <a href="/user/register">Register</a></li>
             {% else %}
-            <li class="i2">{{ u.username }} | <a href="/user/logout">Quit</a></li>
+            <li class="i2"><a href="/user">{{ u.username }}</a> | <a href="/user/logout">Quit</a></li>
             {% endif %}
             <li class="i3"><a href="/shopping/cart">View cart</a></li>
         </ul>

@@ -83,10 +83,10 @@ class ShoppingCart extends CApplicationComponent{
      */
     protected function updateCartForUser($uid,$product_id,$quantity,$meta){
         $user_cart = Cart::model()->getCartProductIdsByUid($uid);
-
         if(in_array($product_id, $user_cart)){
-            $cart = Cart::model()->findByAttributes(array('uid'=>$uid,'product_id'=>$product_id));
-            if($cart->meta == serialize($meta)){
+            $result = $this->checkIsHaveProductInCart($uid,$product_id,$meta);
+            if($result[0] == true){
+                $cart = Cart::model()->findByPk($result[1]);
                 $cart->quantity += $quantity;
                 $cart->save(false);
             }else{
@@ -105,6 +105,25 @@ class ShoppingCart extends CApplicationComponent{
             $cart->meta = serialize($meta);
             $cart->save(false);
         }
+    }
+    /**
+     * [checkIsHaveProductInCart description]
+     * @param  [type] $uid        [description]
+     * @param  [type] $product_id [description]
+     * @param  [type] $meta       [description]
+     * @return [type]             [description]
+     */
+    public function checkIsHaveProductInCart($uid,$product_id,$meta){
+        $carts = Cart::model()->findAllByAttributes(array('uid'=>$uid,'product_id'=>$product_id));
+        $have = array(false);
+        foreach($carts as $cart){
+            if($cart->meta == serialize($meta)){
+                $have = array(true,$cart->id);
+            }else{
+                continue;
+            }
+        }
+        return $have;
     }
     /**
      * after user login need read cookie get shoppint cart
