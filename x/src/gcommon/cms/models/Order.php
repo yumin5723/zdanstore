@@ -332,10 +332,14 @@ and year(created)=year(now())";
                     $product_total = $price * $value['quantity'];
                     $total += $product_total;
                 }
+                $product->sales = $value['quantity'];
+                $product->save(false);
            }
            $order_total = 0;
            if(isset($products['Insurance']) && $products['Insurance'] == 1){
                 $order_total = $total + ceil($total * 0.02);
+           }else{
+                $order_total = $total;
            }
            $model = new self;
            $model->uid = Yii::app()->user->id;

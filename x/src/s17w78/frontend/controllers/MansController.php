@@ -112,6 +112,7 @@ class MansController extends GController {
         }
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
+        $ft = isset($_GET['ft']) ?$_GET['ft'] : 1;
 
         $url = '/mans/term';
         foreach($_GET as $k=>$o){
@@ -121,14 +122,14 @@ class MansController extends GController {
 
         $count = 24;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $objects = Product::model()->fetchProductsByTermIdAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
-        $sum = Product::model()->getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profile);
+        $objects = Product::model()->fetchProductsByTermIdAndOptions($term_id,$count,$pageCurrent,$ssid,$brid,$request_profile,$ft);
+        $sum = Product::model()->getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profile,$ft);
         $sub_pages = 6;
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft
             ));
         // $this->render('term');
     }

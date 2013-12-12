@@ -481,6 +481,90 @@ class Product extends CmsActiveRecord
         return self::model()->count($criteria);
     }
     /**
+     * get product sum by brand id 
+     * @param  [type] $brand_id [description]
+     * @return [type]           [description]
+     */
+    public function getCountProductsByBrandAndType($brand_id,$type){
+        $brand_id = intval($brand_id);
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        switch ($type) {
+            //type is filter by new arrival
+            case '1':
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status AND t.is_new = :is_new";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL,":is_new"=>self::PRODUCT_IS_NEW);
+                $count = self::model()->count($criteria);
+                break;
+            //type is filter by sales
+            case '2':
+                $criteria->order = "t.sales DESC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
+                $count = self::model()->count($criteria);
+            //type is filter by price low to high
+            case '3':
+                $criteria->order = "t.shop_price ASC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
+                $count = self::model()->count($criteria);
+            // type is filter by price hign to low
+            case '4':
+                $criteria->order = "t.shop_price DESC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
+                $count = self::model()->count($criteria);
+            default:
+                # code...
+                break;
+        }
+        return $count;
+        
+    }
+    /**
+     * function_description
+     *
+     * @param $term_all_id:
+     *
+     * @return
+     */
+    public function getProductsByBrandAndType($brand_id,$type,$count,$page){
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+        switch ($type) {
+            //type is filter by new arrival
+            case '1':
+                $criteria->order = "t.id DESC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status AND t.is_new = :is_new";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL,":is_new"=>self::PRODUCT_IS_NEW);
+                break;
+            //type is filter by sales
+            case '2':
+                $criteria->order = "t.sales DESC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
+                break;
+            //type is filter by price low to high
+            case '3':
+                $criteria->order = "t.shop_price ASC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
+                break;
+            // type is filter by price hign to low
+            case '4':
+                $criteria->order = "t.shop_price DESC";
+                $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+                $criteria->params = array(":brand_id"=>$brand_id,':status'=>self::PRODUCT_STATUS_SELL);
+                break;
+            default:
+                # code...
+                break;
+        }
+        $criteria->limit = $count;
+        $criteria->offset = ($page - 1) * $count;
+        return self::model()->with('brand')->findAll($criteria);
+    }
+    /**
      * function_description
      *
      * @param $term_all_id:
@@ -504,7 +588,7 @@ class Product extends CmsActiveRecord
      * ppid profile id
      * @return [type] [description]
      */
-    public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$brid,$request_profiles){
+    public function fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$page,$ssid,$brid,$request_profiles,$ft =1 ){
         $ids = $this->getProdcutIdsByTermId($term_id);
 
         if(isset($ssid) && $ssid != ""){
@@ -523,9 +607,18 @@ class Product extends CmsActiveRecord
              $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
              $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
         }
+        $criteria->order = "t.id DESC";
+        if($ft == 1){
+            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
+        }elseif($ft == 2){
+            $criteria->order = "t.sales DESC";
+        }elseif($ft == 3){
+            $criteria->order = "t.shop_price ASC";
+        }else{
+            $criteria->order = "t.shop_price DESC";
+        }
         // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
-        $criteria->order = "t.id DESC";
         $criteria->limit = $count;
         $criteria->offset = ($page - 1) * $count;
         return self::model()->with('brand')->findAll($criteria);
@@ -534,7 +627,7 @@ class Product extends CmsActiveRecord
      * get objects count by term_id
      * @return [type] [description]
      */
-    public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profiles){
+    public function getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profiles,$ft = 1){
         
         $ids = $this->getProdcutIdsByTermId($term_id);
         if(isset($ssid) && $ssid != ""){
@@ -552,6 +645,9 @@ class Product extends CmsActiveRecord
         }else{
              $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
              $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
+        }
+        if($ft == 1){
+            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
         }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);
@@ -581,7 +677,7 @@ class Product extends CmsActiveRecord
      * ppid profile id
      * @return [type] [description]
      */
-    public function fetchProductsByTermIdAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles){
+    public function fetchProductsByTermIdAndOptions($term_id,$count,$page,$ssid,$brid,$request_profiles,$ft = 1){
         $ids = $this->getProdcutIdsByTermId($term_id);
 
         if(isset($ssid) && $ssid != ""){
@@ -597,9 +693,19 @@ class Product extends CmsActiveRecord
             $criteria->condition = "t.brand_id = :brand_id AND t.status=:status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
         }
+        $criteria->order = "t.id DESC";
+        if($ft == 1){
+            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
+        }elseif($ft == 2){
+            $criteria->order = "t.sales DESC";
+        }elseif($ft == 3){
+            $criteria->order = "t.shop_price ASC";
+        }else{
+            $criteria->order = "t.shop_price DESC";
+        }
         // $criteria->params = array(":brand_id"=>$brand_id);
         $criteria->addInCondition("t.id",$ids);
-        $criteria->order = "t.id DESC";
+        // $criteria->order = "t.id DESC";
         $criteria->limit = $count;
         $criteria->offset = ($page - 1) * $count;
         return self::model()->with('brand')->findAll($criteria);
@@ -608,7 +714,7 @@ class Product extends CmsActiveRecord
      * get objects count by term_id
      * @return [type] [description]
      */
-    public function getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profiles){
+    public function getProductsCountByTermIdAndOptions($term_id,$ssid,$brid,$request_profiles,$ft = 1){
         
         $ids = $this->getProdcutIdsByTermId($term_id);
         if(isset($ssid) && $ssid != ""){
@@ -623,6 +729,9 @@ class Product extends CmsActiveRecord
         if(isset($brid) && $brid != ""){
             $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
             $criteria->params = array(":brand_id"=>$brid,":status"=>self::PRODUCT_STATUS_SELL);
+        }
+        if($ft == 1){
+            $criteria->addCondition('t.is_new='.self::PRODUCT_IS_NEW);
         }
         $criteria->addInCondition("id",$ids);
         return self::model()->count($criteria);

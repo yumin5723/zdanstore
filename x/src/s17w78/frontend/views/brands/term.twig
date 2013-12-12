@@ -59,8 +59,12 @@
         <div class="index_product">
             <div class="total clearfix">
                 <div class="fl">
-                    <select><option>New Arrivals</option></select>
-                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                     <select onchange="self.location.href=options[selectedIndex].value">
+                        <option {% if ft == 1 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','1') }}">New Arrivals</option>
+                        <option {% if ft == 2 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','2') }}">Best Sellers</option>
+                        <option {% if ft == 3 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','3') }}">Price - Low to High</option>
+                        <option {% if ft == 4 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','4') }}">Price - High to Low</option>
+                    </select>
                 </div>
                 <div class="fr">
                     <div class="page">
@@ -93,8 +97,12 @@
             </ul>
             <div class="total clearfix">
                 <div class="fl">
-                    <select><option>New Arrivals</option></select>
-                    Per Page <select><option>10</option><option>20</option><option>30</option></select>
+                    <select onchange="self.location.href=options[selectedIndex].value">
+                        <option {% if ft == 1 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','1') }}">New Arrivals</option>
+                        <option {% if ft == 2 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','2') }}">Best Sellers</option>
+                        <option {% if ft == 3 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','3') }}">Price - Low to High</option>
+                        <option {% if ft == 4 %} selected="selected" {% endif %} value="{{ this.getUrl('ft','4') }}">Price - High to Low</option>
+                    </select>
                 </div>
                 <div class="fr">
                     <div class="page">

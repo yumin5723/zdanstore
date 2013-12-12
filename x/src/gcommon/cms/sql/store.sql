@@ -402,4 +402,4 @@ CREATE TABLE `subscription` (
 
 alter table `order` add `shipping_price` Decimal(32, 2) NOT NULL;
 
-
+alter table `product` add `sales` int(11) NOT NULL;

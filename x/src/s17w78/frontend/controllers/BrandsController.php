@@ -72,17 +72,17 @@ class BrandsController extends GController {
         }
         $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
         // $this->render('view',array('brand'=>$brand,'terms'=>$terms));
-
+        $type = isset($_GET['type']) ? $_GET['type'] : 1;
         $count = 24;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
 
-        $nums = Product::model()->getCountProductsByBrand($id);
-        $results = Product::model()->getProductsByBrand($id,$count,$pageCurrent);
-        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/brand/view/id/".$id."?p=",2);
+        $nums = Product::model()->getCountProductsByBrandAndType($id,$type);
+        $results = Product::model()->getProductsByBrandAndType($id,$type,$count,$pageCurrent);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/brand/view/id/".$id."/type/".$type."?p=",2);
         $p = $subPages->show_SubPages(2);
 
-        $this->render('view',array('brand'=>$brand,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p));
+        $this->render('view',array('brand'=>$brand,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p,'type'=>$type));
     }
     /**
      * action for brand term
@@ -107,6 +107,7 @@ class BrandsController extends GController {
         }
         $ssid = isset($_GET['ssid']) ? $_GET['ssid'] : '';
         $brid = isset($_GET['brid']) ? $_GET['brid'] : '';
+        $ft = isset($_GET['ft']) ?$_GET['ft'] : 1;
 
         $url = '/subject/term';
         foreach($_GET as $k=>$o){
@@ -116,14 +117,14 @@ class BrandsController extends GController {
 
         $count = 24;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-        $objects = Product::model()->fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$pageCurrent,$ssid,$brid,$request_profile);
-        $sum = Product::model()->getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profile);
+        $objects = Product::model()->fetchProductsByTermIdAndBrandAndOptions($term_id,$brand_id,$count,$pageCurrent,$ssid,$brid,$request_profile,$ft);
+        $sum = Product::model()->getProductsCountByTermIdAndBrandAndOptions($term_id,$brand_id,$ssid,$brid,$request_profile,$ft);
         $sub_pages = 6;
         $subPages=new SubPages($count,$sum,$pageCurrent,$sub_pages,$url,2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'brand'=>$brand,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'ft'=>$ft
             ));
         // $this->render('term');
     }

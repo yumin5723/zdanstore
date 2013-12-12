@@ -47,9 +47,9 @@
                 </td>
                 <td>
                     <div class="buy_input">
-                        <a href="#" class="reduce">-</a>
+                        <a href="javascript:void(0);" class="reduce">-</a>
                         <input value="{{ cart.quantity }}" name="Product[{{ kid }}][quantity]" class="buy_num" class="text" readOnly="true">
-                        <a href="#" class="add">+</a>
+                        <a href="javascript:void(0);" class="add">+</a>
                         {% if App.shoppingcart.getNowPrice(cart.id) is not null %}
                         <input type="hidden" class="shop_price" value="{{ App.shoppingcart.getNowPrice(cart.id) }}" />
                         {% else %}
@@ -59,8 +59,9 @@
                 </td>
                 <td>
                     <input type="hidden" name="" value="{{ cart.cart_id }}" />
+                    <input type="hidden" value="{{ cart.id }}" id="pro_id" />
                     <a href="javascript:void(0);" class="delete"><i>Remove</i></a><br>
-                    <a href="#"><i>Add to Wish List</i></a>
+                    <a class="fav_btn"><i>Add to Wish List</i></a>
                 </td>
             </tr>
             {% endfor %}
@@ -118,6 +119,27 @@ $(".delete").click(function(){
         dataType:'json',
         success:function(data){   
             $(parentObj).fadeOut(); 
+        }
+    });
+});
+$(".fav_btn").click(function(){
+    var id = $("#pro_id").val();
+    var cartData = {"id":id};
+    // var cartData = {'id':id};
+    $.ajax({
+        type: "POST",
+        // contentType:"application/json",
+        url:"/subscription/addwish",
+        data:cartData,
+        dataType:'json',
+        success:function(data){
+            if(data == 0){
+                alert("You can't shopping until login.");
+            }else if(data == 1){
+                alert("already added");
+            }else{
+                alert("add success!!");
+            }  
         }
     });
 });

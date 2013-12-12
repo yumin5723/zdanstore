@@ -59,10 +59,10 @@ class SaleController extends GController {
         $count = 24;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
-
+        $type = isset($_GET['type']) ? $_GET['type'] : 1;
         $nums = SubjectProduct::model()->getCountSales();
         $results = SubjectProduct::model()->getSaleProducts($count,$pageCurrent);
-        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/sale/view?p=",2);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/sale/index/p=",2);
         $p = $subPages->show_SubPages(2);
 
         $this->render("index",array('focus'=>$focus,'mensterm'=>$mensTerms,'lastest'=>$lastest_sales,
