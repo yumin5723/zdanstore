@@ -75,7 +75,7 @@ class SiteController extends BackendController {
             $model->attributes = $_POST['UserLoginForm'];
             // validate user input and redirect to the previous page if val
             if ($model->validate() && $model->login()) {
-                $this->redirect(Yii::app()->getModule('pp')->user->returnUrl);
+                $this->redirect(Yii::app()->user->returnUrl);
             }
         }
         // display the login form
