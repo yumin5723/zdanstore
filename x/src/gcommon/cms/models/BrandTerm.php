@@ -341,6 +341,7 @@ class BrandTerm extends CActiveRecord
 
             $result[$key]['child'] = Oterm::model()->getChildTerm($term->term_id);
             $result[$key]['name'] = Oterm::model()->findByPk($term->term_id)->name;
+            $result[$key]['id'] = Oterm::model()->findByPk($term->term_id)->id;
         }
         // print_r($result);exit;
         return $result;

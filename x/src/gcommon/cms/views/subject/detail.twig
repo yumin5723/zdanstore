@@ -8,6 +8,12 @@
 {% else %}
 <form action="/pp/subject/detail/id/{{id}}/termid/{{ termid }}" method="POST">
 {% endif %}
+
+<style type="text/css">.red{color:red;} .green{color: green;} .orange{color: orange;}</style>
+{% for term in terms %}
+<a href="/pp/subject/detail/id/{{ id }}/brandid/{{ brandid }}/cid/{{ term.id }}" class='btn btn-info'>{{ term.name }}</a>
+{% endfor %}
+<br /><br /><br />
 {% for al in all %}
 <label><input type="checkbox" name="Product[]" value="{{ al.id }}" {% if al.id in select %} checked="checked" {% endif %}/>{{ al.name }}</label>
 {% endfor %}

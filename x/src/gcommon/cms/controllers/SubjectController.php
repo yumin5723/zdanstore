@@ -160,11 +160,15 @@ class SubjectController extends GController {
         $subjectid = $_REQUEST['id'];
         $brand_id = "";
         $term_id = "";
+        $terms = array();
         if(isset($_REQUEST['brandid'])){
             $brand_id = $_REQUEST['brandid'];
-
+            $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
             //all products
             $products = Product::model()->findAllByAttributes(array('brand_id'=>$brand_id,'status'=>Product::PRODUCT_STATUS_SELL));
+            if(isset($_REQUEST['cid'])){
+                $products = Product::model()->fetchProductsByTermIdAndBrand($_REQUEST['cid'],$_REQUEST['brandid']);
+            }
             //select products
             $selected = SubjectProduct::model()->fetchAllSelectProductsByBrandId($brand_id,$subjectid);
             if(Yii::app()->request->isPostRequest){
@@ -195,7 +199,7 @@ class SubjectController extends GController {
                 }
             }
         }
-        $this->render("detail",array('all'=>$products,"select"=>$selected,'id'=>$subjectid,"brandid"=>$brand_id,"termid"=>$term_id));
+        $this->render("detail",array('all'=>$products,"select"=>$selected,'id'=>$subjectid,"brandid"=>$brand_id,"termid"=>$term_id,'terms'=>$terms));
     }
     /**
      * The function that do Update User

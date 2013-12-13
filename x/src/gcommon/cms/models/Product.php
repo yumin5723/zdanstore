@@ -624,6 +624,27 @@ class Product extends CmsActiveRecord
         return self::model()->with('brand')->findAll($criteria);
     }
     /**
+     * fetch all objects by term id 
+     * the data include term's children id 
+     * ssid term's children id
+     * ppid profile id
+     * @return [type] [description]
+     */
+    public function fetchProductsByTermIdAndBrand($term_id,$brand_id){
+        $ids = $this->getProdcutIdsByTermId($term_id);
+
+       
+        $criteria = new CDbCriteria;
+        $criteria->alias = "t";
+       
+        $criteria->condition = "t.brand_id = :brand_id AND t.status = :status";
+        $criteria->params = array(":brand_id"=>$brand_id,":status"=>self::PRODUCT_STATUS_SELL);
+        $criteria->order = "t.id DESC";
+        // $criteria->params = array(":brand_id"=>$brand_id);
+        $criteria->addInCondition("t.id",$ids);
+        return self::model()->findAll($criteria);
+    }
+    /**
      * get objects count by term_id
      * @return [type] [description]
      */
