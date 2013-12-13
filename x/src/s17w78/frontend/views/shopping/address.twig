@@ -259,13 +259,7 @@
     });
     // a different address
     $(".ops").find("input").eq(1).click(function(){
-        var len = $("#billing_form").find("label").length;
-        $("#default_box").hide();
-        $("#newAddress").show();
-        for(var i=0;i<len;i++){
-            $("#shipping_form").find("label").eq(i).children().removeAttr("readonly","true");
-            $("#shipping_form").find("label").eq(i).children().val("");
-        }
+        getDifferent();
     });
     // default address
     $(".ops").find("input").eq(2).click(function(){
@@ -287,11 +281,19 @@
     }
 
     $(document).ready(function(){
-        getDefault();
+        getDifferent();
         shipping();
 
     });
-
+    function getDifferent(){
+        var len = $("#billing_form").find("label").length;
+        $("#default_box").hide();
+        $("#newAddress").show();
+        for(var i=0;i<len;i++){
+            $("#shipping_form").find("label").eq(i).children().removeAttr("readonly","true");
+            $("#shipping_form").find("label").eq(i).children().val("");
+        }
+    }
     function shipping(){
         var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
         var shipping = 0;

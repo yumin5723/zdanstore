@@ -65,6 +65,7 @@
                         {% else %}
                         <span class="price">${{ p.shop_price}}</span>
                         {% endif %}
+                        {% if p.is_new == 1 %}<br /><span class="red">New Arrivals</span>{% endif %}
                         </div>
                     </li>
                 {% endfor %}

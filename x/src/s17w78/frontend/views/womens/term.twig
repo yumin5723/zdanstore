@@ -90,7 +90,7 @@
                             {% else %}
                             <span class="price">${{ result.shop_price}}</span>
                             {% endif %}
-                        <span class="new">{% if result.is_new == 1 %}New Arrivals{% endif %}</span>
+                        {% if result.is_new == 1 %}<br /><span class="new">New Arrivals</span>{% endif %}
                     </div>
                 </li>
                 {% endfor %}

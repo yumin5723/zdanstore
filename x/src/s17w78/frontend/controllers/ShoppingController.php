@@ -172,14 +172,14 @@ class ShoppingController extends GController {
                         }else{
                             $address = Address::model()->findByAttributes(array("uid"=>Yii::app()->user->id,'default'=>1));
                         }
+                        $_POST['Product']['address'] = $address->id;
+                        $_POST['Product']['billing_address'] = $billingAddress->id;
+                        $orderid = Order::model()->createOrder($_POST['Product']);
+                        //delete shopping carts
+                        // Cart::model()->delete/
+                        // if($order_id == Order::model()->createOrder($_POST['Product'])){
+                        $this->redirect("/shopping/complete/id/".$orderid);
                     }
-                    $_POST['Product']['address'] = $address->id;
-                    $_POST['Product']['billing_address'] = $billingAddress->id;
-                    $orderid = Order::model()->createOrder($_POST['Product']);
-                    //delete shopping carts
-                    // Cart::model()->delete/
-                    // if($order_id == Order::model()->createOrder($_POST['Product'])){
-                    $this->redirect("/shopping/complete/id/".$orderid);
                     // }    
                 }
                 
@@ -187,7 +187,7 @@ class ShoppingController extends GController {
             $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
             $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
             //get user address
-            $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
+            // $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
             $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress,'results'=>$results,'total'=>$total,));
         }
     }
