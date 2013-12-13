@@ -94,6 +94,7 @@ class ProfileController extends GController {
             // print_r($_POST);exit;/
             if($model->updateTermProfile($_POST['term_id'],$_POST['TermProfile'])){
                 Yii::app()->user->setFlash('success', Yii::t('cms', 'Update new Profile Successfully!'));
+                $this->redirect("/pp/profile/update/id/".$id);
             }
         }
         $this->render('update',array('profiles'=>$profile,'term'=>$term,'isNew'=>false));
