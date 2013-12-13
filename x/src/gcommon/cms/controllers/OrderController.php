@@ -164,26 +164,15 @@ class OrderController extends GController {
      * @return [type] [description]
      */
     public function actionAdddelivery(){
-        $model = new DeliveryNote;
-        $orderid->order_id = "";
-        if(isset($_GET['orderid'])){
-           $model->order_id = $_GET['orderid'];
-        }
-        // collect user input data
-        if (isset($_POST['DeliveryNote'])) {
-            $model->setAttributes($_POST['DeliveryNote']);
-            // validate user input password
-            if ($model->validate()) {
-                $model->admin_uid = Yii::app()->user->id;
-                if ($model->save()) {
-                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Create new DeliveryNote Successfully!'));
-                    $this->redirect('/pp/order/deliverylist');
-                }
+        if(Yii::app()->request->isPostRequest){
+            $id = $_POST['order_id'];
+            $order = Order::model()->findByPk($id);
+            if(!empty($order)){
+                $order->express_number = $_POST['express_number'];
+                $order->save(false);
+                $this->redirect('/pp/order/view/id/'.$id);
             }
         }
-        $this->render('adddelivery', array(
-            "model" => $model,
-        ));
     }
     /**
      * action for update delivery

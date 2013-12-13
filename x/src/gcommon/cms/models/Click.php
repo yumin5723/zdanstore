@@ -4,7 +4,7 @@
  *
  * The followings are the available columns in table 'game':
  */
-class Click extends CmsActiveRecord
+class Click extends CActiveRecord
 {
     public $upload;
     const AD_POSITION_INDEX_FOCUS = 1;

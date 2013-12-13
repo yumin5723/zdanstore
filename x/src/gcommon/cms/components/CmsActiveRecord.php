@@ -1,4 +1,6 @@
 <?php
-class CmsActiveRecord extends CActiveRecord{
-	
+
+class CmsActiveRecord extends CActiveRecord {
+    
+
 }

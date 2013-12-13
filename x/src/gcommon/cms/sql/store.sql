@@ -224,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `deliverynote` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_id` bigint(20) NOT NULL,
   `express_number` varchar(64) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` int(1c1) NOT NULL,
   `delivery_time` datetime DEFAULT NULL,
   `admin_uid` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
@@ -403,3 +403,5 @@ CREATE TABLE `subscription` (
 alter table `order` add `shipping_price` Decimal(32, 2) NOT NULL;
 
 alter table `product` add `sales` int(11) NOT NULL;
+
+alter table `order` add `express_number` varchar(64) NOT NULL;

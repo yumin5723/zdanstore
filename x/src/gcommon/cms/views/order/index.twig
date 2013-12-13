@@ -31,7 +31,7 @@
 		<th id="app-grid_c4">订单状态</th>
 		<th id="app-grid_c12">创建时间</th>
 		<th id="app-grid_c0">订单IP</th>
-		<th id="app-grid_c12">操作</th>
+		<th id="app-grid_c12">发货单</th>
 		<th id="app-grid_c14" class="button-column">&nbsp;</th>
 	</tr>
 </thead>
@@ -65,7 +65,7 @@
 		</td>
 		<td>{{ v.created }}</td>
 		<td>{{ v.ip }}</td>
-		<td>{% if v.status == constant('Order::ORDER_STATUS_PAY') %}<a target="_blank" href="/pp/order/adddelivery/orderid/{{ v.id }}">添加发货单</a>{% endif %}</td>
+		<td>{{ v.express_number }}</td>
 		<td class="button-column"> 
 			<a href="/pp/order/view/id/{{ v.id }}" rel="tooltip" class="view" data-original-title="查看"><i class="icon-eye-open"></i></a>
 		</td>

@@ -43,7 +43,7 @@
                         {% endif %}
                     </dd>
                     <dt>Tracking Number :</dt>
-                    <dd>RB228845678CN</dd>
+                    <dd>{{ order.express_number }}</dd>
                     <dt>Shipping Address :</dt>
                     <dd>
                         {{ order.addr.address }}
@@ -96,11 +96,11 @@
                         </dd>
                         <dd class="clearfix">
                             <span class="t1"><input type="checkbox" name="" value=""> Insurance :</span>
-                            <span class="t2">$1.00</span>
+                            <span class="t2">${{ order.insurance }}</span>
                         </dd>
                         <dd class="clearfix">
                             <span class="t1">Shipping :</span>
-                            <span class="t2">$0.00</span>
+                            <span class="t2">${{ order.shipping_price }}</span>
                         </dd>
                         <dt>Order Total : ${{ order.total_price }}</dt>
                     </dl>

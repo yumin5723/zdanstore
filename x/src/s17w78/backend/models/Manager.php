@@ -12,7 +12,7 @@
  * @property string $created
  * @property string $modified
  */
-class Manager extends CActiveRecord
+class Manager extends CmsActiveRecord
 {
     public $password_repeat;
     public $old_password;
