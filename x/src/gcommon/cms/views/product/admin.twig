@@ -11,7 +11,7 @@
             'columns':{
                 1:'name',
                 2:'batch_number',
-                3:'total_price',
+                3:{'name':"logo",'value':"CHtml::image($data->logo)",'type':'html','filter':false},
                 4:'shop_price',
                 5:'status',
                 6:'quantity',
