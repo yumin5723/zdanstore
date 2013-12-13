@@ -134,32 +134,40 @@ class TermProfile extends CmsActiveRecord
      * @return boolean
      */
     public function updateTermProfile($term_id,$metas){
-        $currents = $this->getAllMetaRefTerm($term_id);
-        $ret = array();
+        self::model()->deleteAllByAttributes(array('term_id'=>$term_id));
         foreach($metas as $meta){
-            $ret[] = $meta['name'];
+            $model = new self;
+            $model->term_id = $term_id;
+            $model->name = $meta['name'];
+            $model->value = $meta['value'];
+            $model->save(false);
         }
-        $to_del = array_diff($currents, $ret);
-        // save to db
-        if (!empty($to_del)) {
-            $this->removeMetas($term_id,$to_del);
-        }
-        $model = new self;
-        foreach($metas as $meta){
-            $data = self::model()->findByAttributes(array('term_id'=>$term_id,'name'=>$meta['name']));
-            // print_r($data->meta_value);
-            if(empty($data)){
-                $model->term_id = $term_id;
-                $model->name = $meta['name'];
-                $model->value = $meta['value'];
-                $model->save(false);
-            }else{
-                if($data->value != $meta['value']){
-                    $data->value = $meta['value'];
-                    $data->save(false);
-                }
-            }
-        }
+        // $currents = $this->getAllMetaRefTerm($term_id);
+        // $ret = array();
+        // foreach($metas as $meta){
+        //     $ret[] = $meta['name'];
+        // }
+        // $to_del = array_diff($currents, $ret);
+        // // save to db
+        // if (!empty($to_del)) {
+        //     $this->removeMetas($term_id,$to_del);
+        // }
+        // $model = new self;
+        // foreach($metas as $meta){
+        //     $data = self::model()->findByAttributes(array('term_id'=>$term_id,'name'=>$meta['name']));
+        //     // print_r($data->meta_value);
+        //     if(empty($data)){
+        //         $model->term_id = $term_id;
+        //         $model->name = $meta['name'];
+        //         $model->value = $meta['value'];
+        //         $model->save(false);
+        //     }else{
+        //         if($data->value != $meta['value']){
+        //             $data->value = $meta['value'];
+        //             $data->save(false);
+        //         }
+        //     }
+        // }
         return true;
 
     }

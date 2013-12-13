@@ -91,6 +91,7 @@ class ProfileController extends GController {
         $profile = TermProfile::model()->getProfileByTerm($id);
         $model = new TermProfile;
         if(isset($_POST['TermProfile'])){
+            // print_r($_POST);exit;/
             if($model->updateTermProfile($_POST['term_id'],$_POST['TermProfile'])){
                 Yii::app()->user->setFlash('success', Yii::t('cms', 'Update new Profile Successfully!'));
             }
