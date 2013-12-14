@@ -90,12 +90,16 @@ class ProfileController extends GController {
         }
         $profile = TermProfile::model()->getProfileByTerm($id);
         $model = new TermProfile;
-        if(isset($_POST['TermProfile'])){
-            // print_r($_POST);exit;/
-            if($model->updateTermProfile($_POST['term_id'],$_POST['TermProfile'])){
-                Yii::app()->user->setFlash('success', Yii::t('cms', 'Update new Profile Successfully!'));
-                $this->redirect("/pp/profile/update/id/".$id);
+        if(Yii::app()->request->isPostRequest){
+            if(isset($_POST['TermProfile'])){
+                // print_r($_POST);exit;/
+                if($model->updateTermProfile($_POST['term_id'],$_POST['TermProfile'])){
+                    Yii::app()->user->setFlash('success', Yii::t('cms', 'Update new Profile Successfully!'));
+                }
+            }else{
+                TermProfile::model()->deleteAllByAttributes(array('term_id'=>$_POST['term_id']));
             }
+            $this->redirect("/pp/profile/update/id/".$id);
         }
         $this->render('update',array('profiles'=>$profile,'term'=>$term,'isNew'=>false));
     }
