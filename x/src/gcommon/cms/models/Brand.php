@@ -125,7 +125,10 @@ class Brand extends CmsActiveRecord
             $attrs[] = 'image';
             $this->image = $attributes['image'];
         }
-
+        if (!empty($attributes['sort'])) {
+            $attrs[] = 'sort';
+            $this->sort = $attributes['sort'];
+        }
         if (!empty($attributes['ad_image'])) {
             $attrs[] = 'ad_image';
             $this->ad_image = $attributes['ad_image'];
@@ -143,7 +146,7 @@ class Brand extends CmsActiveRecord
     public function getBrandsForIndex($limit = 15){
         $criteria = new CDbCriteria;
         $criteria->alias = "t";
-        $criteria->order = "t.id DESC";
+        $criteria->order = "t.sort DESC";
         $criteria->limit = $limit;
         return self::model()->findAll($criteria);
     }

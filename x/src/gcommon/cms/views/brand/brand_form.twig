@@ -3,6 +3,7 @@
 {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
 {{ form.textFieldRow(model, "name", {'placeholder':''})|raw }}
 {{ form.textAreaRow(model, "desc", {'placeholder':''})|raw }}
+{{ form.textAreaRow(model, "sort", {'placeholder':''})|raw }}
 <div class="control-group ">
     <label for="Game_upload" class="control-label">品牌logo</label>
         <div class="controls">
