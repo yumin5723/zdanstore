@@ -75,10 +75,7 @@
     $(".d_123 .color dd").click(function(){
         $(".d_123 .color dd").removeClass("cur");
         $(this).addClass("cur");
-    });
-    $(".d_123 .size dd").click(function(){
-        $(".d_123 .size dd").removeClass("cur");
-        $(this).addClass("cur");
+        getSize();
     });
 
     // add to cart
@@ -128,5 +125,46 @@
                 }  
             }
         });
+    });
+    function getSize(){
+
+        var id = $("#pro_id").val();
+        var color = $(".d_123 .color").find("dd.cur").attr("data-value");
+        $.ajax({
+            type: "POST",
+            url:"/product/getsize",
+            data:{'id':id,'color':color},
+            dataType:'json',
+            success:function(data){
+                var html = "";
+                var i = 0;
+                $.each(data,function(key,val){
+                    if(val == 1){
+                        if(i == 0){
+                            html+="<dd class='cur' data-value='"+ key +"'>"+ key +"</dd>";
+                        }else{
+                            html+="<dd data-value='"+ key +"'>"+ key +"</dd>";
+                        }
+                        i++;
+                    }else{
+                        html+="<dd class='nosize' data-value='"+ key +"'>"+ key +"</dd>";
+                    }
+                });
+                $(".d_123 .size dl").html(html);
+                $(".d_123 .size dd").click(function(){
+        
+                    if($(this).hasClass("nosize")){
+                        return false;
+                    }else{
+                        $(".d_123 .size dd").removeClass("cur");
+                        $(this).addClass("cur");
+                    }
+                });
+            }
+        });
+        
+    }
+    $(document).ready(function(){
+        getSize();
     });
 </script>

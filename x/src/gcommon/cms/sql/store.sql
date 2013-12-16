@@ -432,3 +432,16 @@ CREATE TABLE IF NOT EXISTS `user_reset_pass` (
   PRIMARY KEY (`id`),
   KEY `code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `product_stock`;
+CREATE TABLE IF NOT EXISTS `product_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `color` varchar(64) NOT NULL,
+  `size` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`),
+  kEY `product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+

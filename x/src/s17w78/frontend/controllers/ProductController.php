@@ -29,7 +29,8 @@ class ProductController extends GController {
                     'index',
                     'list',
                     'view',
-                    'quick'
+                    'quick',
+                    'getsize'
                 ) ,
                 'users' => array(
                     '*'
@@ -125,5 +126,36 @@ class ProductController extends GController {
         $product_profiles = ProductProfile::model()->getProfilesByProductId($id);
         $html = $this->render('quick',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles),true);
         echo json_encode($html);
+    }
+    /**
+     * [actionGetsize description]
+     * @return [type] [description]
+     */
+    public function actionGetsize(){
+        if(Yii::app()->request->isPostRequest){
+            $id = $_POST['id'];
+            $color = $_POST['color'];
+            $sizesResults = Product::model()->getAllsizesById($id);
+
+            $sizes = array();
+            foreach($sizesResults as $result){
+                $sizes[] = $result->profile_value;
+            }
+            $can_buy = ProductStock::model()->findAllByAttributes(array("color"=>$color,"product_id"=>$id));
+            $can_buy_sies = array();
+
+            foreach($can_buy as $buy){
+                $can_buy_sies[] = $buy->size;
+            }
+            $ret = array();
+            foreach($sizes as $size){
+                if(in_array($size, $can_buy_sies)){
+                    $ret[$size] = 1;
+                }else{
+                    $ret[$size] = 0;
+                }
+            }
+            echo json_encode($ret);
+        }
     }
 }

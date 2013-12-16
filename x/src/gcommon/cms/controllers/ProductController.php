@@ -45,7 +45,7 @@ class ProductController extends GController {
             array(
                 'allow',
                 'actions' => array(
-                    'create', 'admin','update','addphoto','changenew','changerecommond'
+                    'create', 'admin','update','addphoto','changenew','changerecommond','stock'
                 ) ,
                 'users' => array(
                     '@'
@@ -133,8 +133,24 @@ class ProductController extends GController {
             }
         }
         $this->render( 'update',array("model"=>$product,"isNew"=>false,"descendants" => $descendants,
-            "node" => $node,'select_terms'=>$select_terms,'termprofiles'=>$termsProfiles,'profiles'=>$profiles
+            "node" => $node,'select_terms'=>$select_terms,'termprofiles'=>$termsProfiles,'profiles'=>$profiles,
             ) );
+    }
+    /**
+     * [actionStock description]
+     * @return [type] [description]
+     */
+    public function actionStock(){
+        if(!isset($_GET['id']) || $_GET['id'] == 0){
+            throw new Exception("Error Processing Request", 404);
+        }
+        $colors = Product::model()->getAllcolorsById($_GET['id']);
+        $sizes = Product::model()->getAllsizesById($_GET['id']);
+        if(Yii::app()->request->isPostRequest){
+            ProductStock::model()->updateProductStock($_GET['id'],$_POST['Profile']);
+            Yii::app()->user->setFlash('success', Yii::t('cms', 'Updated Successfully!'));
+        }
+        $this->render('stock',array('colors'=>$colors,'sizes'=>$sizes,'id'=>$_GET['id']));
     }
      /**
      * The function that do Manage User
@@ -215,5 +231,16 @@ class ProductController extends GController {
         }
         $product->save(false);
         $this->redirect(Yii::app()->request->urlReferrer);
+    }
+    /**
+     * check color is have stock 
+     * @return [type] [description]
+     */
+    public function checkisset($id,$color,$size){
+        $data = ProductStock::model()->findByAttributes(array('product_id'=>$id,'color'=>$color,'size'=>$size));
+        if(empty($data)){
+            return false;
+        }
+        return true;
     }
 }

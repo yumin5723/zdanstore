@@ -940,4 +940,42 @@ class Product extends CmsActiveRecord
         $criteria->offset = ($page - 1) * $count;
         return SubjectProduct::model()->findAll($criteria);
     }
+    /**
+     * [getAllcolorsById description]
+     * @param  [type] $product_id [description]
+     * @return [type]             [description]
+     */
+    public function getAllcolorsById($product_id){
+        $product_profiles = ProductProfile::model()->findAllByAttributes(array('product_id'=>$product_id));
+        $profile_id = "";
+        foreach($product_profiles as $profile){
+            $termprofile = TermProfile::model()->findByPk($profile->profile_id);
+            if(ucwords($termprofile->name) == "COLOR"){
+                $profile_id = $profile->profile_id;
+            }else{
+                continue;
+            }
+        }
+        $colors = ProductProfile::model()->findAllByAttributes(array('profile_id'=>$profile_id));
+        return $colors;
+    }
+    /**
+     * [getAllcolorsById description]
+     * @param  [type] $product_id [description]
+     * @return [type]             [description]
+     */
+    public function getAllsizesById($product_id){
+        $product_profiles = ProductProfile::model()->findAllByAttributes(array('product_id'=>$product_id));
+        $profile_id = "";
+        foreach($product_profiles as $profile){
+            $termprofile = TermProfile::model()->findByPk($profile->profile_id);
+            if(ucwords($termprofile->name) == "SIZE"){
+                $profile_id = $profile->profile_id;
+            }else{
+                continue;
+            }
+        }
+        $sizes = ProductProfile::model()->findAllByAttributes(array('profile_id'=>$profile_id));
+        return $sizes;
+    }      
 }

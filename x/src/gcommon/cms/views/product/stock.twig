@@ -1,0 +1,25 @@
+{% extends "@pp/product/index.twig" %}
+{% set menu_name="商品管理"%}
+{% set sidebar_name = "添加商品" %}
+{% block content %}
+<br />
+<a href="/pp/product/update/id/{{ id }}" class='btn btn-info'>基本信息</a>
+<a href="/pp/product/stock/id/{{ id }}" class='btn btn-info'>库存管理</a>
+<div class="container-fluid">
+	{% include "layouts/notice.twig" %}
+    <div class="row-fluid">
+    {% set form = this.beginWidget("bootstrap.widgets.TbActiveForm", {'type':'horizontal','id':'create- form','enableAjaxValidation':false,'htmlOptions':{'class':'form-horizontal','enctype':'multipart/form-data'} }) %}
+    {% for color in colors %}
+    	<font color="red">{{ color.profile_value }}</font><br />
+    	{% for size in sizes %}
+    		<input type="checkbox" {% if this.checkisset(id,color.profile_value,size.profile_value) == true %} checked="checked" {% endif %} name="Profile[{{ color.profile_value }}][]" value="{{ size.profile_value }}" />{{ size.profile_value }}&nbsp;&nbsp;&nbsp;&nbsp;
+    	{% endfor %}<br /><br /><br />
+    {% endfor %}
+    <div class="control-group">
+	  <div class="controls">
+	    <button type="submit" class="btn btn-large btn-primary">提交</button>
+	  </div>
+	</div>
+{{ void(this.endWidget()) }}<!-- form -->
+</div>
+{% endblock %}

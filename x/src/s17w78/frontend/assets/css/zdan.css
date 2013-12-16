@@ -409,3 +409,5 @@
 
 	.list_nav dd a.cur{background:#739F26;color:#fff;padding:1px;}
 	.alert-error{border:1px dotted #FFDC87;background:#fff6e4;padding:5px;margin:5px 0;text-align:left;color:#FF8A00} 
+
+	.d_info .d_123 .size dd.nosize{border:1px dotted #f1f1f1;color:#ccc;} 

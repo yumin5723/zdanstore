@@ -216,6 +216,7 @@ class ProductProfile extends CmsActiveRecord
             $profile = TermProfile::model()->findByPk($result->profile_id);
             $ret[$profile->name][$key]['value'] = $result->profile_value;
             $ret[$profile->name][$key]['image'] = $result->profile_image;
+            $ret[$profile->name][$key]['profile_id'] = $result->profile_id;
         }
         return $ret;
     }
