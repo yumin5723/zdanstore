@@ -81,6 +81,24 @@ class ProductProfile extends CmsActiveRecord
                 }
             }
         }
+        //save default product stock
+        $colors = Product::model()->getAllcolorsById($product_id);
+        $sizes = Product::model()->getAllsizesById($product_id);
+        $arr = array();
+        foreach($colors as $key => $color){
+            foreach ($sizes as $size) {
+                $arr[$key][$size->profile_value][] = $color->profile_value;
+            }
+        }
+        foreach($arr as $value){
+            foreach($value as $k=>$v){
+                $model = new ProductStock;
+                $model->product_id = $product_id;
+                $model->color = $v[0];
+                $model->size = $k;
+                $model->save(false);
+            }
+        }
         return true;
     }
 

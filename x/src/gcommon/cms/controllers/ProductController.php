@@ -84,7 +84,7 @@ class ProductController extends GController {
                         ProductProfile::model()->saveProductProfile($model->id,$_POST['Profile']);
                     }
                     Yii::app()->user->setFlash( 'success', Yii::t( 'cms', 'Create new Product Successfully!' ) );
-                    $this->redirect("/pp/product/admin");
+                    $this->redirect("/pp/product/stock/id/".$model->id);
                 }
             }
         }
