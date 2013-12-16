@@ -130,7 +130,7 @@
       <label for="Category_name" class="control-label required">商品属性</label>
         <div class="controls">
          {% for profile in termprofiles %}
-            <input type="checkbox" {% if profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %} name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}<br /> 
+            <input type="checkbox" {% if profile.profile_id in profiles.profile_ids %} checked="checked" {% endif %} name="Profile[{{profile.profile_id}}]" value="{{ profile.profile_id }}">{{ profile.name }}({{ profile.termname }})<br /> 
             {% for v in profile.value %}
              <input type="checkbox" {% if v in profiles.profile_values %} checked="checked" {% endif %}name="Profile[{{profile.profile_id}}][{{ v }}][value]" value="{{ v }}">{{ v }}&nbsp;&nbsp;
              {% if profile.name|upper == "COLOR"%}
@@ -146,7 +146,6 @@
             <input type="hidden" id="profile_image{{ v }}" name="Profile[{{profile.profile_id}}][{{ v }}][profile_image]" value="{{ pro_image(profiles,v) }}">
             {% endif %}
             {% endfor %}
-            <br />
          {% endfor %}
       </div>
       </div>

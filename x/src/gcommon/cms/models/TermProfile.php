@@ -57,6 +57,8 @@ class TermProfile extends CmsActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'term'=>array(self::BELONGS_TO, 'Oterm',
+                    'term_id'),
         );
     }
 
@@ -230,11 +232,12 @@ class TermProfile extends CmsActiveRecord
      * @return [type] [description]
      */
     public function getAllProfiles(){
-        $profiles = self::model()->findAll();
+        $profiles = self::model()->with('term')->findAll();
         $ret = array();
         foreach($profiles as $key=>$profile){
             $ret[$key]['profile_id'] =$profile->id;
             $ret[$key]['name'] = $profile->name;
+            $ret[$key]['termname'] = $profile->term->name;
             $ret[$key]['value'] = explode(',', $profile->value);
         }
         return $ret;
