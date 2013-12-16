@@ -239,4 +239,31 @@ class ShoppingCart extends CApplicationComponent{
         // sprintf(”%01.3f”,1)
         return sprintf("%01.2f",$product->shop_price*$discount);
     }
+    /**
+     * [getShippingPriceByUidAndCountry description]
+     * @param  [type] $uid     [description]
+     * @param  [type] $country [description]
+     * @return [type]          [description]
+     */
+    public function getShippingPriceByUidAndCountry($uid,$country){
+        $uid = intval($uid);
+        $products = Cart::model()->getAllCartsInfoFromUid($uid);
+        $total_weight = 0;
+        foreach($products as $product){
+            $total_weight += $product['weight'] * $product['quantity'];
+        }
+        $unit = Shipping::SHIPPING_WIGHT_UNIT;
+        $country_price = Shipping::model()->findByAttributes(array('country'=>$country));
+        if(empty($country_price)){
+            return "-1";
+        }
+        $shipping_price = 0;
+        if($total_weight <= $unit){
+            return $country_price->first_weight_price;
+        }
+        if($total_weight > $unit){
+            $discrepancy = $total_weight - $unit;
+            return ceil($discrepancy/$unit) * $country_price->add_weight_price + $country_price->first_weight_price;
+        }
+    }
 }

@@ -6,6 +6,7 @@
  */
 class Shipping extends CmsActiveRecord
 {
+    const SHIPPING_WIGHT_UNIT = 500;
     /**
      * Returns the static model of the specified AR class.
      * @return Manager the static model class

@@ -349,8 +349,14 @@ and year(created)=year(now())";
            $model->total_price = $order_total;
            if($products['shipping'] == self::SHIPPING_BY_EMS){
                 $model->shipping = self::SHIPPING_BY_EMS;
-                $model->shipping_price = self::SHIPPING_EMS_PRICE;
-                $model->total_price = $total + self::SHIPPING_EMS_PRICE;
+                $address = Address::model()->findByPk($products['address']);
+                $shipping_price = Yii::app()->shoppingcart->getShippingPriceByUidAndCountry(Yii::app()->user->id,$address->country);
+                if($shipping_price != -1){
+                    $model->shipping_price = $shipping_price;
+                    $model->total_price = $total + $shipping_price;
+                }else{
+                    $model->shipping = self::SHIPPING_BY_AIRMAIL;
+                }
            }else{
                 $model->shipping = self::SHIPPING_BY_AIRMAIL;
            }

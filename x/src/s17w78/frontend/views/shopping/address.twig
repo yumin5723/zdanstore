@@ -185,7 +185,6 @@
                 </div>
                 <div class="fr">
                     <label><input type="radio" name="Product[shipping]" value="1"> EMS Express (4-7 Business Days)</label>
-                    <p class="ptip"><b>$30</b></p>
                     <p class="tip">EMS is for customers who need to have goods shipped quickly and with a guarantee. This is an international EMS guarantee service that offers a full, money-back guarantee if an item is not delivered within a quoted time frame.</p>
                 </div>
             </div>
@@ -211,7 +210,6 @@
         </div>
 
         <!-- Bonus -->
-
 
         <!-- order total -->
         <div class="order_total clearfix">
@@ -239,6 +237,8 @@
 
     </div>
     {{ void(this.endWidget()) }}
+    <input type="hidden" id="user_order_id" value="{{ App.user.id }}" />
+    <input type="hidden" id="check_address" value="1" />
     <!-- ad2 -->
     <div class="ad2 clearfix">
         <div class="fl"><a href="#" title=""><img src="images/test/p4.jpg" width="482" height="120" /></a></div>
@@ -267,7 +267,8 @@
     });
     // defalut ajax
     function getDefault(){
-       $.ajax({
+        $("#check_address").val("0");
+        $.ajax({
             type: "POST",
             url:"/shopping/getdefault",
             data:{},
@@ -309,14 +310,34 @@
 
     });
 
-    $("#check_shipping .fr").find("label").click(function(){
-        var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
-        var shipping = 50.00;
-        insurance_price = 0;
-        $("#shipping_price").text(shipping.toFixed(2));
-        $("#insurance_price").text(insurance_price);
-        var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);
-        $("#checkout_total").text(checkout_total.toFixed(2));
+    $("#check_shipping .fr").find("input").click(function(){
+        var uid = $("#user_order_id").val();
+        if($("#check_address").val() == 0){
+            var country = $("#default_country").text();
+        }else{
+            var country = $("#shipping_form").find("select").val();
+        }
+        $.ajax({
+            type: "POST",
+            url:"/shopping/getshippingprice",
+            data:{"uid":uid,"country":country},
+            dataType:'json',
+            success:function(data){   
+                if(data == -1){
+                    alert("no ems!");
+                    $("#check_shipping .fl").find("label").trigger("click");
+                    return false;
+                }else{
+                    var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
+                    var shipping = data;
+                    insurance_price = 0;
+                    $("#shipping_price").text(shipping.toFixed(2));
+                    $("#insurance_price").text(insurance_price);
+                    var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);
+                    $("#checkout_total").text(checkout_total.toFixed(2));
+                }
+            }
+        }); 
 
     });
 </script> 

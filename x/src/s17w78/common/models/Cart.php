@@ -97,6 +97,7 @@ class Cart extends CActiveRecord
             $ret[$cart->id]['logo'] = $product->logo;
             $ret[$cart->id]['shop_price'] = $product->shop_price;
             $ret[$cart->id]['brand_id'] = $product->brand->id;
+            $ret[$cart->id]['weight'] = $product->weight;
             $ret[$cart->id]['brand_name'] = $product->brand->name;
         }
         // $ret['total'] = $total;

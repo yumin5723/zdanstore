@@ -28,7 +28,7 @@ class ShoppingController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'confirm','checkout','checkaddr','complete','getdefault'
+                    'confirm','checkout','checkaddr','complete','getdefault','getshippingprice'
                 ) ,
                 'users' => array(
                     '@'
@@ -198,6 +198,15 @@ class ShoppingController extends GController {
     public function actionCheckaddr(){
         if(Yii::app()->request->isPostRequest){
             if(isset($_POST['Product'])){
+                foreach($_POST['Product'] as $key=>$value){
+                    $cart = Cart::model()->findByPk($key);
+                    if($cart->quantity != $value['quantity']){
+                        $cart->quantity = $value['quantity'];
+                        $cart->save(false);
+                    }else{
+                        continue;
+                    }
+                }
                 $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
                 $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
                 $this->render('address',array('results'=>$results,'total'=>$total,'billingaddress'=>new BillingAddress,'address'=>new Address));
@@ -227,5 +236,17 @@ class ShoppingController extends GController {
         $default = Address::model()->findByAttributes(array("uid"=>$uid,"default"=>1));
         $html = $this->render("default",array('address'=>$default),true);
         echo json_encode($html);
+    }
+    /**
+     * [actionGetshippingprice description]
+     * @return [type] [description]
+     */
+    public function actionGetshippingprice(){
+        if(Yii::app()->request->isPostRequest){
+            $uid = $_POST['uid'];
+            $country = $_POST['country'];
+            $result = Yii::app()->shoppingcart->getShippingPriceByUidAndCountry($uid,$country);
+            echo $result;
+        }
     }
 }
