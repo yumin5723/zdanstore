@@ -70,7 +70,7 @@ class User extends UserActiveRecord
             array('password,password_repeat,username,nickname,email', 'required', 'on'=>'register',),
             // array('password,old_password,new_password,p_password,username', 'length','min'=>'6','max'=>'16','tooLong'=>'长度限定为6-16的字符串！','tooShort'=>'长度限定为6-16的字符串！', 'on'=>'register'),
             array('nickname', 'length','min'=>'2','max'=>'16','tooLong'=>'长度限定为2-16的字符串！','tooShort'=>'长度限定为2-16的字符串！', 'on'=>'register'),
-            array('username', 'unique', 'on'=>'register'),
+            array('username,email', 'unique', 'on'=>'register'),
             array('username','match','pattern'=>'/^[a-zA-Z0-9]+$/','message'=>'必须为字母、数字！', 'on'=>'register',),
             array('password_repeat', 'compare', 'compareAttribute'=>'password', 'on'=>'register'),
             array('email','email'),
