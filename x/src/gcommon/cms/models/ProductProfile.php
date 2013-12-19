@@ -232,9 +232,11 @@ class ProductProfile extends CmsActiveRecord
         $ret = array();
         foreach($results as $key=>$result){
             $profile = TermProfile::model()->findByPk($result->profile_id);
-            $ret[$profile->name][$key]['value'] = $result->profile_value;
-            $ret[$profile->name][$key]['image'] = $result->profile_image;
-            $ret[$profile->name][$key]['profile_id'] = $result->profile_id;
+            if(!empty($profile)){
+                $ret[$profile->name][$key]['value'] = $result->profile_value;
+                $ret[$profile->name][$key]['image'] = $result->profile_image;
+                $ret[$profile->name][$key]['profile_id'] = $result->profile_id;
+            }
         }
         return $ret;
     }
