@@ -55,7 +55,7 @@ class MansController extends GController {
         // $this->render("index",array("terms"=>$terms));
         // 
         //brand page banner ad
-        $focus = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOCUS,1);
+        $focus = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOCUS,4);
         $rights = Click::model()->getAdsByType(Click::AD_POSITION_MANS_RIGHT);
         $footers = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER,3);
         $newarrivals = Newarrivals::model()->findAll();
