@@ -27,11 +27,11 @@
     <!-- quick register -->
     <div class="quick_reg">
         <div>
-            <span class="txt"><img src="{{ App.assets.Url}}/images/reg_ico.png" align="absmiddle" /> <i>Sigh up to receive special offers and ZDANSTORE.COM news</i></span>
-            <span class="email">
-                <input type="text" name="" value="youemail@example.com" class="email_ipt">
-                <input type="submit" name="" value="GO!" class="email_btn">
-            </span>
+            <span class="txt"><img src="{{ App.assets.Url}}/images/reg_ico.png" align="absmiddle" /> <i>Sigh up to receive special offers and ZDANONLINE.COM news</i></span>
+                <span class="email">
+                    <input type="text" name="" value="youemail@example.com" class="email_ipt" id="s_email">
+                    <input type="button" name="email" value="GO!" class="email_s_btn">
+                </span>
         </div>
     </div>
 
@@ -39,10 +39,10 @@
     <div class="brands_box clearfix">
         <ul>
             {% for b in brands %}
-            <li><a href="/brand/id/{{ b.id }}" title=""><img src="{{ b.image }}" width="40" height="40" /></a></li>
+            <li><a href="/brands/id/{{ b.id }}" title=""><img src="{{ b.image }}" width="40" height="40" /></a></li>
             {% endfor %}
         </ul>
-        <a href="/brand" class="more"><i>MORE BRANDS &gt;</i></a>
+        <a href="/brands" class="more"><i>MORE BRANDS &gt;</i></a>
     </div>
 
     <!-- product list -->
@@ -93,6 +93,24 @@
 
     $(".popclose").click(function(){
         closePopup();
+    });
+    $(".email_s_btn").click(function(){
+        var email = $("#s_email").val();
+        var cartData = {"email":email};
+        $.ajax({
+            type: "POST",
+            url:"/subscription/do",
+            data:cartData,
+            dataType:'json',
+            success:function(data){
+                alert(data);
+                if(data[0] == 3){
+                    window.location.href=data[1];
+                }else{
+                    alert("You have subscribed ZDAN news successfully!");
+                }
+            }
+        });
     });
 </script>
 {% endblock %}

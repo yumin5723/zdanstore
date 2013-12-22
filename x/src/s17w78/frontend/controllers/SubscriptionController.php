@@ -37,21 +37,24 @@ class SubscriptionController extends GController {
         );
     }
     public function actionDo(){
-        $flag = 1;
-        if(isset($_POST['email']) && $_POST['email'] != ""){
-            $email = $_POST['email'];
-            $data = Subscription::model()->findByAttributes(array("email"=>$email));
-            if(empty($data)){
-                $model = new Subscription;
-                $model->email = $email;
-                $model->save(false);
-
-                $flag = 1; 
-            }else{
-                $flag = 0;
-            }            
+        if(!Yii::app()->user->id){
+            $flag = array("3","/user/register/email/".$_POST['email']);
         }else{
-            $flag = 2;
+            if(isset($_POST['email']) && $_POST['email'] != ""){
+                $email = $_POST['email'];
+                $data = Subscription::model()->findByAttributes(array("email"=>$email));
+                if(empty($data)){
+                    $model = new Subscription;
+                    $model->email = $email;
+                    $model->save(false);
+
+                    $flag = array("1");
+                }else{
+                    $flag = array("0");
+                }            
+            }else{
+                $flag = array("2");
+            }
         }
         echo json_encode($flag);
     }

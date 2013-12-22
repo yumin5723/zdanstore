@@ -157,6 +157,7 @@ class Brand extends CmsActiveRecord
     public function getHatsBrands(){
         $hats_term_id = 28;
         $brands = BrandTerm::model()->getBrandsByTermId($hats_term_id);
+        array_slice($brands, 0 ,9);
         return $brands;
     }
 }

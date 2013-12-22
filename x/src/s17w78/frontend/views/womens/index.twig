@@ -72,7 +72,7 @@
                 {% for p in products %}
                     <li>
                         <div class="pic">
-                            <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title=""><img src="{{ p.logo }}" width="174" height="166" /></a>
+                            <a href="{{ this.createUrl('/product/view',{'id':p.id} )}}" title=""><img src="{{ p.logo }}" width="150" height="147" /></a>
                             <span class="quick">quick shop</span>
                             <input type="hidden" value="{{ p.id }}" name="" />
                         </div>
@@ -99,7 +99,7 @@
                 <li><a href="{{ this.createUrl('/brands/view',{'id':brand.id })}}" title=""><img src="{{ brand.image }}" width="40" height="40" /></a></li>
                 {% endfor %}
             </ul>
-            <a href="#" class="more"><i>MORE BRANDS &gt;</i></a>
+            <a href="/brands" class="more"><i>MORE BRANDS &gt;</i></a>
         </div>
 
     </div>
@@ -109,7 +109,7 @@
     <div class="mans_ad2 clearfix">
         <div class="pic">
             {% for f in footers %}
-            <a href="{{ f.url }}" title=""><img src="{{ f.url }}" width="280" height="180" /></a>
+            <a href="{{ f.url }}" title=""><img src="{{ f.image }}" {% if loop.index != "3" %} width="280" height="180" {% else %} width="400" height="180" {% endif %} /></a>
             {% endfor %}
         </div>
     </div>

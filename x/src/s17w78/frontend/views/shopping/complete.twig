@@ -24,15 +24,16 @@
                 <p class="tip">
                     The invoice will be sent to your PayPal account within 24 hours. Please confirm your payment once the invoice received. Your order will be canceled automatically by our system if payment not clears in 5 days. Tahnk you !
                 </p>
-                <p class="link">You can <a href="#">Back to Home</a>, or go to <a href="#">My Account</a>.<p>
+                <p class="link">You can <a href="/">Back to Home</a>, or go to <a href="/user">My Account</a>.<p>
             </div>
         </div>
     </div>
 
     <!-- ad2 -->
     <div class="ad2 clearfix">
-        <div class="fl"><a href="#" title=""><img src="images/test/p4.jpg" width="482" height="120" /></a></div>
-        <div class="fr"><a href="#" title=""><img src="images/test/p5.jpg" width="482" height="120" /></a></div>
+        {% for ad in ads %}
+        <div {% if loop.index == 1 %}class="fl" {% else %}class="fr" {% endif %}><a href="{{ ad.url }}" title=""><img src="{{ ad.image }}" width="482" height="120" /></a></div>
+        {% endfor %}
     </div>
 
 </div>

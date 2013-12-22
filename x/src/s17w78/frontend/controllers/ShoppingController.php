@@ -28,7 +28,7 @@ class ShoppingController extends GController {
             array(
                 'allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array(
-                    'confirm','checkout','checkaddr','complete','getdefault','getshippingprice'
+                    'confirm','checkout','checkaddr','complete','getdefault','getshippingprice',
                 ) ,
                 'users' => array(
                     '@'
@@ -41,6 +41,8 @@ class ShoppingController extends GController {
                     'cart',
                     'index',
                     'delete',
+                    'checkorder',
+                    'cartshow',
                 ) ,
                 'users' => array(
                     '*'
@@ -79,8 +81,34 @@ class ShoppingController extends GController {
                 //read from database my uid
                 $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
             }
-            $ret = array_slice($results, 0,2);
+            $ret = array_slice($results);
             $html = $this->render('cartdialog',array('carts'=>$ret),true);
+            echo json_encode($html);
+        }else{
+            throw new Exception("this Request is not valid", 404);
+        }
+    }
+    /**
+     * action for add product to shoppint cart
+     * @return [type] [description]
+     */
+    public function actionCartshow(){
+        if(Yii::app()->request->isPostRequest){
+            // print_r($_POST);exit;
+            if(Yii::app()->user->isGuest){
+                $uid = "";
+            }else{
+                $uid = Yii::app()->user->id;
+            }
+            $results = array();
+            if(Yii::app()->user->isGuest){
+                //read from cookie
+                $results = Yii::app()->shoppingcart->getCartInfoFromCookie();
+            }else{
+                //read from database my uid
+                $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
+            }
+            $html = $this->render('cartdialog',array('carts'=>$results),true);
             echo json_encode($html);
         }else{
             throw new Exception("this Request is not valid", 404);
@@ -225,7 +253,8 @@ class ShoppingController extends GController {
         if(empty($order) || $order->uid != Yii::app()->user->id){
             throw new Exception("this request is not found", 404);
         }
-        $this->render('complete',array('order'=>$order));
+        $ads = Click::model()->getAdsByType(Click::AD_POSITION_ORDER_COMPLETE,2);
+        $this->render('complete',array('order'=>$order,'ads'=>$ads));
     }
     /**
      * [actionGetdefault description]

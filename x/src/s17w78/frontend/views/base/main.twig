@@ -43,7 +43,7 @@
                 <div class="btn clearfix">
                     <a href="/shopping/cart" class="fr">View Cart</a>
                     <a href="#" class="fr">Continue Shopping</a>
-                    <a href="/shopping/cart" class="fr"><img src="images/cart_ico.png" align="absmiddle" /> Checkout</a>
+                    <a href="/shopping/cart" class="fr"><img src="{{ App.assets.Url}}/images/cart_ico.png" align="absmiddle" /> Checkout</a>
                 </div>
             </div>
         </div>
@@ -58,44 +58,44 @@
 <div class="footer clearfix">
     <div class="copyright">
         <div class="search_order">
+            <form action="/help/checkorder" method="POST">
             <span class="txt">Track Your Orders&gt;&gt;</span>
             <span class="order">
                 <input type="text" name="" value="Tracking Numbers" class="email_ipt">
                 <input type="submit" name="" value="GO!" class="email_btn">
             </span>
+        </from>
         </div>
         <div class="share">
-            <a href="#" title=""><img src="images/share_ico1.png" /></a>
-            <a href="#" title=""><img src="images/share_ico2.png" /></a>
-            <a href="#" title=""><img src="images/share_ico3.png" /></a>
-            <a href="#" title=""><img src="images/share_ico4.png" /></a>
+            <a href="https://www.facebook.com/honey.zdanstore" target="_blank" title=""><img src="{{ App.assets.Url}}/images/share_ico1.png" /></a>
+            <a href="#" title=""><img src="{{ App.assets.Url}}/images/share_ico2.png" target="_blank" /></a>
+            <a href="https://twitter.com/JamesZdan" title="" target="_blank"><img src="{{ App.assets.Url}}/images/share_ico3.png" /></a>
+            <a href="https://orkut.com/Main#Home" title="" target="_blank"><img src="{{ App.assets.Url}}/images/share_ico4.png" /></a>
         </div>
         <p>&copy 2005-2014 Zdanstore.com Copyright. All Rights Reserved.</p>
     </div>
     <div class="link">
         <dl>
             <dt>SHOP BY</dt>
-            <dd><a href="#" title="">Brand</a></dd>
-            <dd><a href="#" title="">Category</a></dd>
-            <dd><a href="#" title="">Sale</a></dd>
-            <dd><a href="#" title="">New Arrival</a></dd>
-            <dd><a href="#" title="">Men's Clothing</a></dd>
-            <dd><a href="#" title="">Women's clothing</a></dd>
+            <dd><a href="/brands" title="">Brand</a></dd>
+            <dd><a href="/sale" title="">Sale</a></dd>
+            <dd><a href="/mans" title="">Men's Clothing</a></dd>
+            <dd><a href="/womens" title="">Women's clothing</a></dd>
         </dl>
         <dl>
             <dt>SHIPPING</dt>
-            <dd><a href="#" title="">Returns</a></dd>
-            <dd><a href="#" title="">Shipping Time</a></dd>
+            <dd><a href="/shipping/returns" title="">Returns</a></dd>
+            <dd><a href="/shipping/shippingtime" title="">Shipping Time</a></dd>
             <dd><a href="#" title="">Order Tracking</a></dd>
-            <dd><a href="#" title="">Shipping Options</a></dd>
-            <dd><a href="#" title="">Insurance</a></dd>
+            <dd><a href="/shipping/options" title="">Shipping Options</a></dd>
+            <dd><a href="/shipping/insruance" title="">Insurance</a></dd>
         </dl>
         <dl>
             <dt>HELP</dt>
-            <dd><a href="#" title="">About Us</a></dd>
-            <dd><a href="#" title="">F.Q.A.</a></dd>
-            <dd><a href="#" title="">Contact Us</a></dd>
-            <dd><a href="#" title="">Privacy Policy</a></dd>
+            <dd><a href="/help/about" title="">About Us</a></dd>
+            <dd><a href="/help/faq" title="">F.A.Q.</a></dd>
+            <dd><a href="/contact" title="">Contact Us</a></dd>
+            <dd><a href="/help/privacypolicy" title="">Privacy Policy</a></dd>
         </dl>
     </div>
 </div>
@@ -135,7 +135,8 @@
         closePopup();
     });
     $(".cart_dialog .close").click(function(){
-        $(".cart_dialog").hide();  
+        $(".cart_dialog").hide();
+        cart_show = 0;
     });
 </script>
 

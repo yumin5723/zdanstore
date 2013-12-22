@@ -1,0 +1,41 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+
+<div class="main">
+    <div class="position"><a href="/">Home</a></div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt>SHIPPING</dt>
+                <dd><a href="/shipping/returns">Returns</a></dd>
+                <dd><a href="/shipping/insurance">Insurance</a></dd>
+                <dd class="cur"><a href="/shipping/options">Shipping Options</a></dd>
+                <dd><a href="/shipping/shippingtime">Shipping Time</a></dd>
+            </dl>
+        </div>
+        <div class="act_content">
+            <div class="myorder">
+                <div class="title">Shipping Options</div>
+                <div class="content" id="tracking">
+                    <p>
+                        <font color="blue"><b>China Post Registered Air Mail</b></font></p>
+ 
+<p>China post registered air mail is also called Economy air mail. Packages shipped from China post would be belong to local post office system once the package arrived in local country. Customers can track the local post office system for more information after the tracking number is activated. It usually takes 3-5 weeks to arrive but would be normal to delay for 1-2 weeks to deliver for customs clearance.</p>
+
+<br />
+<font color="blue"><b>Express Air Mail (EMS)</b></font></p>
+ 
+<p>For customers who need to have goods shipped quickly and with a guarantee, there is an international EMS guarantee service that offers a full, money-back guarantee if an item is not delivered within a quoted time frame. This service is shipped from China via airmail to a destination country where it is given the same treatment domestic air mail services receive. For example, in the U.S. the United States Postal Service (USPS) treats EMS packages just like express mail, and the packages are delivered with the same speed. It usually takes 4-6 business days to arrive.</p>
+
+                    </p>
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

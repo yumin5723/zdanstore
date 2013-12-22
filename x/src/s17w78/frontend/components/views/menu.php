@@ -1,6 +1,6 @@
 <div class="nav">
 	<ul class="menu clearfix">
-    	<li><a href="/brands">BRANDS</a>
+    	<li><a href="/brands" class="m">BRANDS</a>
             <!-- brands menu -->
             <div class="navbox">
                 <div class="subnav">BRANDS</div>
@@ -12,10 +12,10 @@
                         </dd>
                     <?php endforeach ?>
                 </dl>
-                <div class="more"><a href="/brand" title="">MORE&gt;</a></div>
+                <div class="more"><a href="/brands" title="">MORE&gt;</a></div>
             </div>
         </li>
-        <li><a href="/mans">MANS</a>
+        <li><a href="/mans" class="m">MANS</a>
             <!-- mans menu -->
             <div class="navbox">
                 <div class="subnav">MANS</div>
@@ -42,7 +42,6 @@
                     </dl>
                     <?php endforeach ?>
                     <?php foreach($mensad as $women):?>
-                        <?php echo $women['url']; ?>
                         <div class="mans_ad">
                             <a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><img src="<?php echo $women->image; ?>" width="220" height="140" /></a>
                             <i><a href="<?php echo $women->url; ?>" title="<?php echo $women->name; ?>"><?php echo $women->name; ?></a></i>
@@ -51,7 +50,7 @@
                 </div>
             </div>
         </li>
-        <li><a href="/womens">WOMENS</a>
+        <li><a href="/womens" class="m">WOMENS</a>
             <!-- womens menu -->
             <div class="navbox">
                 <div class="subnav">WOMENS</div>
@@ -79,7 +78,7 @@
                 </div>
             </div>
         </li>
-		<li><a href="/hats">HATS</a>
+		<li><a href="/hats" class="m">HATS</a>
             <!-- hats menu -->
             <div class="navbox">
                 <div class="subnav">hats</div>

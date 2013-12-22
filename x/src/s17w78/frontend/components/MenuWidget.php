@@ -1,7 +1,7 @@
 <?php
 class MenuWidget extends CWidget{
 	public function run(){
-		$brands = Brand::model()->getBrandsForIndex();
+		$brands = Brand::model()->getBrandsForIndex(18);
 		$mensTerms = Oterm::model()->getMensTreeMenu();
 		$womensTerms = Oterm::model()->getWomensTreeMenu();
 		$hatsTerms = Oterm::model()->getHatsTreeMenu();

@@ -1,0 +1,41 @@
+{% extends "base/main.twig" %}
+
+{% block content %}
+
+
+<div class="main">
+    <div class="position"><a href="/">Home</a></div>
+    <div class="account_box clearfix">
+        <div class="act_nav">
+            <dl>
+                <dt>SHIPPING</dt>
+                <dd><a href="/shipping/returns">Returns</a></dd>
+                <dd><a href="/shipping/insurance">Insurance</a></dd>
+                <dd><a href="/shipping/options">Shipping Options</a></dd>
+                <dd class="cur"><a href="/shipping/shippingtime">Shipping Time</a></dd>
+            </dl>
+        </div>
+        <div class="act_content">
+            <div class="myorder">
+                <div class="title">Shipping Time</div>
+                <div class="content" id="tracking">
+                    <p>
+                        All orders take between 24-48 hours to process and ship from our facility. This does not include weekend days. Please keep in mind that the day a package is picked up is not to be considered in your shipping times. Orders placed on the weekend will ship on Monday morning. We do not ship order on public holidays such as Christmas, New Year, Queen's Birthday and etc.</p>
+
+<p>* Please note that these are estimated shipping times and unless noted, are not guaranteed. Business days count as Monday-Friday.Saturday and Sunday are not counted as business days.</p>
+
+<p>* Please note that import duties, taxes and charges are not included in the item price or shipping cost, the buyers need to responsible for all these charges.</p>
+
+<p>* Please note that this is just the estimated delivery time, shipping time will be affected by the destination country's customs clearance speed, the shipping time to some countries may even longer because of the customs clearance, please understand.</p>
+
+<p>* If you have any questions about the shipping time, please contact our Customer Service for online consulting. Thank you!
+                    </p>
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

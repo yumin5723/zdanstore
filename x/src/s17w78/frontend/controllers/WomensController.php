@@ -61,7 +61,7 @@ class WomensController extends GController {
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondWomensProducts();
         $womensTerms = Oterm::model()->getWomensTreeMenu();
-        $brands = Brand::model()->getBrandsForIndex();
+        $brands = Brand::model()->getBrandsForIndex(12);
         $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
             'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers,'brands'=>$brands));
     }
@@ -103,7 +103,7 @@ class WomensController extends GController {
         $leftProfile = Oterm::model()->getTermProfile($term_id);
         //left brand
         $leftBrands = BrandTerm::model()->getBrandsByTerm($term_id);
-
+        $banner = Click::model()->getAdsByType(Click::AD_POSITION_WOMENS_TERM_BANNER,4);
         $request_profile = array();
         foreach($leftProfile as $p){
             if(isset($_GET[$p['name']]) && $_GET[$p['name']] != ""){
@@ -129,7 +129,7 @@ class WomensController extends GController {
         $p = $subPages->show_SubPages(2);
 
         $this->render('term',array('results'=>$objects,'pager'=>$p,'nums'=>$sum,'leftCategory'=>$leftCategory
-            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft,'option'=>$_GET
+            ,'leftProfiles'=>$leftProfile,'leftbrands'=>$leftBrands,'term'=>$term,'ft'=>$ft,'option'=>$_GET,'banner'=>$banner
             ));
         // $this->render('term');
     }

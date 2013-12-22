@@ -1,11 +1,12 @@
 // 下拉菜单js
-var timeout         = 500;
+var timeout         = 10;
 var closetimer		= 0;
 var ddmenuitem      = 0;
+var cart_show       = 0;
 function jsddm_open()
 {	jsddm_canceltimer();
 	jsddm_close();
-	ddmenuitem = $(this).find('.navbox').css('visibility', 'visible');}
+	ddmenuitem = $(this).parent().find('.navbox').css('visibility', 'visible');}
 
 function jsddm_close()
 {	if(ddmenuitem) ddmenuitem.css('visibility', 'hidden');}
@@ -21,9 +22,29 @@ function jsddm_canceltimer()
 }
 $(document).ready(function()
 {	
-	$('.menu > li').bind('mouseover', jsddm_open);
-	$('.menu > li').bind('mouseout',  jsddm_timer);
+	$('.menu li a.m').bind('mouseover', jsddm_open);
+	$('.menu li a.m').bind('mouseout',  jsddm_timer);
+	$('.hnav .i3').bind('mouseover',  show_cartdi);
+	$(".email_ipt").focus(function(){
+		$(this).val("");
+	})
 });
+function show_cartdi(){
+	if(cart_show == 0){
+		$.ajax({
+	        type: "POST",
+	        // contentType:"application/json",
+	        url:"/shopping/cartshow",
+	        data:{},
+	        dataType:'json',
+	        success:function(data){     
+	            $("#cart_back").html(data);
+	            $(".cart_dialog").show();
+	            cart_show = 1;
+	        }
+	    });
+	}
+}
 document.onclick = jsddm_close;
 
 // 首页焦点图效果

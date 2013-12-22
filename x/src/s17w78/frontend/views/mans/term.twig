@@ -21,7 +21,7 @@
                 {% endfor %}
             </dl>
             {% endfor %}
-            <dl>
+            <dl style="height:400px;overflow:auto;">
                 <dt>Shop By Brands</dt>
                 <dd><a href="{{ this.getUrl('brid','') }}" {% if brid == "" %} class="cur" {% endif %} title="all">ALL</a>
                 {% for br in leftbrands %}
@@ -32,10 +32,20 @@
     </div>
     <div class="mright">
         <!-- ad -->
-        <div class="mans_ad3">
-            {% for b in banner %}
-            <a href="{{ b.url }}" title=""><img src="{{ b.image }}" width="780" height="200" /></a>
-            {% endfor %}
+        <div class="mans_ad3 clearfix">
+             <div class="focus" id="play">
+                <ul class="bannerImg">
+                    {% for f in banner %}
+                    <li><a class="img" href="{{ f.url }}"><img src="{{ f.image }}" width="780" height="200" /></a></li>
+                    {% endfor %}
+                    
+                </ul>
+                <ol class="bannerNum">
+                    {% for f in banner %}
+                    <li>{{ loop.index }}</li>
+                    {% endfor %}
+                </ol>      
+            </div>
         </div>
 
          <!-- brands list 
@@ -79,9 +89,9 @@
             </div>
             <ul class="mans_dlist clearfix">
                 {% for result in results %}
-                <li>
+                <li {% if loop.index % 4 == 1 %}style="clear:left;"{% endif %}>
                     <div class="pic">
-                        <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title=""><img src="{{ result.logo }}" width="178" height="208" /></a>
+                        <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title=""><img src="{{ result.logo }}" width="180" height="177" /></a>
                         <span class="quick">quick shop</span>
                         <input type="hidden" value="{{ result.id }}" name="" />
                     </div>

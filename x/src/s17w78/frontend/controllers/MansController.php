@@ -61,7 +61,7 @@ class MansController extends GController {
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondMansProducts();
         $mensTerms = Oterm::model()->getMensTreeMenu();
-        $brands = Brand::model()->getBrandsForIndex();
+        $brands = Brand::model()->getBrandsForIndex(12);
         $this->render("index",array('focus'=>$focus,'rights'=>$rights,'news'=>$newarrivals,
             'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers,'brands'=>$brands));
     }
@@ -106,7 +106,7 @@ class MansController extends GController {
         $leftBrands = BrandTerm::model()->getBrandsByTerm($term_id);
 
         //mans banner 
-        $banner = Click::model()->getAdsByType(Click::AD_POSITION_MANS_TERM_BANNER,1);
+        $banner = Click::model()->getAdsByType(Click::AD_POSITION_MANS_TERM_BANNER,4);
         $request_profile = array();
         foreach($leftProfile as $p){
             if(isset($_GET[$p['name']]) && $_GET[$p['name']] != ""){

@@ -84,7 +84,7 @@ class DefaultController extends GController {
         $products = Product::model()->getAllRecommondProducts();
 
         //brands in index
-        $brands = Brand::model()->getBrandsForIndex();
+        $brands = Brand::model()->getBrandsForIndex(18);
         // $this->render('index',array('products'=>$products,'focus'=>$focus,'rightads'=>$rightads,"downAds"=>$downAd));
         $this->render("index",array('focus'=>$focus,'rights'=>$rightAd,"downAds"=>$downAd,'brands'=>$brands,'products'=>$products));
     }
