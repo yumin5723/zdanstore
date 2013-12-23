@@ -15,10 +15,10 @@
                 <div class="more"><a href="/brands" title="">MORE&gt;</a></div>
             </div>
         </li>
-        <li><a href="/mans" class="m">MANS</a>
+        <li><a href="/mans" class="m">MENS</a>
             <!-- mans menu -->
             <div class="navbox">
-                <div class="subnav">MANS</div>
+                <div class="subnav">MENS</div>
                 <div class="nav_mans clearfix">
                     <dl class="mans1">
                         <dt>NEW ARRIVALS</dt>

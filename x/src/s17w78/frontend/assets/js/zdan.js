@@ -1,5 +1,5 @@
 // 下拉菜单js
-var timeout         = 10;
+var timeout         = 100;
 var closetimer		= 0;
 var ddmenuitem      = 0;
 var cart_show       = 0;

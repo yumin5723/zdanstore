@@ -81,7 +81,7 @@ class ShoppingController extends GController {
                 //read from database my uid
                 $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
             }
-            $html = $this->render('cartdialog',array('carts'=>$results),true);
+            $html = $this->renderPartial('cartdialog',array('carts'=>$results),true);
             echo json_encode($html);
         }else{
             throw new Exception("this Request is not valid", 404);
