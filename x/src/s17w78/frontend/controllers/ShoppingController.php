@@ -206,6 +206,7 @@ class ShoppingController extends GController {
                         //delete shopping carts
                         // Cart::model()->delete/
                         // if($order_id == Order::model()->createOrder($_POST['Product'])){
+                        Cart::model()->deleteAllByAttributes(array("uid"=>Yii::app()->user->id));
                         $this->redirect("/shopping/complete/id/".$orderid);
                     }
                     // }    

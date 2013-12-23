@@ -31,6 +31,10 @@
                                 <em class="red">*</em> City
                                 <label><input type="text" name="BillingAddress[city]" value="" size="16"></label>
                             </div>
+                            <div class="fr">
+                                <em class="red">*</em> State
+                                <label><input type="text" name="BillingAddress[state]" value="" size="16"></label>
+                            </div>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Zip Code
@@ -45,10 +49,6 @@
                                     {% endfor %}
                                 </select>
                             </label>
-                        </li>
-                        <li class="clearfix">
-                            <em class="red">*</em> State
-                            <label><input type="text" name="BillingAddress[state]" value="" size="16"></label>
                         </li>
                         <li class="clearfix">
                             <em class="red">*</em> Phone Number
@@ -88,6 +88,10 @@
                                     <em class="red">*</em> City
                                     <label><input type="text" name="Address[city]" value="" size="16"></label>
                                 </div>
+                                 <div class="fr">
+                                    <em class="red">*</em> State
+                                    <label><input type="text" name="BillingAddress[state]" value="" size="16"></label>
+                                </div>
                             </li>
                             <li class="clearfix">
                                 <em class="red">*</em> Zip Code
@@ -100,10 +104,6 @@
                                         <option value="{{ a }}">{{ a }}</option>
                                     {% endfor %}
                                 </select></label>
-                            </li>
-                            <li class="clearfix">
-                                <em class="red">*</em> State
-                                <label><input type="text" name="Address[state]" value="" size="16"></label>
                             </li>
                             <li class="clearfix">
                                 <em class="red">*</em> Phone Number
