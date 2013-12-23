@@ -8,14 +8,13 @@
     <div class="account_box clearfix">
         <div class="act_nav">
             <dl>
-                <dt>My Account</dt>
+                <dt><a href="/user">My Account</a></dt>
                 <dd><a href="/user/setting">Account Settings</a></dd>
                 <dd><a href="/user/address">My Address</a></dd>
                 <dd><a href="/user/order">My Order</a></dd>
                 <dd class="cur"><a href="/user/message">My Message</a></dd>
                 <dd><a href="/user/trackOrder">Track Order</a></dd>
                 <dd><a href="/user/wishList">Wish List</a></dd>
-                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
             </dl>
         </div>
         <div class="act_content">
@@ -23,7 +22,6 @@
                 <div class="title">My Message</div>
                 <div class="content">
                     <p class="dt">
-                        Order No. 201308150987689<br/>
                         <b class="red">New Message</b> from Zdan Store 
                     </p>
                     <ul class="msg_list">
@@ -38,7 +36,7 @@
                             </div>
                             {% if m.isreply == 1 %}
                             <div class="clearfix">
-                                <span class="name" style="color:green">问题回复</span>
+                                <span class="name" style="color:green">Reply from Zdan:</span>
                                 <span class="date">{{ m.modified }}</span>
                             </div>
                             <div class="word">

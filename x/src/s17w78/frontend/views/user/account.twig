@@ -8,19 +8,18 @@
     <div class="account_box clearfix">
         <div class="act_nav">
             <dl>
-                <dt>My Account</dt>
+                <dt><a href="/user">My Account</a></dt>
                 <dd><a href="/user/setting">Account Settings</a></dd>
                 <dd><a href="/user/address">My Address</a></dd>
                 <dd><a href="/user/order">My Order</a></dd>
                 <dd><a href="/user/message">My Message</a></dd>
                 <dd><a href="/user/trackOrder">Track Order</a></dd>
                 <dd><a href="/user/wishList">Wish List</a></dd>
-                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
             </dl>
         </div>
         <div class="act_content">
             <div class="welcome">
-                <p>Hello, <b>{{ user.username }}</b> ! Welcome back to Zdanstore.com !</p>
+                <p>Hello, <b>{{ user.username }}</b> ! Welcome back to Zdanonline.com !</p>
                 <!--<p><img src="images/reg_ico.png" align="absmiddle" /> <b class="red">1 New Message !</b></p>-->
             </div><!-- welcome -->
 
@@ -66,8 +65,20 @@
                             <td>{{ o.id }}</td>
                             <td>{{ o.created }}</td>
                             <td>{{ o.total_price }}</td>
-                            <td>{{ o.status }}</td>
-                            <td>Tracking Numbers</td>
+                            <td>
+                                {% if o.status == 0 %}
+                                New Order 
+                                {% elseif o.status == 1 %}
+                                Confirmed
+                                {% elseif o.status == 2 %}
+                                Paid
+                                {% elseif o.status == 6 %}
+                                Packaging
+                                {% elseif o.status == 3 %}
+                                Shipped
+                                {% endif %}
+                            </td>
+                            <td>{{ o.express_number }}</td>
                         </tr>
                     {% endfor %}
                     </table>

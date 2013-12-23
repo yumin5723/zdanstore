@@ -44,9 +44,29 @@
                     </dd>
                     <dt>Tracking Number :</dt>
                     <dd>{{ order.express_number }}</dd>
-                    <dt>Shipping Address :</dt>
+                    <dt>Address :</dt>
                     <dd>
                         {{ order.addr.address }}
+                    </dd>
+                    <dt>City :</dt>
+                    <dd>
+                        {{ order.addr.city }}
+                    </dd>
+                    <dt>State :</dt>
+                    <dd>
+                        {{ order.addr.state }}
+                    </dd>
+                    <dt>Code :</dt>
+                    <dd>
+                        {{ order.addr.zipcode }}
+                    </dd>
+                    <dt>Country :</dt>
+                    <dd>
+                        {{ order.addr.country }}
+                    </dd>
+                    <dt>Tel :</dt>
+                    <dd>
+                        {{ order.addr.phone }}
                     </dd>
                 </dl>
 

@@ -119,7 +119,16 @@ class User extends UserActiveRecord
             'login'=>'email, password, rememberMe',
         );
     }*/
-
+   /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'username' => "First Name",
+            'nickname' => "Last Name",
+        );
+    }
     /**
      * hash password
      *
@@ -666,27 +675,6 @@ class User extends UserActiveRecord
             'userplaytime' => array(self::STAT,'UserPlayTime','uid', 
                     'select' => "SUM(all_time)",
                 ),
-        );
-    }
-
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            // 'username' => "用户名",
-            // 'nickname' => "昵称",
-            // 'old_password' => "旧密码",
-            // 'new_password' => "新密码",
-            // 'confirm_password' => "确认新密码",
-            // 'password' => "密码",
-            // 'p_password' => "密码",
-            // 'password_repeat' => "确认密码",
-            // 'old_email' => "旧邮箱",
-            // 'new_email' => "新邮箱",
-            // 'email' => "安全邮箱： ",
-            // 'verifyCode'=>'验证码',
         );
     }
 

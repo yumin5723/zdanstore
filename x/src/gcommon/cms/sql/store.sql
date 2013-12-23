@@ -447,5 +447,10 @@ alter table `address` add `state` varchar(255) NOT NULL;
 
 alter table `billing_address` add `state` varchar(255) NOT NULL;
 
+alter table `user` change `first_name` `username` varchar(128) NOT NULL;
+
+alter table `user` change `last_name` `nickname` varchar(128) NOT NULL;
+
+
 
 

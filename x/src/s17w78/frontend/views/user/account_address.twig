@@ -7,14 +7,13 @@
     <div class="account_box clearfix">
         <div class="act_nav">
             <dl>
-                <dt>My Account</dt>
+                <dt><a href="/user">My Account</a></dt>
                 <dd><a href="/user/setting">Account Settings</a></dd>
                 <dd class="cur"><a href="/user/address">My Address</a></dd>
                 <dd><a href="/user/order">My Order</a></dd>
                 <dd><a href="/user/message">My Message</a></dd>
                 <dd><a href="/user/trackOrder">Track Order</a></dd>
                 <dd><a href="/user/wishList">Wish List</a></dd>
-                <dd><a href="/user/voucher">Points & Vouchers</a></dd>
             </dl>
         </div>
         <div class="act_content">
@@ -60,15 +59,21 @@
                                 <label><input type="text" name="Address[address]" value="" size="35"></label>
                             </li>
                             <li class="clearfix">
+                                <div class="fl">
+                                    <em class="red">*</em> City
+                                    <label><input type="text" name="Address[city]" value="" size="16"></label>
+                                </div>
+                                <div class="fr">
+                                    <em class="red">*</em> State
+                                    <label><input type="text" name="Address[state]" value="" size="16"></label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
                                 <em class="red">*</em> Zip Code
                                 <label><input type="text" name="Address[zipcode]" value="" size="16"></label>
                             </li>
                             <li class="clearfix">
                                 <label>{{ form.dropDownListRow(model, 'country', model.Cu)|raw }}</label>
-                            </li>
-                            <li class="clearfix">
-                                <em class="red">*</em> State
-                                <label><input type="text" name="Address[state]" value="" size="16"></label>
                             </li>
                             <li class="clearfix">
                                 <em class="red">*</em> Phone Number

@@ -208,11 +208,11 @@ class UserController extends GController {
             if ($model->validate()) {
                 if($model->save(false)){
                     
-                    Yii::app()->user->setFlash('success', Yii::t('mii', 'Message提交成功!!'));
+                    Yii::app()->user->setFlash('success', Yii::t('mii', 'Message Sent ！'));
                     return $this->redirect("message");
                 }
                 else{
-                    Yii::app()->user->setFlash('error', Yii::t('mii', 'Message提交失败!!'));
+                    Yii::app()->user->setFlash('error', Yii::t('mii', 'Message fail!!'));
                 }
             }
         }
