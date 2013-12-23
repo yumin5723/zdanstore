@@ -145,7 +145,8 @@ class ShoppingController extends GController {
             $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
             $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
         }
-        $this->render('cart',array('carts'=>$results,'total'=>$total));
+        $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
+        $this->render('cart',array('carts'=>$results,'total'=>$total,'downAds'=>$downAd));
     }
     /**
      * action for delete a cart product
@@ -213,9 +214,10 @@ class ShoppingController extends GController {
             }
             $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
             $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
+            $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
             //get user address
             // $address = Address::model()->findAllByAttributes(array("uid"=>Yii::app()->user->id));
-            $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress,'results'=>$results,'total'=>$total,));
+            $this->render('address',array('products'=>$_POST['Product'],'address'=>$address,'billingaddress'=>$billingAddress,'results'=>$results,'total'=>$total,'downAds'=>$downAd));
         }
     }
     /**
@@ -236,7 +238,8 @@ class ShoppingController extends GController {
                 }
                 $results = Cart::model()->getAllCartsInfoFromUid(Yii::app()->user->id);
                 $total = Cart::model()->getCartsTotalPrice(Yii::app()->user->id);
-                $this->render('address',array('results'=>$results,'total'=>$total,'billingaddress'=>new BillingAddress,'address'=>new Address));
+                $downAd = Click::model()->getAdsByType(Click::AD_POSITION_INDEX_DOWN);
+                $this->render('address',array('results'=>$results,'total'=>$total,'billingaddress'=>new BillingAddress,'address'=>new Address,'downAds'=>$downAd));
             }
         }else{
             $this->redirect('/shopping/cart');

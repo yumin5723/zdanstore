@@ -28,7 +28,7 @@ class  HelpController extends GController {
             array(
                 'allow', // all all users
                 'actions' => array(
-                    'about','faq','pravitypolicy','checkorder'
+                    'about','faq','privacypolicy','checkorder'
                 ) ,
                 'users' => array(
                     '*'
@@ -48,7 +48,7 @@ class  HelpController extends GController {
     public function actionFaq(){
         $this->render("faq");
     }
-    public function actionPravitypolicy(){
+    public function actionPrivacypolicy(){
         $this->render("pravitypolicy");
     }
     public function actionCheckorder(){

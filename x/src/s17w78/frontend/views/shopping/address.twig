@@ -239,7 +239,7 @@
         </div>
 
         <div class="cart_link clearfix">
-            <a href="#" class="link1 fl">Edit Cart</a>
+            <a href="/shopping/cart" class="link1 fl">Edit Cart</a>
             <a href="javascript:void(0);" onclick="$('.form-horizontal').submit();" class="link1 fr">Submit Order</a>
         </div>
 
@@ -249,8 +249,9 @@
     <input type="hidden" id="check_address" value="1" />
     <!-- ad2 -->
     <div class="ad2 clearfix">
-        <div class="fl"><a href="#" title=""><img src="images/test/p4.jpg" width="482" height="120" /></a></div>
-        <div class="fr"><a href="#" title=""><img src="images/test/p5.jpg" width="482" height="120" /></a></div>
+        {% for d in downAds %}
+        <div {% if loop.index == 1 %}class="fl"{% else %} class="fr" {% endif %}><a href="{{ d.url }}" title=""><img src="{{ d.image }}" width="482" height="120" /></a></div>
+        {% endfor %}
     </div>
 
 </div>

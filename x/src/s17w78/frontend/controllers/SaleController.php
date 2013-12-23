@@ -49,7 +49,7 @@ class SaleController extends GController {
     public function actionIndex(){
         //brand page banner ad
         $focus = Click::model()->getAdsByType(Click::AD_POSITION_SALE_FOCUS,3);
-        $brands = Brand::model()->getBrandsForIndex(100);
+        $brands = Brand::model()->getBrandsForIndex(13);
         $lastest_sales = Subject::model()->getLastestSale();
         //mans left menu
         $mensTerms = Oterm::model()->getMensTreeMenu();
