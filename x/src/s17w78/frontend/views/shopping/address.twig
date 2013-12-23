@@ -282,10 +282,15 @@
             url:"/shopping/getdefault",
             data:{},
             dataType:'json',
-            success:function(data){   
-                $("#default_box").html(data);
-                $("#default_box").show();
-                $("#newAddress").hide();
+            success:function(data){
+                if(data != "0"){
+                    $("#default_box").html(data);
+                    $("#default_box").show();
+                    $("#newAddress").hide();
+                }else{
+                    alert("You have not set the default address!");
+                    $(".ops").find("input").eq(1).attr("checked",true);
+                }
             }
         }); 
     }
@@ -307,7 +312,7 @@
     function shipping(){
         var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
         var shipping = 0;
-        insurance_price = parseFloat((cart_total * 0.02)).toFixed(2);
+        insurance_price = Math.ceil((parseFloat((cart_total * 0.02))).toFixed(2);
         $("#shipping_price").text(shipping);
         $("#insurance_price").text(insurance_price);
         var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);

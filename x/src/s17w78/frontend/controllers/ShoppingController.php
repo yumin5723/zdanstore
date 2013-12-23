@@ -266,7 +266,11 @@ class ShoppingController extends GController {
     public function actionGetdefault(){
         $uid = Yii::app()->user->id;
         $default = Address::model()->findByAttributes(array("uid"=>$uid,"default"=>1));
-        $html = $this->render("default",array('address'=>$default),true);
+        if(empty($default)){
+            $html = 0;
+        }else{
+            $html = $this->render("default",array('address'=>$default),true);
+        }
         echo json_encode($html);
     }
     /**
