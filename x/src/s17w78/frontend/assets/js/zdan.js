@@ -24,6 +24,8 @@ $(document).ready(function()
 {	
 	$('.menu li a.m').bind('mouseover', jsddm_open);
 	$('.menu li a.m').bind('mouseout',  jsddm_timer);
+	$('.menu .navbox').bind('mouseover', jsddm_open);
+	$('.menu .navbox').bind('mouseout',  jsddm_timer);
 	$('.hnav .i3').bind('mouseover',  show_cartdi);
 	$(".email_ipt").focus(function(){
 		$(this).val("");

@@ -90,7 +90,7 @@
                 {% for result in results %}
                 <li {% if loop.index % 4 == 1 %}style="clear:left;"{% endif %}>
                     <div class="pic">
-                        <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title=""><img src="{{ result.logo }}" width="180" height="177" /></a>
+                        <a href="{{ this.createUrl('/product/view',{'id':result.id} )}}" title=""><img src="{{ result.logo }}" width="178" /></a>
                         <span class="quick">quick shop</span>
                         <input type="hidden" value="{{ result.id }}" name="" />
                     </div>

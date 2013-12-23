@@ -135,7 +135,7 @@
 	.manspic .mans_ad1 img{margin-bottom:12px;}
 	.mans_list{width:800px;}
 	.mans_list li{float:left;width:152px;margin-right:5px;display: inline;}
-	.mans_list li .pic{border:1px dotted #949494;width:150px;height:186px;}
+	.mans_list li .pic{border:1px dotted #949494;width:150px;}
 	.mans_list li .txt{line-height:18px;text-align: left;margin-top:4px;}
 	.mans_list li .name{font-size:13px;font-weight: 700;}
 	.mans_list li .price{color:#333;font-weight: 700;}
@@ -144,7 +144,7 @@
 	.mans_ad2 .pic img{margin-right:10px;}
 	.mans_dlist{width:810px;margin-bottom:12px;}
 	.mans_dlist li{float:left;width:180px;margin-right:20px;display: inline;margin-bottom:12px;}
-	.mans_dlist li .pic{border:1px dotted #949494;width:178px;height:208px;}
+	.mans_dlist li .pic{border:1px dotted #949494;width:178px;}
 	.mans_dlist li .txt{line-height:18px;text-align: left;margin-top:4px;}
 	.mans_dlist li .name{font-size:13px;font-weight: 700;}
 	.mans_dlist li .price{color:#333;font-weight: 700;}
@@ -229,7 +229,7 @@
 	.cart_table .price{font-size:13px;color:#333;}
 	.cart_p{margin-left:20px;}
 	.cart_p .pic{float:left;margin-right:8px;display:inline;border:1px dotted #949494;}
-	.cart_p .txt{float:left;line-height:20px;text-align:left;}
+	.cart_p .txt{float:left;line-height:20px;text-align:left;width:200px;}
 	.cart_p .txt span{margin:0 10px;}
 	.cart_table .buy_input a{border:1px solid #949494;margin-right:3px;width:18px;height:18px;display: inline-block;line-height: 18px;text-align: center;}
 	.cart_table .buy_input input{border:1px solid #949494;height:18px;text-align: center;line-height: 18px;width:30px;margin-right:3px;}
