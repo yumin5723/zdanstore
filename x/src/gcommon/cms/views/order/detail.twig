@@ -41,7 +41,7 @@
   </tr>
   {% for d in detail %}
   	<tr>
-    <td>产品图片 <img src="{{ d.product.logo }}" /></td>
+    <td>产品图片 <img src="{{ d.product.logo }}" width="180"/></td>
     <td>品牌名称:{{ d.product.brand.name }}<br />
       Item#：{{ d.product.batch_number }}<br />
       {{ this.getProfile(d.product_meta) }}</td>

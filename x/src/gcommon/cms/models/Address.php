@@ -44,7 +44,7 @@ class Address extends CmsActiveRecord
      */
     public function rules() {
         $rules =  array(
-            array('firstname,lastname,address,phone,country,state,zipcode','required'),
+            array('firstname,lastname,address,phone,country,city,state,zipcode','required'),
             //array('email','email'),
         );
         /*
