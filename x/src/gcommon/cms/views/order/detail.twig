@@ -25,6 +25,7 @@
 	<tr>
 		<th id="app-grid_c1">商品ID</th>
 		<th id="app-grid_c4">商品名称</th>
+		<th id="app-grid_c4">商品品牌</th>
 		<th id="app-grid_c4">商品图片</th>
 		<th id="app-grid_c4">商品属性</th>
 		<th id="app-grid_c4">商品数量</th>
@@ -38,6 +39,7 @@
 <tr class="odd">
 	<td>{{ d.product_id }}</td>
 	<td>{{ d.product.name }}</td>
+	<td>{{ d.product.brand.name }}</td>
 	<td><img width="200px" height="114px" src="{{ d.product.logo }}" /></td>
 	<td>{{ this.getProfile(d.product_meta) }}</td>
 	<td>{{ d.product_quantity }}</td>
