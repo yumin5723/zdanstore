@@ -28,6 +28,9 @@
 		<th id="app-grid_c4">订单金额</th>
 		<th id="app-grid_c4">保险费用</th>
 		<th id="app-grid_c4">运费</th>
+		<th id="app-grid_c4">运输方式</th>
+		<th id="app-grid_c4">付款方式</th>
+		<th id="app-grid_c4">付款帐号</th>
 		<th id="app-grid_c4">订单状态</th>
 		<th id="app-grid_c12">创建时间</th>
 		<th id="app-grid_c0">订单IP</th>
@@ -48,6 +51,21 @@
 		<td>{{ v.total_price }}</td>
 		<td>{{ v.insurance }}</td>
 		<td>{{ v.shipping_price }}</td>
+		<td>
+			{% if v.shipping == constant('Order::SHIPPING_BY_AIRMAIL') %}
+			AIRMAIL
+			{% else %}
+			EMS
+			{% endif %}
+		</td>
+		<td>
+			{% if v.payment == constant('Order::PAYMENT_BY_PAYPAL') %}
+			PAYPAL
+			{% else %}
+			WESTERNUNION
+			{% endif %}
+		</td>
+		<td>{% if v.payment == constant('Order::PAYMENT_BY_PAYPAL') and v.payaccount is not null %}{{ v.payaccount}}{% endif %}</td>
 		<td>
 			{% if v.status == constant('Order::ORDER_STATUS_CREATED')%}
 			订单创建成功
