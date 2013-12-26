@@ -18,36 +18,40 @@
 	<input type="text" name="express_number" value="{{ order.express_number }}" />
 	<input type="submit" value="提交">
 </form>
-国家:{{ shipping.country }}&nbsp;&nbsp;城市:{{ shipping.city }}&nbsp;&nbsp;邮寄地址:{{ shipping.address }} &nbsp;&nbsp;收件人:{{ shipping.firstname}}{{ shipping.lastname }}&nbsp;&nbsp;电话:{{ shipping.phone }}<br />
-国家:{{ billing.country }}&nbsp;&nbsp;城市:{{ billing.city }}&nbsp;&nbsp;付款地址:{{ billing.address }} &nbsp;&nbsp;收件人:{{ billing.firstname}}{{ billing.lastname }}&nbsp;&nbsp;电话:{{ billing.phone }}<br />
-<table class="items table">
-<thead>
-	<tr>
-		<th id="app-grid_c1">商品ID</th>
-		<th id="app-grid_c4">商品名称</th>
-		<th id="app-grid_c4">商品品牌</th>
-		<th id="app-grid_c4">商品图片</th>
-		<th id="app-grid_c4">商品属性</th>
-		<th id="app-grid_c4">商品数量</th>
-		<th id="app-grid_c4">商品单价</th>
+<b>运输方式:{% if order.shipping == constant('Order::SHIPPING_BY_AIRMAIL') %}AIRMAIL{% else %}EMS{% endif %}</b>
 
-		<th id="app-grid_c4">备注</th>
-	</tr>
-</thead>
+<table width="500" border="0" cellspacing="0" cellpadding="0" class="item table">
 <tbody>
-{% for d in detail %}
-<tr class="odd">
-	<td>{{ d.product_id }}</td>
-	<td>{{ d.product.name }}</td>
-	<td>{{ d.product.brand.name }}</td>
-	<td><img width="200px" height="114px" src="{{ d.product.logo }}" /></td>
-	<td>{{ this.getProfile(d.product_meta) }}</td>
-	<td>{{ d.product_quantity }}</td>
-	<td>{{ d.product_price }}</td>
-
-	<td>{{ d.info }}</td>
-</tr>
-{% endfor %}
+  <tr>
+    <td colspan="2">Email:{{ order.user.email }}</td>
+    <td colspan="3">Order #{{ order.id }} </td>
+  </tr>
+  <tr>
+    <td colspan="2">(shipping address)<br />
+      First Name Last name:{{ order.user.username }}{{ order.user.nickname }}<br />
+      address:{{ shipping.address }}<br />
+      City:{{ shipping.city }}<br />
+      State:{{ shipping.state}}<br />
+      Code:{{ shipping.zipcode }}<br />
+      Country:{{ shipping.country }}<br />
+      Tel:{{ shipping.phone }}</td>
+    <td colspan="3">Shipping:${{ order.shipping_price }}<br />
+      Insurance:${{ order.insurance }}<br />
+      Total Payment:${{ order.total_price }}<br />
+  </tr>
+  {% for d in detail %}
+  	<tr>
+    <td>产品图片 <img src="{{ d.product.logo }}" /></td>
+    <td>品牌名称:{{ d.product.brand.name }}<br />
+      Item#：{{ d.product.batch_number }}<br />
+      {{ this.getProfile(d.product_meta) }}</td>
+    <td align="center">金额:${{ d.product_price }}</td>
+    <td align="center">数量:{{ d.product_quantity }}</td>
+    <td align="center">总计:${{ d.product_price * d.product_quantity }}</td>
+  </tr>
+	{% endfor %}
+  
 </tbody>
 </table>
+
 {% endblock %}
