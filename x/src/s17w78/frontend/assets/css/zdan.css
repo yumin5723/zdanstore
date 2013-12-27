@@ -199,8 +199,9 @@
 		.d_info .d_123 .size .dt,.d_info .d_123 .quantity .dt{float:left;width:78px;line-height: 20px;}
 		.d_info .d_123 dl{float: left;width:246px;}
 		.d_info .d_123 dd{float: left;margin:2px 5px;display:inline;cursor: pointer;}
-		.d_info .d_123 .color dd.cur img{border:1px solid #f30;}
-		.d_info .d_123 .size dd{padding:2px 5px;text-align: center;}
+		.d_info .d_123 .color dd{border:1px solid #ccc;width:42px;height:40px;line-height: 42px;text-align: center;}
+		.d_info .d_123 .color dd.cur{border:1px solid #f30;}
+		.d_info .d_123 .size dd{padding:2px 5px;text-align: center;border:1px solid #ccc;}
 		.d_info .d_123 .size dd.cur{border:1px solid #f30;}
 		.d_info .d_123 .buy_input a{border:1px solid #949494;margin-right:3px;float:left;width:18px;height:18px;display: inline;line-height: 18px;text-align: center;}
 		.d_info .d_123 .buy_input input{border:1px solid #949494;height:18px;text-align: center;line-height: 18px;float: left;width:30px;margin-right:3px;display:inline;}
