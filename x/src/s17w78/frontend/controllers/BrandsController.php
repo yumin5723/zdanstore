@@ -79,7 +79,7 @@ class BrandsController extends GController {
 
         $nums = Product::model()->getCountProductsByBrandAndType($id,$type);
         $results = Product::model()->getProductsByBrandAndType($id,$type,$count,$pageCurrent);
-        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/brand/view/id/".$id."/type/".$type."?p=",2);
+        $subPages=new SubPages($count,$nums,$pageCurrent,$sub_pages,"/brands/view/id/".$id."/type/".$type."?p=",2);
         $p = $subPages->show_SubPages(2);
 
         $this->render('view',array('brand'=>$brand,'terms'=>$terms,'nums'=>$nums,'results'=>$results,'pager'=>$p,'type'=>$type));
