@@ -56,14 +56,15 @@ class HatsController extends GController {
         // 
         //brand page banner ad
         $focus = Click::model()->getAdsByType(Click::AD_POSITION_HATS_FOCUS,3);
-        $footers = Click::model()->getAdsByType(Click::AD_POSITION_HATS_FOOTER,3);
+        $footers = Click::model()->getAdsByType(Click::AD_POSITION_HATS_FOOTER,2);
+        $footersbig = Click::model()->getAdsByType(Click::AD_POSITION_HATS_FOOTER_BIG,1);
         // $brands = Brand::model()->getBrandsForIndex(100);
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondHatsProducts();
         $hatsTerms = Oterm::model()->getHatsTreeMenu();
         $brands = Brand::model()->getBrandsForIndex(13);
         $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
-            'products'=>$products,'hatsterm'=>$hatsTerms,'footers'=>$footers,'brands'=>$brands));
+            'products'=>$products,'hatsterm'=>$hatsTerms,'footers'=>$footers,'brands'=>$brands,'big'=>$footersbig));
     }
     /**
      * action for brand view

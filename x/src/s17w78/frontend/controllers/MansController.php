@@ -57,13 +57,14 @@ class MansController extends GController {
         //brand page banner ad
         $focus = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOCUS,3);
         $rights = Click::model()->getAdsByType(Click::AD_POSITION_MANS_RIGHT);
-        $footers = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER,3);
+        $footers = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER,2);
+        $footersbig = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER_BIG,1); 
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondMansProducts();
         $mensTerms = Oterm::model()->getMensTreeMenu();
         $brands = Brand::model()->getBrandsForIndex(12);
         $this->render("index",array('focus'=>$focus,'rights'=>$rights,'news'=>$newarrivals,
-            'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers,'brands'=>$brands));
+            'products'=>$products,'mensterm'=>$mensTerms,'footers'=>$footers,'brands'=>$brands,'big'=>$footersbig));
     }
     /**
      * action for brand view

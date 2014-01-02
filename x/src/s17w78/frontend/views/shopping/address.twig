@@ -206,7 +206,7 @@
                     <label><input type="radio" checked="checked" name="Product[payment]" value="1"> PayPal</label>
                     <p class="ptip">
                         <em class="red">*</em> Your PayPal Account Emial<br/>
-                        <input type="text" name="Product[payaccount]" value="" size="42">
+                        <input type="text" name="Product[payaccount]" value="" size="42" id="payaccount">
                     </p>
                     <p class="tip">The invoice will be sent to your PayPal account within 24 hours. Please confirm your payment once the invoice received. Your order will be canceled automatically by our system if payment not clears in 5 days.  </p>
                 </div>
@@ -240,7 +240,7 @@
 
         <div class="cart_link clearfix">
             <a href="/shopping/cart" class="link1 fl">Edit Cart</a>
-            <a href="javascript:void(0);" onclick="$('.form-horizontal').submit();" class="link1 fr">Submit Order</a>
+            <a href="javascript:void(0);" onclick="checkoutSubmit();" class="link1 fr">Submit Order</a>
         </div>
 
     </div>
@@ -256,6 +256,17 @@
 
 </div>
 <script type="text/javascript">
+    function checkoutSubmit(){
+        var payment = $("input:radio[name='Product[payment]']:checked").val();
+        var payaccount = $.trim($("#payaccount").val());
+        if(payment == 1 && payaccount ==""){
+            alert("Please fill in your paypal account!");
+            return false;
+        }else{
+            $('.form-horizontal').submit();
+        }
+    }
+
     // same as billing address
     $(".ops").find("input").eq(0).click(function(){
         var len = $("#billing_form").find("label").length;
@@ -312,10 +323,10 @@
     function shipping(){
         var cart_total = (parseFloat($("#cart_total").text())).toFixed(2);
         var shipping = 0;
-        insurance_price = (parseFloat((cart_total * 0.02))).toFixed(2);
+        insurance_price = Math.ceil((parseFloat((cart_total * 0.02))).toFixed(2));
         $("#shipping_price").text(shipping);
         $("#insurance_price").text(insurance_price);
-        var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + parseFloat(insurance_price);
+        var checkout_total = parseFloat(cart_total) + parseFloat(shipping) + Math.ceil(insurance_price);
         $("#checkout_total").text(checkout_total.toFixed(2));
     }
 

@@ -7,7 +7,7 @@
     <div class="dleft">
         <!-- image -->
         <div class="d_focus">
-            <div class="image" id="bigpics" title=""><img src="{{ product_images[0].image }}" width="135" height="133"/></div>
+            <div class="image" id="bigpics" title=""><img src="{{ product_images[0].image }}" width="180" height="177"/></div>
             <div class="switch">
                 <div class="icon1"><a href="#" title="preview" onfocus="this.blur();">preview</a></div>
                 <div class="switch_center" id="pics">
@@ -206,7 +206,7 @@
             {% for also in alsolikes %}
             <dd>
                 <div class="pic">
-                    <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title=""><img src="{{ also.logo }}" width="135" height="133" /></a>
+                    <a href="{{ this.createUrl('/product/view',{'id':also.id }) }}" title=""><img src="{{ also.logo }}" width="118" /></a>
                 </div>
                 <div class="txt">
                     <span class="name"><a href="{{ this.createUrl('/brands/view',{'id':also.brand_id} ) }}" title="">{{ also.brand.name }}</a></span><br/>
@@ -222,9 +222,12 @@
     <!-- ad2 -->
     <div class="mans_ad2 clearfix">
         <div class="pic">
-            <a href="#" title=""><img src="images/test/mans4.jpg" width="280" height="180" /></a>
-            <a href="#" title=""><img src="images/test/mans6.jpg" width="280" height="180" /></a>
-            <a href="#" title=""><img src="images/test/mans5.jpg" width="400" height="180" /></a>
+            {% for f in footers %}
+            <a href="{{ f.url }}" title=""><img src="{{ f.image }}" width="280" height="180" /></a>
+            {% endfor %}
+            {% for b in big %}
+            <a href="{{ b.url }}" title=""><img src="{{ b.image }}" width="400" height="180"/></a>
+            {% endfor %}
         </div>
     </div>
 

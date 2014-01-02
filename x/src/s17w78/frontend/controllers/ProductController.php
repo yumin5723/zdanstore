@@ -81,7 +81,21 @@ class ProductController extends GController {
     public function actionView(){
         $id = intval($_GET['id']);
         $product = Product::model()->with('brand')->findByPk($id);
-
+        $categories = Product::model()->getObjectTermById($id);
+        if(empty($categories)){
+            $footers = array();
+            $footersbig = array();
+        }
+        if(strtoupper($categories[1]['term_name']) == 'MENS'){
+            $footers = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER,2);
+            $footersbig = Click::model()->getAdsByType(Click::AD_POSITION_MANS_FOOTER_BIG,1); 
+        }elseif(strtoupper($categories[1]['term_name']) == 'WOMENS'){
+            $footers = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER,2);
+            $footersbig = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER_BIG,1); 
+        }else{
+            $footers = Click::model()->getAdsByType(Click::AD_POSITION_HATS_FOOTER,2);
+            $footersbig = Click::model()->getAdsByType(Click::AD_POSITION_HATS_FOOTER_BIG,1);
+        }
         //relation products
         $alsolikes = Product::model()->getRelationList($id);
         // $categories = Product::model()->getObjectTermById($id);
@@ -90,7 +104,9 @@ class ProductController extends GController {
         }
         $product_images = ProductImage::model()->findAllByAttributes(array('product_id'=>$id));
         $product_profiles = ProductProfile::model()->getProfilesByProductId($id);
-        $this->render('view',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles,'alsolikes'=>$alsolikes));
+        $this->render('view',array('product'=>$product,'product_images'=>$product_images,'product_profiles'=>$product_profiles,'alsolikes'=>$alsolikes,
+            'footers'=>$footers,'big'=>$footersbig
+            ));
     }
     /**
      * get product menu

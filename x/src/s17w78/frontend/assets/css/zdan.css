@@ -212,7 +212,7 @@
 
 	/* details */
 		.detail .title{background:#F1F1F1;text-align:left;padding:6px 20px;}
-		.detail .content{border:1px solid #E2E3EA;padding:12px;margin-top:1px;line-height:20px;text-align:left;}
+		.detail .content{border:1px solid #E2E3EA;padding:12px;margin-top:1px;line-height:20px;text-align:left;overflow: hidden;}
 		.detail .content p{padding:8px 0;}
 
 	/* also like */

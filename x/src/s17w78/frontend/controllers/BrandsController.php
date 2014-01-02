@@ -73,7 +73,7 @@ class BrandsController extends GController {
         $terms = BrandTerm::model()->getBrandTerms($_GET['id']);
         // $this->render('view',array('brand'=>$brand,'terms'=>$terms));
         $type = isset($_GET['type']) ? $_GET['type'] : 1;
-        $count = 24;
+        $count = 16;
         $sub_pages = 6;
         $pageCurrent = isset($_GET['p']) ? $_GET["p"] : 1;
 

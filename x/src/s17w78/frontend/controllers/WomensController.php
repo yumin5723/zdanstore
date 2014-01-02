@@ -56,14 +56,15 @@ class WomensController extends GController {
         // 
         //brand page banner ad
         $focus = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOCUS,3);
-        $footers = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER,3);
+        $footers = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER,2);
+        $footersbig = Click::model()->getAdsByType(Click::AD_POSITION_WOMANS_FOOTER_BIG,1); 
         // $brands = Brand::model()->getBrandsForIndex(100);
         $newarrivals = Newarrivals::model()->findAll();
         $products = Product::model()->getAllRecommondWomensProducts();
         $womensTerms = Oterm::model()->getWomensTreeMenu();
         $brands = Brand::model()->getBrandsForIndex(12);
         $this->render("index",array('focus'=>$focus,'news'=>$newarrivals,
-            'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers,'brands'=>$brands));
+            'products'=>$products,'womensterm'=>$womensTerms,'footers'=>$footers,'brands'=>$brands,'big'=>$footersbig));
     }
     /**
      * action for brand view
