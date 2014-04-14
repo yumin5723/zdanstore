@@ -465,5 +465,44 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19104 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=19104 DEFAULT CHARSET=utf8;
+
+
+--
+-- Table structure for table `term_profile`
+--
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `term_profile`
+--
+CREATE TABLE `profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `value` text NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  kEY `type_id` (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `term_profile`
+--
+CREATE TABLE `product_profile` (
+  `product_id` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
+  `value` text NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  kEY `type_id` (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

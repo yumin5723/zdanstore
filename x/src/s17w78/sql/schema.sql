@@ -617,4 +617,14 @@ CREATE TABLE IF NOT EXISTS `user_play_time` (
 
 alter table user add `is_reg` tinyint(4) DEFAULT "0";
 
+--
+-- Table structure for table `user_play_log`
+--
+CREATE TABLE IF NOT EXISTS `test_atlas_part_table_0` (
+   `id` int(11) NOT NULL AUTO_INCREMENT,
+   `tid` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
 

@@ -131,7 +131,7 @@ $(".delete").click(function(){
 });
 $(".fav_btn").click(function(){
     var id = $("#pro_id").val();
-    var cartData = {"id":id};
+    var cartData = {"goods":[{"price":"333"},{"quantity":"5"}]};
     // var cartData = {'id':id};
     $.ajax({
         type: "POST",
